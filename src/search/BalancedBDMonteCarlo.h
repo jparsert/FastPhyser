@@ -1,0 +1,129 @@
+//
+// Created by julian on 06.02.23.
+//
+
+#ifndef FASTPHYSER_BALANCEDBDMONTECARLO_H
+#define FASTPHYSER_BALANCEDBDMONTECARLO_H
+
+#include <iostream>
+
+#include <Sy2CPP/Sy2CPP.h>
+#include <filesystem>
+#include "../verification/smt_problem_builder.h"
+#include "../candidate_tree.h"
+
+#include <lemon/list_graph.h>
+#include <lemon/smart_graph.h>
+#include <unordered_map>
+
+#include <iostream>                  // for std::cout
+#include <utility>                   // for std::pair
+#include <algorithm>                 // for std::for_each
+#include <boost/graph/graph_traits.hpp>
+#include <boost/graph/adjacency_list.hpp>
+#include "search.h"
+#include "../Value.h"
+#include "../Policy.h"
+#include "../Features.h"
+
+#include <boost/graph/lookup_edge.hpp>
+
+
+struct MCNode {
+    bool is_expanded;
+    int visit_count;
+    float total_value;
+    Sy2CPP::TermPtr term;
+};
+
+struct MCEdge {
+    float policy;
+};
+
+using Graph = boost::adjacency_list<boost::vecS, boost::vecS, boost::directedS, MCNode, MCEdge>;
+using VertDescr = boost::graph_traits<Graph>::vertex_descriptor;
+using EdgeDescr = boost::graph_traits<Graph>::edge_descriptor;
+
+
+class BalancedBDMonteCarlo : public AbstractSearch {
+
+private:
+    std::shared_ptr<Sy2CPP::Problem> ast;
+    std::shared_ptr<Sy2CPP::SymbolTable> symbol_table;
+
+    std::shared_ptr<SyGuSZ3SolverReprBuilder> verifier;
+    std::shared_ptr<CandidateTreeGenerator> tree_generator;
+
+    std::vector<float> specification_features;
+
+    Graph graph;
+    std::vector<VertDescr> path;
+
+
+    // objects for learning
+    std::optional<AbstractFeatureGenerator*> features;
+    std::optional<PolicyFunction*> policy;
+    std::optional<ValueFunction*> value;
+
+    Sy2CPP::SyGuSSolution solution = std::nullopt;
+
+
+
+
+        /**
+         * Does rollouts from node
+         * @param node
+         * @return true if solution was found.
+        */
+    bool rollout(VertDescr node);
+
+    std::vector<float> multi_policy(VertDescr vtx, const std::vector<VertDescr>& successors);
+
+    std::vector<float> multi_value(const std::vector<VertDescr>& successors);
+
+    float uct(VertDescr source, VertDescr target);
+
+    void back_propagate(const std::vector<VertDescr>& path, float value);
+
+public:
+
+    explicit BalancedBDMonteCarlo(const std::string& path,
+                                  std::optional<AbstractFeatureGenerator*> features,
+                                  std::optional<PolicyFunction*> pol,
+                                  std::optional<ValueFunction*> val) :
+                                        features{features},
+                                        policy{pol},
+                                        value{val}
+    {
+
+        auto pair = Sy2CPP::get_ast_and_symbol_table_from_file(path);
+        ast = pair.first;
+        symbol_table = pair.second;
+
+        verifier = SyGuSZ3SolverReprBuilder::build(*ast, *symbol_table);
+        tree_generator = CandidateTreeGenerator::build(*ast, *symbol_table);
+        this->path.push_back(boost::add_vertex(MCNode{false,0,0,tree_generator->get_root()->copy()}, graph));
+
+        // Generate static features from specification
+        if (features) {
+            this->specification_features = features.value()->get_specification_features(ast.get());
+        }
+    }
+
+    bool start_search() override;
+
+    bool update_policy_function() override;
+
+    bool update_value_function() override;
+
+    std::vector<std::pair<std::vector<float>, float>> get_value_data() override;
+
+    std::vector<std::pair<std::vector<float>, float>> get_policy_data() override ;
+
+};
+
+
+
+
+
+#endif //FASTPHYSER_BALANCEDBDMONTECARLO_H
