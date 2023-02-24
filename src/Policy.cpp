@@ -36,15 +36,11 @@ bool XGBoostPolicy::train() {
     //fill data-set
     for (int row = 0; row < rows; row++) {
         for (int col = 0; col < cols; col++) {
-            if (data[row].first.size() != cols) {
-                throw std::exception();
-            }
             data_matrix.push_back(data[row].first[col]);
         }
         data_labels[row] = data[row].second;
-        std::cout << data[row].second;
     }
-    std::cout << std::endl;
+
 
     // create data
     DMatrixHandle training_dmatrix;
@@ -73,7 +69,7 @@ bool XGBoostPolicy::train() {
     //XGBoosterSetParam(booster, "colsample_bytree", "1");
     //XGBoosterSetParam(h_booster, "num_parallel_tree", "1");
 
-
+    std::cout << "TRAINING Policy" << std::endl;
     // train for n iterations
     for (int iter = 0; iter < 200; ++iter) {
         safe_xgboost(XGBoosterUpdateOneIter(*booster, iter, training_dmatrix));

@@ -8,6 +8,7 @@
 #include <vector>
 #include <xgboost/c_api.h>
 #include <optional>
+#include <string>
 
 class ValueFunction {
 
@@ -23,7 +24,7 @@ public:
 
     virtual std::vector<float> predict(std::vector<std::vector<float>>& inputs) = 0;
 
-
+    [[nodiscard]] virtual std::string get_name() const = 0;
 };
 
 
@@ -53,7 +54,7 @@ public:
 
     std::vector<float> predict(std::vector<std::vector<float>>& inputs) override;
 
-
+    [[nodiscard]] std::string get_name() const override {return "XGBoostValue";}
 };
 
 

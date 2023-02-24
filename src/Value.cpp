@@ -66,6 +66,8 @@ bool XGBoostValue::train() {
     //XGBoosterSetParam(booster, "colsample_bytree", "1");
     //XGBoosterSetParam(h_booster, "num_parallel_tree", "1");
 
+    std::cout << "TRAINING Value" << std::endl;
+
     // train for n iterations
     for (int iter = 0; iter < 200; ++iter) {
         safe_xgboost(XGBoosterUpdateOneIter(booster.value(), iter, training_dmatrix));

@@ -19,6 +19,9 @@ public:
     virtual std::vector<float> get_specification_features(Sy2CPP::Problem* problem) = 0;
 
     virtual std::vector<float> get_candidate_features(Sy2CPP::Term* term) = 0;
+
+    [[nodiscard]] virtual std::string get_name() const = 0;
+
 };
 
 
@@ -30,6 +33,7 @@ public:
 
     Size2TermWalk(): features(NUM_FEATURES,0) { }
 
+    [[nodiscard]] std::string get_name() const override {return "Size2TermWalk";}
 
     std::vector<float> get_specification_features(Sy2CPP::Problem* problem) override {
         problem->accept(*this);

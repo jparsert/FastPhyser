@@ -8,6 +8,9 @@
 
 bool BalancedBDMonteCarlo::start_search() {
 
+    this->start_time = std::chrono::steady_clock::now();
+
+
     VertDescr active_node = this->path[0]; // this is the root node
     std::set<VertDescr> dead_ends;
     for (int i = 0; i < NUM_BIG_STEPS; ++i) {
@@ -16,6 +19,12 @@ bool BalancedBDMonteCarlo::start_search() {
         if (success) {
             return true;
         }
+
+        auto d = std::chrono::duration_cast<std::chrono::seconds>(std::chrono::steady_clock::now()-start_time);
+        if (d > SEARCH_TIMEOUT) {
+            return false;
+        }
+
         path.push_back(active_node);
 
         auto range = boost::adjacent_vertices(active_node, graph);
@@ -53,6 +62,11 @@ bool BalancedBDMonteCarlo::rollout(VertDescr node) {
         std::vector<VertDescr> sub_path;
 
         for (int j = 0; j < NUM_SMALL_STEPS_DEPTH; ++j) {
+            auto d = std::chrono::duration_cast<std::chrono::seconds>(std::chrono::steady_clock::now()-start_time);
+            if (d > SEARCH_TIMEOUT) {
+                this->timed_out = true;
+                return false;
+            }
             //increase visit count and sub_path
             sub_path.push_back(current_node);
 
@@ -63,7 +77,7 @@ bool BalancedBDMonteCarlo::rollout(VertDescr node) {
                     //std::cout << "Success" << std::endl;
                     this->path.insert(path.end(), sub_path.begin(), sub_path.end());
                     this->solution = tree_generator->get_term_as_solution(graph[current_node].term.get());
-                    std::cout << Sy2CPP::to_string(this->solution);
+                    //std::cout << Sy2CPP::to_string(this->solution);
                     return true;
                 } else {
                     graph[current_node].total_value = 0;
@@ -223,5 +237,17 @@ std::vector<std::pair<std::vector<float>, float>> BalancedBDMonteCarlo::get_valu
     }
 
     return data;
+}
+
+Sy2CPP::SyGuSSolution BalancedBDMonteCarlo::get_solution() const {
+    return this->solution;
+}
+
+std::string BalancedBDMonteCarlo::get_problem() const {
+    return this->problem;
+}
+
+unsigned long BalancedBDMonteCarlo::get_graph_size() const {
+    return boost::num_vertices(graph);
 }
 

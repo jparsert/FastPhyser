@@ -16,6 +16,7 @@
 #include <iostream>
 
 #include "indicators/indicators.hpp"
+#include <boost/asio/thread_pool.hpp>
 
 
 /**
@@ -80,6 +81,9 @@ void DefaultLearningManager<Search>::start(std::vector<std::string>& problems) {
 
         std::vector<std::string> successful;
         std::vector<std::string> not_successful;
+
+        boost::asio::thread_pool workers;
+
 
         for (auto& problem : problems) {
             std::cout << problem << std::endl;

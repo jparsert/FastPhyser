@@ -28,8 +28,6 @@ std::vector<T> concat_copy(const std::initializer_list<std::vector<T>>& lst) {
 }
 
 
-
-
 // Hash function and constants taken from
 // https://stackoverflow.com/questions/20511347/a-good-hash-function-for-a-vector/72073933#72073933
 template<typename T>
@@ -106,6 +104,8 @@ T max_element_rtb(std::vector<T> cont, Compare pred)
 
 
 std::vector<std::string> files_with_suffix_in_dirs(const std::vector<std::string>& dir, const std::string& suffix);
+
+
 
 
 #endif //FASTPHYSER_UTILITIES_H

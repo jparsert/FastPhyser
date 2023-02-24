@@ -10,6 +10,8 @@
 #include "DefaultLearningManager.h"
 #include <boost/program_options.hpp>
 
+#include "ParallelLearningManager.h"
+#include "constants.h"
 
 namespace po = boost::program_options;
 
@@ -39,7 +41,7 @@ int main(int argc, char* argv[]) {
     std::unique_ptr<ValueFunction> value = std::make_unique<XGBoostValue>();
 
 
-    DefaultLearningManager<BalancedBDMonteCarlo> learner(term_walk.get(), policy.get(), value.get());
+    ParallelLearningManager<BalancedBDMonteCarlo> learner(term_walk.get(), policy.get(), value.get());
     learner.start(problems);
 
     return 0;

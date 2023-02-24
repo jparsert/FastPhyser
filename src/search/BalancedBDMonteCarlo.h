@@ -12,8 +12,6 @@
 #include "../verification/smt_problem_builder.h"
 #include "../candidate_tree.h"
 
-#include <lemon/list_graph.h>
-#include <lemon/smart_graph.h>
 #include <unordered_map>
 
 #include <iostream>                  // for std::cout
@@ -27,7 +25,7 @@
 #include "../Features.h"
 
 #include <boost/graph/lookup_edge.hpp>
-
+#include <chrono>
 
 struct MCNode {
     bool is_expanded;
@@ -48,6 +46,7 @@ using EdgeDescr = boost::graph_traits<Graph>::edge_descriptor;
 class BalancedBDMonteCarlo : public AbstractSearch {
 
 private:
+    std::string problem;
     std::shared_ptr<Sy2CPP::Problem> ast;
     std::shared_ptr<Sy2CPP::SymbolTable> symbol_table;
 
@@ -67,7 +66,9 @@ private:
 
     Sy2CPP::SyGuSSolution solution = std::nullopt;
 
-
+    // search timeout etc.
+    std::chrono::time_point<std::chrono::steady_clock, std::chrono::nanoseconds> start_time;
+    bool timed_out = false;
 
 
         /**
@@ -91,6 +92,7 @@ public:
                                   std::optional<AbstractFeatureGenerator*> features,
                                   std::optional<PolicyFunction*> pol,
                                   std::optional<ValueFunction*> val) :
+                                        problem{path},
                                         features{features},
                                         policy{pol},
                                         value{val}
@@ -110,6 +112,8 @@ public:
         }
     }
 
+    [[nodiscard]] unsigned long get_graph_size() const;
+
     bool start_search() override;
 
     bool update_policy_function() override;
@@ -118,8 +122,13 @@ public:
 
     std::vector<std::pair<std::vector<float>, float>> get_value_data() override;
 
-    std::vector<std::pair<std::vector<float>, float>> get_policy_data() override ;
+    std::vector<std::pair<std::vector<float>, float>> get_policy_data() override;
 
+    [[nodiscard]] Sy2CPP::SyGuSSolution get_solution() const;
+
+    [[nodiscard]] std::string get_problem() const;
+
+    [[nodiscard]] bool search_timed_out() const {return this->timed_out;}
 };
 
 
