@@ -43,3 +43,7 @@ std::string pad_left(std::string const& str, size_t s, char padding)
     }
 }
 
+
+std::string get_compiled_git_hash() {
+    return GIT_COMMIT_HASH;
+}

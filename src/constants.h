@@ -38,9 +38,5 @@ constexpr void safe_xgboost(int call) {
 //    return GIT_COMMIT_HASH;
 //}
 
-std::string get_compiled_git_hash() {
-    return GIT_COMMIT_HASH;
-}
-
 
 #endif //FASTPHYSER_CONSTANTS_H

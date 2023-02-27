@@ -15,6 +15,8 @@
 #include <random>
 #include <filesystem>
 
+#include "constants.h"
+
 
 // Bad function make me more efficient
 template<typename T>
@@ -110,5 +112,6 @@ std::string pad_right(std::string const& str, size_t s, char padding = ' ');
 
 std::string pad_left(std::string const& str, size_t s, char padding = ' ');
 
+std::string get_compiled_git_hash();
 
 #endif //FASTPHYSER_UTILITIES_H
