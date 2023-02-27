@@ -33,7 +33,12 @@ constexpr void safe_xgboost(int call) {
 #define GIT_COMMIT_HASH "UNKNOWN"
 #endif
 
-constexpr std::string get_compiled_git_hash() {
+// needs newer version of gcc
+//constexpr std::string get_compiled_git_hash() {
+//    return GIT_COMMIT_HASH;
+//}
+
+std::string get_compiled_git_hash() {
     return GIT_COMMIT_HASH;
 }
 
