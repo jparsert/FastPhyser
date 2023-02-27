@@ -82,7 +82,6 @@ T max_element_rtb(std::vector<T> cont, Compare pred)
 {
     if (cont.empty()){
         throw std::invalid_argument("empty container is not allowed.");
-
     }
 
     auto cmp = [&](T a, T b){ return pred(a) < pred(b); };
@@ -106,6 +105,10 @@ T max_element_rtb(std::vector<T> cont, Compare pred)
 std::vector<std::string> files_with_suffix_in_dirs(const std::vector<std::string>& dir, const std::string& suffix);
 
 
+std::string pad_right(std::string const& str, size_t s, char padding = ' ');
+
+
+std::string pad_left(std::string const& str, size_t s, char padding = ' ');
 
 
 #endif //FASTPHYSER_UTILITIES_H

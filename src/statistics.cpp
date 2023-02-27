@@ -28,6 +28,9 @@ ftxui::Element experiment_statistics::render_general_info() const {
                                                              to_ftxui_text("Git Hash:"), to_ftxui_text(GIT_COMMIT_HASH),
                                                      }),
                                          ftxui::hbox({
+                                                             to_ftxui_text("Timeout (s):"), to_ftxui_text(static_cast<int>(timeout.count())),
+                                                     }),
+                                         ftxui::hbox({
                                                              ftxui::text("Value:"), to_ftxui_text(this->value),
                                                      }),
                                          ftxui::hbox({
@@ -86,4 +89,3 @@ ftxui::Element experiment_statistics::render_iterations_abs() {
     }
     return ftxui::window(ftxui::text(" Previous Iterations"), ftxui::hbox(its));
 }
-

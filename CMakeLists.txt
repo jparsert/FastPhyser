@@ -13,7 +13,7 @@ set(CMAKE_CXX_STANDARD 20)
 FetchContent_Declare(z3
         OVERRIDE_FIND_PACKAGE
         GIT_REPOSITORY https://github.com/Z3Prover/z3
-        GIT_TAG        3012293c35eadbfd73e5b94adbe50b0cc44ffb83 # z3-4.12.1
+        GIT_TAG        z3-4.12.1 # z3-4.12.1
 )
 FetchContent_MakeAvailable(z3)
 
@@ -35,14 +35,15 @@ FetchContent_Declare(progressBar
         )
 FetchContent_MakeAvailable(progressBar)
 
-# progress bars
 FetchContent_Declare(taskflow
-        GIT_REPOSITORY git@github.com:taskflow/taskflow
+        GIT_REPOSITORY https://github.com/taskflow/taskflow
         GIT_TAG v3.5.0
-
         )
 FetchContent_MakeAvailable(taskflow)
 
+
+#oneTBB
+find_package(TBB REQUIRED)
 
 
 
@@ -147,9 +148,11 @@ target_link_libraries(FastPhyser PRIVATE
         FunctionalPlus::fplus
         ${Boost_LIBRARIES}
         xgboost::xgboost
-        PRIVATE ftxui::screen
-        PRIVATE ftxui::dom
-        PRIVATE ftxui::component)
+        ftxui::screen
+        ftxui::dom
+        ftxui::component
+        TBB::tbb
+                )
 
 #include_directories(${z3_SOURCE_DIR}/src/)
 #include_directories(${z3_SOURCE_DIR}/src/api/c++)

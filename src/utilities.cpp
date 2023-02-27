@@ -23,3 +23,23 @@ std::vector<std::string> files_with_suffix_in_dirs(const std::vector<std::string
 
     return res;
 }
+
+
+std::string pad_right(std::string const& str, size_t s, char padding)
+{
+    if ( str.size() < s ) {
+        return str + std::string(s - str.size(), padding);
+    } else {
+        return str;
+    }
+}
+
+std::string pad_left(std::string const& str, size_t s, char padding)
+{
+    if ( str.size() < s ) {
+        return std::string(s - str.size(), padding) + str;
+    } else {
+        return str;
+    }
+}
+

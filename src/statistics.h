@@ -40,9 +40,13 @@ struct experiment_iteration {
     std::size_t value_data_size;
 
     std::vector<stat_problem> failed;
+
+
     std::vector<stat_problem> succeeded;
+
     std::vector<stat_problem> timed_out;
 
+public:
 
 
 };
@@ -52,6 +56,7 @@ struct experiment_statistics {
 
     std::vector<std::string> problems;
     std::vector<experiment_iteration> iterations;
+    std::chrono::seconds timeout;
     std::string features_generator;
     std::string policy;
     std::string value;
@@ -63,19 +68,20 @@ private:
 
 public:
 
-    experiment_statistics(std::string  feature_gen, std::string  policy, std::string  value):
+    experiment_statistics(std::string  feature_gen, std::string  policy, std::string  value, std::chrono::seconds timeout):
         features_generator(std::move(feature_gen)),
         policy(std::move(policy)),
-        value(std::move(value))
+        value(std::move(value)),
+        timeout(timeout)
     {   }
 
-    experiment_statistics(AbstractFeatureGenerator* features, PolicyFunction* pol, ValueFunction* val) :
+    experiment_statistics(AbstractFeatureGenerator* features, PolicyFunction* pol, ValueFunction* val,
+                          std::chrono::seconds timeout=SEARCH_TIMEOUT) :
             experiment_statistics(features? features->get_name() : "",
                    pol ? pol->get_name() : "",
-                   val ? val->get_name() : "")
+                   val ? val->get_name() : "",
+                   timeout)
     {}
-
-
 
     ftxui::Elements render_statistics();
 

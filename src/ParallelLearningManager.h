@@ -16,6 +16,8 @@
 #include "Value.h"
 #include <optional>
 #include <iostream>
+#include <mutex>
+#include <oneapi/tbb/concurrent_vector.h>
 
 #include "indicators/indicators.hpp"
 #include "statistics.h"
@@ -37,8 +39,6 @@ class ParallelLearningManager {
 
     experiment_statistics experim_stats;
 
-    std::mutex completed_indices_mutex;
-    std::vector<int> completed_indices;
 
 
 public:
@@ -51,7 +51,9 @@ public:
             experim_stats(features, pol, val)
     {}
 
-    void searcher_status(const std::vector<Search>& );
+    void searcher_status(std::size_t successful,
+                         std::size_t failed,
+                         std::size_t timed_out);
 
 
 public:
@@ -61,34 +63,73 @@ public:
      */
     void start(std::vector<std::string>& problems);
 
-
 };
 
 
 template<class Search>
-void ParallelLearningManager<Search>::searcher_status(const std::vector<Search>& searchers) {
+void ParallelLearningManager<Search>::searcher_status(std::size_t successful,
+                                                      std::size_t failed,
+                                                      std::size_t timed_out) {
 
-    std::string reset_position;
-    while(this->completed_indices.size() < searchers.size()) {
-        auto stats = experim_stats.render_statistics();
-        stats.push_back(ftxui::window(ftxui::text("Current Iteration " + std::to_string(experim_stats.iterations.size()+1) + "/" +
-                                              std::to_string(this->RL_Iterations)), ftxui::hbox({
-                                                  ftxui::text(std::to_string(completed_indices.size())), ftxui::text("/"),
-                                                  ftxui::text(std::to_string(searchers.size())),
-                                                  ftxui::separator(),
-                                                  ftxui::text(get_formatted_percentage_of(completed_indices.size(),searchers.size()) + "%"),
-                                                  ftxui::separator(),
-                                                  ftxui::gauge(static_cast<float>(completed_indices.size())/static_cast<float>(searchers.size()))
-                                              })));
-        auto document = ftxui::vbox(stats);
-        auto screen = ftxui::Screen::Create(ftxui::Dimension::Full(), ftxui::Dimension::Fit(document));
-        Render(screen, document);
-        std::cout << reset_position;
-        screen.Print();
-        reset_position = screen.ResetPosition();
+    auto total_completed = successful + failed + timed_out;
+    static std::string reset_position;
+    auto stats = experim_stats.render_statistics();
+    stats.push_back(ftxui::window(ftxui::text("Current Iteration " + std::to_string(experim_stats.iterations.size()+1) + "/" + std::to_string(this->RL_Iterations)),
+                                  ftxui::vbox({
+                                      ftxui::hbox({
+                                          ftxui::text(pad_right("Completed ", 12)),
+                                          ftxui::separator(),
+                                          ftxui::text(pad_right(std::to_string(total_completed) + "/" + std::to_string(experim_stats.problems.size()), 12)),
+                                          ftxui::separator(),
+                                          ftxui::text(pad_right(get_formatted_percentage_of(static_cast<int>(total_completed), experim_stats.problems.size()) + "%", 6)),
+                                          ftxui::separator(),
+                                          ftxui::gauge(
+                                                  static_cast<float>(total_completed) /
+                                                  static_cast<float>(experim_stats.problems.size()))
+                                      }),
+                                      ftxui::separator(),
+                                      ftxui::hbox({
+                                          ftxui::text(pad_right("Solved", 12)),
+                                          ftxui::separator(),
+                                          ftxui::text(pad_right(std::to_string(successful) + "/" +std::to_string(total_completed), 12)),
+                                          ftxui::separator(),
+                                          ftxui::text(pad_right(get_formatted_percentage_of(static_cast<int>(successful), static_cast<int>(total_completed)) + "%", 6)),
+                                          ftxui::separator(),
+                                          ftxui::gauge(
+                                                  static_cast<float>(successful) /
+                                                  static_cast<float>(total_completed))
+                                      }),
+                                      ftxui::hbox({
+                                          ftxui::text(pad_right("Failed", 12)),
+                                          ftxui::separator(),
+                                          ftxui::text(pad_right(std::to_string(failed) + "/" +std::to_string(total_completed), 12)),
+                                          ftxui::separator(),
+                                          ftxui::text(pad_right(get_formatted_percentage_of(static_cast<int>(failed), static_cast<int>(total_completed)) + "%", 6)),
+                                          ftxui::separator(),
+                                          ftxui::gauge(
+                                                  static_cast<float>(failed) /
+                                                  static_cast<float>(total_completed))
+                                      }),
+                                      ftxui::hbox({
+                                          ftxui::text(pad_right("Timed Out", 12)),
+                                          ftxui::separator(),
+                                          ftxui::text(pad_right(std::to_string(timed_out) + "/" +std::to_string(total_completed), 12)),
+                                          ftxui::separator(),
+                                          ftxui::text(pad_right(get_formatted_percentage_of(static_cast<int>(timed_out), static_cast<int>(total_completed)) + "%", 6)),
+                                          ftxui::separator(),
+                                          ftxui::gauge(
+                                              static_cast<float>(timed_out) /
+                                              static_cast<float>(total_completed))
+                                      })
+                                  }))
+                                  );
+    auto document = ftxui::vbox(stats);
+    auto screen = ftxui::Screen::Create(ftxui::Dimension::Full(), ftxui::Dimension::Fit(document));
+    Render(screen, document);
+    std::cout << reset_position;
+    screen.Print();
+    reset_position = screen.ResetPosition();
 
-        std::this_thread::sleep_for(std::chrono::seconds (10));
-    }
 }
 
 
@@ -97,8 +138,8 @@ void ParallelLearningManager<Search>::start(std::vector<std::string>& problems) 
 
     experim_stats.problems = problems;
 
-    std::vector<std::pair<std::vector<float>,float>> policy_data;
-    std::vector<std::pair<std::vector<float>,float>> value_data;
+    tbb::concurrent_vector<std::pair<std::vector<float>,float>> policy_data;
+    tbb::concurrent_vector<std::pair<std::vector<float>,float>> value_data;
 
 
     for (int iteration = 0; iteration < RL_Iterations; ++iteration) {
@@ -114,22 +155,43 @@ void ParallelLearningManager<Search>::start(std::vector<std::string>& problems) 
                 option::MaxProgress{problems.size()}
         };
 
-        std::vector<std::string> successful;
-        std::vector<std::string> failed;
-        std::vector<std::string> timed_out;
-        tf::Executor executor(2);
+        tbb::concurrent_vector<stat_problem> successful;
+        tbb::concurrent_vector<stat_problem> failed;
+        tbb::concurrent_vector<stat_problem> timed_out;
+
+
+        tf::Executor executor(std::thread::hardware_concurrency()/2);
         tf::Taskflow taskflow;
 
-        std::vector<Search> searchers;
-        completed_indices.clear();
 
+        for (auto & problem : problems) {
+            taskflow.emplace([&](){
+                Search search(problem, features, policy, value);
+                search.start_search();
 
-        for (int i = 0; i < problems.size(); ++i) {
-            searchers.emplace_back(problems[i], features, policy, value);
-            auto task = taskflow.emplace([&,i](){
-                searchers[i].start_search();
-                std::lock_guard<std::mutex> lock(this->completed_indices_mutex);
-                completed_indices.push_back(i);
+                //add training data
+                // policy training data
+                for (auto& pair : search.get_policy_data()) {
+                    policy_data.emplace_back(pair);
+                }
+                // value training data;
+                for (auto& pair : search.get_value_data()) {
+                    value_data.emplace_back(pair);
+                }
+
+                // add statistics
+                if (search.get_solution()) { // successful search
+                    successful.emplace_back(stat_problem{search.get_problem(), search.get_graph_size()});
+                } else {
+                    if (search.search_timed_out()) {
+                        timed_out.emplace_back(stat_problem{search.get_problem(), search.get_graph_size()});
+                    } else {
+                        failed.emplace_back(stat_problem{search.get_problem(), search.get_graph_size()});
+                    }
+                }
+
+                // print output
+                this->searcher_status(successful.size(), failed.size(), timed_out.size());
             });
 
         }
@@ -137,10 +199,7 @@ void ParallelLearningManager<Search>::start(std::vector<std::string>& problems) 
         auto t1 = std::chrono::steady_clock::now();
 
         // run
-        std::thread stat_printing([&](){std::cout << "Starting Printing" << std::endl; this->searcher_status(searchers);});
         executor.run(taskflow).wait();
-        stat_printing.join();
-
 
         auto time = std::chrono::duration_cast<std::chrono::seconds>(std::chrono::steady_clock::now() - t1);
 
@@ -150,43 +209,21 @@ void ParallelLearningManager<Search>::start(std::vector<std::string>& problems) 
         it_stat.policy_data_size = policy_data.size();
         it_stat.value_data_size = value_data.size();
 
-        for (auto& searcher : searchers) {
-
-            // add to lists for statistics
-            if (searcher.get_solution()) { // successful search
-                successful.push_back(searcher.get_problem());
-                it_stat.succeeded.emplace_back(stat_problem{searcher.get_problem(), searcher.get_graph_size()});
-            } else {
-                if (searcher.search_timed_out()) {
-                    timed_out.push_back(searcher.get_problem());
-                    it_stat.timed_out.emplace_back(stat_problem{searcher.get_problem(), searcher.get_graph_size()});
-                } else {
-                    it_stat.failed.emplace_back(stat_problem{searcher.get_problem(), searcher.get_graph_size()});
-                }
-            }
-
-            // policy training data
-            for (auto& pair : searcher.get_policy_data()) {
-                policy_data.emplace_back(pair);
-            }
-
-            // value training data;
-            for (auto& pair : searcher.get_value_data()) {
-                value_data.emplace_back(pair);
-            }
-
-        }
-        std::cout << std::endl;
+        it_stat.succeeded = std::vector<stat_problem>(successful.begin(), successful.end());
+        it_stat.failed = std::vector<stat_problem>(failed.begin(), failed.end());
+        it_stat.timed_out = std::vector<stat_problem>(timed_out.begin(), timed_out.end());
 
         // add new training data and train if we have iterations left
         if (iteration < this->RL_Iterations - 1) {
             if (policy) {
-                policy->set_training_data(policy_data);
+                std::vector<std::pair<std::vector<float>,float>> tmp_pol(policy_data.begin(), policy_data.end());
+                policy->set_training_data(tmp_pol);
                 policy->train();
             }
 
             if (value) {
-                value->set_training_data(value_data);
+                std::vector<std::pair<std::vector<float>,float>> tmp_val(value_data.begin(), value_data.end());
+                value->set_training_data(tmp_val);
                 value->train();
             }
         }
