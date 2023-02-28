@@ -127,7 +127,7 @@ bool BalancedBDMonteCarlo::rollout(VertDescr node) {
 
 std::vector<float> BalancedBDMonteCarlo::multi_policy(VertDescr vtx, const std::vector<VertDescr>& successors) {
 
-    if (!this->policy or !this->policy.value()->can_predict()) { // default policy
+    if (this->policy == nullptr or !this->policy.value()->can_predict()) { // default policy
         std::vector<float> res;
         for (auto &x: successors) {
             res.push_back(1.0);
@@ -147,7 +147,7 @@ std::vector<float> BalancedBDMonteCarlo::multi_policy(VertDescr vtx, const std::
 }
 
 std::vector<float> BalancedBDMonteCarlo::multi_value(const std::vector<VertDescr>& nodes) {
-    if (!this->value or !this->value.value()->can_predict()) { // default value
+    if (this->value == nullptr or !this->value.value()->can_predict()) { // default value
         std::vector<float> res;
 
         for (auto &x: nodes) {

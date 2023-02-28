@@ -23,7 +23,7 @@ FetchContent_MakeAvailable(z3)
 #functional plus is a library for functional programming idioms in c++
 FetchContent_Declare(functional_plus
         GIT_REPOSITORY https://github.com/Dobiasd/FunctionalPlus
-        GIT_TAG master
+        GIT_TAG c644862
 )
 FetchContent_MakeAvailable(functional_plus)
 
@@ -117,7 +117,8 @@ set(sources
         src/search/search.cpp src/Policy.cpp
         src/ParallelLearningManager.cpp
         src/statistics.cpp
-        src/search/AlphaZero.cpp)
+        src/search/AlphaZero.cpp
+        src/strategies.cpp)
 
 set(headers
         src/verification/smt_problem_builder.h
@@ -133,7 +134,8 @@ set(headers
         src/ParallelLearningManager.h
         src/statistics.h
         src/search/AlphaZero.h
-        src/BGLHelper.h)
+        src/BGLHelper.h
+        src/strategies.h)
 
 
 add_executable(FastPhyser src/main.cpp ${sources} ${headers})

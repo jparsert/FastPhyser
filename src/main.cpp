@@ -1,17 +1,9 @@
 #include <iostream>
 
-
-#include <filesystem>
-#include "verification/smt_problem_builder.h"
-
-#include "candidate_tree.h"
-#include "search/BalancedBDMonteCarlo.h"
 #include "utilities.h"
-#include "DefaultLearningManager.h"
 #include <boost/program_options.hpp>
 
-#include "ParallelLearningManager.h"
-#include "constants.h"
+#include "strategies.h"
 
 namespace po = boost::program_options;
 
@@ -34,15 +26,9 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
+
     std::vector<std::string> problems = files_with_suffix_in_dirs(vm["input"].as<std::vector<std::string>>(), ".sl");
-
-    std::unique_ptr<AbstractFeatureGenerator> term_walk = std::make_unique<Size2TermWalk>();
-    std::unique_ptr<PolicyFunction> policy = std::make_unique<XGBoostPolicy>();
-    std::unique_ptr<ValueFunction> value = std::make_unique<XGBoostValue>();
-
-
-    ParallelLearningManager<BalancedBDMonteCarlo> learner(term_walk.get(), policy.get(), value.get());
-    learner.start(problems);
+    balancedBDMC_policy_only(problems, vm);
 
     return 0;
 
