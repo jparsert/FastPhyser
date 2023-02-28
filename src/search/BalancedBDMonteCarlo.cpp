@@ -4,7 +4,7 @@
 
 #include "BalancedBDMonteCarlo.h"
 #include "Sy2CPP/AstPrinter.h"
-
+#include "search.h"
 
 bool BalancedBDMonteCarlo::start_search() {
 
@@ -169,10 +169,8 @@ std::vector<float> BalancedBDMonteCarlo::multi_value(const std::vector<VertDescr
 }
 
 float BalancedBDMonteCarlo::uct(VertDescr source, VertDescr target) {
-    float mean_value = graph[target].total_value/static_cast<float>(graph[target].visit_count);
     auto [edge, flag] = boost::lookup_edge(source, target, graph);
-    float tmp = std::sqrt(std::log(static_cast<float>(graph[source].visit_count)) / std::max(static_cast<float>(graph[target].visit_count), 1.0f));
-    return mean_value + 2.0f * graph[edge].policy * tmp;
+    return calc_uct(graph[target].total_value, graph[source].visit_count, graph[target].visit_count, graph[edge].policy);
 }
 
 void BalancedBDMonteCarlo::back_propagate(const std::vector<VertDescr>& propagation_path, float _value) {

@@ -78,7 +78,9 @@ auto arg_max(Container const & c, F && pred) -> decltype(*std::begin(c))
     return *std::max_element(std::begin(c), std::end(c), cmp);
 }
 
-
+/**
+ * Argmax with random tie break (rtb)
+ */
 template<typename T, typename Compare>
 T max_element_rtb(std::vector<T> cont, Compare pred)
 {

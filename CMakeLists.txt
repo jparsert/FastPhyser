@@ -116,7 +116,8 @@ set(sources
         src/Features.cpp
         src/search/search.cpp src/Policy.cpp
         src/ParallelLearningManager.cpp
-        src/statistics.cpp)
+        src/statistics.cpp
+        src/search/AlphaZero.cpp)
 
 set(headers
         src/verification/smt_problem_builder.h
@@ -130,7 +131,9 @@ set(headers
         src/Features.h
         src/search/search.h
         src/ParallelLearningManager.h
-        src/statistics.h)
+        src/statistics.h
+        src/search/AlphaZero.h
+        src/BGLHelper.h)
 
 
 add_executable(FastPhyser src/main.cpp ${sources} ${headers})

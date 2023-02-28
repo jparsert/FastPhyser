@@ -6,6 +6,13 @@
 #define FASTPHYSER_SEARCH_H
 
 #include <vector>
+#include <string>
+#include <cmath>
+
+
+float calc_uct(float target_val, int source_visits, int target_visits, float policy);
+
+
 
 class AbstractSearch {
 
@@ -19,6 +26,9 @@ public:
     virtual std::vector<std::pair<std::vector<float>, float>> get_value_data() = 0;
 
     virtual std::vector<std::pair<std::vector<float>, float>> get_policy_data() = 0;
+
+    [[nodiscard]] virtual std::string get_name() const = 0;
+
 };
 
 

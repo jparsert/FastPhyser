@@ -15,11 +15,14 @@ constexpr int NUM_BIG_STEPS = 20;
 constexpr int NUM_SMALL_STEPS_BREADTH = 200;
 constexpr int NUM_SMALL_STEPS_DEPTH = 20;
 
+constexpr int MCTS_SIMULATIONS = 2500;
+
+
 // Feature vector dimension
 constexpr int NUM_FEATURES = 2000;
 
 //timings
-constexpr std::chrono::seconds SEARCH_TIMEOUT(60);
+constexpr std::chrono::seconds SEARCH_TIMEOUT(100);
 
 
 constexpr void safe_xgboost(int call) {

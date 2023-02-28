@@ -8,14 +8,12 @@
 #include <iostream>
 
 #include <Sy2CPP/Sy2CPP.h>
-#include <filesystem>
 #include "../verification/smt_problem_builder.h"
 #include "../candidate_tree.h"
 
 #include <unordered_map>
 
 #include <iostream>                  // for std::cout
-#include <utility>                   // for std::pair
 #include <algorithm>                 // for std::for_each
 #include <boost/graph/graph_traits.hpp>
 #include <boost/graph/adjacency_list.hpp>
@@ -23,24 +21,9 @@
 #include "../Value.h"
 #include "../Policy.h"
 #include "../Features.h"
-
+#include "../BGLHelper.h"
 #include <boost/graph/lookup_edge.hpp>
 #include <chrono>
-
-struct MCNode {
-    bool is_expanded;
-    int visit_count;
-    float total_value;
-    Sy2CPP::TermPtr term;
-};
-
-struct MCEdge {
-    float policy;
-};
-
-using Graph = boost::adjacency_list<boost::vecS, boost::vecS, boost::directedS, MCNode, MCEdge>;
-using VertDescr = boost::graph_traits<Graph>::vertex_descriptor;
-using EdgeDescr = boost::graph_traits<Graph>::edge_descriptor;
 
 
 class BalancedBDMonteCarlo : public AbstractSearch {
@@ -129,6 +112,9 @@ public:
     [[nodiscard]] std::string get_problem() const;
 
     [[nodiscard]] bool search_timed_out() const {return this->timed_out;}
+
+    [[nodiscard]] std::string get_name() const override {return "BalancedBDMonteCarlo";}
+
 };
 
 
