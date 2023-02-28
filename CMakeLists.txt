@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.24)
+cmake_minimum_required(VERSION 3.22.1)
 
 include(FetchContent)
 include(ExternalProject)
@@ -22,7 +22,7 @@ FetchContent_MakeAvailable(z3)
 
 #functional plus is a library for functional programming idioms in c++
 FetchContent_Declare(functional_plus
-        GIT_REPOSITORY https://github.com/Dobiasd/FunctionalPlus.git
+        GIT_REPOSITORY https://github.com/Dobiasd/FunctionalPlus
         GIT_TAG master
 )
 FetchContent_MakeAvailable(functional_plus)
@@ -61,7 +61,7 @@ find_package(Boost COMPONENTS program_options REQUIRED)
 
 # progress bars
 FetchContent_Declare(Sy2CPP
-        GIT_REPOSITORY git@github.com:jparsert/Sy2CPP
+        GIT_REPOSITORY https://github.com/jparsert/Sy2CPP
         GIT_TAG main
 )
 FetchContent_MakeAvailable(Sy2CPP)
@@ -143,11 +143,19 @@ target_compile_definitions(${PROJECT_NAME} PRIVATE
         "-DGIT_COMMIT_HASH=\"${GIT_COMMIT_HASH}\"")
 
 # add required runtime library
-include_directories(${Boost_INCLUDE_DIRS} ${progressbar_SOURCE_DIR}/single_include ${taskflow_SOURCE_DIR})
+include_directories(
+        ${Boost_INCLUDE_DIRS}
+        ${progressbar_SOURCE_DIR}/single_include
+        ${taskflow_SOURCE_DIR}
+        ${z3_SOURCE_DIR}/src/api/c++
+        ${z3_SOURCE_DIR}/src/api)
+
+
+#link_directories(${z3_BINARY_DIR})
 
 target_link_libraries(FastPhyser PRIVATE
         sy2cpp
-        z3
+        libz3
         FunctionalPlus::fplus
         ${Boost_LIBRARIES}
         xgboost::xgboost
@@ -155,7 +163,7 @@ target_link_libraries(FastPhyser PRIVATE
         ftxui::dom
         ftxui::component
         TBB::tbb
-                )
+        )
 
 #include_directories(${z3_SOURCE_DIR}/src/)
 #include_directories(${z3_SOURCE_DIR}/src/api/c++)

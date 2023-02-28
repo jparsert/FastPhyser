@@ -174,3 +174,11 @@ VertDescr AlphaZero::get_best_successor_by_uct(VertDescr node) {
     return best;
 }
 
+std::vector<std::pair<std::vector<float>, float>> AlphaZero::get_value_data() {
+    return std::vector<std::pair<std::vector<float>, float>>();
+}
+
+std::vector<std::pair<std::vector<float>, float>> AlphaZero::get_policy_data() {
+    return std::vector<std::pair<std::vector<float>, float>>();
+}
+
