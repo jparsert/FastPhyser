@@ -107,9 +107,8 @@ public:
 
 
     // All Problem visitor functions
-    std::any visitIndexedIdentifier(Sy2CPP::IndexedIdentifier &indexedIdentifier);
-
-    std::any visitSimpleIdentifier(Sy2CPP::SimpleIdentifier &id);
+    std::any visitIndexedIdentifier(Sy2CPP::IndexedIdentifier &indexedIdentifier) override;
+    std::any visitSimpleIdentifier(Sy2CPP::SimpleIdentifier &id) override;
 
     std::any visitProblem(Sy2CPP::Problem &problem) override;
     std::any visitNumeral(Sy2CPP::Numeral &numeral) override;

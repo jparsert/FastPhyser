@@ -12,5 +12,5 @@ Note that depending on type of installation the following commands might need to
 
 ```
 sudo docker build -t FastPhyser .
-sudo docker run -it test
+sudo docker run -it FastPhyser
 ```

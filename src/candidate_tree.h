@@ -8,9 +8,6 @@
 
 #include "Sy2CPP/ast.h"
 #include "Sy2CPP/symbol_table.h"
-#include "exceptions/exceptions.h"
-#include "fplus/fplus.hpp"
-
 
 class CountNonTerminals : public Sy2CPP::BfTermVisitor {
 

@@ -2,3 +2,5 @@
 **/build/**
 **/cmake-build-debug/**
 **/cmake-build-debug-coverage/**
+*.json
+.z3-trace

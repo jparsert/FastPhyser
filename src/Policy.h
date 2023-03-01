@@ -9,7 +9,6 @@
 
 #include <xgboost/c_api.h>
 #include <memory>
-#include <optional>
 
 class PolicyFunction {
 

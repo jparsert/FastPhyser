@@ -18,11 +18,15 @@
 #include <iostream>
 #include <mutex>
 #include <oneapi/tbb/concurrent_vector.h>
+#include <boost/program_options.hpp>
 
-#include "indicators/indicators.hpp"
 #include "statistics.h"
 
 #include <taskflow/taskflow.hpp>
+
+
+namespace po = boost::program_options;
+
 
 /**
  * Could use SFINAE but let's just do ducktyping for now
@@ -44,12 +48,18 @@ class ParallelLearningManager {
 public:
     explicit ParallelLearningManager(AbstractFeatureGenerator* features,
                                     PolicyFunction* pol,
-                                    ValueFunction* val):
+                                    ValueFunction* val,
+                                    po::variables_map& vm):
             features{features},
             policy{pol},
             value{val},
             experim_stats(features, pol, val)
-    {}
+    {
+        if (vm.contains("RL-its")) {
+            RL_Iterations = vm["RL-its"].as<int>();
+        }
+
+    }
 
     void searcher_status(std::size_t successful,
                          std::size_t failed,
@@ -61,7 +71,7 @@ public:
     /**
      * Should probably return some statistics
      */
-    void start(std::vector<std::string>& problems);
+    experiment_statistics start(std::vector<std::string>& problems);
 
 };
 
@@ -134,7 +144,7 @@ void ParallelLearningManager<Search>::searcher_status(std::size_t successful,
 
 
 template<class Search>
-void ParallelLearningManager<Search>::start(std::vector<std::string>& problems) {
+experiment_statistics ParallelLearningManager<Search>::start(std::vector<std::string>& problems) {
 
     experim_stats.problems = problems;
 
@@ -146,19 +156,9 @@ void ParallelLearningManager<Search>::start(std::vector<std::string>& problems) 
 
         std::cout << "###################### ITERATION " << iteration+1 << "/"<<RL_Iterations << " ######################" << std::endl;
 
-        using namespace indicators;
-        indicators::BlockProgressBar rlloop_bar{
-                option::BarWidth{80},
-                option::ForegroundColor{Color::blue},
-                option::FontStyles{
-                        std::vector<FontStyle>{FontStyle::bold}},
-                option::MaxProgress{problems.size()}
-        };
-
         tbb::concurrent_vector<stat_problem> successful;
         tbb::concurrent_vector<stat_problem> failed;
         tbb::concurrent_vector<stat_problem> timed_out;
-
 
         tf::Executor executor(std::thread::hardware_concurrency()/2);
         tf::Taskflow taskflow;
@@ -229,6 +229,8 @@ void ParallelLearningManager<Search>::start(std::vector<std::string>& problems) 
         }
 
     }
+
+    return this->experim_stats;
 
 }
 

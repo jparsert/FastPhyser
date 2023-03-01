@@ -5,7 +5,6 @@
 #include <ranges>
 #include "smt_problem_builder.h"
 #include "Sy2CPP/exceptions.h"
-#include "fplus/fplus.hpp"
 #include "Sy2CPP/typing.h"
 #include "Sy2CPP/resolvers.h"
 #include "Sy2CPP/AstPrinter.h"

@@ -28,13 +28,6 @@ FetchContent_Declare(functional_plus
 FetchContent_MakeAvailable(functional_plus)
 
 
-# progress bars
-FetchContent_Declare(progressBar
-        GIT_REPOSITORY https://github.com/p-ranav/indicators
-        GIT_TAG 6432875
-        )
-FetchContent_MakeAvailable(progressBar)
-
 FetchContent_Declare(taskflow
         GIT_REPOSITORY https://github.com/taskflow/taskflow
         GIT_TAG v3.5.0
@@ -83,6 +76,12 @@ if(NOT ftxui_POPULATED)
 endif()
 
 
+# JSON Library to write experiment results
+FetchContent_Declare(json
+        URL https://github.com/nlohmann/json/releases/download/v3.11.2/json.tar.xz
+        DOWNLOAD_EXTRACT_TIMESTAMP true
+        )
+FetchContent_MakeAvailable(json)
 
 #######################################################
 ####### SO THAT WE CAN REFER TO GIT HASH IN C++ #######
@@ -165,6 +164,7 @@ target_link_libraries(FastPhyser PRIVATE
         ftxui::dom
         ftxui::component
         TBB::tbb
+        nlohmann_json::nlohmann_json
         )
 
 #include_directories(${z3_SOURCE_DIR}/src/)

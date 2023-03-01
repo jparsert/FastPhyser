@@ -21,6 +21,9 @@
 #include "Features.h"
 #include "Policy.h"
 
+#include <nlohmann/json.hpp>
+using json = nlohmann::json;
+
 // Holding the statistics during training for printing and saving
 
 std::shared_ptr<ftxui::Node>to_ftxui_text(int number);
@@ -34,6 +37,7 @@ struct stat_problem{
     unsigned long graph_size;
 };
 
+
 struct experiment_iteration {
     std::chrono::seconds iteration_time;
     std::size_t policy_data_size;
@@ -46,10 +50,9 @@ struct experiment_iteration {
 
     std::vector<stat_problem> timed_out;
 
-public:
-
 
 };
+
 
 struct experiment_statistics {
     // TODO add commandline options
@@ -61,6 +64,7 @@ struct experiment_statistics {
     std::string policy;
     std::string value;
     std::string git_hash = GIT_COMMIT_HASH;
+    std::string run_command;
 
 private:
     [[nodiscard]] ftxui::Element render_general_info() const;
@@ -77,15 +81,21 @@ public:
 
     experiment_statistics(AbstractFeatureGenerator* features, PolicyFunction* pol, ValueFunction* val,
                           std::chrono::seconds timeout=SEARCH_TIMEOUT) :
-            experiment_statistics(features? features->get_name() : "",
-                   pol ? pol->get_name() : "",
-                   val ? val->get_name() : "",
+            experiment_statistics(features? features->get_name() : "DEFAULT",
+                   pol ? pol->get_name() : "DEFAULT",
+                   val ? val->get_name() : "DEFAULT",
                    timeout)
     {}
 
     ftxui::Elements render_statistics();
 
+    void add_run_command(std::basic_string<char> basicString);
+
 };
 
+
+json to_json(const stat_problem& problem);
+json to_json(const experiment_iteration& experiment_iteration);
+json to_json(const experiment_statistics& experiment_statistics);
 
 #endif //FASTPHYSER_STATISTICS_H

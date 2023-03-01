@@ -17,6 +17,7 @@ constexpr int NUM_SMALL_STEPS_DEPTH = 20;
 
 constexpr int MCTS_SIMULATIONS = 2500;
 
+constexpr int RL_ITERATIONS = 20;
 
 // Feature vector dimension
 constexpr int NUM_FEATURES = 2000;

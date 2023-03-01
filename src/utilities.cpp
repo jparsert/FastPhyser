@@ -34,6 +34,7 @@ std::string pad_right(std::string const& str, size_t s, char padding)
     }
 }
 
+
 std::string pad_left(std::string const& str, size_t s, char padding)
 {
     if ( str.size() < s ) {
@@ -46,4 +47,15 @@ std::string pad_left(std::string const& str, size_t s, char padding)
 
 std::string get_compiled_git_hash() {
     return GIT_COMMIT_HASH;
+}
+
+
+std::string get_current_timestamp_as_string() { // todo fix this with c++20 once std::format is implemented
+    auto t = std::time(nullptr);
+    auto tm = *std::localtime(&t);
+
+    std::ostringstream oss;
+    oss << std::put_time(&tm, "%d-%m-%Y||%H-%M-%S");
+    auto str = oss.str();
+    return str;
 }

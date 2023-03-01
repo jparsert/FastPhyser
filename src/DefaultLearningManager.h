@@ -15,8 +15,6 @@
 #include <optional>
 #include <iostream>
 
-#include "indicators/indicators.hpp"
-
 /**
  * Could use SFINAE but let's just do ducktyping for now
  * @tparam Search
@@ -68,14 +66,7 @@ void DefaultLearningManager<Search>::start(std::vector<std::string>& problems) {
 
         std::cout << "###################### ITERATION " << iteration+1 << "/"<<RL_Iterations << " ######################" << std::endl;
 
-        using namespace indicators;
-        indicators::BlockProgressBar rlloop_bar{
-                option::BarWidth{80},
-                option::ForegroundColor{Color::blue},
-                option::FontStyles{
-                        std::vector<FontStyle>{FontStyle::bold}},
-                option::MaxProgress{problems.size()}
-        };
+
 
         std::vector<std::string> successful;
         std::vector<std::string> not_successful;
@@ -108,10 +99,8 @@ void DefaultLearningManager<Search>::start(std::vector<std::string>& problems) {
                 value_data.emplace_back(pair);
             }
 
-            rlloop_bar.tick();
-        }
 
-        rlloop_bar.mark_as_completed();
+        }
 
         std::cout << "Training Data: " << "Value Data: " << value_data.size() << "\t" << "Policy Data: " << policy_data.size() << std::endl;
 

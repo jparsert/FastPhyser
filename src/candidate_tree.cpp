@@ -4,7 +4,7 @@
 
 #include "candidate_tree.h"
 #include "Sy2CPP/ast.h"
-
+#include "exceptions/exceptions.h"
 
 std::shared_ptr<CandidateTreeGenerator>
 CandidateTreeGenerator::build(Sy2CPP::Problem &problem, Sy2CPP::SymbolTable &symbolT) {
