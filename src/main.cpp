@@ -35,7 +35,7 @@ std::optional<po::variables_map> parse_cmd_args(int argc, char* argv[])  {
     try {
         po::store(po::parse_command_line(argc, argv, desc), vm);
         po::notify(vm);
-    } catch (boost::wrapexcept<boost::program_options::required_option>& e) {
+    } catch (boost::program_options::required_option& e) {
         std::cout << "Missing required options" << std::endl;
         std::cout << desc << std::endl;
         return std::nullopt;
