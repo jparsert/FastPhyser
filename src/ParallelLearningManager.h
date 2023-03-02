@@ -40,6 +40,7 @@ class ParallelLearningManager {
     ValueFunction* value;
 
     int RL_Iterations = 20;
+    int parallel_cores;
 
     experiment_statistics experim_stats;
 
@@ -53,7 +54,8 @@ public:
             features{features},
             policy{pol},
             value{val},
-            experim_stats(features, pol, val)
+            experim_stats(features, pol, val),
+            parallel_cores{vm["num-parallel"].as<int>()}
     {
         if (vm.contains("RL-its")) {
             RL_Iterations = vm["RL-its"].as<int>();
@@ -160,7 +162,8 @@ experiment_statistics ParallelLearningManager<Search>::start(std::vector<std::st
         tbb::concurrent_vector<stat_problem> failed;
         tbb::concurrent_vector<stat_problem> timed_out;
 
-        tf::Executor executor(std::thread::hardware_concurrency()/2);
+        tf::Executor executor( parallel_cores == 0 ? std::thread::hardware_concurrency() : parallel_cores);
+
         tf::Taskflow taskflow;
 
 

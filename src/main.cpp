@@ -29,13 +29,14 @@ std::optional<po::variables_map> parse_cmd_args(int argc, char* argv[])  {
             ("result-file", po::value<std::string>(), "File where to print experimental results in JSON format.")
             ("RL-its", po::value<int>(), "Number of Reinforcement Learning Iterations.")
             ("strategy", po::value<std::string>(), "Name of strategy to use")
+            ("num-parallel", po::value<int>()->default_value(0), "Number of parallel workers. The default is half the system cores. Note that many parallel workers are memory intensive and may lead to forced process termination.")
             ;
 
     po::variables_map vm;
     try {
         po::store(po::parse_command_line(argc, argv, desc), vm);
         po::notify(vm);
-    } catch (boost::wrapexcept<boost::program_options::required_option>& e) {
+    } catch (boost::program_options::required_option& e) {
         std::cout << "Missing required options" << std::endl;
         std::cout << desc << std::endl;
         return std::nullopt;
