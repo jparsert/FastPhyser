@@ -23,7 +23,7 @@ constexpr int RL_ITERATIONS = 20;
 constexpr int NUM_FEATURES = 2000;
 
 //timings
-constexpr std::chrono::seconds SEARCH_TIMEOUT(10);
+constexpr std::chrono::seconds DEFAULT_SEARCH_TIMEOUT(100);
 
 
 constexpr void safe_xgboost(int call) {

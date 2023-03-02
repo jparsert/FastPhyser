@@ -53,6 +53,9 @@ private:
     std::chrono::time_point<std::chrono::steady_clock, std::chrono::nanoseconds> start_time;
     bool timed_out = false;
 
+    //maximum search time
+    std::chrono::seconds timeout;
+
 
     /**
      * Does rollouts from node
@@ -77,11 +80,13 @@ public:
     explicit AlphaZero(const std::string& path,
                                   std::optional<AbstractFeatureGenerator*> features,
                                   std::optional<PolicyFunction*> pol,
-                                  std::optional<ValueFunction*> val) :
+                                  std::optional<ValueFunction*> val,
+                                  std::chrono::seconds timeout) :
             problem{path},
             features{features},
             policy{pol},
-            value{val}
+            value{val},
+            timeout{timeout}
     {
 
         auto pair = Sy2CPP::get_ast_and_symbol_table_from_file(path);

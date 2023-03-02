@@ -80,7 +80,7 @@ public:
     {   }
 
     experiment_statistics(AbstractFeatureGenerator* features, PolicyFunction* pol, ValueFunction* val,
-                          std::chrono::seconds timeout=SEARCH_TIMEOUT) :
+                          std::chrono::seconds timeout) :
             experiment_statistics(features? features->get_name() : "DEFAULT",
                    pol ? pol->get_name() : "DEFAULT",
                    val ? val->get_name() : "DEFAULT",

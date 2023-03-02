@@ -22,7 +22,8 @@ bool AlphaZero::start_search() {
             return true;
         }
         auto d = std::chrono::duration_cast<std::chrono::seconds>(std::chrono::steady_clock::now()-start_time);
-        if (d > SEARCH_TIMEOUT) {
+        if (d > this->timeout) {
+            this->timed_out = true;
             return false;
         }
 

@@ -42,6 +42,8 @@ class ParallelLearningManager {
     int RL_Iterations = 20;
     int parallel_cores;
 
+    // keep order
+    std::chrono::seconds search_timeout;
     experiment_statistics experim_stats;
 
 
@@ -54,7 +56,8 @@ public:
             features{features},
             policy{pol},
             value{val},
-            experim_stats(features, pol, val),
+            search_timeout(vm["timeout"].as<int>()),
+            experim_stats(features, pol, val, search_timeout),
             parallel_cores{vm["num-parallel"].as<int>()}
     {
         if (vm.contains("RL-its")) {
@@ -169,7 +172,7 @@ experiment_statistics ParallelLearningManager<Search>::start(std::vector<std::st
 
         for (auto & problem : problems) {
             taskflow.emplace([&](){
-                Search search(problem, features, policy, value);
+                Search search(problem, features, policy, value, search_timeout);
                 search.start_search();
 
                 //add training data

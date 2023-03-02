@@ -41,6 +41,7 @@ private:
     Graph graph;
     std::vector<VertDescr> path;
 
+    std::chrono::seconds timeout;
 
     // objects for learning
     std::optional<AbstractFeatureGenerator*> features;
@@ -74,11 +75,13 @@ public:
     explicit BalancedBDMonteCarlo(const std::string& path,
                                   std::optional<AbstractFeatureGenerator*> features,
                                   std::optional<PolicyFunction*> pol,
-                                  std::optional<ValueFunction*> val) :
+                                  std::optional<ValueFunction*> val,
+                                  std::chrono::seconds timeout) :
                                         problem{path},
                                         features{features},
                                         policy{pol},
-                                        value{val}
+                                        value{val},
+                                        timeout{timeout}
     {
 
         auto pair = Sy2CPP::get_ast_and_symbol_table_from_file(path);

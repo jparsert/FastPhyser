@@ -29,6 +29,7 @@ std::optional<po::variables_map> parse_cmd_args(int argc, char* argv[])  {
             ("result-file", po::value<std::string>(), "File where to print experimental results in JSON format.")
             ("RL-its", po::value<int>(), "Number of Reinforcement Learning Iterations.")
             ("strategy", po::value<std::string>(), "Name of strategy to use")
+            ("timeout", po::value<int>()->default_value(DEFAULT_SEARCH_TIMEOUT.count()), "Timeout set to search function.")
             ("num-parallel", po::value<int>()->default_value(0), "Number of parallel workers. The default is half the system cores. Note that many parallel workers are memory intensive and may lead to forced process termination.")
             ;
 

@@ -21,7 +21,8 @@ bool BalancedBDMonteCarlo::start_search() {
         }
 
         auto d = std::chrono::duration_cast<std::chrono::seconds>(std::chrono::steady_clock::now()-start_time);
-        if (d > SEARCH_TIMEOUT) {
+        if (d > this->timeout) {
+            this->timed_out = true;
             return false;
         }
 
@@ -63,7 +64,7 @@ bool BalancedBDMonteCarlo::rollout(VertDescr node) {
 
         for (int j = 0; j < NUM_SMALL_STEPS_DEPTH; ++j) {
             auto d = std::chrono::duration_cast<std::chrono::seconds>(std::chrono::steady_clock::now()-start_time);
-            if (d > SEARCH_TIMEOUT) {
+            if (d > this->timeout) {
                 this->timed_out = true;
                 return false;
             }
