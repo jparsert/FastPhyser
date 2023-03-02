@@ -147,6 +147,7 @@ std::vector<float> BalancedBDMonteCarlo::multi_policy(VertDescr vtx, const std::
     return policy.value()->predict(feats);
 }
 
+
 std::vector<float> BalancedBDMonteCarlo::multi_value(const std::vector<VertDescr>& nodes) {
     if (this->value == nullptr or !this->value.value()->can_predict()) { // default value
         std::vector<float> res;
@@ -169,10 +170,12 @@ std::vector<float> BalancedBDMonteCarlo::multi_value(const std::vector<VertDescr
     return value.value()->predict(feats);
 }
 
+
 float BalancedBDMonteCarlo::uct(VertDescr source, VertDescr target) {
     auto [edge, flag] = boost::lookup_edge(source, target, graph);
     return calc_uct(graph[target].total_value, graph[source].visit_count, graph[target].visit_count, graph[edge].policy);
 }
+
 
 void BalancedBDMonteCarlo::back_propagate(const std::vector<VertDescr>& propagation_path, float _value) {
     for (const auto& vtx : propagation_path) {
@@ -186,9 +189,11 @@ bool BalancedBDMonteCarlo::update_policy_function() {
     return true;
 }
 
+
 bool BalancedBDMonteCarlo::update_value_function() {
     return true;
 }
+
 
 std::vector<std::pair<std::vector<float>, float>> BalancedBDMonteCarlo::get_policy_data() {
     std::vector<std::pair<std::vector<float>, float>> data;

@@ -355,17 +355,11 @@ std::any SyGuSZ3SolverReprBuilder::visitApplicationTerm(Sy2CPP::ApplicationTerm 
     for (auto& x : application.get_arguments()) {
         arg_sorts.push_back(Sy2CPP::TypeInference::infer_and_check_type(this->symbolTable, x.get()));
     }
-//= fplus::transform(
-//           [this](const auto& term){return Sy2CPP::TypeInference::infer_and_check_type(this->symbolTable, term.get());},
-//            application.get_arguments());
+    //= fplus::transform(
+    //           [this](const auto& term){return Sy2CPP::TypeInference::infer_and_check_type(this->symbolTable, term.get());},
+    //            application.get_arguments());
 
-    std::string s = to_string(id);
-    std::string s1 = to_string(arg_sorts[0]);
     auto descr = this->symbolTable.lookup_or_resolve_function(id, arg_sorts);
-    if (!descr) {
-        std::string s = to_string(id);
-        std::string s1 = to_string(arg_sorts[0]);
-    }
 
     Sy2CPP::FunctionDescriptor fun_descriptor = descr.value();
 
@@ -376,7 +370,6 @@ std::any SyGuSZ3SolverReprBuilder::visitApplicationTerm(Sy2CPP::ApplicationTerm 
         auto any = arg_sub->accept(*this);
         visited_args.push_back(std::any_cast<z3::expr>(any));
     }
-
 
     // CHECK FOR THEORY FUNCTIONS
     auto expr = create_theory_fun_expr(fun_descriptor, visited_args);
@@ -541,10 +534,34 @@ SyGuSZ3SolverReprBuilder::check_candidate(Sy2CPP::FunctionDescriptor& descr, Sy2
     this->symbolTable.pop_symbol_stack(vars.size());
 
     neg_constr = neg_constr.substitute(synth_decls, synth_expressions);
+    std::optional<z3::model> cegis_res = check_cegis_previous_models(neg_constr);
+    if (cegis_res) { // one of the previous models was correct
+        return z3::sat;
+    }
 
     // remove previous constraints if there are any
     solver.reset();
     solver.add(neg_constr);
 
-    return solver.check(assumptions);
+    z3::check_result res = solver.check(assumptions);
+    if (res == z3::sat) {  // add to CEGIS
+        this->cegis_models.push_back(solver.get_model());
+    }
+
+    return res;
+}
+
+std::optional<z3::model> SyGuSZ3SolverReprBuilder::check_cegis_previous_models(const z3::expr& expr) {
+    for (const auto& model : cegis_models) {
+        z3::expr e_cpy = expr;
+        z3::expr_vector substs(context);
+        for (const auto & free_var : free_variables) {
+            substs.push_back(model.eval(free_var));
+        }
+        e_cpy = e_cpy.substitute(free_variables, substs).simplify();
+        if (e_cpy.is_true()) {
+            return {model};
+        }
+    }
+    return std::nullopt;
 }

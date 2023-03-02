@@ -39,7 +39,7 @@ class SyGuSZ3SolverReprBuilder : public Sy2CPP::AstBaseVisitor {
     // bound variable stack
     std::vector<std::pair<Sy2CPP::SymbolDescriptor, z3::expr>> bd_variable_stack;
 
-    // List of all free variables/Could also be a set.
+    // List of all free variables.
     z3::expr_vector free_variables;
 
     /**
@@ -72,6 +72,16 @@ class SyGuSZ3SolverReprBuilder : public Sy2CPP::AstBaseVisitor {
     static
     std::optional<z3::expr>
     create_theory_fun_expr(Sy2CPP::FunctionDescriptor& descriptor, z3::expr_vector& vector1);
+
+    /**
+     * List of models for CEGIS loop
+     */
+    std::vector<z3::model> cegis_models;
+    /*
+     * Runs Counter-example guided Inductive Synthesis on expression. Note that the expression is assumed to have
+     * function declarations substituted accordingly.
+     * */
+    std::optional<z3::model> check_cegis_previous_models(const z3::expr& expr);
 
 public:
 
@@ -129,6 +139,7 @@ public:
     std::any visitCheckSynthCmd(Sy2CPP::CheckSynthCmd &context) override;
     std::any visitDefineFun(Sy2CPP::DefineFunCmd &context) override;
     std::any visitSynthFunCmd(Sy2CPP::SynthFunCmd &synthFun) override;
+
 };
 
 
