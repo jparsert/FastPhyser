@@ -45,7 +45,6 @@ struct experiment_iteration {
 
     std::vector<stat_problem> failed;
 
-
     std::vector<stat_problem> succeeded;
 
     std::vector<stat_problem> timed_out;

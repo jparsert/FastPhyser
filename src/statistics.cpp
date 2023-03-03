@@ -72,7 +72,12 @@ ftxui::Element experiment_statistics::render_iterations_abs() {
         ftxui::separator(),
         ftxui::text(pad_left("Tot. Time ", ' ', 16)),
         ftxui::separator(),
-        ftxui::text(pad_left("Avg. Graph Size", ' ', 16))
+        ftxui::text(pad_left("Avg. Graph Size", ' ', 16)),
+        ftxui::separator(),
+        ftxui::text(pad_left("Policy data len", ' ', 16)),
+        ftxui::separator(),
+        ftxui::text(pad_left("Value data len", ' ', 16)),
+
         }));
     its.push_back(ftxui::separator());
 
@@ -81,6 +86,9 @@ ftxui::Element experiment_statistics::render_iterations_abs() {
         int failed = static_cast<int>(iterations[i].failed.size());
         int timed_out = static_cast<int>(iterations[i].timed_out.size());
         int total = static_cast<int>(problems.size());
+        int policy_data_size = static_cast<int>(iterations[i].policy_data_size);
+        int value_data_size = static_cast<int>(iterations[i].value_data_size);
+
         unsigned long avg_graph_size = fplus::fold_left( [](const auto& x, const auto& y){return x+y;}, 0,
                                               fplus::transform(
                                                       [](const stat_problem& problem) {return problem.graph_size;}, iterations[i].succeeded)) / iterations[i].succeeded.size();
@@ -97,7 +105,11 @@ ftxui::Element experiment_statistics::render_iterations_abs() {
                                           ftxui::separator(),
                                           to_ftxui_text(std::to_string(iterations[i].iteration_time.count()) + "s"),
                                           ftxui::separator(),
-                                          to_ftxui_text(std::to_string(avg_graph_size) + " Vtx.")
+                                          to_ftxui_text(std::to_string(avg_graph_size) + " Vtx."),
+                                          ftxui::separator(),
+                                          to_ftxui_text(std::to_string(policy_data_size) + " pairs"),
+                                          ftxui::separator(),
+                                          to_ftxui_text(std::to_string(value_data_size) + " pairs")
         }));
         its.push_back(ftxui::separator());
     }
