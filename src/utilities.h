@@ -18,7 +18,11 @@
 #include "constants.h"
 
 
-// Bad function make me more efficient
+template<typename T>
+void concat(std::vector<T>& A, const std::vector<T>& B) {
+    A.insert(A.end(), B.begin(), B.end());
+}
+
 template<typename T>
 std::vector<T> concat_copy(const std::initializer_list<std::vector<T>>& lst) {
     std::vector<T> res;
@@ -28,6 +32,7 @@ std::vector<T> concat_copy(const std::initializer_list<std::vector<T>>& lst) {
 
     return res;
 }
+
 
 
 // Hash function and constants taken from

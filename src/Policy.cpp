@@ -96,8 +96,13 @@ std::vector<float> XGBoostPolicy::predict(const std::vector<std::vector<float>> 
             predict.push_back(inputs[row][col]);
         }
     }
+
+    return this->predict(predict, rows, cols);
+}
+
+std::vector<float> XGBoostPolicy::predict(const std::vector<float> &inputs, const std::size_t rows, const std::size_t cols) {
     DMatrixHandle pred_vecs;
-    safe_xgboost(XGDMatrixCreateFromMat(predict.data(), rows, cols, -1, &pred_vecs));
+    safe_xgboost(XGDMatrixCreateFromMat(inputs.data(), rows, cols, -1, &pred_vecs));
 
     //prediction
     bst_ulong out_len;

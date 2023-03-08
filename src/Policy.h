@@ -22,6 +22,8 @@ public:
 
     virtual std::vector<float> predict(const std::vector<std::vector<float>>& inputs) = 0;
 
+    virtual std::vector<float> predict(const std::vector<float>& inputs, std::size_t rows, std::size_t cols) = 0;
+
     [[nodiscard]] virtual std::string get_name() const = 0;
 };
 
@@ -46,6 +48,8 @@ public:
     bool can_predict() override {return ready_predict;}
 
     std::vector<float> predict(const std::vector<std::vector<float>>& inputs) override;
+
+    std::vector<float> predict(const std::vector<float>& inputs, std::size_t rows, std::size_t cols) override;
 
     [[nodiscard]] std::string get_name() const override {return "XGBoostPolicy";}
 };
