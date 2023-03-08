@@ -81,7 +81,7 @@ int main(int argc, char* argv[]) {
     }
     json js_res = to_json(results);
     std::ofstream res_file(result_file);
-    res_file << js_res;
+    res_file << std::setw(4) << js_res << std::endl;
 
     return 0;
 
