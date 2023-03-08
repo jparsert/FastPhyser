@@ -111,13 +111,11 @@ void DefaultLearningManager<Search>::start(std::vector<std::string>& problems) {
         // add new training data and train if we have iterations left
         if (iteration < this->RL_Iterations - 1) {
             if (policy) {
-                policy->set_training_data(policy_data);
-                pol.train();
+                pol.train(policy_data);
             }
 
             if (value) {
-                value->set_training_data(value_data);
-                value->train();
+                value->train(value_data);
             }
         }
 

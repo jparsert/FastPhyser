@@ -39,7 +39,7 @@ class ParallelLearningManager {
     PolicyFunction* policy;
     ValueFunction* value;
 
-    int RL_Iterations = 20;
+    int RL_Iterations = RL_ITERATIONS;
     int parallel_cores;
 
     // keep order
@@ -225,17 +225,14 @@ experiment_statistics ParallelLearningManager<Search>::start(std::vector<std::st
         if (iteration < this->RL_Iterations - 1) {
             if (policy) {
                 std::vector<std::pair<std::vector<float>,float>> tmp_pol(policy_data.begin(), policy_data.end());
-                policy->set_training_data(tmp_pol);
-                policy->train();
+                policy->train(tmp_pol);
             }
 
             if (value) {
                 std::vector<std::pair<std::vector<float>,float>> tmp_val(value_data.begin(), value_data.end());
-                value->set_training_data(tmp_val);
-                value->train();
+                value->train(tmp_val);
             }
         }
-
     }
 
     return this->experim_stats;
