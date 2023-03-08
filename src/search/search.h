@@ -8,7 +8,7 @@
 #include <vector>
 #include <string>
 #include <cmath>
-
+#include <Sy2CPP/Sy2CPP.h>
 
 float calc_uct(float target_val, int source_visits, int target_visits, float policy);
 
@@ -29,6 +29,13 @@ public:
 
     [[nodiscard]] virtual std::string get_name() const = 0;
 
+    [[nodiscard]] virtual Sy2CPP::SyGuSSolution get_solution() const = 0;
+
+    [[nodiscard]] virtual std::string get_problem() const = 0;
+
+    [[nodiscard]] virtual bool search_timed_out() const = 0;
+
+    [[nodiscard]] virtual unsigned long get_graph_size() const = 0;
 };
 
 

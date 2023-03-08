@@ -115,6 +115,14 @@ public:
 
     [[nodiscard]] std::string get_name() const override { return "AlphaZero";}
 
+    [[nodiscard]] Sy2CPP::SyGuSSolution get_solution() const override;
+
+    [[nodiscard]] std::string get_problem() const override {return problem;}
+
+    [[nodiscard]] bool search_timed_out() const override  {return timed_out;}
+
+    [[nodiscard]] unsigned long get_graph_size() const override;
+
 };
 
 

@@ -34,5 +34,12 @@ experiment_statistics balancedBDMC_policy_only(std::vector<std::string>& problem
  * */
 experiment_statistics balancedBDMC_value_only(std::vector<std::string>& problems, po::variables_map& opts);
 
+/*
+ *  Runs AlphaZero Carlo Search with XGBOOST value/policy and Siz2TermWalk
+ *
+ * */
+experiment_statistics AlphaZero_complete(std::vector<std::string>& problems, po::variables_map& opts);
+
+
 
 #endif //FASTPHYSER_STRATEGIES_H

@@ -11,6 +11,6 @@
 Note that depending on type of installation the following commands might need to be run using `sudo`
 
 ```
-sudo docker build -t FastPhyser .
-sudo docker run -it FastPhyser
+sudo docker build -t fastphyser .
+sudo docker run -it fastphyser
 ```

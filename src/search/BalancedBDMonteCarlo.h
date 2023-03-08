@@ -98,7 +98,7 @@ public:
         }
     }
 
-    [[nodiscard]] unsigned long get_graph_size() const;
+    [[nodiscard]] unsigned long get_graph_size() const override;
 
     bool start_search() override;
 
