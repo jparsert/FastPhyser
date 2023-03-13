@@ -204,10 +204,6 @@ std::vector<std::pair<std::vector<float>, float>> BalancedBDMonteCarlo::get_poli
         return {};
     }
 
-    if (!this->solution) {
-        return {};
-    }
-
     for (int i = 1; i < this->path.size()-1; ++i) {
         auto fst_term = this->features.value()->get_candidate_features(graph[path[i]].term.get());
         auto snd_term = this->features.value()->get_candidate_features(graph[path[i+1]].term.get());
@@ -217,7 +213,6 @@ std::vector<std::pair<std::vector<float>, float>> BalancedBDMonteCarlo::get_poli
         } else {
             data.emplace_back(fts, 0);
         }
-
     }
 
     return data;

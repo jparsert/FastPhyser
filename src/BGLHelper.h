@@ -27,6 +27,9 @@ using Graph = boost::adjacency_list<boost::vecS, boost::vecS, boost::directedS, 
 using VertDescr = boost::graph_traits<Graph>::vertex_descriptor;
 using EdgeDescr = boost::graph_traits<Graph>::edge_descriptor;
 
-
+/**
+ * Get the sum of the children's visits counts
+ */
+std::size_t get_child_visits_sum(Graph& g, VertDescr& vert);
 
 #endif //FASTPHYSER_BGLHELPER_H

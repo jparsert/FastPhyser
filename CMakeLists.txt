@@ -117,7 +117,7 @@ set(sources
         src/ParallelLearningManager.cpp
         src/statistics.cpp
         src/search/AlphaZero.cpp
-        src/strategies.cpp)
+        src/strategies.cpp src/BGLHelper.cpp)
 
 set(headers
         src/verification/smt_problem_builder.h

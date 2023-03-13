@@ -110,11 +110,11 @@ public:
 
     std::vector<std::pair<std::vector<float>, float>> get_policy_data() override;
 
-    [[nodiscard]] Sy2CPP::SyGuSSolution get_solution() const;
+    [[nodiscard]] Sy2CPP::SyGuSSolution get_solution() const override;
 
-    [[nodiscard]] std::string get_problem() const;
+    [[nodiscard]] std::string get_problem() const override;
 
-    [[nodiscard]] bool search_timed_out() const {return this->timed_out;}
+    [[nodiscard]] bool search_timed_out() const override {return this->timed_out;}
 
     [[nodiscard]] std::string get_name() const override {return "BalancedBDMonteCarlo";}
 

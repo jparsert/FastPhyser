@@ -177,10 +177,11 @@ experiment_statistics ParallelLearningManager<Search>::start(std::vector<std::st
 
                 //add training data
                 // policy training data
-                for (auto &pair: search.get_policy_data()) {
-                    policy_data.emplace_back(pair);
+                if (search.get_solution()) {  // policy only in successful runs
+                    for (auto &pair: search.get_policy_data()) {
+                        policy_data.emplace_back(pair);
+                    }
                 }
-
                 // value training data;
                 for (auto& pair : search.get_value_data()) {
                     value_data.emplace_back(pair);

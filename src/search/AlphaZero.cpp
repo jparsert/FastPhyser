@@ -177,12 +177,45 @@ VertDescr AlphaZero::get_best_successor_by_uct(VertDescr node) {
     return best;
 }
 
-std::vector<std::pair<std::vector<float>, float>> AlphaZero::get_value_data() {
-    return std::vector<std::pair<std::vector<float>, float>>();
+std::vector<std::pair<std::vector<float>, float>> AlphaZero::get_policy_data() {
+    std::vector<std::pair<std::vector<float>, float>> data;
+
+    if (!this->features or !this->policy) {
+        return {};
+    }
+
+    if (!this->solution) {
+        return {};
+    }
+
+    for (int i = 1; i < this->path.size()-1; ++i) {
+        auto fst_term = this->features.value()->get_candidate_features(graph[path[i]].term.get());
+        auto snd_term = this->features.value()->get_candidate_features(graph[path[i+1]].term.get());
+        auto fts = concat_copy({this->specification_features, fst_term, snd_term});
+        data.emplace_back(fts, static_cast<float>(graph[path[i]].visit_count)/static_cast<float>(get_child_visits_sum(graph, path[i])));
+    }
+
+    return data;
 }
 
-std::vector<std::pair<std::vector<float>, float>> AlphaZero::get_policy_data() {
-    return std::vector<std::pair<std::vector<float>, float>>();
+std::vector<std::pair<std::vector<float>, float>> AlphaZero::get_value_data() {
+    std::vector<std::pair<std::vector<float>, float>> data;
+
+    if (!this->features.has_value() or !this->value.has_value()) {
+        return {};
+    }
+
+    for (int i = 1; i < this->path.size(); ++i) {
+        auto fst_term = this->features.value()->get_candidate_features(graph[path[i]].term.get());
+        auto fts = concat_copy({this->specification_features, fst_term});
+        if (this->solution) {
+            data.emplace_back(fts, std::pow(0.95,this->path.size() - i));
+        } else {
+            data.emplace_back(fts, 0);
+        }
+    }
+
+    return data;
 }
 
 Sy2CPP::SyGuSSolution AlphaZero::get_solution() const {
