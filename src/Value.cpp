@@ -8,7 +8,8 @@
 #include "constants.h"
 
 
-XGBoostValue::XGBoostValue() = default;
+XGBoostValue::XGBoostValue() {
+}
 
 XGBoostValue::~XGBoostValue() {
     XGBoosterFree(booster.value());
@@ -16,34 +17,33 @@ XGBoostValue::~XGBoostValue() {
 }
 
 // should probably rewrite to use vector.data()
-bool XGBoostValue::train(const std::vector<std::pair<std::vector<float>, float>>& data) {
+bool XGBoostValue::train() {
     // no training data
-    if (data.empty()) {
+    if (this->data.empty()) {
         return false;
     }
     this->ready_predict = false;
+
 
     std::size_t rows = data.size();
     std::size_t cols = data[0].first.size();
 
     std::vector<float> data_matrix;
-    data_matrix.reserve(rows * cols);
 
-    std::vector<float> labels;
-    labels.reserve(rows);
+    float data_labels[rows];
 
     //fill data-set
     for (int row = 0; row < rows; row++) {
         for (int col = 0; col < cols; col++) {
             data_matrix.push_back(data[row].first[col]);
         }
-        labels.push_back(data[row].second);
+        data_labels[row] = data[row].second;
     }
 
     // create data
     DMatrixHandle training_dmatrix;
     safe_xgboost(XGDMatrixCreateFromMat(data_matrix.data(), rows, cols, -1, &training_dmatrix));
-    safe_xgboost(XGDMatrixSetFloatInfo(training_dmatrix, "label", labels.data(), rows));
+    safe_xgboost(XGDMatrixSetFloatInfo(training_dmatrix, "label", data_labels, rows));
 
     //free potential old booster
     if (booster.has_value()) {
@@ -52,6 +52,7 @@ bool XGBoostValue::train(const std::vector<std::pair<std::vector<float>, float>>
     } else {
         booster = std::make_optional<BoosterHandle>();
     }
+
 
     // Create new and set params
     safe_xgboost(XGBoosterCreate(&training_dmatrix, 1, &booster.value()));
@@ -79,7 +80,7 @@ bool XGBoostValue::train(const std::vector<std::pair<std::vector<float>, float>>
 
 }
 
-std::vector<float> XGBoostValue::predict(const std::vector<std::vector<float>> &inputs) {
+std::vector<float> XGBoostValue::predict(std::vector<std::vector<float>> &inputs) {
     if (inputs.empty()) {
         return {};
     }
@@ -88,21 +89,14 @@ std::vector<float> XGBoostValue::predict(const std::vector<std::vector<float>> &
 
 
     //create dmatrix features
-    std::vector<float> features;
-    features.reserve(rows*cols);
-
+    float feat[rows][cols];
     for (int row = 0; row < rows; row++) {
         for (int col = 0; col < cols; col++) {
-            features.push_back(inputs[row][col]);
+            feat[row][col] = inputs[row][col];
         }
     }
-
-    return this->predict(features, rows, cols);
-}
-
-std::vector<float> XGBoostValue::predict(const std::vector<float> &inputs, const std::size_t rows, const std::size_t cols) {
     DMatrixHandle pred_vecs;
-    safe_xgboost(XGDMatrixCreateFromMat(inputs.data(), rows, cols, -1, &pred_vecs));
+    safe_xgboost(XGDMatrixCreateFromMat(reinterpret_cast<float*>(feat), rows, cols, -1, &pred_vecs));
 
     //prediction
     bst_ulong out_len;
@@ -111,7 +105,9 @@ std::vector<float> XGBoostValue::predict(const std::vector<float> &inputs, const
     if (out_len != rows) {
         throw XGBoostException("Predicted lengths does not match input.");
     }
+
+    std::vector<float> res(f, f+out_len);
     safe_xgboost(XGDMatrixFree(pred_vecs));
 
-    return {f, f+out_len};
+    return res;
 }

@@ -55,11 +55,11 @@ private:
     bool timed_out = false;
 
 
-        /**
-         * Does rollouts from node
-         * @param node
-         * @return true if solution was found.
-        */
+    /**
+     * Does rollouts from node
+     * @param node
+     * @return true if solution was found.
+    */
     bool rollout(VertDescr node);
 
     std::vector<float> multi_policy(VertDescr vtx, const std::vector<VertDescr>& successors);
@@ -77,11 +77,11 @@ public:
                                   std::optional<PolicyFunction*> pol,
                                   std::optional<ValueFunction*> val,
                                   std::chrono::seconds timeout) :
-                                        problem{path},
-                                        features{features},
-                                        policy{pol},
-                                        value{val},
-                                        timeout{timeout}
+            problem{path},
+            features{features},
+            policy{pol},
+            value{val},
+            timeout{timeout}
     {
 
         auto pair = Sy2CPP::get_ast_and_symbol_table_from_file(path);
@@ -98,7 +98,7 @@ public:
         }
     }
 
-    [[nodiscard]] unsigned long get_graph_size() const override;
+    [[nodiscard]] unsigned long get_graph_size() const;
 
     bool start_search() override;
 
@@ -110,18 +110,15 @@ public:
 
     std::vector<std::pair<std::vector<float>, float>> get_policy_data() override;
 
-    [[nodiscard]] Sy2CPP::SyGuSSolution get_solution() const override;
+    [[nodiscard]] Sy2CPP::SyGuSSolution get_solution() const;
 
-    [[nodiscard]] std::string get_problem() const override;
+    [[nodiscard]] std::string get_problem() const;
 
-    [[nodiscard]] bool search_timed_out() const override {return this->timed_out;}
+    [[nodiscard]] bool search_timed_out() const {return this->timed_out;}
 
     [[nodiscard]] std::string get_name() const override {return "BalancedBDMonteCarlo";}
 
 };
-
-
-
 
 
 #endif //FASTPHYSER_BALANCEDBDMONTECARLO_H

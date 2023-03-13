@@ -135,18 +135,16 @@ std::vector<float> BalancedBDMonteCarlo::multi_policy(VertDescr vtx, const std::
         }
         return res;
     }
-    std::vector<float> feats;
+    std::vector<std::vector<float>> feats;
 
-    std::vector<float> fst_term = this->features.value()->get_candidate_features(graph[vtx].term.get());
+    auto fst_term = this->features.value()->get_candidate_features(graph[vtx].term.get());
     for (const auto& suc: successors) {
         auto snd_term = this->features.value()->get_candidate_features(graph[suc].term.get());
-        concat<float>(feats, this->specification_features);
-        concat<float>(feats, fst_term);
-        concat<float>(feats, snd_term);
+        auto fts = concat_copy({this->specification_features, fst_term, snd_term});
+        feats.push_back(fts);
     }
 
-    assert(specification_features.size() + fst_term.size() + fst_term.size() == feats.size()/successors.size());
-    return policy.value()->predict(feats, successors.size(), feats.size()/successors.size());
+    return policy.value()->predict(feats);
 }
 
 
@@ -161,15 +159,15 @@ std::vector<float> BalancedBDMonteCarlo::multi_value(const std::vector<VertDescr
         return res;
     }
 
-    std::vector<float> feats;
+    std::vector<std::vector<float>> feats;
 
     for (const auto& term: nodes) {
-        auto term_fts = this->features.value()->get_candidate_features(graph[term].term.get());
-        concat<float>(feats, specification_features);
-        concat<float>(feats, term_fts);
+        auto snd_term = this->features.value()->get_candidate_features(graph[term].term.get());
+        auto fts = concat_copy({this->specification_features, snd_term});
+        feats.push_back(fts);
     }
 
-    return policy.value()->predict(feats, nodes.size(), feats.size()/nodes.size());
+    return value.value()->predict(feats);
 }
 
 
@@ -204,6 +202,10 @@ std::vector<std::pair<std::vector<float>, float>> BalancedBDMonteCarlo::get_poli
         return {};
     }
 
+    if (!this->solution) {
+        return {};
+    }
+
     for (int i = 1; i < this->path.size()-1; ++i) {
         auto fst_term = this->features.value()->get_candidate_features(graph[path[i]].term.get());
         auto snd_term = this->features.value()->get_candidate_features(graph[path[i+1]].term.get());
@@ -213,6 +215,7 @@ std::vector<std::pair<std::vector<float>, float>> BalancedBDMonteCarlo::get_poli
         } else {
             data.emplace_back(fts, 0);
         }
+
     }
 
     return data;

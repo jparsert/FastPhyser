@@ -141,7 +141,7 @@ std::vector<float> AlphaZero::multi_policy(VertDescr vtx, const std::vector<Vert
     }
 
     assert(specification_features.size() + fst_term.size() + fst_term.size() == feats.size()/successors.size());
-    return policy.value()->predict(feats, successors.size(), feats.size()/successors.size());
+    return {};
 }
 
 std::vector<float> AlphaZero::multi_value(const std::vector<VertDescr>& nodes) {
@@ -163,7 +163,7 @@ std::vector<float> AlphaZero::multi_value(const std::vector<VertDescr>& nodes) {
         concat<float>(feats, term_fts);
     }
 
-    return policy.value()->predict(feats, nodes.size(), feats.size()/nodes.size());
+    return {};
 }
 
 float AlphaZero::uct(VertDescr source, VertDescr target) {

@@ -32,10 +32,10 @@ public:
     explicit DefaultLearningManager(AbstractFeatureGenerator* features,
                                     PolicyFunction* pol,
                                     ValueFunction* val):
-        features{features},
-        policy{pol},
-        value{val}
-        {}
+            features{features},
+            policy{pol},
+            value{val}
+    {}
 
 
 
@@ -111,11 +111,13 @@ void DefaultLearningManager<Search>::start(std::vector<std::string>& problems) {
         // add new training data and train if we have iterations left
         if (iteration < this->RL_Iterations - 1) {
             if (policy) {
-                pol.train(policy_data);
+                policy->set_training_data(policy_data);
+                pol.train();
             }
 
             if (value) {
-                value->train(value_data);
+                value->set_training_data(value_data);
+                value->train();
             }
         }
 
