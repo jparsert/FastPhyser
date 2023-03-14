@@ -110,7 +110,10 @@ bool AlphaZero::rollout(VertDescr root) {
 }
 
 void AlphaZero::back_propagate(const std::vector<VertDescr> &_path, float _value) {
-
+    for (const auto& vtx : _path) {
+        graph[vtx].visit_count += 1;
+        graph[vtx].total_value += _value;
+    }
 }
 
 bool AlphaZero::update_policy_function() {

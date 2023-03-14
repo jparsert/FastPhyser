@@ -17,9 +17,9 @@ XGBoostValue::~XGBoostValue() {
 }
 
 // should probably rewrite to use vector.data()
-bool XGBoostValue::train() {
+bool XGBoostValue::train(const std::vector<std::pair<std::vector<float>, float>>& data) {
     // no training data
-    if (this->data.empty()) {
+    if (data.empty()) {
         return false;
     }
     this->ready_predict = false;
@@ -30,20 +30,20 @@ bool XGBoostValue::train() {
 
     std::vector<float> data_matrix;
 
-    float data_labels[rows];
+    std::vector<float> data_labels;
 
     //fill data-set
     for (int row = 0; row < rows; row++) {
         for (int col = 0; col < cols; col++) {
             data_matrix.push_back(data[row].first[col]);
         }
-        data_labels[row] = data[row].second;
+        data_labels.push_back(data[row].second);
     }
 
     // create data
     DMatrixHandle training_dmatrix;
     safe_xgboost(XGDMatrixCreateFromMat(data_matrix.data(), rows, cols, -1, &training_dmatrix));
-    safe_xgboost(XGDMatrixSetFloatInfo(training_dmatrix, "label", data_labels, rows));
+    safe_xgboost(XGDMatrixSetFloatInfo(training_dmatrix, "label", data_labels.data(), rows));
 
     //free potential old booster
     if (booster.has_value()) {
@@ -89,14 +89,19 @@ std::vector<float> XGBoostValue::predict(std::vector<std::vector<float>> &inputs
 
 
     //create dmatrix features
-    float feat[rows][cols];
+    std::vector<float> feat;
     for (int row = 0; row < rows; row++) {
         for (int col = 0; col < cols; col++) {
-            feat[row][col] = inputs[row][col];
+            feat.push_back(inputs[row][col]);
         }
     }
+
+    return predict(feat, rows, cols);
+}
+
+std::vector<float> XGBoostValue::predict(const std::vector<float> &inputs, const size_t rows, const size_t cols) {
     DMatrixHandle pred_vecs;
-    safe_xgboost(XGDMatrixCreateFromMat(reinterpret_cast<float*>(feat), rows, cols, -1, &pred_vecs));
+    safe_xgboost(XGDMatrixCreateFromMat(inputs.data(), rows, cols, -1, &pred_vecs));
 
     //prediction
     bst_ulong out_len;
@@ -111,3 +116,5 @@ std::vector<float> XGBoostValue::predict(std::vector<std::vector<float>> &inputs
 
     return res;
 }
+
+

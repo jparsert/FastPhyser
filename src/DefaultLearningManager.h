@@ -56,8 +56,6 @@ void DefaultLearningManager<Search>::start(std::vector<std::string>& problems) {
 
     std::cout << "logging" << std::endl;
 
-
-    XGBoostPolicy pol;
     std::vector<std::pair<std::vector<float>,float>> policy_data;
     std::vector<std::pair<std::vector<float>,float>> value_data;
 
@@ -111,13 +109,11 @@ void DefaultLearningManager<Search>::start(std::vector<std::string>& problems) {
         // add new training data and train if we have iterations left
         if (iteration < this->RL_Iterations - 1) {
             if (policy) {
-                policy->set_training_data(policy_data);
-                pol.train();
+                policy->train(policy_data);
             }
 
             if (value) {
-                value->set_training_data(value_data);
-                value->train();
+                value->train(value_data);
             }
         }
 

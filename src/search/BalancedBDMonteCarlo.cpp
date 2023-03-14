@@ -135,16 +135,26 @@ std::vector<float> BalancedBDMonteCarlo::multi_policy(VertDescr vtx, const std::
         }
         return res;
     }
-    std::vector<std::vector<float>> feats;
-
-    auto fst_term = this->features.value()->get_candidate_features(graph[vtx].term.get());
-    for (const auto& suc: successors) {
-        auto snd_term = this->features.value()->get_candidate_features(graph[suc].term.get());
-        auto fts = concat_copy({this->specification_features, fst_term, snd_term});
-        feats.push_back(fts);
+    if (successors.empty()) {
+        return {};
     }
 
-    return policy.value()->predict(feats);
+    auto fst_term = this->features.value()->get_candidate_features(graph[vtx].term.get());
+
+    std::vector<float> feats;
+    size_t cols = this->specification_features.size() +
+            fst_term.size() +
+            this->features.value()->get_candidate_features(graph[successors[0]].term.get()).size();
+
+    for (const auto& suc: successors) {
+        auto snd_term = this->features.value()->get_candidate_features(graph[suc].term.get());
+        concat(feats, this->specification_features);
+        concat(feats, fst_term);
+        concat(feats, snd_term);
+    }
+
+    assert(cols == feats.size()/successors.size());
+    return policy.value()->predict(feats, successors.size(), cols);
 }
 
 
@@ -158,16 +168,21 @@ std::vector<float> BalancedBDMonteCarlo::multi_value(const std::vector<VertDescr
         }
         return res;
     }
-
-    std::vector<std::vector<float>> feats;
-
-    for (const auto& term: nodes) {
-        auto snd_term = this->features.value()->get_candidate_features(graph[term].term.get());
-        auto fts = concat_copy({this->specification_features, snd_term});
-        feats.push_back(fts);
+    if (nodes.empty()) {
+        return {};
     }
 
-    return value.value()->predict(feats);
+    std::vector<float> feats;
+    size_t cols = this->specification_features.size() +
+            this->features.value()->get_candidate_features(graph[nodes[0]].term.get()).size();
+
+    for (const auto& term: nodes) {
+        concat(feats, this->specification_features);
+        auto snd_term = this->features.value()->get_candidate_features(graph[term].term.get());
+        concat(feats, snd_term);
+    }
+    assert(cols == feats.size()/nodes.size());
+    return value.value()->predict(feats, nodes.size(), cols);
 }
 
 

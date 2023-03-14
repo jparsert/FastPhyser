@@ -16,15 +16,16 @@ public:
 
     virtual ~ValueFunction() = default;
 
-    virtual void set_training_data(std::vector<std::pair<std::vector<float>, float>>& pairs) = 0;
 
-    virtual bool train() = 0;
+    virtual bool train(const std::vector<std::pair<std::vector<float>, float>>& data) = 0;
 
     virtual bool can_predict() = 0;
 
     virtual std::vector<float> predict(std::vector<std::vector<float>>& inputs) = 0;
 
     [[nodiscard]] virtual std::string get_name() const = 0;
+
+    virtual std::vector<float> predict(const std::vector<float> &inputs, size_t rows, size_t cols) = 0;
 };
 
 
@@ -34,9 +35,6 @@ class XGBoostValue : public ValueFunction {
 
     bool ready_predict=false;
 
-    //training data
-    std::vector<std::pair<std::vector<float>, float>> data;
-
 
 public:
 
@@ -44,17 +42,15 @@ public:
 
     ~XGBoostValue() override;
 
-    void set_training_data(std::vector<std::pair<std::vector<float>, float>>& pairs) override{
-        this->data = pairs;
-    }
-
-    bool train() override;
+    bool train(const std::vector<std::pair<std::vector<float>, float>>& data) override;
 
     bool can_predict() override{return ready_predict;}
 
     std::vector<float> predict(std::vector<std::vector<float>>& inputs) override;
 
     [[nodiscard]] std::string get_name() const override {return "XGBoostValue";}
+
+    std::vector<float> predict(const std::vector<float> &inputs, size_t rows, size_t cols) override;
 };
 
 

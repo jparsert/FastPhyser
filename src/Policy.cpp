@@ -18,7 +18,7 @@ XGBoostPolicy::~XGBoostPolicy() {
 }
 
 // should probably rewrite to use vector.data()
-bool XGBoostPolicy::train() {
+bool XGBoostPolicy::train(const std::vector<std::pair<std::vector<float>, float>>& data) {
     // no training data
     if (data.empty()) {
         return false;
@@ -91,14 +91,19 @@ std::vector<float> XGBoostPolicy::predict(std::vector<std::vector<float>> &input
 
 
     //create dmatrix features
-    float feat[rows][cols];
+    std::vector<float> feat;
     for (int row = 0; row < rows; row++) {
         for (int col = 0; col < cols; col++) {
-            feat[row][col] = inputs[row][col];
+            feat.push_back(inputs[row][col]);
         }
     }
+
+    return predict(feat, rows, cols);
+}
+
+std::vector<float> XGBoostPolicy::predict(const std::vector<float> &inputs, size_t rows, size_t cols) {
     DMatrixHandle pred_vecs;
-    safe_xgboost(XGDMatrixCreateFromMat(reinterpret_cast<float*>(feat), rows, cols, -1, &pred_vecs));
+    safe_xgboost(XGDMatrixCreateFromMat(inputs.data(), rows, cols, -1, &pred_vecs));
 
     //prediction
     bst_ulong out_len;
