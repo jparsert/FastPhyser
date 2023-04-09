@@ -28,8 +28,7 @@ constexpr std::chrono::seconds DEFAULT_SEARCH_TIMEOUT(100);
 
 constexpr void safe_xgboost(int call) {
     if (call != 0) {
-        std::string msg = std::string(XGBGetLastError());
-        throw XGBoostException("Error in :" + msg);
+        throw XGBoostException("Error in :" + std::string(XGBGetLastError()));
     }
 }
 
