@@ -64,6 +64,7 @@ struct experiment_statistics {
     std::string value;
     std::string git_hash = GIT_COMMIT_HASH;
     std::string run_command;
+    std::string search_name;
 
 private:
     [[nodiscard]] ftxui::Element render_general_info() const;
@@ -71,19 +72,20 @@ private:
 
 public:
 
-    experiment_statistics(std::string  feature_gen, std::string  policy, std::string  value, std::chrono::seconds timeout):
+    experiment_statistics(std::string  feature_gen, std::string  policy, std::string  value, std::chrono::seconds timeout, std::string  searcher):
         features_generator(std::move(feature_gen)),
         policy(std::move(policy)),
         value(std::move(value)),
-        timeout(timeout)
+        timeout(timeout),
+        search_name(std::move(searcher))
     {   }
 
     experiment_statistics(AbstractFeatureGenerator* features, PolicyFunction* pol, ValueFunction* val,
-                          std::chrono::seconds timeout) :
+                          std::chrono::seconds timeout, std::string name) :
             experiment_statistics(features? features->get_name() : "DEFAULT",
                    pol ? pol->get_name() : "DEFAULT",
                    val ? val->get_name() : "DEFAULT",
-                   timeout)
+                   timeout, std::move(name))
     {}
 
     ftxui::Elements render_statistics();

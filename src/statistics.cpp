@@ -16,7 +16,7 @@ std::shared_ptr<ftxui::Node>to_ftxui_text(int number) {
 }
 
 std::shared_ptr<ftxui::Node>to_ftxui_text(const std::string& str) {
-    return ftxui::text(str) | size(ftxui::WIDTH, ftxui::EQUAL, 15);
+    return ftxui::text(str) | size(ftxui::WIDTH, ftxui::EQUAL, 20);
 }
 
 
@@ -31,22 +31,25 @@ ftxui::Elements experiment_statistics::render_statistics() {
 ftxui::Element experiment_statistics::render_general_info() const {
     auto some_info = ftxui::vbox({
                                          ftxui::hbox({
-                                                             to_ftxui_text("Git Hash:"), to_ftxui_text(GIT_COMMIT_HASH),
+                                                             to_ftxui_text("Git Hash: "), to_ftxui_text(GIT_COMMIT_HASH),
                                                      }),
                                          ftxui::hbox({
-                                                             to_ftxui_text("Timeout (s):"), to_ftxui_text(static_cast<int>(timeout.count())),
+                                                             to_ftxui_text("Timeout (s): "), to_ftxui_text(static_cast<int>(timeout.count())),
                                                      }),
                                          ftxui::hbox({
-                                                             ftxui::text("Value:"), to_ftxui_text(this->value),
+                                                             to_ftxui_text("Strategy: "), to_ftxui_text(search_name),
                                                      }),
                                          ftxui::hbox({
-                                                             ftxui::text("Policy:"), to_ftxui_text(this->policy),
+                                                             to_ftxui_text("Value: "), to_ftxui_text(this->value),
                                                      }),
                                          ftxui::hbox({
-                                                             ftxui::text("Features Extract.:"), to_ftxui_text(this->features_generator),
+                                                             to_ftxui_text("Policy: "), to_ftxui_text(this->policy),
                                                      }),
                                          ftxui::hbox({
-                                                             ftxui::text("Total # of problems:"), to_ftxui_text(static_cast<int>(this->problems.size())),
+                                                             to_ftxui_text("Features Extract.:"), to_ftxui_text(this->features_generator),
+                                                     }),
+                                         ftxui::hbox({
+                                                             to_ftxui_text("Total # of problems:"), to_ftxui_text(static_cast<int>(this->problems.size())),
                                                      }),
                                  });
     return window(ftxui::text("Experiment Options"), some_info);

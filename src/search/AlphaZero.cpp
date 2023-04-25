@@ -5,6 +5,7 @@
 #include "AlphaZero.h"
 #include <cmath>
 
+#include "Sy2CPP/AstPrinter.h"
 
 bool AlphaZero::start_search() {
 
@@ -77,11 +78,10 @@ bool AlphaZero::rollout(VertDescr root) {
 
         if (tree_generator->is_leaf(graph[current_node].term.get())) {  // leaf node
             auto res = verifier->check_candidate(verifier->get_synth_funs()[0], graph[current_node].term.get());
-
             if (res == z3::unsat) {
                 this->path.insert(path.end(), sub_path.begin(), sub_path.end());
                 this->solution = tree_generator->get_term_as_solution(graph[current_node].term.get());
-                // TODO this->back_propagate(sub_path, 1);
+                // this->back_propagate(sub_path, 1);
                 return true;
             } else {
                 // Propagate value 0 back //TODO
@@ -92,6 +92,7 @@ bool AlphaZero::rollout(VertDescr root) {
 
             std::vector<EdgeDescr> edge_indices;
             std::vector<VertDescr> suc_indices;
+
 
             for (auto& successor : successors) {
                 VertDescr vid = boost::add_vertex(MCNode{false, 0, 0.0, successor}, graph);
@@ -106,13 +107,14 @@ bool AlphaZero::rollout(VertDescr root) {
             // add all policies and values
             auto policies = this->multi_policy(current_node, suc_indices);
             auto values = this->multi_value(suc_indices);
+
+
             for (int k = 0; k < policies.size(); ++k) {
                 graph[edge_indices[k]] = MCEdge{policies[k]};
                 graph[suc_indices[k]].total_value = values[k];
             }
             graph[current_node].is_expanded = true;
             this->back_propagate(sub_path, graph[current_node].total_value);
-
         }
     }
     return false;
@@ -142,18 +144,26 @@ std::vector<float> AlphaZero::multi_policy(VertDescr vtx, const std::vector<Vert
         }
         return res;
     }
-    std::vector<float> feats;
-
-    std::vector<float> fst_term = this->features.value()->get_candidate_features(graph[vtx].term.get());
-    for (const auto& suc: successors) {
-        auto snd_term = this->features.value()->get_candidate_features(graph[suc].term.get());
-        concat<float>(feats, this->specification_features);
-        concat<float>(feats, fst_term);
-        concat<float>(feats, snd_term);
+    if (successors.empty()) {
+        return {};
     }
 
-    assert(specification_features.size() + fst_term.size() + fst_term.size() == feats.size()/successors.size());
-    return {};
+    auto fst_term = this->features.value()->get_candidate_features(graph[vtx].term.get());
+
+    std::vector<float> feats;
+    size_t cols = this->specification_features.size() +
+                  fst_term.size() +
+                  this->features.value()->get_candidate_features(graph[successors[0]].term.get()).size();
+
+    for (const auto& suc: successors) {
+        auto snd_term = this->features.value()->get_candidate_features(graph[suc].term.get());
+        concat(feats, this->specification_features);
+        concat(feats, fst_term);
+        concat(feats, snd_term);
+    }
+
+    assert(cols == feats.size()/successors.size());
+    return policy.value()->predict(feats, successors.size(), cols);
 }
 
 std::vector<float> AlphaZero::multi_value(const std::vector<VertDescr>& nodes) {
@@ -166,17 +176,23 @@ std::vector<float> AlphaZero::multi_value(const std::vector<VertDescr>& nodes) {
         }
         return res;
     }
-
-    std::vector<float> feats;
-
-    for (const auto& term: nodes) {
-        auto term_fts = this->features.value()->get_candidate_features(graph[term].term.get());
-        concat<float>(feats, specification_features);
-        concat<float>(feats, term_fts);
+    if (nodes.empty()) {
+        return {};
     }
 
-    return {};
+    std::vector<float> feats;
+    size_t cols = this->specification_features.size() +
+                  this->features.value()->get_candidate_features(graph[nodes[0]].term.get()).size();
+
+    for (const auto& term: nodes) {
+        concat(feats, this->specification_features);
+        auto snd_term = this->features.value()->get_candidate_features(graph[term].term.get());
+        concat(feats, snd_term);
+    }
+    assert(cols == feats.size()/nodes.size());
+    return value.value()->predict(feats, nodes.size(), cols);
 }
+
 
 float AlphaZero::uct(VertDescr source, VertDescr target) {
     auto [edge, flag] = boost::lookup_edge(source, target, graph);
@@ -221,7 +237,7 @@ std::vector<std::pair<std::vector<float>, float>> AlphaZero::get_value_data() {
         auto fst_term = this->features.value()->get_candidate_features(graph[path[i]].term.get());
         auto fts = concat_copy({this->specification_features, fst_term});
         if (this->solution) {
-            data.emplace_back(fts, std::pow(0.95,this->path.size() - i));
+            data.emplace_back(fts, std::pow(0.90,this->path.size() - i));
         } else {
             data.emplace_back(fts, 0);
         }

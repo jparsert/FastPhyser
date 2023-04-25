@@ -57,7 +57,7 @@ public:
             policy{pol},
             value{val},
             search_timeout(vm["timeout"].as<int>()),
-            experim_stats(features, pol, val, search_timeout),
+            experim_stats(features, pol, val, search_timeout, Search::get_search_name()),
             parallel_cores{vm["num-parallel"].as<int>()}
     {
         if (vm.contains("RL-its")) {

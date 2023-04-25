@@ -36,6 +36,7 @@ public:
     [[nodiscard]] virtual bool search_timed_out() const = 0;
 
     [[nodiscard]] virtual unsigned long get_graph_size() const = 0;
+
 };
 
 

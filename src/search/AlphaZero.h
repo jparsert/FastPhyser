@@ -123,6 +123,9 @@ public:
 
     [[nodiscard]] unsigned long get_graph_size() const override;
 
+    static std::string  get_search_name() {return "AlphaZero";}
+
+
 };
 
 
