@@ -104,6 +104,8 @@ bool AlphaZero::rollout(VertDescr root) {
                 graph[suc_indices[k]].total_value = values[k];
             }
             graph[current_node].is_expanded = true;
+            this->back_propagate(sub_path, graph[current_node].total_value);
+
         }
     }
     return false;
