@@ -30,22 +30,23 @@ bool XGBoostPolicy::train(const std::vector<std::pair<std::vector<float>, float>
 
     std::vector<float> data_matrix;
 
-    float data_labels[rows];
 
+    std::vector<float> data_labels;
+    data_labels.reserve(rows);
 
     //fill data-set
     for (int row = 0; row < rows; row++) {
         for (int col = 0; col < cols; col++) {
             data_matrix.push_back(data[row].first[col]);
         }
-        data_labels[row] = data[row].second;
+        data_labels.push_back(data[row].second);
     }
 
 
     // create data
     DMatrixHandle training_dmatrix;
     safe_xgboost(XGDMatrixCreateFromMat(data_matrix.data(), rows, cols, -1, &training_dmatrix));
-    safe_xgboost(XGDMatrixSetFloatInfo(training_dmatrix, "label", data_labels, rows));
+    safe_xgboost(XGDMatrixSetFloatInfo(training_dmatrix, "label", data_labels.data(), rows));
 
     //free potential old booster
 

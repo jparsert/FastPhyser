@@ -91,7 +91,7 @@ ftxui::Element experiment_statistics::render_iterations_abs() {
 
         unsigned long avg_graph_size = fplus::fold_left( [](const auto& x, const auto& y){return x+y;}, 0,
                                               fplus::transform(
-                                                      [](const stat_problem& problem) {return problem.graph_size;}, iterations[i].succeeded)) / iterations[i].succeeded.size();
+                                                      [](const stat_problem& problem) {return problem.graph_size;}, iterations[i].succeeded)) / std::max(iterations[i].succeeded.size(), static_cast<std::size_t>(1));
 
 
         its.push_back(ftxui::vbox({

@@ -89,7 +89,7 @@ void ParallelLearningManager<Search>::searcher_status(std::size_t successful,
     auto total_completed = successful + failed + timed_out;
     static std::string reset_position;
     auto stats = experim_stats.render_statistics();
-    stats.push_back(ftxui::window(ftxui::text("Current Iteration " + std::to_string(experim_stats.iterations.size()+1) + "/" + std::to_string(this->RL_Iterations)),
+    stats.push_back(ftxui::window(ftxui::text("Current Iteration " + std::to_string(std::min(experim_stats.iterations.size(), static_cast<std::size_t>(this->RL_Iterations))) + "/" + std::to_string(this->RL_Iterations)),
                                   ftxui::vbox({
                                                       ftxui::hbox({
                                                                           ftxui::text(pad_right("Completed ", 12)),

@@ -68,6 +68,13 @@ bool AlphaZero::rollout(VertDescr root) {
         }
         // current_node is now the first non-expanded node
 
+        auto d = std::chrono::duration_cast<std::chrono::seconds>(std::chrono::steady_clock::now()-start_time);
+        if (d > this->timeout) {
+            this->timed_out = true;
+            return false;
+        }
+
+
         if (tree_generator->is_leaf(graph[current_node].term.get())) {  // leaf node
             auto res = verifier->check_candidate(verifier->get_synth_funs()[0], graph[current_node].term.get());
 
@@ -197,7 +204,7 @@ std::vector<std::pair<std::vector<float>, float>> AlphaZero::get_policy_data() {
         auto fst_term = this->features.value()->get_candidate_features(graph[path[i]].term.get());
         auto snd_term = this->features.value()->get_candidate_features(graph[path[i+1]].term.get());
         auto fts = concat_copy({this->specification_features, fst_term, snd_term});
-        data.emplace_back(fts, static_cast<float>(graph[path[i]].visit_count)/static_cast<float>(get_child_visits_sum(graph, path[i])));
+        data.emplace_back(fts, static_cast<float>(graph[path[i]].visit_count)/std::max(static_cast<float>(get_child_visits_sum(graph, path[i])), 1.0f));
     }
 
     return data;
