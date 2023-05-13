@@ -65,6 +65,14 @@ int main(int argc, char* argv[]) {
     // collect all problem files
     std::vector<std::string> problems = files_with_suffix_in_dirs(vm["input"].as<std::vector<std::string>>(), ".sl");
 
+    if(problems.empty()) {
+        std::cerr << "Could not find any files with \".sl\" ending in: " << std::endl;
+        for (const auto& x : vm["input"].as<std::vector<std::string>>()) {
+            std::cerr << "\t" << x << std::endl;
+        }
+        return -1;
+    }
+
     std::string strategy = vm.count("strategy") ? vm["strategy"].as<std::string>() : "default";
     // run experiments with the correct strategy
     experiment_statistics results = strategies[strategy](problems, vm);

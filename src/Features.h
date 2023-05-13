@@ -8,7 +8,8 @@
 #include "Sy2CPP/ast.h"
 #include "constants.h"
 #include "utilities.h"
-
+#include <map>
+#include <unordered_map>
 
 class AbstractFeatureGenerator {
 
@@ -28,6 +29,7 @@ public:
 class Size2TermWalk : public AbstractFeatureGenerator, public Sy2CPP::AstBaseVisitor {
 
     std::vector<float> features;
+    std::unordered_map<Sy2CPP::EitherIdentifier, size_t> arguments;
 
 public:
 
@@ -66,9 +68,16 @@ public:
         throw Sy2CPP::NotImplemented("Feature not Implemented");
     }
     std::any visitIdentifierTerm(Sy2CPP::IdentifierTerm &term) override {
-        std::size_t hash = std::hash<Sy2CPP::EitherIdentifier>()(term.get_identifier());
-        features[hash % NUM_FEATURES] += 1.0f;
-        return hash;
+        auto x = term.get_identifier();
+        if (arguments.contains(x)) {  // This is a function argument
+            const size_t hash = arguments[x];
+            features[hash] += 1.0f;
+            return hash;
+        } else { // This is not a function argument but some other variable
+            std::size_t hash = std::hash<Sy2CPP::EitherIdentifier>()(term.get_identifier());
+            features[hash % NUM_FEATURES] += 1.0f;
+            return hash;
+        }
     }
 
     std::any visitApplicationTerm(Sy2CPP::ApplicationTerm &application) override {
@@ -105,6 +114,18 @@ public:
 
     std::any visitConstraintCmd(Sy2CPP::ConstraintCmd &constraintCmd) override {
         constraintCmd.get_term()->accept(*this);
+        return {};
+    }
+
+    std::any visitSynthFunCmd(Sy2CPP::SynthFunCmd &synthFun) override {
+        std::vector<Sy2CPP::SortedVar> args =  synthFun.get_arguments();
+
+        auto hash = std::hash<std::string>()("synth_fun_arg");
+
+        for (int i = 0; i < args.size(); ++i) {
+            size_t comb_hash = hash_combine(hash, i) % NUM_FEATURES;
+            arguments.insert({args[i].first, comb_hash});
+        }
         return {};
     }
 };

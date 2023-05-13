@@ -12,7 +12,9 @@ XGBoostValue::XGBoostValue() {
 }
 
 XGBoostValue::~XGBoostValue() {
-    XGBoosterFree(booster.value());
+    if (booster) {
+        safe_xgboost(XGBoosterFree(*booster));
+    }
 
 }
 

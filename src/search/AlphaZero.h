@@ -98,7 +98,6 @@ public:
             timeout{timeout},
             arg_map{std::move(vm)}
     {
-
         auto pair = Sy2CPP::get_ast_and_symbol_table_from_file(path);
         ast = pair.first;
         symbol_table = pair.second;

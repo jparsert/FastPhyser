@@ -54,10 +54,10 @@ std::size_t hash_vector(const std::vector<T>& vec) {
 // Hash function and constants taken from
 //  https://stackoverflow.com/questions/2590677/how-do-i-combine-hash-values-in-c0x
 template <typename T, typename... Rest>
-void hash_combine(std::size_t& seed, const T& v, const Rest&... rest)
+void hash_combine_inplace(std::size_t& seed, const T& v, const Rest&... rest)
 {
     seed ^= std::hash<T>{}(v) + 0x9e3779b9 + (seed << 6) + (seed >> 2);
-    (hash_combine(seed, rest), ...);
+    (hash_combine_inplace(seed, rest), ...);
 }
 
 template <typename T, typename... Rest>
@@ -65,7 +65,7 @@ size_t hash_combine(const T& v, const Rest&... rest)
 {
     size_t seed = 0;
     seed ^= std::hash<T>{}(v) + 0x9e3779b9 + (seed << 6) + (seed >> 2);
-    (hash_combine(seed, rest), ...);
+    (hash_combine_inplace(seed, rest), ...);
 
     return seed;
 }
