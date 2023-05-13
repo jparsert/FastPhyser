@@ -52,7 +52,7 @@ RUN make install
 
 WORKDIR /3rdparty
 RUN git clone https://github.com/jparsert/Sy2CPP
-WORKDIR /3rdparty/Sy2CPP/src/build
+WORKDIR /3rdparty/Sy2CPP/build
 RUN cmake ..
 RUN make -j$(nproc)
 RUN make install

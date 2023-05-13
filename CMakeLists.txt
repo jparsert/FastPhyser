@@ -53,11 +53,11 @@ find_package(Boost COMPONENTS graph REQUIRED)
 find_package(Boost COMPONENTS program_options REQUIRED)
 
 # progress bars
-FetchContent_Declare(Sy2CPP
-        GIT_REPOSITORY https://github.com/jparsert/Sy2CPP
-        GIT_TAG main
-)
-FetchContent_MakeAvailable(Sy2CPP)
+#FetchContent_Declare(Sy2CPP
+#        GIT_REPOSITORY https://github.com/jparsert/Sy2CPP
+#        GIT_TAG main
+#)
+#FetchContent_MakeAvailable(Sy2CPP)
 # Make sure sy2pp is installed
 
 find_library(Sy2CPP sy2cpp REQUIRED)
@@ -135,8 +135,7 @@ set(headers
         src/statistics.h
         src/search/AlphaZero.h
         src/BGLHelper.h
-        src/strategies.h
-        )
+        src/strategies.h)
 
 
 add_executable(FastPhyser src/main.cpp ${sources} ${headers})
@@ -151,7 +150,8 @@ include_directories(
         ${progressbar_SOURCE_DIR}/single_include
         ${taskflow_SOURCE_DIR}
         ${z3_SOURCE_DIR}/src/api/c++
-        ${z3_SOURCE_DIR}/src/api)
+        ${z3_SOURCE_DIR}/src/api
+)
 
 
 #link_directories(${z3_BINARY_DIR})
