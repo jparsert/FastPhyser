@@ -62,7 +62,7 @@ bool XGBoostPolicy::train(const std::vector<std::pair<std::vector<float>, float>
     safe_xgboost(XGBoosterCreate(&training_dmatrix, 1, booster.get()));
     safe_xgboost(XGBoosterSetParam(*booster, "booster", "gbtree"));
     //XGBoosterSetParam(booster, "objective", "reg:linear");
-    safe_xgboost(XGBoosterSetParam(*booster, "max_depth", "15"));
+    safe_xgboost(XGBoosterSetParam(*booster, "max_depth", std::to_string(POLICY_MAX_DEPTH).c_str()));
     if (vm.count("seed")) {
         XGBoosterSetParam(*booster, "seed", std::to_string(vm["seed"].as<int>()).c_str());
     }
@@ -74,7 +74,7 @@ bool XGBoostPolicy::train(const std::vector<std::pair<std::vector<float>, float>
 
     std::cout << "TRAINING Policy" << std::endl;
     // train for n iterations
-    for (int iter = 0; iter < 200; ++iter) {
+    for (int iter = 0; iter < POLICY_MAX_ITERATIONS; ++iter) {
         safe_xgboost(XGBoosterUpdateOneIter(*booster, iter, training_dmatrix));
     }
 

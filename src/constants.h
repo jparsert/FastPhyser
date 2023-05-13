@@ -10,6 +10,17 @@
 #include <xgboost/c_api.h>
 #include <chrono>
 
+constexpr int POLICY_MAX_DEPTH = 10;
+constexpr int VALUE_MAX_DEPTH = 10;
+
+constexpr int VALUE_MAX_ITERATIONS = 200;
+constexpr int POLICY_MAX_ITERATIONS = 200;
+
+
+//constexpr std::string_view POLICY_ETA = "0.3";  use default
+//constexpr std::string_view VALUE_ETA = "0.3";   use default
+
+
 // Monte Carlo Search
 constexpr int NUM_BIG_STEPS = 20;
 constexpr int NUM_SMALL_STEPS_BREADTH = 500;

@@ -5,7 +5,7 @@
 #ifndef FASTPHYSER_STATISTICS_H
 #define FASTPHYSER_STATISTICS_H
 
-
+#include "constants.h"
 #include <string>
 #include <utility>
 #include <vector>
@@ -66,6 +66,10 @@ struct experiment_statistics {
     std::string run_command;
     std::string search_name;
     std::string seed;
+    std::string policy_max_depth = std::to_string(POLICY_MAX_DEPTH);
+    std::string value_max_depth = std::to_string(VALUE_MAX_DEPTH);
+
+
 
 private:
     [[nodiscard]] ftxui::Element render_general_info() const;
