@@ -118,7 +118,7 @@ set(sources
         src/search/AlphaZero.cpp
         src/strategies.cpp
         src/BGLHelper.cpp
-        src/ExperimentSettings.cpp)
+        )
 
 set(headers
         src/verification/smt_problem_builder.h
@@ -136,7 +136,7 @@ set(headers
         src/search/AlphaZero.h
         src/BGLHelper.h
         src/strategies.h
-        src/ExperimentSettings.h)
+        )
 
 
 add_executable(FastPhyser src/main.cpp ${sources} ${headers})
