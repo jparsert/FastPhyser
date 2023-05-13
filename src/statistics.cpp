@@ -9,7 +9,9 @@
 #include "fplus/fplus.hpp"
 
 #include <nlohmann/json.hpp>
-using json = nlohmann::json;
+#include <map>
+
+using ordered_json = nlohmann::ordered_json;
 
 std::shared_ptr<ftxui::Node>to_ftxui_text(int number) {
     return ftxui::text(std::to_string(number)) | size(ftxui::WIDTH, ftxui::EQUAL, 12);
@@ -159,8 +161,8 @@ json to_json(const experiment_iteration& it) {
 }
 
 
-json to_json(const experiment_statistics& exp_stats) {
-    json res;
+ordered_json to_json(const experiment_statistics& exp_stats) {
+    ordered_json res;
 
     res["feature_generator"] = exp_stats.features_generator;
     res["policy_function"] = exp_stats.policy;
@@ -168,8 +170,10 @@ json to_json(const experiment_statistics& exp_stats) {
     res["timeout"] = exp_stats.timeout.count();
     res["git_hash"] = exp_stats.git_hash;
     res["run_command"] = exp_stats.run_command;
-    res["all_problems"] = exp_stats.problems;
+    res["seed"] = exp_stats.seed;
+    res["search_algorithm"] = exp_stats.search_name;
 
+    res["all_problems"] = exp_stats.problems;
     auto iterations = json::array();
     for (const auto& it : exp_stats.iterations) {
         iterations.push_back(to_json(it));

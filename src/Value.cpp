@@ -17,7 +17,7 @@ XGBoostValue::~XGBoostValue() {
 }
 
 // should probably rewrite to use vector.data()
-bool XGBoostValue::train(const std::vector<std::pair<std::vector<float>, float>>& data) {
+bool XGBoostValue::train(const std::vector<std::pair<std::vector<float>, float>>& data, boost::program_options::variables_map& vm) {
     // no training data
     if (data.empty()) {
         return false;
@@ -56,10 +56,12 @@ bool XGBoostValue::train(const std::vector<std::pair<std::vector<float>, float>>
 
     // Create new and set params
     safe_xgboost(XGBoosterCreate(&training_dmatrix, 1, &booster.value()));
-    safe_xgboost(XGBoosterSetParam(booster.value(), "booster", "gbtree"));
+    safe_xgboost(XGBoosterSetParam(*booster, "booster", "gbtree"));
     //XGBoosterSetParam(booster, "objective", "reg:linear");
-    safe_xgboost(XGBoosterSetParam(booster.value(), "max_depth", "15"));
-    //XGBoosterSetParam(booster, "seed", "0");
+    safe_xgboost(XGBoosterSetParam(*booster, "max_depth", "15"));
+    if (vm.count("seed")) {
+        XGBoosterSetParam(*booster, "seed",  std::to_string(vm["seed"].as<int>()).c_str());
+    }
     //XGBoosterSetParam(booster, "eta", "0.1");
     //XGBoosterSetParam(booster, "min_child_weight", "1");
     //XGBoosterSetParam(booster, "subsample", "0.5");

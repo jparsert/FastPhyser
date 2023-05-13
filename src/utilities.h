@@ -87,7 +87,7 @@ auto arg_max(Container const & c, F && pred) -> decltype(*std::begin(c))
  * Argmax with random tie break (rtb)
  */
 template<typename T, typename Compare>
-T max_element_rtb(std::vector<T> cont, Compare pred)
+T max_element_rtb(std::vector<T> cont, Compare pred, std::mt19937& gen)
 {
     if (cont.empty()){
         throw std::invalid_argument("empty container is not allowed.");
@@ -103,10 +103,7 @@ T max_element_rtb(std::vector<T> cont, Compare pred)
         }
     }
 
-    std::random_device rd; // obtain a random number from hardware
-    std::mt19937 gen(rd()); // seed the generator
     std::uniform_int_distribution<> distr(0, static_cast<int>(res.size()-1)); // define the range
-
     return cont[res[distr(gen)]];
 }
 

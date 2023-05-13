@@ -43,7 +43,7 @@ bool AlphaZero::start_search() {
             active_node = path[std::max(static_cast<int>(path.size()-3),0)];
         } else {
             VertDescr next_one = max_element_rtb(next_non_leafs,
-                                                 [this](const VertDescr &vtx) { return graph[vtx].visit_count; });
+                                                 [this](const VertDescr &vtx) { return graph[vtx].visit_count; }, random_generator);
             active_node = next_one;
         }
 
@@ -62,7 +62,7 @@ bool AlphaZero::rollout(VertDescr root) {
         std::vector<VertDescr> sub_path;
         sub_path.push_back(current_node);
 
-        // search until first not expanded node
+        // search until first not expanded node/or leaf node (leaf nodes are not expanded)
         while (graph[current_node].is_expanded) {
             current_node = this->get_best_successor_by_uct(current_node);
             sub_path.push_back(current_node);
@@ -81,11 +81,12 @@ bool AlphaZero::rollout(VertDescr root) {
             if (res == z3::unsat) {
                 this->path.insert(path.end(), sub_path.begin(), sub_path.end());
                 this->solution = tree_generator->get_term_as_solution(graph[current_node].term.get());
-                // this->back_propagate(sub_path, 1);
                 return true;
             } else {
-                // Propagate value 0 back //TODO
-                this->back_propagate(sub_path, 0);
+                // Propagate value 0 back
+                // leaf nodes are not expanded so that the call to get_best_successor_by_uct does not fail.
+                //
+                graph[current_node].total_value = 0;
             }
         } else { // in case it's not a terminal (i.e. leaf) node
             std::vector<Sy2CPP::TermPtr> successors = tree_generator->generate_leftmost_product_terms(graph[current_node].term.get());
@@ -108,14 +109,14 @@ bool AlphaZero::rollout(VertDescr root) {
             auto policies = this->multi_policy(current_node, suc_indices);
             auto values = this->multi_value(suc_indices);
 
-
             for (int k = 0; k < policies.size(); ++k) {
                 graph[edge_indices[k]] = MCEdge{policies[k]};
                 graph[suc_indices[k]].total_value = values[k];
             }
+
             graph[current_node].is_expanded = true;
-            this->back_propagate(sub_path, graph[current_node].total_value);
         }
+        this->back_propagate(sub_path, graph[current_node].total_value);
     }
     return false;
 }

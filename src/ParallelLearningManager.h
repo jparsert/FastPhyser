@@ -46,7 +46,7 @@ class ParallelLearningManager {
     std::chrono::seconds search_timeout;
     experiment_statistics experim_stats;
 
-
+    po::variables_map argument_map;
 
 public:
     explicit ParallelLearningManager(AbstractFeatureGenerator* features,
@@ -57,8 +57,9 @@ public:
             policy{pol},
             value{val},
             search_timeout(vm["timeout"].as<int>()),
-            experim_stats(features, pol, val, search_timeout, Search::get_search_name()),
-            parallel_cores{vm["num-parallel"].as<int>()}
+            experim_stats(features, pol, val, search_timeout, Search::get_search_name(), vm.count("seed") ? std::to_string(vm["seed"].as<int>()) : ""),
+            parallel_cores{vm["num-parallel"].as<int>()},
+            argument_map(vm)
     {
         if (vm.contains("RL-its")) {
             RL_Iterations = vm["RL-its"].as<int>();
@@ -172,7 +173,7 @@ experiment_statistics ParallelLearningManager<Search>::start(std::vector<std::st
 
         for (auto & problem : problems) {
             taskflow.emplace([&](){
-                Search search(problem, features, policy, value, search_timeout);
+                Search search(problem, features, policy, value, search_timeout, argument_map);
                 search.start_search();
 
                 //add training data
@@ -225,12 +226,12 @@ experiment_statistics ParallelLearningManager<Search>::start(std::vector<std::st
         if (iteration < this->RL_Iterations - 1) {
             if (policy) {
                 std::vector<std::pair<std::vector<float>,float>> tmp_pol(policy_data.begin(), policy_data.end());
-                policy->train(tmp_pol);
+                policy->train(tmp_pol, argument_map);
             }
 
             if (value) {
                 std::vector<std::pair<std::vector<float>,float>> tmp_val(value_data.begin(), value_data.end());
-                value->train(tmp_val);
+                value->train(tmp_val, argument_map);
             }
         }
 

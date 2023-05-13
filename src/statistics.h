@@ -65,6 +65,7 @@ struct experiment_statistics {
     std::string git_hash = GIT_COMMIT_HASH;
     std::string run_command;
     std::string search_name;
+    std::string seed;
 
 private:
     [[nodiscard]] ftxui::Element render_general_info() const;
@@ -72,20 +73,21 @@ private:
 
 public:
 
-    experiment_statistics(std::string  feature_gen, std::string  policy, std::string  value, std::chrono::seconds timeout, std::string  searcher):
+    experiment_statistics(std::string  feature_gen, std::string  policy, std::string  value, std::chrono::seconds timeout, std::string  searcher, std::string seed):
         features_generator(std::move(feature_gen)),
         policy(std::move(policy)),
         value(std::move(value)),
         timeout(timeout),
-        search_name(std::move(searcher))
+        search_name(std::move(searcher)),
+        seed(std::move(seed))
     {   }
 
     experiment_statistics(AbstractFeatureGenerator* features, PolicyFunction* pol, ValueFunction* val,
-                          std::chrono::seconds timeout, std::string name) :
+                          std::chrono::seconds timeout, std::string name, std::string seed) :
             experiment_statistics(features? features->get_name() : "DEFAULT",
                    pol ? pol->get_name() : "DEFAULT",
                    val ? val->get_name() : "DEFAULT",
-                   timeout, std::move(name))
+                   timeout, std::move(name), std::move(seed))
     {}
 
     ftxui::Elements render_statistics();
@@ -94,9 +96,10 @@ public:
 
 };
 
+using ordered_json = nlohmann::ordered_json;
 
 json to_json(const stat_problem& problem);
 json to_json(const experiment_iteration& experiment_iteration);
-json to_json(const experiment_statistics& experiment_statistics);
+ordered_json to_json(const experiment_statistics& experiment_statistics);
 
 #endif //FASTPHYSER_STATISTICS_H

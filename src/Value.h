@@ -6,9 +6,13 @@
 #define FASTPHYSER_VALUE_H
 
 #include <vector>
-#include <xgboost/c_api.h>
 #include <optional>
 #include <string>
+
+#include <xgboost/c_api.h>
+
+#include <boost/program_options.hpp>
+
 
 class ValueFunction {
 
@@ -16,8 +20,7 @@ public:
 
     virtual ~ValueFunction() = default;
 
-
-    virtual bool train(const std::vector<std::pair<std::vector<float>, float>>& data) = 0;
+    virtual bool train(const std::vector<std::pair<std::vector<float>, float>>& data, boost::program_options::variables_map& vm) = 0;
 
     virtual bool can_predict() = 0;
 
@@ -42,7 +45,7 @@ public:
 
     ~XGBoostValue() override;
 
-    bool train(const std::vector<std::pair<std::vector<float>, float>>& data) override;
+    bool train(const std::vector<std::pair<std::vector<float>, float>>& data, boost::program_options::variables_map& vm) override;
 
     bool can_predict() override{return ready_predict;}
 

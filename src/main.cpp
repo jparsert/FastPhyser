@@ -26,9 +26,10 @@ std::optional<po::variables_map> parse_cmd_args(int argc, char* argv[])  {
     po::options_description desc("Allowed options");
     desc.add_options()
             ("help,h", "produce help message")
+            ("seed",  po::value<int>(), "Set a Seed for RNG functions.")
             ("input,I", po::value<std::vector<std::string>>()->multitoken()->required(), "Directory containing problem files.")
             ("result-file", po::value<std::string>(), "File where to print experimental results in JSON format.")
-            ("RL-its", po::value<int>(), "Number of Reinforcement Learning Iterations.")
+            ("RL-its", po::value<int>()->default_value(RL_ITERATIONS), "Number of Reinforcement Learning Iterations.")
             ("strategy", po::value<std::string>(), "Name of strategy to use")
             ("timeout", po::value<int>()->default_value(DEFAULT_SEARCH_TIMEOUT.count()), "Timeout set to search function.")
             ("num-parallel", po::value<int>()->default_value(0), "Number of parallel workers. The default is half the system cores. Note that many parallel workers are memory intensive and may lead to forced process termination.")
@@ -71,7 +72,16 @@ int main(int argc, char* argv[]) {
 
     // Print the results in JSON
     auto args = std::vector<std::string>{argv, argv+argc};
-    auto run_cmd = std::accumulate(args.begin(), args.end(), std::string(""));
+
+    auto dash_fold = [](std::string a, std::string b)
+    {
+        return std::move(a) + ' ' + std::move(b);
+    };
+
+    std::string run_cmd = std::accumulate(std::next(args.begin()), args.end(),
+                                    args[0], // start with first element
+                                    dash_fold);
+
     results.add_run_command(run_cmd);
 
     std::string result_file;
@@ -80,7 +90,7 @@ int main(int argc, char* argv[]) {
     } else {
         result_file = "experiment_results" + get_current_timestamp_as_string() + ".json";
     }
-    json js_res = to_json(results);
+    nlohmann::ordered_json js_res = to_json(results);
     std::ofstream res_file(result_file);
     res_file << std::setw(4) << js_res << std::endl;
 

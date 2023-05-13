@@ -45,7 +45,7 @@ bool BalancedBDMonteCarlo::start_search() {
 
         } else {
             VertDescr next_one = max_element_rtb(next_non_leafs,
-                                                 [this](const VertDescr &vtx) { return graph[vtx].visit_count; });
+                                                 [this](const VertDescr &vtx) { return graph[vtx].visit_count; }, random_generator);
             active_node = next_one;
         }
 

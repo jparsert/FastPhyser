@@ -100,7 +100,6 @@ execute_process(
         OUTPUT_STRIP_TRAILING_WHITESPACE)
 
 
-
 set(sources
         src/verification/smt_problem_builder.cpp
         src/data_structures/UnorderedStack.cpp
@@ -117,7 +116,9 @@ set(sources
         src/ParallelLearningManager.cpp
         src/statistics.cpp
         src/search/AlphaZero.cpp
-        src/strategies.cpp src/BGLHelper.cpp)
+        src/strategies.cpp
+        src/BGLHelper.cpp
+        src/ExperimentSettings.cpp)
 
 set(headers
         src/verification/smt_problem_builder.h
@@ -134,7 +135,8 @@ set(headers
         src/statistics.h
         src/search/AlphaZero.h
         src/BGLHelper.h
-        src/strategies.h)
+        src/strategies.h
+        src/ExperimentSettings.h)
 
 
 add_executable(FastPhyser src/main.cpp ${sources} ${headers})

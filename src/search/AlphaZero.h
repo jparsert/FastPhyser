@@ -21,6 +21,8 @@
 #include "../Features.h"
 #include "../BGLHelper.h"
 #include <boost/graph/lookup_edge.hpp>
+#include <boost/program_options.hpp>
+
 #include <chrono>
 
 #include "search.h"
@@ -57,6 +59,12 @@ private:
     std::chrono::seconds timeout;
 
 
+    boost::program_options::variables_map arg_map;
+
+    // (pseudo) Random number generator
+    std::mt19937 random_generator;
+
+
     /**
      * Does rollouts from node
      * @param node
@@ -81,12 +89,14 @@ public:
                                   std::optional<AbstractFeatureGenerator*> features,
                                   std::optional<PolicyFunction*> pol,
                                   std::optional<ValueFunction*> val,
-                                  std::chrono::seconds timeout) :
+                                  std::chrono::seconds timeout,
+                                  boost::program_options::variables_map vm) :
             problem{path},
             features{features},
             policy{pol},
             value{val},
-            timeout{timeout}
+            timeout{timeout},
+            arg_map{std::move(vm)}
     {
 
         auto pair = Sy2CPP::get_ast_and_symbol_table_from_file(path);
@@ -96,6 +106,13 @@ public:
         verifier = SyGuSZ3SolverReprBuilder::build(*ast, *symbol_table);
         tree_generator = CandidateTreeGenerator::build(*ast, *symbol_table);
 
+        // init rng generator
+        if (arg_map.count("seed")) {
+            random_generator = std::mt19937(arg_map["seed"].as<int>());
+        } else {
+            std::random_device rd; // obtain a random number from hardware
+            random_generator = std::mt19937(rd()); // seed the generator
+        }
 
         // Generate static features from specification
         if (features) {

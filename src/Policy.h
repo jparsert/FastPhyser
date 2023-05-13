@@ -10,6 +10,8 @@
 #include <xgboost/c_api.h>
 #include <memory>
 
+#include <boost/program_options.hpp>
+
 class PolicyFunction {
 
 public:
@@ -17,7 +19,7 @@ public:
     virtual ~PolicyFunction() = default;
 
 
-    virtual bool train(const std::vector<std::pair<std::vector<float>, float>>& data) = 0;
+    virtual bool train(const std::vector<std::pair<std::vector<float>, float>>& data, boost::program_options::variables_map& vm) = 0;
 
     virtual bool can_predict() = 0;
 
@@ -45,7 +47,7 @@ public:
     ~XGBoostPolicy() override;
 
 
-    bool train(const std::vector<std::pair<std::vector<float>, float>>& data) override;
+    bool train(const std::vector<std::pair<std::vector<float>, float>>& data, boost::program_options::variables_map& vm) override;
 
     bool can_predict() override {return ready_predict;}
 
