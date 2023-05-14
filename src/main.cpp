@@ -13,7 +13,7 @@ using json = nlohmann::json;
 namespace po = boost::program_options;
 
 
-std::map<std::string, std::function<experiment_statistics(std::vector<std::string>&, po::variables_map&)>> strategies {
+std::map<std::string, std::function<experiment_statistics(std::vector<std::string>&, std::vector<std::string>& test_set, po::variables_map&)>> strategies {
     {"default", balancedBDMC_complete},
     {"balancedBDMC", balancedBDMC_complete},
     {"balancedBDMC_policy", balancedBDMC_policy_only},
@@ -27,7 +27,8 @@ std::optional<po::variables_map> parse_cmd_args(int argc, char* argv[])  {
     desc.add_options()
             ("help,h", "produce help message")
             ("seed",  po::value<int>(), "Set a Seed for RNG functions.")
-            ("input,I", po::value<std::vector<std::string>>()->multitoken()->required(), "Directory containing problem files.")
+            ("input,I", po::value<std::vector<std::string>>()->multitoken()->required(), "Directory containing training problem files.")
+            ("test-set", po::value<std::vector<std::string>>()->multitoken(), "Directory containing testing problem files.")
             ("result-file", po::value<std::string>(), "File where to print experimental results in JSON format.")
             ("RL-its", po::value<int>()->default_value(RL_ITERATIONS), "Number of Reinforcement Learning Iterations.")
             ("strategy", po::value<std::string>(), "Name of strategy to use")
@@ -64,7 +65,6 @@ int main(int argc, char* argv[]) {
 
     // collect all problem files
     std::vector<std::string> problems = files_with_suffix_in_dirs(vm["input"].as<std::vector<std::string>>(), ".sl");
-
     if(problems.empty()) {
         std::cerr << "Could not find any files with \".sl\" ending in: " << std::endl;
         for (const auto& x : vm["input"].as<std::vector<std::string>>()) {
@@ -73,9 +73,19 @@ int main(int argc, char* argv[]) {
         return -1;
     }
 
-    std::string strategy = vm.count("strategy") ? vm["strategy"].as<std::string>() : "default";
+    // collect all test files
+    std::vector<std::string> test_set_problems;
+    if (vm.count("test-set")) {
+        test_set_problems = files_with_suffix_in_dirs(vm["test-set"].as<std::vector<std::string>>(), ".sl");
+    }
+
+
+
+
+
+        std::string strategy = vm.count("strategy") ? vm["strategy"].as<std::string>() : "default";
     // run experiments with the correct strategy
-    experiment_statistics results = strategies[strategy](problems, vm);
+    experiment_statistics results = strategies[strategy](problems, test_set_problems, vm);
 
 
     // Print the results in JSON

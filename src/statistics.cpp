@@ -51,8 +51,15 @@ ftxui::Element experiment_statistics::render_general_info() const {
                                                              to_ftxui_text("Features Extract.:"), to_ftxui_text(this->features_generator),
                                                      }),
                                          ftxui::hbox({
-                                                             to_ftxui_text("Total # of problems:"), to_ftxui_text(static_cast<int>(this->problems.size())),
+                                                             to_ftxui_text("Seed:"), to_ftxui_text(this->seed),
                                                      }),
+                                         ftxui::hbox({
+                                                             to_ftxui_text("# training problems:"), to_ftxui_text(static_cast<int>(this->problems.size())),
+                                                     }),
+                                         ftxui::hbox({
+                                                             to_ftxui_text("# testing problems:"), to_ftxui_text(static_cast<int>(this->testing_set.size())),
+                                                     }),
+
                                  });
     return window(ftxui::text("Experiment Options"), some_info);
 }
@@ -75,7 +82,13 @@ ftxui::Element experiment_statistics::render_iterations_abs() {
         ftxui::separator(),
         ftxui::text(pad_left("T/O ", ' ', 16)),
         ftxui::separator(),
-        ftxui::text(pad_left("Tot. Time ", ' ', 16)),
+        ftxui::text(pad_left("Tot Tr Time ", ' ', 16)),
+        ftxui::separator(),
+        ftxui::text(pad_left("Test Succ ", ' ', 16)),
+        ftxui::separator(),
+        ftxui::text(pad_left("Test Fail ", ' ', 16)),
+        ftxui::separator(),
+        ftxui::text(pad_left("Test T/O ", ' ', 16)),
         ftxui::separator(),
         ftxui::text(pad_left("Avg. Graph Size", ' ', 16)),
         ftxui::separator(),
@@ -91,6 +104,12 @@ ftxui::Element experiment_statistics::render_iterations_abs() {
         int failed = static_cast<int>(iterations[i].failed.size());
         int timed_out = static_cast<int>(iterations[i].timed_out.size());
         int total = static_cast<int>(problems.size());
+
+        int solved_test = static_cast<int>(iterations[i].test_succeeded.size());
+        int failed_test = static_cast<int>(iterations[i].test_failed.size());
+        int timed_out_test = static_cast<int>(iterations[i].test_timed_out.size());
+        int total_test = static_cast<int>(testing_set.size());
+
         int policy_data_size = static_cast<int>(iterations[i].policy_data_size);
         int value_data_size = static_cast<int>(iterations[i].value_data_size);
 
@@ -109,6 +128,12 @@ ftxui::Element experiment_statistics::render_iterations_abs() {
                                           to_ftxui_text(get_formatted_percentage_of(timed_out, total)+"% (" + std::to_string(timed_out) + ")"),
                                           ftxui::separator(),
                                           to_ftxui_text(std::to_string(iterations[i].iteration_time.count()) + "s"),
+                                          ftxui::separator(),
+                                          to_ftxui_text(get_formatted_percentage_of(solved_test, total_test)+"% (" + std::to_string(solved_test) + ")"),
+                                          ftxui::separator(),
+                                          to_ftxui_text(get_formatted_percentage_of(failed_test, total_test)+"% (" + std::to_string(failed_test) + ")"),
+                                          ftxui::separator(),
+                                          to_ftxui_text(get_formatted_percentage_of(timed_out_test, total_test)+"% (" + std::to_string(timed_out_test) + ")"),
                                           ftxui::separator(),
                                           to_ftxui_text(std::to_string(avg_graph_size) + " Vtx."),
                                           ftxui::separator(),
@@ -157,6 +182,29 @@ json to_json(const experiment_iteration& it) {
         timed_out.push_back(to_json(problem));
     }
     res["timed_out"] = timed_out;
+
+
+    // TESTING DATA
+    auto successful_test = json::array();
+    for (const auto& problem : it.test_succeeded) {
+        successful_test.push_back(to_json(problem));
+    }
+    res["successful_test"] = successful_test;
+
+    auto failed_test = json::array();
+    for (const auto& problem : it.test_failed) {
+        failed_test.push_back(to_json(problem));
+    }
+    res["failed_test"] = failed_test;
+
+    auto timed_out_test = json::array();
+    for (const auto& problem : it.test_timed_out) {
+        timed_out_test.push_back(to_json(problem));
+    }
+    res["timed_out_test"] = timed_out_test;
+
+
+
     return res;
 }
 
@@ -174,6 +222,8 @@ ordered_json to_json(const experiment_statistics& exp_stats) {
     res["search_algorithm"] = exp_stats.search_name;
 
     res["all_problems"] = exp_stats.problems;
+    res["testing_set_problems"] = exp_stats.testing_set;
+
     auto iterations = json::array();
     for (const auto& it : exp_stats.iterations) {
         iterations.push_back(to_json(it));
@@ -182,3 +232,134 @@ ordered_json to_json(const experiment_statistics& exp_stats) {
     return res;
 }
 
+
+
+void ftxui_print_searcher_status_test(experiment_statistics& experim_stats, int rl_iterations, std::size_t successful, std::size_t failed, std::size_t timed_out) {
+
+    auto total_completed = successful + failed + timed_out;
+    static std::string reset_position;
+    auto stats = experim_stats.render_statistics();
+    stats.push_back(ftxui::window(ftxui::text("TESTING at end of Iteration " + std::to_string(std::min(experim_stats.iterations.size() + 1, static_cast<std::size_t>(rl_iterations))) + "/" + std::to_string(rl_iterations)),
+                                  ftxui::vbox({
+                                                      ftxui::hbox({
+                                                                          ftxui::text(pad_right("Completed ", 12)),
+                                                                          ftxui::separator(),
+                                                                          ftxui::text(pad_right(std::to_string(total_completed) + "/" + std::to_string(experim_stats.testing_set.size()), 12)),
+                                                                          ftxui::separator(),
+                                                                          ftxui::text(pad_right(get_formatted_percentage_of(static_cast<int>(total_completed), static_cast<int>(experim_stats.testing_set.size())) + "%", 6)),
+                                                                          ftxui::separator(),
+                                                                          ftxui::gauge(
+                                                                                  static_cast<float>(total_completed) /
+                                                                                  static_cast<float>(experim_stats.testing_set.size()))
+                                                                  }),
+                                                      ftxui::separator(),
+                                                      ftxui::hbox({
+                                                                          ftxui::text(pad_right("Solved", 12)),
+                                                                          ftxui::separator(),
+                                                                          ftxui::text(pad_right(std::to_string(successful) + "/" +std::to_string(total_completed), 12)),
+                                                                          ftxui::separator(),
+                                                                          ftxui::text(pad_right(get_formatted_percentage_of(static_cast<int>(successful), static_cast<int>(total_completed)) + "%", 6)),
+                                                                          ftxui::separator(),
+                                                                          ftxui::gauge(
+                                                                                  static_cast<float>(successful) /
+                                                                                  static_cast<float>(total_completed))
+                                                                  }),
+                                                      ftxui::hbox({
+                                                                          ftxui::text(pad_right("Failed", 12)),
+                                                                          ftxui::separator(),
+                                                                          ftxui::text(pad_right(std::to_string(failed) + "/" +std::to_string(total_completed), 12)),
+                                                                          ftxui::separator(),
+                                                                          ftxui::text(pad_right(get_formatted_percentage_of(static_cast<int>(failed), static_cast<int>(total_completed)) + "%", 6)),
+                                                                          ftxui::separator(),
+                                                                          ftxui::gauge(
+                                                                                  static_cast<float>(failed) /
+                                                                                  static_cast<float>(total_completed))
+                                                                  }),
+                                                      ftxui::hbox({
+                                                                          ftxui::text(pad_right("Timed Out", 12)),
+                                                                          ftxui::separator(),
+                                                                          ftxui::text(pad_right(std::to_string(timed_out) + "/" +std::to_string(total_completed), 12)),
+                                                                          ftxui::separator(),
+                                                                          ftxui::text(pad_right(get_formatted_percentage_of(static_cast<int>(timed_out), static_cast<int>(total_completed)) + "%", 6)),
+                                                                          ftxui::separator(),
+                                                                          ftxui::gauge(
+                                                                                  static_cast<float>(timed_out) /
+                                                                                  static_cast<float>(total_completed))
+                                                                  })
+                                              }))
+    );
+    auto document = ftxui::vbox(stats);
+    auto screen = ftxui::Screen::Create(ftxui::Dimension::Full(), ftxui::Dimension::Fit(document));
+    Render(screen, document);
+    std::cout << reset_position;
+    screen.Print();
+    reset_position = screen.ResetPosition();
+
+}
+
+
+
+void ftxui_print_searcher_status(experiment_statistics& experim_stats, int rl_iterations, std::size_t successful,
+                                                      std::size_t failed,
+                                                      std::size_t timed_out) {
+
+    auto total_completed = successful + failed + timed_out;
+    static std::string reset_position;
+    auto stats = experim_stats.render_statistics();
+    stats.push_back(ftxui::window(ftxui::text("Training Current Iteration " + std::to_string(std::min(experim_stats.iterations.size() + 1, static_cast<std::size_t>(rl_iterations))) + "/" + std::to_string(rl_iterations)),
+                                  ftxui::vbox({
+                                                      ftxui::hbox({
+                                                                          ftxui::text(pad_right("Completed ", 12)),
+                                                                          ftxui::separator(),
+                                                                          ftxui::text(pad_right(std::to_string(total_completed) + "/" + std::to_string(experim_stats.problems.size()), 12)),
+                                                                          ftxui::separator(),
+                                                                          ftxui::text(pad_right(get_formatted_percentage_of(static_cast<int>(total_completed), static_cast<int>(experim_stats.testing_set.size())) + "%", 6)),
+                                                                          ftxui::separator(),
+                                                                          ftxui::gauge(
+                                                                                  static_cast<float>(total_completed) /
+                                                                                  static_cast<float>(experim_stats.problems.size()))
+                                                                  }),
+                                                      ftxui::separator(),
+                                                      ftxui::hbox({
+                                                                          ftxui::text(pad_right("Solved", 12)),
+                                                                          ftxui::separator(),
+                                                                          ftxui::text(pad_right(std::to_string(successful) + "/" +std::to_string(total_completed), 12)),
+                                                                          ftxui::separator(),
+                                                                          ftxui::text(pad_right(get_formatted_percentage_of(static_cast<int>(successful), static_cast<int>(total_completed)) + "%", 6)),
+                                                                          ftxui::separator(),
+                                                                          ftxui::gauge(
+                                                                                  static_cast<float>(successful) /
+                                                                                  static_cast<float>(total_completed))
+                                                                  }),
+                                                      ftxui::hbox({
+                                                                          ftxui::text(pad_right("Failed", 12)),
+                                                                          ftxui::separator(),
+                                                                          ftxui::text(pad_right(std::to_string(failed) + "/" +std::to_string(total_completed), 12)),
+                                                                          ftxui::separator(),
+                                                                          ftxui::text(pad_right(get_formatted_percentage_of(static_cast<int>(failed), static_cast<int>(total_completed)) + "%", 6)),
+                                                                          ftxui::separator(),
+                                                                          ftxui::gauge(
+                                                                                  static_cast<float>(failed) /
+                                                                                  static_cast<float>(total_completed))
+                                                                  }),
+                                                      ftxui::hbox({
+                                                                          ftxui::text(pad_right("Timed Out", 12)),
+                                                                          ftxui::separator(),
+                                                                          ftxui::text(pad_right(std::to_string(timed_out) + "/" +std::to_string(total_completed), 12)),
+                                                                          ftxui::separator(),
+                                                                          ftxui::text(pad_right(get_formatted_percentage_of(static_cast<int>(timed_out), static_cast<int>(total_completed)) + "%", 6)),
+                                                                          ftxui::separator(),
+                                                                          ftxui::gauge(
+                                                                                  static_cast<float>(timed_out) /
+                                                                                  static_cast<float>(total_completed))
+                                                                  })
+                                              }))
+    );
+    auto document = ftxui::vbox(stats);
+    auto screen = ftxui::Screen::Create(ftxui::Dimension::Full(), ftxui::Dimension::Fit(document));
+    Render(screen, document);
+    std::cout << reset_position;
+    screen.Print();
+    reset_position = screen.ResetPosition();
+
+}

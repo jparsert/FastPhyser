@@ -49,6 +49,13 @@ struct experiment_iteration {
 
     std::vector<stat_problem> timed_out;
 
+    std::vector<stat_problem> test_failed;
+
+    std::vector<stat_problem> test_succeeded;
+
+    std::vector<stat_problem> test_timed_out;
+
+
 
 };
 
@@ -57,6 +64,7 @@ struct experiment_statistics {
     // TODO add commandline options
 
     std::vector<std::string> problems;
+    std::vector<std::string> testing_set;
     std::vector<experiment_iteration> iterations;
     std::chrono::seconds timeout;
     std::string features_generator;
@@ -99,6 +107,19 @@ public:
     void add_run_command(std::basic_string<char> basicString);
 
 };
+
+void ftxui_print_searcher_status_test(experiment_statistics& experim_stats,
+                                      int rl_iterations,
+                                      std::size_t successful,
+                                      std::size_t failed,
+                                      std::size_t timed_out);
+
+void ftxui_print_searcher_status(experiment_statistics& experim_stats,
+                                 int rl_iterations,
+                                 std::size_t successful,
+                                 std::size_t failed,
+                                 std::size_t timed_out);
+
 
 using ordered_json = nlohmann::ordered_json;
 

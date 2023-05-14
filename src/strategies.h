@@ -17,7 +17,7 @@ namespace po = boost::program_options;
  *  Runs Balanced Breadth-Depths Monte Carlo Search with XGBOOST policy and value functions and Siz2TermWalk
  *
  * */
-experiment_statistics balancedBDMC_complete(std::vector<std::string>& problems, po::variables_map& opts);
+experiment_statistics balancedBDMC_complete(std::vector<std::string>& problems, std::vector<std::string>& test_set, po::variables_map& opts);
 
 
 /*
@@ -25,20 +25,20 @@ experiment_statistics balancedBDMC_complete(std::vector<std::string>& problems, 
  *  NO Value Function!!!
  *
  * */
-experiment_statistics balancedBDMC_policy_only(std::vector<std::string>& problems, po::variables_map& opts);
+experiment_statistics balancedBDMC_policy_only(std::vector<std::string>& problems, std::vector<std::string>& test_set, po::variables_map& opts);
 
 /*
  *  Runs Balanced Breadth-Depths Monte Carlo Search with XGBOOST value and Siz2TermWalk
  *  NO policy Function!!!
  *
  * */
-experiment_statistics balancedBDMC_value_only(std::vector<std::string>& problems, po::variables_map& opts);
+experiment_statistics balancedBDMC_value_only(std::vector<std::string>& problems, std::vector<std::string>& test_set, po::variables_map& opts);
 
 /*
  *  Runs AlphaZero Carlo Search with XGBOOST value/policy and Siz2TermWalk
  *
  * */
-experiment_statistics AlphaZero_complete(std::vector<std::string>& problems, po::variables_map& opts);
+experiment_statistics AlphaZero_complete(std::vector<std::string>& problems, std::vector<std::string>& test_set, po::variables_map& opts);
 
 
 
