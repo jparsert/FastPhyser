@@ -313,7 +313,7 @@ void ftxui_print_searcher_status(experiment_statistics& experim_stats, int rl_it
                                                                           ftxui::separator(),
                                                                           ftxui::text(pad_right(std::to_string(total_completed) + "/" + std::to_string(experim_stats.problems.size()), 12)),
                                                                           ftxui::separator(),
-                                                                          ftxui::text(pad_right(get_formatted_percentage_of(static_cast<int>(total_completed), static_cast<int>(experim_stats.testing_set.size())) + "%", 6)),
+                                                                          ftxui::text(pad_right(get_formatted_percentage_of(static_cast<int>(total_completed), static_cast<int>(experim_stats.problems.size())) + "%", 6)),
                                                                           ftxui::separator(),
                                                                           ftxui::gauge(
                                                                                   static_cast<float>(total_completed) /

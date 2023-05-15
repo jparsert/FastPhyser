@@ -23,3 +23,73 @@ cd build
 cmake -DCMAKE_BUILD_TYPE=Release ..
 make -j$(nproc)
 ```
+
+./FastPhyser --strategy AlphaZero_complete -I ../DataSet/sygus_LIA_train --test-set ../DataSet/sygus_LIA_test --num-parallel 64 --timeout 180 --seed 50
+
+./FastPhyser --strategy balancedBDMC -I ../DataSet/sygus_LIA_train --test-set ../DataSet/sygus_LIA_test --num-parallel 64 --timeout 180 --seed 51
+
+## Compile on Amazon EC2
+
+```
+sudo yum install -y wget
+sudo yum install -y unzip
+sudo yum install -y cmake
+sudo yum install -y git
+sudo yum install -y gcc
+sudo yum install -y gcc-c++
+sudo yum install boost
+sudo yum install boost-static
+sudo yum install java-11-amazon-corretto
+```
+
+
+Install oneTBB
+```
+git clone https://github.com/oneapi-src/oneTBB
+cd oneTBB
+mkdir build
+cd build
+cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX:PATH=/usr .. 
+make
+sudo make install
+```
+
+Install xgboost
+```
+git clone --recursive https://github.com/dmlc/xgboost
+cd xgboost
+mkdir build
+cd build
+cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX:PATH=/usr .. 
+make
+sudo make install
+```
+
+Install Antlr
+```
+wget https://www.antlr.org/download/antlr4-cpp-runtime-4.12.0-source.zip
+mkdir antlr
+unzip antlr4-cpp-runtime-4.12.0-source.zip -d antlr
+cd antlr
+mkdir build
+cd build
+cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX:PATH=/usr .. 
+make
+sudo make install
+```
+
+Install Sy2CPP
+```
+git clone https://github.com/jparsert/Sy2CPP
+cd Sy2CPP
+mkdir build
+cd build
+cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX:PATH=/usr .. 
+make
+sudo make install
+```
+
+
+
+
+
