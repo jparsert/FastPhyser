@@ -29,14 +29,14 @@ WORKDIR /3rdparty
 
 RUN git clone https://github.com/oneapi-src/oneTBB
 WORKDIR /3rdparty/oneTBB/build
-RUN cmake .. -DCMAKE_BUILD_TYPE=Release
+RUN cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX:PATH=/usr .. 
 RUN make -j$(nproc)
 RUN make install
 
 WORKDIR /3rdparty
 RUN git clone --recursive https://github.com/dmlc/xgboost
 WORKDIR /3rdparty/xgboost/build
-RUN cmake -DCMAKE_BUILD_TYPE=Release ..
+RUN cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX:PATH=/usr ..
 RUN make -j$(nproc)
 RUN make install
 
@@ -45,7 +45,7 @@ RUN wget https://www.antlr.org/download/antlr4-cpp-runtime-4.12.0-source.zip
 RUN mkdir antlr
 RUN unzip antlr4-cpp-runtime-4.12.0-source.zip -d antlr
 WORKDIR /3rdparty/antlr/build
-RUN cmake -DCMAKE_BUILD_TYPE=Release ..
+RUN cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX:PATH=/usr ..
 RUN make -j$(nproc)
 RUN make install
 
@@ -53,7 +53,7 @@ RUN make install
 WORKDIR /3rdparty
 RUN git clone https://github.com/jparsert/Sy2CPP
 WORKDIR /3rdparty/Sy2CPP/build
-RUN cmake -DCMAKE_BUILD_TYPE=Release ..
+RUN cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX:PATH=/usr ..
 RUN make -j$(nproc)
 RUN make install
 
