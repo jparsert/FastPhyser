@@ -122,10 +122,16 @@ bool AlphaZero::rollout(VertDescr root) {
 }
 
 void AlphaZero::back_propagate(const std::vector<VertDescr> &_path, float _value) {
-    for (const auto& vtx : _path) {
-        graph[vtx].visit_count += 1;
-        graph[vtx].total_value += _value;
+    if (_path.empty()) {
+        return;
     }
+    // update value and visit count for all along path except end
+    for (auto i = 0; i < _path.size() - 1; ++i) {
+        graph[_path[i]].visit_count += 1;
+        graph[_path[i]].total_value += _value;
+    }
+    // update visit count for the last one, the value was already set in expansion
+    graph[_path[_path.size() - 1]].visit_count += 1;
 }
 
 bool AlphaZero::update_policy_function() {
