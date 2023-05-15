@@ -14,3 +14,12 @@ Note that depending on type of installation the following commands might need to
 sudo docker build -t fastphyser .
 sudo docker run -it fastphyser
 ```
+
+You should no be in the Docker container. Now we run:
+
+```
+mkdir build
+cd build
+cmake -DCMAKE_BUILD_TYPE=Release ..
+make -j$(nproc)
+```
