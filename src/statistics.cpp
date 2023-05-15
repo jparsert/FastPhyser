@@ -82,6 +82,8 @@ ftxui::Element experiment_statistics::render_iterations_abs() {
         ftxui::separator(),
         ftxui::text(pad_left("T/O ", ' ', 16)),
         ftxui::separator(),
+        ftxui::text(pad_left("Avg. Graph Size", ' ', 16)),
+        ftxui::separator(),
         ftxui::text(pad_left("Tot Tr Time ", ' ', 16)),
         ftxui::separator(),
         ftxui::text(pad_left("Test Succ ", ' ', 16)),
@@ -117,6 +119,10 @@ ftxui::Element experiment_statistics::render_iterations_abs() {
                                               fplus::transform(
                                                       [](const stat_problem& problem) {return problem.graph_size;}, iterations[i].succeeded)) / std::max(iterations[i].succeeded.size(), static_cast<std::size_t>(1));
 
+        unsigned long avg_graph_size_test = fplus::fold_left( [](const auto& x, const auto& y){return x+y;}, 0,
+                                                         fplus::transform(
+                                                                 [](const stat_problem& problem) {return problem.graph_size;}, iterations[i].test_succeeded)) / std::max(iterations[i].test_succeeded.size(), static_cast<std::size_t>(1));
+
 
         its.push_back(ftxui::vbox({
                                           to_ftxui_text(i+1),
@@ -127,6 +133,8 @@ ftxui::Element experiment_statistics::render_iterations_abs() {
                                           ftxui::separator(),
                                           to_ftxui_text(get_formatted_percentage_of(timed_out, total)+"% (" + std::to_string(timed_out) + ")"),
                                           ftxui::separator(),
+                                          to_ftxui_text(std::to_string(avg_graph_size) + " Vtx."),
+                                          ftxui::separator(),
                                           to_ftxui_text(std::to_string(iterations[i].iteration_time.count()) + "s"),
                                           ftxui::separator(),
                                           to_ftxui_text(get_formatted_percentage_of(solved_test, total_test)+"% (" + std::to_string(solved_test) + ")"),
@@ -135,7 +143,7 @@ ftxui::Element experiment_statistics::render_iterations_abs() {
                                           ftxui::separator(),
                                           to_ftxui_text(get_formatted_percentage_of(timed_out_test, total_test)+"% (" + std::to_string(timed_out_test) + ")"),
                                           ftxui::separator(),
-                                          to_ftxui_text(std::to_string(avg_graph_size) + " Vtx."),
+                                          to_ftxui_text(std::to_string(avg_graph_size_test) + " Vtx."),
                                           ftxui::separator(),
                                           to_ftxui_text(std::to_string(policy_data_size) + " pairs"),
                                           ftxui::separator(),
