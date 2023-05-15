@@ -27,12 +27,12 @@ constexpr int NUM_SMALL_STEPS_BREADTH = 500;
 constexpr int NUM_SMALL_STEPS_DEPTH = 20;
 
 
-constexpr int MCTS_SIMULATIONS = 5000; // 2500
+constexpr int MCTS_SIMULATIONS = 4000; // 2500
 
 constexpr int RL_ITERATIONS = 10;
 
 // Feature vector dimension
-constexpr int NUM_FEATURES = 3000;
+constexpr int NUM_FEATURES = 2000;
 
 //timings
 constexpr std::chrono::seconds DEFAULT_SEARCH_TIMEOUT(100);
