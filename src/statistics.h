@@ -81,7 +81,7 @@ struct experiment_statistics {
 
 private:
     [[nodiscard]] ftxui::Element render_general_info() const;
-    ftxui::Element render_iterations_abs();
+    ftxui::Element render_iterations_abs() const;
 
 public:
 
@@ -102,13 +102,13 @@ public:
                    timeout, std::move(name), std::move(seed))
     {}
 
-    ftxui::Elements render_statistics();
+    ftxui::Elements render_statistics() const;
 
     void add_run_command(std::basic_string<char> basicString);
 
 };
 
-void ftxui_print_searcher_status_test(experiment_statistics& experim_stats,
+void ftxui_print_searcher_status_test(const experiment_statistics& experim_stats,
                                       int rl_iterations,
                                       std::size_t successful,
                                       std::size_t failed,

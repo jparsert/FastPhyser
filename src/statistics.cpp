@@ -22,7 +22,7 @@ std::shared_ptr<ftxui::Node>to_ftxui_text(const std::string& str) {
 }
 
 
-ftxui::Elements experiment_statistics::render_statistics() {
+ftxui::Elements experiment_statistics::render_statistics() const {
     ftxui::Elements result;
     result.push_back(render_general_info());
     result.push_back(render_iterations_abs());
@@ -71,7 +71,7 @@ std::string get_formatted_percentage_of(int x, int y) {
 
 }
 
-ftxui::Element experiment_statistics::render_iterations_abs() {
+ftxui::Element experiment_statistics::render_iterations_abs() const {
     ftxui::Elements its;
     its.push_back(ftxui::vbox({
         ftxui::text(pad_left("It # ", ' ', 16)),
@@ -242,7 +242,7 @@ ordered_json to_json(const experiment_statistics& exp_stats) {
 
 
 
-void ftxui_print_searcher_status_test(experiment_statistics& experim_stats, int rl_iterations, std::size_t successful, std::size_t failed, std::size_t timed_out) {
+void ftxui_print_searcher_status_test(const experiment_statistics& experim_stats, int rl_iterations, std::size_t successful, std::size_t failed, std::size_t timed_out) {
 
     auto total_completed = successful + failed + timed_out;
     static std::string reset_position;
