@@ -23,8 +23,8 @@ constexpr int POLICY_MAX_ITERATIONS = 200;
 
 // Monte Carlo Search
 constexpr int NUM_BIG_STEPS = 20;
-constexpr int NUM_SMALL_STEPS_BREADTH = 500;
-constexpr int NUM_SMALL_STEPS_DEPTH = 20;
+constexpr int NUM_SMALL_STEPS_BREADTH = 400;
+constexpr int NUM_SMALL_STEPS_DEPTH = 12;
 
 
 constexpr int MCTS_SIMULATIONS = 5000; // 2500
