@@ -27,7 +27,7 @@ constexpr int NUM_SMALL_STEPS_BREADTH = 500;
 constexpr int NUM_SMALL_STEPS_DEPTH = 20;
 
 
-constexpr int MCTS_SIMULATIONS = 4000; // 2500
+constexpr int MCTS_SIMULATIONS = 5000; // 2500
 
 constexpr int RL_ITERATIONS = 10;
 
