@@ -84,7 +84,8 @@ public:
                                   std::optional<PolicyFunction*> pol,
                                   std::optional<ValueFunction*> val,
                                   std::chrono::seconds timeout,
-                                  boost::program_options::variables_map vm) :
+                                  boost::program_options::variables_map vm,
+                                  int iteration=0) :
             problem{path},
             features{features},
             policy{pol},
@@ -103,7 +104,7 @@ public:
 
         // init rng generator
         if (arg_map.count("seed")) {
-            random_generator = std::mt19937(arg_map["seed"].as<int>());
+            random_generator = std::mt19937(arg_map["seed"].as<int>()+iteration);
         } else {
             std::random_device rd; // obtain a random number from hardware
             random_generator = std::mt19937(rd()); // seed the generator

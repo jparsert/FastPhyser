@@ -68,7 +68,9 @@ bool XGBoostPolicy::train(const std::vector<std::pair<std::vector<float>, float>
     }
     //XGBoosterSetParam(booster, "eta", "0.1");
     //XGBoosterSetParam(booster, "min_child_weight", "1");
-    //XGBoosterSetParam(booster, "subsample", "0.5");
+    safe_xgboost(XGBoosterSetParam(*booster, "min_child_weight", std::to_string(POLICY_MIN_CHILD_WEIGHT).c_str()));
+
+    safe_xgboost(XGBoosterSetParam(*booster, "subsample", std::to_string(POLICY_SUB_SAMPLE).c_str()));
     //XGBoosterSetParam(booster, "colsample_bytree", "1");
     //XGBoosterSetParam(h_booster, "num_parallel_tree", "1");
 

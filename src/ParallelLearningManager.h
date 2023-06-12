@@ -97,7 +97,7 @@ experiment_statistics ParallelLearningManager<Search>::start(std::vector<std::st
         tf::Taskflow taskflow;
         for (auto & problem : problems) {
             taskflow.emplace([&](){
-                Search search(problem, features, policy, value, search_timeout, argument_map);
+                Search search(problem, features, policy, value, search_timeout, argument_map, iteration=iteration);
                 search.start_search();
 
                 //add training data
