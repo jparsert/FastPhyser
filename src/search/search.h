@@ -8,7 +8,7 @@
 #include <vector>
 #include <string>
 #include <cmath>
-#include <Sy2CPP/Sy2CPP.h>
+#include <Sy2CPP.h>
 
 float calc_uct(float target_val, int source_visits, int target_visits, float policy);
 

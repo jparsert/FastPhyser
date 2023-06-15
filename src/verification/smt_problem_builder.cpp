@@ -4,10 +4,10 @@
 
 #include <ranges>
 #include "smt_problem_builder.h"
-#include "Sy2CPP/exceptions.h"
-#include "Sy2CPP/typing.h"
-#include "Sy2CPP/resolvers.h"
-#include "Sy2CPP/AstPrinter.h"
+#include "exceptions.h"
+#include "typing.h"
+#include "resolvers.h"
+#include "AstPrinter.h"
 
 void SyGuSZ3SolverReprBuilder::add_assumption(const z3::expr& assum) {
     this->assumptions.push_back(assum.simplify());

@@ -19,7 +19,7 @@
 #include <mutex>
 #include <oneapi/tbb/concurrent_vector.h>
 #include <boost/program_options.hpp>
-#include "Sy2CPP/AstPrinter.h"
+#include "AstPrinter.h"
 #include "statistics.h"
 
 #include <taskflow/taskflow.hpp>

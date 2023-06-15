@@ -7,6 +7,11 @@ project(FastPhyser)
 
 set(CMAKE_CXX_STANDARD 20)
 
+FetchContent_Declare(Sy2CPP
+        GIT_REPOSITORY https://github.com/jparsert/Sy2CPP
+        GIT_TAG main
+        )
+FetchContent_MakeAvailable(Sy2CPP)
 
 # Make sure we have the right version of z3
 
@@ -159,7 +164,7 @@ include_directories(
 #link_directories(${z3_BINARY_DIR})
 
 target_link_libraries(FastPhyser PRIVATE
-        sy2cpp
+        Sy2CPP-shared
         libz3
         FunctionalPlus::fplus
         ${Boost_LIBRARIES}

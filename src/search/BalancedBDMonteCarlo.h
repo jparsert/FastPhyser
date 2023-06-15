@@ -7,7 +7,7 @@
 
 #include <iostream>
 
-#include <Sy2CPP/Sy2CPP.h>
+#include <Sy2CPP.h>
 #include "../verification/smt_problem_builder.h"
 #include "../candidate_tree.h"
 

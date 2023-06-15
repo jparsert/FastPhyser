@@ -6,7 +6,7 @@
 #define FASTPHYSER_SMT_PROBLEM_BUILDER_H
 
 #include <map>
-#include "Sy2CPP/symbol_table.h"
+#include "symbol_table.h"
 #include "z3++.h"
 
 

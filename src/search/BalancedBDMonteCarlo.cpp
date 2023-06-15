@@ -3,7 +3,7 @@
 //
 
 #include "BalancedBDMonteCarlo.h"
-#include "Sy2CPP/AstPrinter.h"
+#include "AstPrinter.h"
 #include "search.h"
 
 bool BalancedBDMonteCarlo::start_search() {

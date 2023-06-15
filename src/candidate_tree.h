@@ -6,8 +6,8 @@
 #define FASTPHYSER_CANDIDATE_TREE_H
 
 
-#include "Sy2CPP/ast.h"
-#include "Sy2CPP/symbol_table.h"
+#include "ast.h"
+#include "symbol_table.h"
 
 class CountNonTerminals : public Sy2CPP::BfTermVisitor {
 

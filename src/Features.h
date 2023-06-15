@@ -5,7 +5,7 @@
 #ifndef FASTPHYSER_FEATURES_H
 #define FASTPHYSER_FEATURES_H
 
-#include "Sy2CPP/ast.h"
+#include "ast.h"
 #include "constants.h"
 #include "utilities.h"
 #include <map>
@@ -26,6 +26,7 @@ public:
 };
 
 
+// these are (hopefully) as far as I can tell deterministic
 class Size2TermWalk : public AbstractFeatureGenerator, public Sy2CPP::AstBaseVisitor {
 
     std::vector<float> features;

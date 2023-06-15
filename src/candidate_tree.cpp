@@ -3,7 +3,7 @@
 //
 
 #include "candidate_tree.h"
-#include "Sy2CPP/ast.h"
+#include "ast.h"
 #include "exceptions/exceptions.h"
 
 std::shared_ptr<CandidateTreeGenerator>
@@ -15,7 +15,10 @@ CandidateTreeGenerator::build(Sy2CPP::Problem &problem, Sy2CPP::SymbolTable &sym
 
 std::any CandidateTreeGenerator::visitSynthFunCmd(Sy2CPP::SynthFunCmd &synthFun)  {
 
-    synthFun.get_grammar().accept(*this);
+    if (!synthFun.get_grammar()) {
+        throw ForbiddenState("The parsed problem does not have a grammar. We do not support default grammars for now.");
+    }
+    synthFun.get_grammar()->accept(*this);
     std::vector<Sy2CPP::DefineFunCmd> sols;
     sols.emplace_back(synthFun.get_identifier(),synthFun.get_arguments(),synthFun.get_sort(),this->root->copy());
     this->solution = std::make_optional<std::vector<Sy2CPP::DefineFunCmd>>(sols);

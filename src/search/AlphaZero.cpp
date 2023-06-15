@@ -5,7 +5,7 @@
 #include "AlphaZero.h"
 #include <cmath>
 
-#include "Sy2CPP/AstPrinter.h"
+#include "AstPrinter.h"
 
 bool AlphaZero::start_search() {
 
