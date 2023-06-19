@@ -100,7 +100,7 @@ public:
 
         verifier = SyGuSZ3SolverReprBuilder::build(*ast, *symbol_table);
         tree_generator = CandidateTreeGenerator::build(*ast, *symbol_table);
-        this->path.push_back(boost::add_vertex(MCNode{false,0,0,tree_generator->get_root()->copy()}, graph));
+        this->path.push_back(boost::add_vertex(MCNode{false,false,0,0,tree_generator->get_root()->copy()}, graph));
 
         // init rng generator
         if (arg_map.count("seed")) {

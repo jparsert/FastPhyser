@@ -58,14 +58,12 @@ find_package(Boost COMPONENTS graph REQUIRED)
 find_package(Boost COMPONENTS program_options REQUIRED)
 
 # progress bars
-#FetchContent_Declare(Sy2CPP
-#        GIT_REPOSITORY https://github.com/jparsert/Sy2CPP
-#        GIT_TAG main
-#)
-#FetchContent_MakeAvailable(Sy2CPP)
+FetchContent_Declare(Sy2CPP
+        GIT_REPOSITORY https://github.com/jparsert/Sy2CPP
+        GIT_TAG main
+)
+FetchContent_MakeAvailable(Sy2CPP)
 # Make sure sy2pp is installed
-
-find_library(Sy2CPP sy2cpp REQUIRED)
 
 
 ####### NICE GRAPHICS

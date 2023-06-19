@@ -12,7 +12,7 @@ bool AlphaZero::start_search() {
     this->start_time = std::chrono::steady_clock::now();
 
     // root node
-    VertDescr active_node = boost::add_vertex(MCNode{false,0,0,tree_generator->get_root()->copy()}, graph);
+    VertDescr active_node = boost::add_vertex(MCNode{false,false,0,0,tree_generator->get_root()->copy()}, graph);
 
     // not in the original but for resolving dead ends in our case
     std::set<VertDescr> dead_ends;
@@ -94,9 +94,8 @@ bool AlphaZero::rollout(VertDescr root) {
             std::vector<EdgeDescr> edge_indices;
             std::vector<VertDescr> suc_indices;
 
-
             for (auto& successor : successors) {
-                VertDescr vid = boost::add_vertex(MCNode{false, 0, 0.0, successor}, graph);
+                VertDescr vid = boost::add_vertex(MCNode{false,false, 0, 0.0, successor}, graph);
                 auto [eid, flag] = boost::add_edge(current_node, vid, this->graph);
                 if (!flag) {
                     std::cout << "Edge could not be added" << std::endl;
@@ -110,8 +109,10 @@ bool AlphaZero::rollout(VertDescr root) {
             auto values = this->multi_value(suc_indices);
 
             for (int k = 0; k < policies.size(); ++k) {
-                graph[edge_indices[k]] = MCEdge{policies[k]};
+                graph[edge_indices[k]] = MCEdge{true, policies[k]};
+
                 graph[suc_indices[k]].total_value = values[k];
+                graph[suc_indices[k]].valid_value = true;
             }
 
             graph[current_node].is_expanded = true;

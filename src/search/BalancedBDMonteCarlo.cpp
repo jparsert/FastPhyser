@@ -95,7 +95,7 @@ bool BalancedBDMonteCarlo::rollout(VertDescr node) {
                 std::vector<VertDescr> suc_indices;
 
                 for (auto& successor : successors) {
-                    VertDescr vid = boost::add_vertex(MCNode{false, 0, 0.0, successor}, graph);
+                    VertDescr vid = boost::add_vertex(MCNode{false, false, 0, 0.0, successor}, graph);
                     auto [eid, flag] = boost::add_edge(current_node, vid, this->graph);
                     if (!flag) {
                         std::cout << "Edge could not be added" << std::endl;
@@ -108,8 +108,9 @@ bool BalancedBDMonteCarlo::rollout(VertDescr node) {
                 auto policies = this->multi_policy(current_node, suc_indices);
                 auto values = this->multi_value(suc_indices);
                 for (int k = 0; k < policies.size(); ++k) {
-                    graph[edge_indices[k]] = MCEdge{policies[k]};
+                    graph[edge_indices[k]] = MCEdge{true, policies[k]};
                     graph[suc_indices[k]].total_value = values[k];
+                    graph[suc_indices[k]].valid_value = true;
                 }
                 graph[current_node].is_expanded = true;
                 //this->back_propagate(sub_path, graph[current_node].total_value);

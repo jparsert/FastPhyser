@@ -19,7 +19,7 @@ XGBoostValue::~XGBoostValue() {
 }
 
 // should probably rewrite to use vector.data()
-bool XGBoostValue::train(const std::vector<std::pair<std::vector<float>, float>>& data, boost::program_options::variables_map& vm) {
+bool XGBoostValue::train(const std::vector<std::pair<std::vector<float>, float>>& data, boost::program_options::variables_map& vm, int iteration) {
     // no training data
     if (data.empty()) {
         return false;
@@ -60,7 +60,7 @@ bool XGBoostValue::train(const std::vector<std::pair<std::vector<float>, float>>
     safe_xgboost(XGBoosterCreate(&training_dmatrix, 1, &booster.value()));
 
     if (vm.count("seed")) {
-        XGBoosterSetParam(*booster, "seed",  std::to_string(vm["seed"].as<int>()).c_str());
+        XGBoosterSetParam(*booster, "seed",  std::to_string(vm["seed"].as<int>()).c_str() + iteration);
     }
     safe_xgboost(XGBoosterSetParam(*booster, "booster", "gbtree"));
     //XGBoosterSetParam(booster, "objective", "reg:linear");

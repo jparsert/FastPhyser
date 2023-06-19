@@ -14,12 +14,14 @@
 
 struct MCNode {
     bool is_expanded;
+    bool valid_value;
     int visit_count;
     float total_value;
     Sy2CPP::TermPtr term;
 };
 
 struct MCEdge {
+    bool valid_policy;
     float policy;
 };
 
