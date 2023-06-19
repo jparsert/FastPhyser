@@ -186,12 +186,12 @@ experiment_statistics ParallelLearningManager<Search>::start(std::vector<std::st
         if (iteration < this->RL_Iterations - 1) {
             if (policy) {
                 std::vector<std::pair<std::vector<float>,float>> tmp_pol(policy_data.begin(), policy_data.end());
-                policy->train(tmp_pol, argument_map);
+                policy->train(tmp_pol, argument_map, iteration);
             }
 
             if (value) {
                 std::vector<std::pair<std::vector<float>,float>> tmp_val(value_data.begin(), value_data.end());
-                value->train(tmp_val, argument_map);
+                value->train(tmp_val, argument_map, iteration);
             }
         }
 

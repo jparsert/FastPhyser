@@ -64,7 +64,7 @@ bool XGBoostPolicy::train(const std::vector<std::pair<std::vector<float>, float>
     //XGBoosterSetParam(booster, "objective", "reg:linear");
     safe_xgboost(XGBoosterSetParam(*booster, "max_depth", std::to_string(POLICY_MAX_DEPTH).c_str()));
     if (vm.count("seed")) {
-        XGBoosterSetParam(*booster, "seed", std::to_string(vm["seed"].as<int>()).c_str() + iteration);
+        XGBoosterSetParam(*booster, "seed", (std::to_string(vm["seed"].as<int>()) + std::to_string(iteration)).c_str());
     }
     //XGBoosterSetParam(booster, "eta", "0.1");
     //XGBoosterSetParam(booster, "min_child_weight", "1");
