@@ -27,7 +27,7 @@
 
 #include "search.h"
 
-class AlphaZero : public AbstractSearch{
+class AlphaZero : public AbstractSearch {
 
 
 private:
@@ -91,7 +91,7 @@ public:
                                   std::optional<ValueFunction*> val,
                                   std::chrono::seconds timeout,
                                   boost::program_options::variables_map vm,
-                                  int iteration=0) :
+                                  int iteration) :
             problem{path},
             features{features},
             policy{pol},
@@ -108,7 +108,7 @@ public:
 
         // init rng generator
         if (arg_map.count("seed")) {
-            random_generator = std::mt19937(arg_map["seed"].as<int>()+iteration);
+            random_generator = std::mt19937(arg_map["seed"].as<int>() + iteration);
         } else {
             std::random_device rd; // obtain a random number from hardware
             random_generator = std::mt19937(rd()); // seed the generator
@@ -129,8 +129,6 @@ public:
     std::vector<std::pair<std::vector<float>, float>> get_value_data() override;
 
     std::vector<std::pair<std::vector<float>, float>> get_policy_data() override;
-
-    [[nodiscard]] std::string get_name() const override { return "AlphaZero";}
 
     [[nodiscard]] Sy2CPP::SyGuSSolution get_solution() const override;
 

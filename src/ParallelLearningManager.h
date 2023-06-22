@@ -143,7 +143,7 @@ experiment_statistics ParallelLearningManager<Search>::start(std::vector<std::st
         tf::Taskflow taskflow_test;
         for (auto & problem : test_set) {
             taskflow_test.emplace([&](){
-                Search search(problem, features, policy, value, search_timeout, argument_map);
+                Search search(problem, features, policy, value, search_timeout, argument_map, iteration);
                 search.start_search();
 
                 // add statistics
@@ -187,11 +187,23 @@ experiment_statistics ParallelLearningManager<Search>::start(std::vector<std::st
             if (policy) {
                 std::vector<std::pair<std::vector<float>,float>> tmp_pol(policy_data.begin(), policy_data.end());
                 policy->train(tmp_pol, argument_map, iteration);
+                if (argument_map.count("save-models")) {
+                    std::filesystem::path fld(argument_map["save-models"].as<std::string>());
+                    auto res = fld/("policy_it_" + std::to_string(iteration) + get_current_timestamp_as_string() + ".model");
+                    policy->save_model(res.string());
+
+                }
             }
 
             if (value) {
                 std::vector<std::pair<std::vector<float>,float>> tmp_val(value_data.begin(), value_data.end());
                 value->train(tmp_val, argument_map, iteration);
+                if (argument_map.count("save-models")) {
+                    std::filesystem::path fld(argument_map["save-models"].as<std::string>());
+                    auto res = fld/("value_it_" + std::to_string(iteration) + get_current_timestamp_as_string() + ".model");
+                    value->save_model(res.string());
+
+                }
             }
         }
 

@@ -27,8 +27,6 @@ public:
 
     virtual std::vector<std::pair<std::vector<float>, float>> get_policy_data() = 0;
 
-    [[nodiscard]] virtual std::string get_name() const = 0;
-
     [[nodiscard]] virtual Sy2CPP::SyGuSSolution get_solution() const = 0;
 
     [[nodiscard]] virtual std::string get_problem() const = 0;

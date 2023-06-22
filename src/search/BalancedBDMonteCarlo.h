@@ -24,6 +24,7 @@
 #include "../BGLHelper.h"
 #include <boost/graph/lookup_edge.hpp>
 #include <boost/program_options.hpp>
+#include "../constants.h"
 
 #include <chrono>
 #include <utility>
@@ -134,8 +135,6 @@ public:
     [[nodiscard]] std::string get_problem() const override;
 
     [[nodiscard]] bool search_timed_out() const override {return this->timed_out;}
-
-    [[nodiscard]] std::string get_name() const override {return "BalancedBDMonteCarlo";}
 
     static std::string  get_search_name() {return "BalancedBDMonteCarlo";}
 

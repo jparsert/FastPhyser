@@ -19,7 +19,7 @@ public:
     virtual ~PolicyFunction() = default;
 
 
-    virtual bool train(const std::vector<std::pair<std::vector<float>, float>>& data, boost::program_options::variables_map& vm, int iteration=0) = 0;
+    virtual bool train(const std::vector<std::pair<std::vector<float>, float>>& data, boost::program_options::variables_map& vm, int iteration) = 0;
 
     virtual bool can_predict() = 0;
 
@@ -28,6 +28,8 @@ public:
     [[nodiscard]] virtual std::string get_name() const = 0;
 
     virtual std::vector<float> predict(const std::vector<float> &inputs, size_t rows, size_t cols) = 0;
+
+    virtual void save_model(const std::string& file) = 0;
 
 };
 
@@ -46,8 +48,7 @@ public:
 
     ~XGBoostPolicy() override;
 
-
-    bool train(const std::vector<std::pair<std::vector<float>, float>>& data, boost::program_options::variables_map& vm, int iteration=0) override;
+    bool train(const std::vector<std::pair<std::vector<float>, float>>& data, boost::program_options::variables_map& vm, int iteration) override;
 
     bool can_predict() override {return ready_predict;}
 
@@ -56,6 +57,9 @@ public:
     [[nodiscard]] std::string get_name() const override {return "XGBoostPolicy";}
 
     std::vector<float> predict(const std::vector<float> &inputs, size_t rows, size_t cols) override;
+
+    void save_model(const std::string& file) override;
+
 };
 
 

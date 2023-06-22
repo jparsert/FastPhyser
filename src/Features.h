@@ -23,6 +23,10 @@ public:
 
     [[nodiscard]] virtual std::string get_name() const = 0;
 
+    [[nodiscard]] virtual size_t get_spec_feature_dim() const = 0;
+
+    [[nodiscard]] virtual size_t get_candidate_feature_dim() const = 0;
+
 };
 
 
@@ -37,6 +41,10 @@ public:
     Size2TermWalk(): features(NUM_FEATURES,0) { }
 
     [[nodiscard]] std::string get_name() const override {return "Size2TermWalk";}
+
+    size_t get_spec_feature_dim() const override { return features.size(); } ;
+
+    size_t get_candidate_feature_dim() const override { return features.size(); };
 
     std::vector<float> get_specification_features(Sy2CPP::Problem* problem) override {
         problem->accept(*this);

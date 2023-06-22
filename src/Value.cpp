@@ -60,7 +60,7 @@ bool XGBoostValue::train(const std::vector<std::pair<std::vector<float>, float>>
     safe_xgboost(XGBoosterCreate(&training_dmatrix, 1, &booster.value()));
 
     if (vm.count("seed")) {
-        XGBoosterSetParam(*booster, "seed",  (std::to_string(vm["seed"].as<int>()) + std::to_string(iteration)).c_str());
+        XGBoosterSetParam(*booster, "seed",  (std::to_string(vm["seed"].as<int>() + iteration)).c_str());
     }
     safe_xgboost(XGBoosterSetParam(*booster, "booster", "gbtree"));
     //XGBoosterSetParam(booster, "objective", "reg:linear");
@@ -124,4 +124,9 @@ std::vector<float> XGBoostValue::predict(const std::vector<float> &inputs, const
     return res;
 }
 
+void XGBoostValue::save_model(const std::string &file) {
+    if (this->booster) {
+        safe_xgboost(XGBoosterSaveModel(this->booster.value(), file.c_str()));
+    }
+}
 

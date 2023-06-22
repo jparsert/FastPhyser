@@ -34,7 +34,7 @@ std::optional<po::variables_map> parse_cmd_args(int argc, char* argv[])  {
             ("strategy", po::value<std::string>(), "Name of strategy to use")
             ("timeout", po::value<int>()->default_value(DEFAULT_SEARCH_TIMEOUT.count()), "Timeout set to search function.")
             ("num-parallel", po::value<int>()->default_value(0), "Number of parallel workers. The default is half the system cores. Note that many parallel workers are memory intensive and may lead to forced process termination.")
-
+            ("save-models", po::value<std::string>(), "If models should be saved, the argument is the directory they will be saved to. Named after iterations")
             ;
 
     po::variables_map vm;
@@ -81,10 +81,7 @@ int main(int argc, char* argv[]) {
     }
 
 
-
-
-
-        std::string strategy = vm.count("strategy") ? vm["strategy"].as<std::string>() : "default";
+    std::string strategy = vm.count("strategy") ? vm["strategy"].as<std::string>() : "default";
     // run experiments with the correct strategy
     experiment_statistics results = strategies[strategy](problems, test_set_problems, vm);
 

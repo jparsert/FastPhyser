@@ -4,7 +4,7 @@
 
 #include "AlphaZero.h"
 #include <cmath>
-
+#include "../constants.h"
 #include "AstPrinter.h"
 
 bool AlphaZero::start_search() {
@@ -57,7 +57,7 @@ bool AlphaZero::start_search() {
 bool AlphaZero::rollout(VertDescr root) {
 
     // do MC simluations with a decay depending on depths
-    for (int i = 0; i < std::max(500, static_cast<int>(MCTS_SIMULATIONS * std::pow(0.9, this->path.size()))); ++i) {
+    for (int i = 0; i < std::max(500, static_cast<int>(MCTS_SIMULATIONS * std::pow(ROLLOUT_DECAY_BASE, this->path.size()))); ++i) {
         VertDescr current_node = root;
         std::vector<VertDescr> sub_path;
         sub_path.push_back(current_node);
