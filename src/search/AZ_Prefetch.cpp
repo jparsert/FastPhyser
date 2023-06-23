@@ -10,8 +10,12 @@ bool AZ_Prefetch::start_search() {
 
     this->start_time = std::chrono::steady_clock::now();
 
-    // root node
+    // needed to make prefetching work since we need a parent node to find children (easier this way)
+    VertDescr phantom_root = boost::add_vertex(graph);
+    // real root node
     VertDescr active_node = boost::add_vertex(MCNode{false,false,0,0,tree_generator->get_root()->copy()}, graph);
+    path.push_back(phantom_root);
+    boost::add_edge(phantom_root, active_node, this->graph);
 
     // not in the original but for resolving dead ends in our case
     std::set<VertDescr> dead_ends;
@@ -47,13 +51,12 @@ bool AZ_Prefetch::start_search() {
         }
 
     }
-    //std::cout << "Graph Size: " << boost::num_vertices(graph) << std::endl;
 
     return false;
 
 }
 
-bool AZ_Prefetch::rollout(VertDescr root) {
+bool AZ_Prefetch::rollout(const VertDescr& root) {
 
     // do MC simluations with a decay depending on depths
     for (int i = 0; i < std::max(500, static_cast<int>(MCTS_SIMULATIONS * std::pow(ROLLOUT_DECAY_BASE, this->path.size()))); ++i) {
@@ -84,59 +87,23 @@ bool AZ_Prefetch::rollout(VertDescr root) {
             } else {
                 // Propagate value 0 back
                 // leaf nodes are not expanded so that the call to get_best_successor_by_uct does not fail.
-                //
                 graph[current_node].total_value = 0;
             }
         } else { // in case it's not a terminal (i.e. leaf) node
 
-            std::vector<VertDescr> current_nodes;
-            current_nodes.push_back(current_node);
-
-            std::vector<EdgeDescr> edge_indices;
-            std::vector<VertDescr> suc_indices;
-
-            for (int depth = 0; depth < PREFETCH_DEPTH; ++depth) {
-                std::vector<VertDescr> next_depth_nodes;
-
-                for (const auto& head : current_nodes) {
-
-                    std::vector<Sy2CPP::TermPtr> successors = tree_generator->generate_leftmost_product_terms(
-                            graph[head].term.get());
-
-                    for (auto &successor: successors) {
-                        VertDescr vid = boost::add_vertex(MCNode{false, false, 0, 0.0, successor}, graph);
-                        auto [eid, flag] = boost::add_edge(head, vid, this->graph);
-                        boost::source(eid, this->graph);
-                        boost::target(eid, this->graph);
-
-                        if (!flag) {
-                            std::cout << "Edge could not be added" << std::endl;
-                        }
-                        edge_indices.push_back(eid);
-                        suc_indices.push_back(vid);
-                    }
-                }
+            if (! graph[current_node].valid_value) { // Data has not been fetched yet.
+                // should also work for the root node
+                VertDescr parent = sub_path.size() > 1 ? sub_path[sub_path.size() - 2] : path[path.size() - 2];
+                this->query_guidance_data(parent);
             }
-                // add all policies and values
-            auto policies = this->multi_policy(edge_indices);
-            auto values = this->multi_value(suc_indices);
-
-            for (int k = 0; k < policies.size(); ++k) {
-                graph[edge_indices[k]] = MCEdge{true, policies[k]};
-
-                graph[suc_indices[k]].total_value = values[k];
-                graph[suc_indices[k]].valid_value = true;
-            }
-
             graph[current_node].is_expanded = true;
-
         }
         this->back_propagate(sub_path, graph[current_node].total_value);
     }
     return false;
 }
 
-void AZ_Prefetch::back_propagate(const std::vector<VertDescr> &_path, float _value) {
+void AZ_Prefetch::back_propagate(const std::vector<VertDescr> &_path, const float& _value) {
     if (_path.empty()) {
         return;
     }
@@ -222,12 +189,12 @@ std::vector<float> AZ_Prefetch::multi_value(const std::vector<VertDescr>& nodes)
 }
 
 
-float AZ_Prefetch::uct(VertDescr source, VertDescr target) {
+float AZ_Prefetch::uct(const VertDescr& source, const VertDescr& target) const {
     auto [edge, flag] = boost::lookup_edge(source, target, graph);
     return calc_uct(graph[target].total_value, graph[source].visit_count, graph[target].visit_count, graph[edge].policy);
 }
 
-VertDescr AZ_Prefetch::get_best_successor_by_uct(VertDescr node) {
+VertDescr AZ_Prefetch::get_best_successor_by_uct(const VertDescr& node) const {
     auto range = boost::adjacent_vertices(node, graph);
     VertDescr best = arg_max(boost::make_iterator_range(range), [this, &node](const auto& vtx){return this->uct(node, vtx);});
     return best;
@@ -280,5 +247,37 @@ Sy2CPP::SyGuSSolution AZ_Prefetch::get_solution() const {
 
 unsigned long AZ_Prefetch::get_graph_size() const {
     return boost::num_vertices(graph);
+}
+
+void AZ_Prefetch::query_guidance_data(const VertDescr& parent) {
+
+    auto range = boost::make_iterator_range(boost::adjacent_vertices(parent, graph));
+
+    std::vector<EdgeDescr> new_edges;
+    std::vector<VertDescr> new_vertices;
+
+    for (const VertDescr& child : range) {
+        std::vector<Sy2CPP::TermPtr> successors = tree_generator->generate_leftmost_product_terms(
+                graph[child].term.get());
+        for (auto &successor: successors) {
+            VertDescr vid = boost::add_vertex(MCNode{false, false, 0, 0.0, successor}, graph);
+            auto [eid, flag] = boost::add_edge(child, vid, this->graph);
+            if (!flag) {
+                std::cout << "Edge could not be added" << std::endl;
+            }
+            new_edges.push_back(eid);
+            new_vertices.push_back(vid);
+        }
+        graph[child].valid_value = true; // this means that the siblings' values/policies have been fetched.
+    }
+
+    // add all policies and values
+    auto policies = this->multi_policy(new_edges);
+    auto values = this->multi_value(new_vertices);
+
+    for (int k = 0; k < policies.size(); ++k) {
+        graph[new_edges[k]] = MCEdge{true, policies[k]};
+        graph[new_vertices[k]].total_value = values[k];
+    }
 }
 

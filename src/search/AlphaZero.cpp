@@ -112,7 +112,6 @@ bool AlphaZero::rollout(VertDescr root) {
                 graph[edge_indices[k]] = MCEdge{true, policies[k]};
 
                 graph[suc_indices[k]].total_value = values[k];
-                graph[suc_indices[k]].valid_value = true;
             }
 
             graph[current_node].is_expanded = true;

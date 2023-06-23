@@ -43,7 +43,7 @@ constexpr int RL_ITERATIONS = 10;
 // Feature vector dimension
 constexpr int NUM_FEATURES = 2000;
 
-constexpr int PREFETCH_DEPTH = 2;
+//constexpr int PREFETCH_DEPTH = 2;
 
 
 //timings
