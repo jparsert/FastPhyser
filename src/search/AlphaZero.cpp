@@ -122,7 +122,7 @@ bool AlphaZero::rollout(VertDescr root) {
     return false;
 }
 
-void AlphaZero::back_propagate(const std::vector<VertDescr> &_path, float _value) {
+void AlphaZero::back_propagate(const std::vector<VertDescr> &_path, const float& _value) {
     if (_path.empty()) {
         return;
     }
@@ -202,12 +202,12 @@ std::vector<float> AlphaZero::multi_value(const std::vector<VertDescr>& nodes) {
 }
 
 
-float AlphaZero::uct(VertDescr source, VertDescr target) {
+float AlphaZero::uct(const VertDescr& source, const VertDescr& target) const {
     auto [edge, flag] = boost::lookup_edge(source, target, graph);
     return calc_uct(graph[target].total_value, graph[source].visit_count, graph[target].visit_count, graph[edge].policy);
 }
 
-VertDescr AlphaZero::get_best_successor_by_uct(VertDescr node) {
+VertDescr AlphaZero::get_best_successor_by_uct(const VertDescr& node) const {
     auto range = boost::adjacent_vertices(node, graph);
     VertDescr best = arg_max(boost::make_iterator_range(range), [this, &node](const auto& vtx){return this->uct(node, vtx);});
     return best;

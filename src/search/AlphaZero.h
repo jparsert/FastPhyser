@@ -76,11 +76,11 @@ private:
 
     std::vector<float> multi_value(const std::vector<VertDescr>& successors);
 
-    float uct(VertDescr source, VertDescr target);
+    [[nodiscard]] float uct(const VertDescr& source, const VertDescr& target) const;
 
-    void back_propagate(const std::vector<VertDescr>& path, float value);
+    void back_propagate(const std::vector<VertDescr>& path, const float& value);
 
-    VertDescr get_best_successor_by_uct(VertDescr node);
+    [[nodiscard]] VertDescr get_best_successor_by_uct(const VertDescr& node) const ;
 
 
 public:
