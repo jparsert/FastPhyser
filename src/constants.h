@@ -36,7 +36,7 @@ constexpr int NUM_SMALL_STEPS_DEPTH = 12;
 
 constexpr float ROLLOUT_DECAY_BASE = 0.95;
 
-constexpr int MCTS_SIMULATIONS = 5000; // 2500
+constexpr int MCTS_SIMULATIONS = 6000; // 2500
 
 constexpr int RL_ITERATIONS = 10;
 
