@@ -109,7 +109,7 @@ bool AlphaZero::rollout(VertDescr root) {
             auto values = this->multi_value(suc_indices);
 
             for (int k = 0; k < policies.size(); ++k) {
-                graph[edge_indices[k]] = MCEdge{true, policies[k]};
+                graph[edge_indices[k]] = MCEdge{policies[k]};
 
                 graph[suc_indices[k]].total_value = values[k];
             }

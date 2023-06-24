@@ -21,7 +21,6 @@ struct MCNode {
 };
 
 struct MCEdge {
-    bool valid_policy;
     float policy;
 };
 

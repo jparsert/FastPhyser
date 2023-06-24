@@ -108,7 +108,7 @@ bool BalancedBDMonteCarlo::rollout(VertDescr node) {
                 auto policies = this->multi_policy(current_node, suc_indices);
                 auto values = this->multi_value(suc_indices);
                 for (int k = 0; k < policies.size(); ++k) {
-                    graph[edge_indices[k]] = MCEdge{true, policies[k]};
+                    graph[edge_indices[k]] = MCEdge{policies[k]};
                     graph[suc_indices[k]].total_value = values[k];
                     graph[suc_indices[k]].valid_value = true;
                 }

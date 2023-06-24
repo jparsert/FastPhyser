@@ -211,7 +211,7 @@ std::vector<std::pair<std::vector<float>, float>> AZ_Prefetch::get_policy_data()
         return {};
     }
 
-    for (int i = 1; i < this->path.size()-1; ++i) {
+    for (int i = 2; i < this->path.size()-1; ++i) { // start at 2 to discard root node and phantom root
         auto fst_term = this->features.value()->get_candidate_features(graph[path[i]].term.get());
         auto snd_term = this->features.value()->get_candidate_features(graph[path[i+1]].term.get());
         auto fts = concat_copy({this->specification_features, fst_term, snd_term});
@@ -228,7 +228,7 @@ std::vector<std::pair<std::vector<float>, float>> AZ_Prefetch::get_value_data() 
         return {};
     }
 
-    for (int i = 1; i < this->path.size(); ++i) {
+    for (int i = 2; i < this->path.size(); ++i) { // start at 2 to discard root node and phantom root
         auto fst_term = this->features.value()->get_candidate_features(graph[path[i]].term.get());
         auto fts = concat_copy({this->specification_features, fst_term});
         if (this->solution) {
@@ -276,7 +276,7 @@ void AZ_Prefetch::query_guidance_data(const VertDescr& parent) {
     auto values = this->multi_value(new_vertices);
 
     for (int k = 0; k < policies.size(); ++k) {
-        graph[new_edges[k]] = MCEdge{true, policies[k]};
+        graph[new_edges[k]] = MCEdge{policies[k]};
         graph[new_vertices[k]].total_value = values[k];
     }
 }
