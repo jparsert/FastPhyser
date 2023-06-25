@@ -17,9 +17,9 @@
 #include <ftxui/dom/node.hpp>  // for Render
 #include <ftxui/screen/color.hpp>  // for Color, Color:
 
-#include "Value.h"
+#include "guidance/Value.h"
 #include "Features.h"
-#include "Policy.h"
+#include "guidance/Policy.h"
 
 #include <nlohmann/json.hpp>
 using json = nlohmann::json;

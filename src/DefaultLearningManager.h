@@ -11,8 +11,8 @@
 #include <memory>
 #include <utility>
 #include <vector>
-#include "Policy.h"
-#include "Value.h"
+#include "guidance/Policy.h"
+#include "guidance/Value.h"
 #include <optional>
 #include <iostream>
 #include <boost/program_options.hpp>

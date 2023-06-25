@@ -18,8 +18,8 @@
 #include <boost/graph/graph_traits.hpp>
 #include <boost/graph/adjacency_list.hpp>
 #include "search.h"
-#include "../Value.h"
-#include "../Policy.h"
+#include "../guidance/Value.h"
+#include "../guidance/Policy.h"
 #include "../Features.h"
 #include "../BGLHelper.h"
 #include <boost/graph/lookup_edge.hpp>

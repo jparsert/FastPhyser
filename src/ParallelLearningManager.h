@@ -12,8 +12,8 @@
 #include "Features.h"
 #include <memory>
 #include <vector>
-#include "Policy.h"
-#include "Value.h"
+#include "guidance/Policy.h"
+#include "guidance/Value.h"
 #include <optional>
 #include <iostream>
 #include <mutex>
