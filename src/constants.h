@@ -11,7 +11,6 @@
 #include <chrono>
 
 // Boosting Hyperparameters
-
 constexpr int VALUE_MAX_DEPTH = 20;
 constexpr int POLICY_MAX_DEPTH = 25; // larger as the feature vector is larger
 
@@ -23,6 +22,12 @@ constexpr float POLICY_MIN_CHILD_WEIGHT = 1; // default 1
 
 constexpr int VALUE_MAX_ITERATIONS = 200;
 constexpr int POLICY_MAX_ITERATIONS = 200;
+
+
+// Ciruclar buffers for training data
+constexpr int VALUE_CIRCULAR_BUFFER = 3;
+constexpr int POLICY_CIRCULAR_BUFFER = 3;
+
 
 
 //constexpr std::string_view POLICY_ETA = "0.3";  use default

@@ -20,7 +20,7 @@ std::map<std::string, std::function<experiment_statistics(std::vector<std::strin
     {"balancedBDMC_value", balancedBDMC_value_only},
     {"AlphaZero_complete" , AlphaZero_complete},
     {"AlphaZeroPrefetch_complete" , AlphaZeroPrefetch_complete},
-
+    {"AlphaZero_Circular", AlphaZero_Circular}
 };
 
 

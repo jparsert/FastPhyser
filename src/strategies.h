@@ -41,7 +41,14 @@ experiment_statistics balancedBDMC_value_only(std::vector<std::string>& problems
 experiment_statistics AlphaZero_complete(std::vector<std::string>& problems, std::vector<std::string>& test_set, po::variables_map& opts);
 
 /*
- *  Runs AlphaZero Carlo Search with XGBOOST value/policy and Siz2TermWalk
+ *  Runs AlphaZero Carlo Search with XGBOOST value/policy and Siz2TermWalk and circular buffer for training data retention
+ *
+ * */
+experiment_statistics AlphaZero_Circular(std::vector<std::string>& problems, std::vector<std::string>& test_set, po::variables_map& opts);
+
+
+/*
+ *  Runs AlphaZero Carlo Search and Prefetching of sibling nodes with XGBOOST value/policy and Siz2TermWalk
  *
  * */
 experiment_statistics AlphaZeroPrefetch_complete(std::vector<std::string>& problems, std::vector<std::string>& test_set, po::variables_map& opts);
