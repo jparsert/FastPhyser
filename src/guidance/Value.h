@@ -20,7 +20,7 @@ public:
 
     virtual ~ValueFunction() = default;
 
-    virtual bool train(const std::vector<std::pair<std::vector<float>, float>>& data, boost::program_options::variables_map& vm, int override) = 0;
+    virtual bool train(std::vector<std::pair<std::vector<float>, float>> data, boost::program_options::variables_map& vm, int override) = 0;
 
     virtual bool can_predict() = 0;
 
@@ -47,7 +47,7 @@ public:
 
     ~XGBoostValue() override;
 
-    bool train(const std::vector<std::pair<std::vector<float>, float>>& data, boost::program_options::variables_map& vm, int iteration) override;
+    bool train(std::vector<std::pair<std::vector<float>, float>> data, boost::program_options::variables_map& vm, int iteration) override;
 
     bool can_predict() override{return ready_predict;}
 

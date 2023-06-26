@@ -6,10 +6,12 @@
 #include <iostream>
 #include <xgboost/c_api.h>
 #include "../constants.h"
+#include <random>
+#include <algorithm>
 
 
-XGBoostValue::XGBoostValue() {
-}
+XGBoostValue::XGBoostValue() = default;
+
 
 XGBoostValue::~XGBoostValue() {
     if (booster) {
@@ -19,13 +21,22 @@ XGBoostValue::~XGBoostValue() {
 }
 
 // should probably rewrite to use vector.data()
-bool XGBoostValue::train(const std::vector<std::pair<std::vector<float>, float>>& data, boost::program_options::variables_map& vm, int iteration) {
+bool XGBoostValue::train(std::vector<std::pair<std::vector<float>, float>> data, boost::program_options::variables_map& vm, int iteration) {
     // no training data
     if (data.empty()) {
         return false;
     }
     this->ready_predict = false;
 
+    //shuffle data:
+    std::mt19937 random_generator;
+    if (vm.count("seed")) {
+        random_generator = std::mt19937(vm["seed"].as<int>() + iteration);
+    } else {
+        std::random_device rd; // obtain a random number from hardware
+        random_generator = std::mt19937(rd()); // seed the generator
+    }
+    std::shuffle(data.begin(), data.end(), random_generator);
 
     std::size_t rows = data.size();
     std::size_t cols = data[0].first.size();

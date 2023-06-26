@@ -123,7 +123,8 @@ set(sources
         src/search/AlphaZero.cpp
         src/strategies.cpp
         src/BGLHelper.cpp
-        src/search/AZ_Prefetch.cpp)
+        src/search/AZ_Prefetch.cpp
+        src/DataCollector.cpp)
 
 set(headers
         src/verification/smt_problem_builder.h
@@ -141,7 +142,8 @@ set(headers
         src/search/AlphaZero.h
         src/BGLHelper.h
         src/strategies.h
-        src/search/AZ_Prefetch.h)
+        src/search/AZ_Prefetch.h
+        src/DataCollector.h)
 
 
 add_executable(FastPhyser src/main.cpp ${sources} ${headers})
