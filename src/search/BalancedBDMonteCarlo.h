@@ -29,7 +29,7 @@
 #include <chrono>
 #include <utility>
 
-
+template<class FeatureGenerator>
 class BalancedBDMonteCarlo : public AbstractSearch {
 
 private:
@@ -48,7 +48,6 @@ private:
     std::chrono::seconds timeout;
 
     // objects for learning
-    std::optional<AbstractFeatureGenerator*> features;
     std::optional<PolicyFunction*> policy;
     std::optional<ValueFunction*> value;
 
@@ -80,15 +79,13 @@ private:
 
 public:
 
-    explicit BalancedBDMonteCarlo(const std::string& path,
-                                  std::optional<AbstractFeatureGenerator*> features,
+    explicit BalancedBDMonteCarlo<FeatureGenerator>(const std::string& path,
                                   std::optional<PolicyFunction*> pol,
                                   std::optional<ValueFunction*> val,
                                   std::chrono::seconds timeout,
                                   boost::program_options::variables_map vm,
                                   int iteration=0) :
             problem{path},
-            features{features},
             policy{pol},
             value{val},
             timeout{timeout},
@@ -113,9 +110,9 @@ public:
 
 
         // Generate static features from specification
-        if (features) {
-            this->specification_features = features.value()->get_specification_features(ast.get());
-        }
+        //if (features) {
+        this->specification_features = FeatureGenerator::get_specification_features(ast.get());
+        // }
     }
 
     [[nodiscard]] unsigned long get_graph_size() const override;
@@ -139,6 +136,295 @@ public:
     static std::string  get_search_name() {return "BalancedBDMonteCarlo";}
 
 };
+
+
+
+template<class FeatureGenerator>
+bool BalancedBDMonteCarlo<FeatureGenerator>::start_search() {
+
+    this->start_time = std::chrono::steady_clock::now();
+
+
+    VertDescr active_node = this->path[0]; // this is the root node
+    std::set<VertDescr> dead_ends;
+    for (int i = 0; i < NUM_BIG_STEPS; ++i) {
+
+        bool success = this->rollout(active_node);
+        if (success) {
+            return true;
+        }
+
+        auto d = std::chrono::duration_cast<std::chrono::seconds>(std::chrono::steady_clock::now()-start_time);
+        if (d > this->timeout) {
+            this->timed_out = true;
+            return false;
+        }
+
+        path.push_back(active_node);
+
+        auto range = boost::adjacent_vertices(active_node, graph);
+        std::vector<VertDescr> next_non_leafs;
+        for (const auto& vert : boost::make_iterator_range(range)) {
+            //std::cout << "\t term: " << Sy2CPP::AstToString::to_string(*graph[vert].term) <<
+            //" visits: " << graph[vert].visit_count << " avg. val: " << graph[vert].total_value/static_cast<float>(graph[vert].visit_count) << " uct: " << this->uct(active_node, vert)  << std::endl;
+            if (!this->tree_generator->is_leaf(graph[vert].term.get())  and !dead_ends.contains(vert)) {
+                next_non_leafs.push_back(vert);
+            }
+        }
+
+        if (next_non_leafs.empty()) {// backtrack
+            //std::cout << "We hit a dead end: " << Sy2CPP::AstToString::to_string(*graph[active_node].term) << std::endl;
+            dead_ends.insert(active_node);
+            active_node = path[std::max(static_cast<int>(path.size()-3),0)];
+
+        } else {
+            VertDescr next_one = max_element_rtb(next_non_leafs,
+                                                 [this](const VertDescr &vtx) { return graph[vtx].visit_count; }, random_generator);
+            active_node = next_one;
+        }
+
+    }
+    //std::cout << "Graph Size: " << boost::num_vertices(graph) << std::endl;
+
+    return false;
+}
+template<class FeatureGenerator>
+bool BalancedBDMonteCarlo<FeatureGenerator>::rollout(VertDescr node) {
+    // Maybe first visit all successors
+
+    for (int i = 0; i < NUM_SMALL_STEPS_BREADTH; ++i) {
+        VertDescr current_node = node;
+        std::vector<VertDescr> sub_path;
+
+        for (int j = 0; j < NUM_SMALL_STEPS_DEPTH; ++j) {
+            auto d = std::chrono::duration_cast<std::chrono::seconds>(std::chrono::steady_clock::now()-start_time);
+            if (d > this->timeout) {
+                this->timed_out = true;
+                return false;
+            }
+            //increase visit count and sub_path
+            sub_path.push_back(current_node);
+
+            if (tree_generator->is_leaf(graph[current_node].term.get())) {
+                auto res = verifier->check_candidate(verifier->get_synth_funs()[0], graph[current_node].term.get());
+
+                if (res == z3::unsat) {
+                    //std::cout << "Success" << std::endl;
+                    this->path.insert(path.end(), sub_path.begin(), sub_path.end());
+                    this->solution = tree_generator->get_term_as_solution(graph[current_node].term.get());
+                    //std::cout << Sy2CPP::to_string(this->solution);
+                    return true;
+                } else {
+                    graph[current_node].total_value = 0;
+                    break;
+                }
+            }
+
+            // not a leaf node, check if we already expanded this node
+            if (!graph[current_node].is_expanded) {
+                std::vector<Sy2CPP::TermPtr> successors =
+                        tree_generator->generate_leftmost_product_terms(graph[current_node].term.get());
+
+                std::vector<EdgeDescr> edge_indices;
+                std::vector<VertDescr> suc_indices;
+
+                for (auto& successor : successors) {
+                    VertDescr vid = boost::add_vertex(MCNode{false, false, 0, 0.0, successor}, graph);
+                    auto [eid, flag] = boost::add_edge(current_node, vid, this->graph);
+                    if (!flag) {
+                        std::cout << "Edge could not be added" << std::endl;
+                    }
+                    edge_indices.push_back(eid);
+                    suc_indices.push_back(vid);
+                }
+
+                // add all policies and values
+                auto policies = this->multi_policy(current_node, suc_indices);
+                auto values = this->multi_value(suc_indices);
+                for (int k = 0; k < policies.size(); ++k) {
+                    graph[edge_indices[k]] = MCEdge{policies[k]};
+                    graph[suc_indices[k]].total_value = values[k];
+                    graph[suc_indices[k]].valid_value = true;
+                }
+                graph[current_node].is_expanded = true;
+                //this->back_propagate(sub_path, graph[current_node].total_value);
+            }
+
+            // Choose next node!
+            auto range = boost::adjacent_vertices(current_node, graph);
+            VertDescr best = arg_max(boost::make_iterator_range(range), [this, &current_node](const auto& vtx){return this->uct(current_node, vtx);});
+            current_node = best;
+        }
+        // back_propagate
+        this->back_propagate(sub_path, graph[current_node].total_value);
+
+    }
+    return false;
+}
+
+template<class FeatureGenerator>
+std::vector<float>BalancedBDMonteCarlo<FeatureGenerator>::multi_policy(VertDescr vtx, const std::vector<VertDescr>& successors) {
+
+    if (this->policy == nullptr or !this->policy.value()->can_predict()) { // default policy
+        std::vector<float> res;
+        for (auto &x: successors) {
+            res.push_back(1.0);
+        }
+        return res;
+    }
+    if (successors.empty()) {
+        return {};
+    }
+
+    auto fst_term =FeatureGenerator::get_candidate_features(graph[vtx].term.get());
+
+    std::vector<float> feats;
+    size_t cols = this->specification_features.size() +
+                  fst_term.size() +
+            FeatureGenerator::get_candidate_features(graph[successors[0]].term.get()).size();
+
+    for (const auto& suc: successors) {
+        auto snd_term = FeatureGenerator::get_candidate_features(graph[suc].term.get());
+        concat(feats, this->specification_features);
+        concat(feats, fst_term);
+        concat(feats, snd_term);
+    }
+
+    assert(cols == feats.size()/successors.size());
+    return policy.value()->predict(feats, successors.size(), cols);
+}
+
+
+template<class FeatureGenerator>
+std::vector<float> BalancedBDMonteCarlo<FeatureGenerator>::multi_value(const std::vector<VertDescr>& nodes) {
+    if (this->value == nullptr or !this->value.value()->can_predict()) { // default value
+        std::vector<float> res;
+
+        for (auto &x: nodes) {
+            res.push_back(static_cast<float>(std::pow(0.95f,
+                                                      this->tree_generator->count_non_terminals(graph[x].term.get()))));
+        }
+        return res;
+    }
+    if (nodes.empty()) {
+        return {};
+    }
+
+    std::vector<float> feats;
+    size_t cols = this->specification_features.size() +
+            FeatureGenerator::get_candidate_features(graph[nodes[0]].term.get()).size();
+
+    for (const auto& term: nodes) {
+        concat(feats, this->specification_features);
+        auto snd_term = FeatureGenerator::get_candidate_features(graph[term].term.get());
+        concat(feats, snd_term);
+    }
+    assert(cols == feats.size()/nodes.size());
+    return value.value()->predict(feats, nodes.size(), cols);
+}
+
+
+template<class FeatureGenerator>
+float BalancedBDMonteCarlo<FeatureGenerator>::uct(VertDescr source, VertDescr target) {
+    auto [edge, flag] = boost::lookup_edge(source, target, graph);
+    return calc_uct(graph[target].total_value, graph[source].visit_count, graph[target].visit_count, graph[edge].policy);
+}
+
+
+template<class FeatureGenerator>
+void BalancedBDMonteCarlo<FeatureGenerator>::back_propagate(const std::vector<VertDescr>& _path, float _value) {
+    if (_path.empty()) {
+        return;
+    }
+    // update value and visit count for all along path except end
+    for (auto i = 0; i < _path.size() - 1; ++i) {
+        graph[_path[i]].visit_count += 1;
+        graph[_path[i]].total_value += _value;
+    }
+    // update visit count for the last one, the value was already set in expansion
+    graph[_path[_path.size() - 1]].visit_count += 1;
+}
+
+
+
+template<class FeatureGenerator>
+bool BalancedBDMonteCarlo<FeatureGenerator>::update_policy_function() {
+    return true;
+}
+
+
+template<class FeatureGenerator>
+bool BalancedBDMonteCarlo<FeatureGenerator>::update_value_function() {
+    return true;
+}
+
+
+template<class FeatureGenerator>
+std::vector<std::pair<std::vector<float>, float>> BalancedBDMonteCarlo<FeatureGenerator>::get_policy_data() {
+    std::vector<std::pair<std::vector<float>, float>> data;
+
+    if (!this->policy) {
+        return {};
+    }
+
+    if (!this->solution) {
+        return {};
+    }
+
+    for (int i = 1; i < this->path.size()-1; ++i) {
+        auto fst_term = FeatureGenerator::get_candidate_features(graph[path[i]].term.get());
+        auto snd_term = FeatureGenerator::get_candidate_features(graph[path[i+1]].term.get());
+        auto fts = concat_copy({this->specification_features, fst_term, snd_term});
+        if (this->solution) {
+            data.emplace_back(fts, std::pow(0.95,this->path.size() - i));
+        } else {
+            data.emplace_back(fts, 0);
+        }
+
+    }
+
+    return data;
+}
+
+
+template<class FeatureGenerator>
+std::vector<std::pair<std::vector<float>, float>> BalancedBDMonteCarlo<FeatureGenerator>::get_value_data() {
+    std::vector<std::pair<std::vector<float>, float>> data;
+
+    if (!this->value.has_value()) {
+        return {};
+    }
+
+    for (int i = 1; i < this->path.size(); ++i) {
+
+        auto fst_term = FeatureGenerator::get_candidate_features(graph[path[i]].term.get());
+        auto fts = concat_copy({this->specification_features, fst_term});
+        if (this->solution) {
+            data.emplace_back(fts, std::pow(0.95,this->path.size() - i));
+        } else {
+            data.emplace_back(fts, 0);
+        }
+    }
+
+    return data;
+}
+
+template<class FeatureGenerator>
+Sy2CPP::SyGuSSolution BalancedBDMonteCarlo<FeatureGenerator>::get_solution() const {
+    return this->solution;
+}
+
+template<class FeatureGenerator>
+std::string BalancedBDMonteCarlo<FeatureGenerator>::get_problem() const {
+    return this->problem;
+}
+
+template<class FeatureGenerator>
+unsigned long BalancedBDMonteCarlo<FeatureGenerator>::get_graph_size() const {
+    return boost::num_vertices(graph);
+}
+
+
 
 
 #endif //FASTPHYSER_BALANCEDBDMONTECARLO_H

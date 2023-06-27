@@ -105,8 +105,7 @@ experiment_statistics ParallelLearningManager<Search, AbstractFeatureGenerator>:
         tf::Taskflow taskflow;
         for (auto & problem : problems) {
             taskflow.emplace([&](){
-                auto features = std::make_unique<AbstractFeatureGenerator>();
-                Search search(problem, features.get(), policy, value, search_timeout, argument_map, iteration=iteration);
+                Search search(problem, policy, value, search_timeout, argument_map, iteration=iteration);
                 search.start_search();
 
                 //add training data
@@ -152,8 +151,7 @@ experiment_statistics ParallelLearningManager<Search, AbstractFeatureGenerator>:
         tf::Taskflow taskflow_test;
         for (auto & problem : test_set) {
             taskflow_test.emplace([&](){
-                auto features = std::make_unique<AbstractFeatureGenerator>();
-                Search search(problem, features.get(), policy, value, search_timeout, argument_map, iteration);
+                Search search(problem, policy, value, search_timeout, argument_map, iteration);
                 search.start_search();
 
                 // add statistics

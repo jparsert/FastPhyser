@@ -11,6 +11,7 @@
 #include <map>
 #include <unordered_map>
 
+/*
 class AbstractFeatureGenerator {
 
 public:
@@ -21,17 +22,16 @@ public:
 
     virtual std::vector<float> get_candidate_features(Sy2CPP::Term* term) = 0;
 
-    [[nodiscard]] virtual std::string get_name() const = 0;
 
     [[nodiscard]] virtual size_t get_spec_feature_dim() const = 0;
 
     [[nodiscard]] virtual size_t get_candidate_feature_dim() const = 0;
 
 };
-
+*/
 
 // these are (hopefully) as far as I can tell deterministic
-class Size2TermWalk : public AbstractFeatureGenerator, public Sy2CPP::AstBaseVisitor {
+class Size2TermWalk : public Sy2CPP::AstBaseVisitor {
 
     std::vector<float> features;
     std::unordered_map<Sy2CPP::EitherIdentifier, size_t> arguments;
@@ -40,22 +40,22 @@ public:
 
     Size2TermWalk(): features(NUM_FEATURES,0) { }
 
-    [[nodiscard]] std::string get_name() const override {return "Size2TermWalk";}
-
     static std::string get_class_name() {return "Size2TermWalk";}
 
-    size_t get_spec_feature_dim() const override { return features.size(); } ;
+    static size_t get_spec_feature_dim() { return NUM_FEATURES; } ;
 
-    size_t get_candidate_feature_dim() const override { return features.size(); };
+    static size_t get_candidate_feature_dim() { return NUM_FEATURES; };
 
-    std::vector<float> get_specification_features(Sy2CPP::Problem* problem) override {
-        problem->accept(*this);
-        return features;
+    static std::vector<float> get_specification_features(Sy2CPP::Problem* problem) {
+        Size2TermWalk tw;
+        problem->accept(tw);
+        return tw.features;
     }
 
-    std::vector<float> get_candidate_features(Sy2CPP::Term* term) override {
-        term->accept(*this);
-        return features;
+    static std::vector<float> get_candidate_features(Sy2CPP::Term* term) {
+        Size2TermWalk tw;
+        term->accept(tw);
+        return tw.features;
     }
 
     // visitor functions
