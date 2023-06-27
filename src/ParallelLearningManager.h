@@ -33,10 +33,9 @@ namespace po = boost::program_options;
  * Could use SFINAE but let's just do ducktyping for now
  * @tparam Search
  */
-template<class Search>
+template<class Search, class FeatureGenerator>
 class ParallelLearningManager {
 
-    AbstractFeatureGenerator* features;
     PolicyFunction* policy;
     ValueFunction* value;
 
@@ -53,19 +52,17 @@ class ParallelLearningManager {
     po::variables_map argument_map;
 
 public:
-    explicit ParallelLearningManager(AbstractFeatureGenerator* features,
-                                     PolicyFunction* pol,
+    explicit ParallelLearningManager(PolicyFunction* pol,
                                      ValueFunction* val,
                                      DataCollector* pol_data_col,
                                      DataCollector* val_data_col,
                                      po::variables_map& vm):
-            features{features},
             policy{pol},
             value{val},
             policy_data_collector{pol_data_col},
             value_data_collector{val_data_col},
             search_timeout(vm["timeout"].as<int>()),
-            experim_stats(features, pol, val, search_timeout, Search::get_search_name(), vm.count("seed") ? std::to_string(vm["seed"].as<int>()) : ""),
+            experim_stats(FeatureGenerator::get_class_name(), pol, val, search_timeout, Search::get_search_name(), vm.count("seed") ? std::to_string(vm["seed"].as<int>()) : ""),
             parallel_cores{vm["num-parallel"].as<int>()},
             argument_map(vm)
     {
@@ -85,8 +82,8 @@ public:
 };
 
 
-template<class Search>
-experiment_statistics ParallelLearningManager<Search>::start(std::vector<std::string>& problems, std::vector<std::string>& test_set) {
+template<class Search, class AbstractFeatureGenerator>
+experiment_statistics ParallelLearningManager<Search, AbstractFeatureGenerator>::start(std::vector<std::string>& problems, std::vector<std::string>& test_set) {
 
     experim_stats.problems = problems;
     experim_stats.testing_set = test_set;
@@ -108,7 +105,8 @@ experiment_statistics ParallelLearningManager<Search>::start(std::vector<std::st
         tf::Taskflow taskflow;
         for (auto & problem : problems) {
             taskflow.emplace([&](){
-                Search search(problem, features, policy, value, search_timeout, argument_map, iteration=iteration);
+                auto features = std::make_unique<AbstractFeatureGenerator>();
+                Search search(problem, features.get(), policy, value, search_timeout, argument_map, iteration=iteration);
                 search.start_search();
 
                 //add training data
@@ -154,7 +152,8 @@ experiment_statistics ParallelLearningManager<Search>::start(std::vector<std::st
         tf::Taskflow taskflow_test;
         for (auto & problem : test_set) {
             taskflow_test.emplace([&](){
-                Search search(problem, features, policy, value, search_timeout, argument_map, iteration);
+                auto features = std::make_unique<AbstractFeatureGenerator>();
+                Search search(problem, features.get(), policy, value, search_timeout, argument_map, iteration);
                 search.start_search();
 
                 // add statistics

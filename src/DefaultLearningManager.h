@@ -24,7 +24,6 @@
 template<class Search>
 class DefaultLearningManager {
 
-    AbstractFeatureGenerator* features;
     PolicyFunction* policy;
     ValueFunction* value;
 
@@ -33,11 +32,10 @@ class DefaultLearningManager {
     boost::program_options::variables_map args;
 
 public:
-    explicit DefaultLearningManager(AbstractFeatureGenerator* features,
+    explicit DefaultLearningManager(
                                     PolicyFunction* pol,
                                     ValueFunction* val,
                                     boost::program_options::variables_map arguments):
-            features{features},
             policy{pol},
             value{val},
             args{std::move(arguments)}
@@ -77,7 +75,7 @@ void DefaultLearningManager<Search>::start(std::vector<std::string>& problems) {
 
         for (auto& problem : problems) {
             std::cout << problem << std::endl;
-            Search s(problem, features, policy, value);
+            Search s(problem, policy, value);
             bool res = s.start_search();
 
             if (res) { // successful search

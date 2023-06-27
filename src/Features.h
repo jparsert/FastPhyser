@@ -42,6 +42,8 @@ public:
 
     [[nodiscard]] std::string get_name() const override {return "Size2TermWalk";}
 
+    static std::string get_class_name() {return "Size2TermWalk";}
+
     size_t get_spec_feature_dim() const override { return features.size(); } ;
 
     size_t get_candidate_feature_dim() const override { return features.size(); };
@@ -137,6 +139,7 @@ public:
         }
         return {};
     }
+
 };
 
 
