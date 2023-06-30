@@ -17,9 +17,9 @@
 #include <ftxui/dom/node.hpp>  // for Render
 #include <ftxui/screen/color.hpp>  // for Color, Color:
 
-#include "Value.h"
+#include "guidance/Value.h"
 #include "Features.h"
-#include "Policy.h"
+#include "guidance/Policy.h"
 
 #include <nlohmann/json.hpp>
 using json = nlohmann::json;
@@ -94,9 +94,9 @@ public:
         seed(std::move(seed))
     {   }
 
-    experiment_statistics(AbstractFeatureGenerator* features, PolicyFunction* pol, ValueFunction* val,
+    experiment_statistics(std::string features, PolicyFunction* pol, ValueFunction* val,
                           std::chrono::seconds timeout, std::string name, std::string seed) :
-            experiment_statistics(features? features->get_name() : "DEFAULT",
+            experiment_statistics(std::move(features),
                    pol ? pol->get_name() : "DEFAULT",
                    val ? val->get_name() : "DEFAULT",
                    timeout, std::move(name), std::move(seed))

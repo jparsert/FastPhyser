@@ -1,0 +1,58 @@
+//
+// Created by julian on 26.06.23.
+//
+
+#ifndef FASTPHYSER_DATACOLLECTOR_H
+#define FASTPHYSER_DATACOLLECTOR_H
+
+#include <oneapi/tbb/concurrent_vector.h>
+
+#include <boost/circular_buffer.hpp>
+
+
+class DataCollector {
+
+public:
+    virtual void add_iteation_data(const tbb::concurrent_vector<std::pair<std::vector<float>,float>>& d) = 0;
+
+    [[nodiscard]] virtual std::vector<std::pair<std::vector<float>, float>> get_all_data() const = 0;
+
+    [[nodiscard]] virtual size_t get_size() const = 0;
+
+};
+
+
+class DefaultDataCollector : public DataCollector {
+
+private:
+    std::vector<std::pair<std::vector<float>, float>> data;
+
+
+public:
+    void add_iteation_data(const tbb::concurrent_vector<std::pair<std::vector<float>,float>>& d) override;
+
+    [[nodiscard]] std::vector<std::pair<std::vector<float>, float>> get_all_data() const override { return data; }
+
+    [[nodiscard]] size_t get_size() const override { return data.size(); }
+
+};
+
+
+class CircularDataCollector : public DataCollector {
+
+    boost::circular_buffer<std::vector<std::pair<std::vector<float>, float>>> buffer;
+
+public:
+
+    explicit CircularDataCollector(const size_t& size) : buffer{size} { }
+
+    void add_iteation_data(const tbb::concurrent_vector<std::pair<std::vector<float>,float>>& d) override;
+
+    [[nodiscard]] std::vector<std::pair<std::vector<float>, float>> get_all_data() const override;
+
+    [[nodiscard]] size_t get_size() const override;
+
+};
+
+
+#endif //FASTPHYSER_DATACOLLECTOR_H

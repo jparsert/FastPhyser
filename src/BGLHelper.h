@@ -21,7 +21,6 @@ struct MCNode {
 };
 
 struct MCEdge {
-    bool valid_policy;
     float policy;
 };
 
@@ -32,6 +31,12 @@ using EdgeDescr = boost::graph_traits<Graph>::edge_descriptor;
 /**
  * Get the sum of the children's visits counts
  */
-std::size_t get_child_visits_sum(Graph& g, VertDescr& vert);
+std::size_t get_child_visits_sum(const Graph& g, const VertDescr& vert);
+
+
+/**
+ * All siblings of the current node (including the current node)
+ * */
+//std::vector<VertDescr> get_siblings(VertDescr current_node);
 
 #endif //FASTPHYSER_BGLHELPER_H

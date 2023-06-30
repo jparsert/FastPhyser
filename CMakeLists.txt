@@ -114,16 +114,17 @@ set(sources
         src/search/BalancedBDMonteCarlo.cpp
         src/utilities.cpp
         src/DefaultLearningManager.cpp
-        src/Policy.cpp
-        src/Value.cpp
+        src/guidance/Policy.cpp
+        src/guidance/Value.cpp
         src/Features.cpp
-        src/search/search.cpp src/Policy.cpp
+        src/search/search.cpp
         src/ParallelLearningManager.cpp
         src/statistics.cpp
         src/search/AlphaZero.cpp
         src/strategies.cpp
         src/BGLHelper.cpp
-        src/search/AZ_Prefetch.cpp)
+        src/search/AZ_Prefetch.cpp
+        src/DataCollector.cpp)
 
 set(headers
         src/verification/smt_problem_builder.h
@@ -132,8 +133,8 @@ set(headers
         src/search/BalancedBDMonteCarlo.h
         src/utilities.h
         src/constants.h src/DefaultLearningManager.h
-        src/Policy.h
-        src/Value.h
+        src/guidance/Policy.h
+        src/guidance/Value.h
         src/Features.h
         src/search/search.h
         src/ParallelLearningManager.h
@@ -141,7 +142,8 @@ set(headers
         src/search/AlphaZero.h
         src/BGLHelper.h
         src/strategies.h
-        src/search/AZ_Prefetch.h)
+        src/search/AZ_Prefetch.h
+        src/DataCollector.h)
 
 
 add_executable(FastPhyser src/main.cpp ${sources} ${headers})

@@ -12,8 +12,8 @@
 #include "Features.h"
 #include <memory>
 #include <vector>
-#include "Policy.h"
-#include "Value.h"
+#include "guidance/Policy.h"
+#include "guidance/Value.h"
 #include <optional>
 #include <iostream>
 #include <mutex>
@@ -21,6 +21,7 @@
 #include <boost/program_options.hpp>
 #include "AstPrinter.h"
 #include "statistics.h"
+#include "DataCollector.h"
 
 #include <taskflow/taskflow.hpp>
 
@@ -32,12 +33,14 @@ namespace po = boost::program_options;
  * Could use SFINAE but let's just do ducktyping for now
  * @tparam Search
  */
-template<class Search>
+template<class Search, class FeatureGenerator>
 class ParallelLearningManager {
 
-    AbstractFeatureGenerator* features;
     PolicyFunction* policy;
     ValueFunction* value;
+
+    DataCollector* policy_data_collector;
+    DataCollector* value_data_collector;
 
     int RL_Iterations = 20;
     int parallel_cores;
@@ -49,15 +52,17 @@ class ParallelLearningManager {
     po::variables_map argument_map;
 
 public:
-    explicit ParallelLearningManager(AbstractFeatureGenerator* features,
-                                     PolicyFunction* pol,
+    explicit ParallelLearningManager(PolicyFunction* pol,
                                      ValueFunction* val,
+                                     DataCollector* pol_data_col,
+                                     DataCollector* val_data_col,
                                      po::variables_map& vm):
-            features{features},
             policy{pol},
             value{val},
+            policy_data_collector{pol_data_col},
+            value_data_collector{val_data_col},
             search_timeout(vm["timeout"].as<int>()),
-            experim_stats(features, pol, val, search_timeout, Search::get_search_name(), vm.count("seed") ? std::to_string(vm["seed"].as<int>()) : ""),
+            experim_stats(FeatureGenerator::get_class_name(), pol, val, search_timeout, Search::get_search_name(), vm.count("seed") ? std::to_string(vm["seed"].as<int>()) : ""),
             parallel_cores{vm["num-parallel"].as<int>()},
             argument_map(vm)
     {
@@ -77,17 +82,20 @@ public:
 };
 
 
-template<class Search>
-experiment_statistics ParallelLearningManager<Search>::start(std::vector<std::string>& problems, std::vector<std::string>& test_set) {
+template<class Search, class AbstractFeatureGenerator>
+experiment_statistics ParallelLearningManager<Search, AbstractFeatureGenerator>::start(std::vector<std::string>& problems, std::vector<std::string>& test_set) {
 
     experim_stats.problems = problems;
     experim_stats.testing_set = test_set;
 
-    tbb::concurrent_vector<std::pair<std::vector<float>,float>> policy_data;
-    tbb::concurrent_vector<std::pair<std::vector<float>,float>> value_data;
+
 
 
     for (int iteration = 0; iteration < RL_Iterations; ++iteration) {
+
+        // collect data
+        tbb::concurrent_vector<std::pair<std::vector<float>,float>> policy_data;
+        tbb::concurrent_vector<std::pair<std::vector<float>,float>> value_data;
 
         // RUN on training set
         tbb::concurrent_vector<stat_problem> successful;
@@ -97,7 +105,7 @@ experiment_statistics ParallelLearningManager<Search>::start(std::vector<std::st
         tf::Taskflow taskflow;
         for (auto & problem : problems) {
             taskflow.emplace([&](){
-                Search search(problem, features, policy, value, search_timeout, argument_map, iteration=iteration);
+                Search search(problem, policy, value, search_timeout, argument_map, iteration=iteration);
                 search.start_search();
 
                 //add training data
@@ -143,7 +151,7 @@ experiment_statistics ParallelLearningManager<Search>::start(std::vector<std::st
         tf::Taskflow taskflow_test;
         for (auto & problem : test_set) {
             taskflow_test.emplace([&](){
-                Search search(problem, features, policy, value, search_timeout, argument_map, iteration);
+                Search search(problem, policy, value, search_timeout, argument_map, iteration);
                 search.start_search();
 
                 // add statistics
@@ -164,13 +172,11 @@ experiment_statistics ParallelLearningManager<Search>::start(std::vector<std::st
         // start TESTING RUN with timing
         executor.run(taskflow_test).wait();
 
-
-
         // look at all problems to gather statistics and training data
         experiment_iteration& it_stat = experim_stats.iterations.emplace_back();
         it_stat.iteration_time = time;
-        it_stat.policy_data_size = policy_data.size();
-        it_stat.value_data_size = value_data.size();
+        it_stat.policy_data_size = policy_data_collector->get_size();
+        it_stat.value_data_size = value_data_collector->get_size();
 
         // learning stats
         it_stat.succeeded = std::vector<stat_problem>(successful.begin(), successful.end());
@@ -184,25 +190,24 @@ experiment_statistics ParallelLearningManager<Search>::start(std::vector<std::st
 
         // add new training data and train if we have iterations left
         if (iteration < this->RL_Iterations - 1) {
+            policy_data_collector->add_iteation_data(policy_data);
+            value_data_collector->add_iteation_data(value_data);
+
             if (policy) {
-                std::vector<std::pair<std::vector<float>,float>> tmp_pol(policy_data.begin(), policy_data.end());
-                policy->train(tmp_pol, argument_map, iteration);
+                policy->train(policy_data_collector->get_all_data(), argument_map, iteration);
                 if (argument_map.count("save-models")) {
                     std::filesystem::path fld(argument_map["save-models"].as<std::string>());
                     auto res = fld/("policy_it_" + std::to_string(iteration) + get_current_timestamp_as_string() + ".model");
                     policy->save_model(res.string());
-
                 }
             }
 
             if (value) {
-                std::vector<std::pair<std::vector<float>,float>> tmp_val(value_data.begin(), value_data.end());
-                value->train(tmp_val, argument_map, iteration);
+                value->train(value_data_collector->get_all_data(), argument_map, iteration);
                 if (argument_map.count("save-models")) {
                     std::filesystem::path fld(argument_map["save-models"].as<std::string>());
                     auto res = fld/("value_it_" + std::to_string(iteration) + get_current_timestamp_as_string() + ".model");
                     value->save_model(res.string());
-
                 }
             }
         }
