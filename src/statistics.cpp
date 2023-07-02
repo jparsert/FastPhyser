@@ -245,7 +245,6 @@ ordered_json to_json(const experiment_statistics& exp_stats) {
 void ftxui_print_searcher_status_test(const experiment_statistics& experim_stats, int rl_iterations, std::size_t successful, std::size_t failed, std::size_t timed_out) {
 
     auto total_completed = successful + failed + timed_out;
-    static std::string reset_position;
     auto stats = experim_stats.render_statistics();
     stats.push_back(ftxui::window(ftxui::text("TESTING at end of Iteration " + std::to_string(std::min(experim_stats.iterations.size() + 1, static_cast<std::size_t>(rl_iterations))) + "/" + std::to_string(rl_iterations)),
                                   ftxui::vbox({
@@ -299,10 +298,7 @@ void ftxui_print_searcher_status_test(const experiment_statistics& experim_stats
     auto document = ftxui::vbox(stats);
     auto screen = ftxui::Screen::Create(ftxui::Dimension::Full(), ftxui::Dimension::Fit(document));
     Render(screen, document);
-    std::cout << reset_position;
     screen.Print();
-    reset_position = screen.ResetPosition();
-
 }
 
 
@@ -312,7 +308,6 @@ void ftxui_print_searcher_status(experiment_statistics& experim_stats, int rl_it
                                                       std::size_t timed_out) {
 
     auto total_completed = successful + failed + timed_out;
-    static std::string reset_position;
     auto stats = experim_stats.render_statistics();
     stats.push_back(ftxui::window(ftxui::text("Training Current Iteration " + std::to_string(std::min(experim_stats.iterations.size() + 1, static_cast<std::size_t>(rl_iterations))) + "/" + std::to_string(rl_iterations)),
                                   ftxui::vbox({
@@ -366,8 +361,5 @@ void ftxui_print_searcher_status(experiment_statistics& experim_stats, int rl_it
     auto document = ftxui::vbox(stats);
     auto screen = ftxui::Screen::Create(ftxui::Dimension::Full(), ftxui::Dimension::Fit(document));
     Render(screen, document);
-    std::cout << reset_position;
     screen.Print();
-    reset_position = screen.ResetPosition();
-
 }
