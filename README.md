@@ -24,9 +24,9 @@ cmake -DCMAKE_BUILD_TYPE=Release ..
 make -j$(nproc)
 ```
 
-./FastPhyser --strategy AlphaZero_complete -I ../DataSet/sygus_LIA_train --test-set ../DataSet/sygus_LIA_test --num-parallel 50 --timeout 240 --seed 50
+`./FastPhyser --strategy AlphaZero_complete -I ../DataSet/sygus_LIA_train --test-set ../DataSet/sygus_LIA_test --num-parallel 50 --timeout 240 --seed 50`
 
-./FastPhyser --strategy balancedBDMC -I ../DataSet/sygus_LIA_train --test-set ../DataSet/sygus_LIA_test --num-parallel 50 --timeout 240 --seed 51
+`./FastPhyser --strategy balancedBDMC -I ../DataSet/sygus_LIA_train --test-set ../DataSet/sygus_LIA_test --num-parallel 50 --timeout 240 --seed 51`
 
 ## Compile on Amazon EC2
 
@@ -78,7 +78,7 @@ make
 sudo make install
 ```
 
-Install Sy2CPP
+Install Sy2CPP (Not necessary anymore when using cmake)
 ```
 git clone https://github.com/jparsert/Sy2CPP
 cd Sy2CPP
@@ -89,7 +89,20 @@ make
 sudo make install
 ```
 
+Now compile FastPhyser
+```
+mkdir build
+cd build
+cmake -DCMAKE_BUILD_TYPE=Release ..
+make -j$(nproc)
+```
 
 
+## Compile
 
-
+```
+mkdir build
+cd build
+cmake -DCMAKE_BUILD_TYPE=Release ..
+make -j$(nproc)
+```

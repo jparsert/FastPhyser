@@ -13,7 +13,7 @@
 class DataCollector {
 
 public:
-    virtual void add_iteation_data(const tbb::concurrent_vector<std::pair<std::vector<float>,float>>& d) = 0;
+    virtual void add_iteration_data(const tbb::concurrent_vector<std::pair<std::vector<float>,float>>& d) = 0;
 
     [[nodiscard]] virtual std::vector<std::pair<std::vector<float>, float>> get_all_data() const = 0;
 
@@ -29,7 +29,7 @@ private:
 
 
 public:
-    void add_iteation_data(const tbb::concurrent_vector<std::pair<std::vector<float>,float>>& d) override;
+    void add_iteration_data(const tbb::concurrent_vector<std::pair<std::vector<float>,float>>& d) override;
 
     [[nodiscard]] std::vector<std::pair<std::vector<float>, float>> get_all_data() const override { return data; }
 
@@ -46,7 +46,7 @@ public:
 
     explicit CircularDataCollector(const size_t& size) : buffer{size} { }
 
-    void add_iteation_data(const tbb::concurrent_vector<std::pair<std::vector<float>,float>>& d) override;
+    void add_iteration_data(const tbb::concurrent_vector<std::pair<std::vector<float>,float>>& d) override;
 
     [[nodiscard]] std::vector<std::pair<std::vector<float>, float>> get_all_data() const override;
 

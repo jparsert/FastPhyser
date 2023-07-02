@@ -5,11 +5,11 @@
 #include "DataCollector.h"
 #include "utilities.h"
 
-void DefaultDataCollector::add_iteation_data(const tbb::concurrent_vector<std::pair<std::vector<float>, float>> &d) {
+void DefaultDataCollector::add_iteration_data(const tbb::concurrent_vector<std::pair<std::vector<float>, float>> &d) {
     concat(data, std::vector<std::pair<std::vector<float>,float>>(d.begin(), d.end()));
 }
 
-void CircularDataCollector::add_iteation_data(const tbb::concurrent_vector<std::pair<std::vector<float>, float>> &d) {
+void CircularDataCollector::add_iteration_data(const tbb::concurrent_vector<std::pair<std::vector<float>, float>> &d) {
     buffer.push_back(std::vector<std::pair<std::vector<float>,float>>(d.begin(), d.end()));
 }
 

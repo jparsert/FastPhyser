@@ -190,8 +190,8 @@ experiment_statistics ParallelLearningManager<Search, AbstractFeatureGenerator>:
 
         // add new training data and train if we have iterations left
         if (iteration < this->RL_Iterations - 1) {
-            policy_data_collector->add_iteation_data(policy_data);
-            value_data_collector->add_iteation_data(value_data);
+            policy_data_collector->add_iteration_data(policy_data);
+            value_data_collector->add_iteration_data(value_data);
 
             if (policy) {
                 policy->train(policy_data_collector->get_all_data(), argument_map, iteration);

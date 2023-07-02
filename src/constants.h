@@ -46,7 +46,7 @@ constexpr int MCTS_SIMULATIONS = 6000; // 2500
 constexpr int RL_ITERATIONS = 10;
 
 // Feature vector dimension
-constexpr int NUM_FEATURES = 3000;
+constexpr int NUM_FEATURES = 4093;
 
 //constexpr int PREFETCH_DEPTH = 2;
 

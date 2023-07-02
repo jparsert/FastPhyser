@@ -61,10 +61,10 @@ experiment_statistics AlphaZero_complete(std::vector<std::string>& problems, std
 experiment_statistics AlphaZero_Circular(std::vector<std::string>& problems, std::vector<std::string>& test_set, po::variables_map& opts) {
     std::unique_ptr<PolicyFunction> policy = std::make_unique<XGBoostPolicy>();
     std::unique_ptr<ValueFunction> value = std::make_unique<XGBoostValue>();
-    std::unique_ptr<DataCollector> policy_data_co = std::make_unique<CircularDataCollector>(POLICY_CIRCULAR_BUFFER);
-    std::unique_ptr<DataCollector> value_data_co = std::make_unique<CircularDataCollector>(VALUE_CIRCULAR_BUFFER);
+    CircularDataCollector policy_data_co(POLICY_CIRCULAR_BUFFER);
+    CircularDataCollector value_data_co(VALUE_CIRCULAR_BUFFER);
 
-    ParallelLearningManager<AlphaZero<Size2TermWalk>, Size2TermWalk> learner(policy.get(), value.get(), policy_data_co.get(), value_data_co.get(), opts);
+    ParallelLearningManager<AlphaZero<Size2TermWalk>, Size2TermWalk> learner(policy.get(), value.get(), &policy_data_co, &value_data_co, opts);
     auto stats = learner.start(problems, test_set);
     return stats;
 }
