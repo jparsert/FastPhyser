@@ -156,6 +156,7 @@ bool AlphaZero<FeatureGenerator>::start_search() {
     // not in the original but for resolving dead ends in our case
     std::set<VertDescr> dead_ends;
     for (int i = 0; i < NUM_BIG_STEPS; ++i) {
+        //std::cout << get_graph_size() << "\t" << static_cast<float>(current_process_vmemory())/static_cast<float>(total_system_vmemory()) << std::endl;
         this->path.push_back(active_node);
         bool success = this->rollout(active_node);
         if (success) {

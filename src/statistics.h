@@ -28,13 +28,13 @@ using json = nlohmann::json;
 
 std::shared_ptr<ftxui::Node>to_ftxui_text(int number);
 
-std::string get_formatted_percentage_of(int x, int y);
 
 std::shared_ptr<ftxui::Node>to_ftxui_text(const std::string& str);
 
 struct stat_problem{
     std::string name;
     unsigned long graph_size;
+    std::chrono::seconds search_time;
 };
 
 
@@ -54,8 +54,6 @@ struct experiment_iteration {
     std::vector<stat_problem> test_succeeded;
 
     std::vector<stat_problem> test_timed_out;
-
-
 
 };
 
@@ -102,20 +100,16 @@ public:
                    timeout, std::move(name), std::move(seed))
     {}
 
-    ftxui::Elements render_statistics() const;
+    [[nodiscard]] ftxui::Elements render_statistics() const;
 
     void add_run_command(std::basic_string<char> basicString);
 
+    void print_to_file(const std::string& file) const;
+
 };
 
-void ftxui_print_searcher_status_test(const experiment_statistics& experim_stats,
-                                      int rl_iterations,
-                                      std::size_t successful,
-                                      std::size_t failed,
-                                      std::size_t timed_out);
-
 void ftxui_print_searcher_status(experiment_statistics& experim_stats,
-                                 int rl_iterations,
+                                 const std::string& text,
                                  std::size_t successful,
                                  std::size_t failed,
                                  std::size_t timed_out);
@@ -126,5 +120,7 @@ using ordered_json = nlohmann::ordered_json;
 json to_json(const stat_problem& problem);
 json to_json(const experiment_iteration& experiment_iteration);
 ordered_json to_json(const experiment_statistics& experiment_statistics);
+
+
 
 #endif //FASTPHYSER_STATISTICS_H

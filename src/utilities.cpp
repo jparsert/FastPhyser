@@ -60,3 +60,60 @@ std::string get_current_timestamp_as_string() { // todo fix this with c++20 once
     auto str = oss.str();
     return str;
 }
+
+std::string get_formatted_percentage_of(int x, int y) {
+    char str[80];
+    sprintf(str, "%.f", (100.0*(static_cast<float>(x)/static_cast<float>(y))));
+    return str;
+
+}
+
+std::string get_formatted_percentage_of(size_t x, size_t y) {
+    char str[80];
+    sprintf(str, "%.f", (100.0*(static_cast<float>(x)/static_cast<float>(y))));
+    return str;
+}
+
+#include <sys/types.h>
+#include <sys/sysinfo.h>
+#include <cstdlib>
+#include <cstdio>
+#include <cstring>
+
+
+size_t parse_read_mem_info_line(char* line){
+    // This assumes that a digit will be found and the line ends in " Kb".
+    size_t i = strlen(line);
+    const char* p = line;
+    while (*p <'0' || *p > '9') p++;
+    line[i-3] = '\0';
+    i = atoi(p);
+    return i;
+}
+
+
+size_t current_process_vmemory(){ //Note: value read in KB, we multiply by 1000 to get bytes
+    FILE* file = fopen("/proc/self/status", "r");
+    size_t result = -1;
+    char line[128];
+
+    while (fgets(line, 128, file) != NULL){
+        if (strncmp(line, "VmSize:", 7) == 0){
+            result = parse_read_mem_info_line(line);
+            break;
+        }
+    }
+    fclose(file);
+    return result*1000;
+}
+
+size_t total_system_vmemory() {
+    struct sysinfo memInfo{};
+    sysinfo(&memInfo);
+    size_t totalVirtualMem = memInfo.totalram;
+    //Add other values in next statement to avoid int overflow on right hand side...
+    totalVirtualMem += memInfo.totalswap;
+    totalVirtualMem *= memInfo.mem_unit;
+
+    return totalVirtualMem;
+}

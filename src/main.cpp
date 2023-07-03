@@ -108,10 +108,7 @@ int main(int argc, char* argv[]) {
     } else {
         result_file = "experiment_results" + get_current_timestamp_as_string() + ".json";
     }
-    nlohmann::ordered_json js_res = to_json(results);
-    std::ofstream res_file(result_file);
-    res_file << std::setw(4) << js_res << std::endl;
+    results.print_to_file(result_file);
 
     return 0;
-
 }

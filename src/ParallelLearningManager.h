@@ -106,7 +106,11 @@ experiment_statistics ParallelLearningManager<Search, AbstractFeatureGenerator>:
         for (auto & problem : problems) {
             taskflow.emplace([&](){
                 Search search(problem, policy, value, search_timeout, argument_map, iteration=iteration);
+
+                // get timing
+                auto start_time = std::chrono::steady_clock::now();
                 search.start_search();
+                std::chrono::seconds search_time = std::chrono::duration_cast<std::chrono::seconds>(std::chrono::steady_clock::now()-start_time);
 
                 //add training data
                 // policy training data
@@ -121,18 +125,19 @@ experiment_statistics ParallelLearningManager<Search, AbstractFeatureGenerator>:
                 }
 
                 // add statistics
+                stat_problem stat_p{search.get_problem(), search.get_graph_size(), search_time};
                 if (search.get_solution()) { // successful search
-                    successful.emplace_back(stat_problem{search.get_problem(), search.get_graph_size()});
+                    successful.emplace_back(stat_p);
                 } else {
                     if (search.search_timed_out()) {
-                        timed_out.emplace_back(stat_problem{search.get_problem(), search.get_graph_size()});
+                        timed_out.emplace_back(stat_p);
                     } else {
-                        failed.emplace_back(stat_problem{search.get_problem(), search.get_graph_size()});
+                        failed.emplace_back(stat_p);
                     }
                 }
 
                 // print output
-                ftxui_print_searcher_status(experim_stats, RL_Iterations, successful.size(), failed.size(), timed_out.size());
+                ftxui_print_searcher_status(experim_stats, "Training Iteration " + std::to_string(std::min(iteration+1, RL_Iterations)) + "/" + std::to_string(RL_Iterations), successful.size(), failed.size(), timed_out.size());
             });
 
         }
@@ -152,21 +157,26 @@ experiment_statistics ParallelLearningManager<Search, AbstractFeatureGenerator>:
         for (auto & problem : test_set) {
             taskflow_test.emplace([&](){
                 Search search(problem, policy, value, search_timeout, argument_map, iteration);
+
+                // get timing
+                auto start_time = std::chrono::steady_clock::now();
                 search.start_search();
+                std::chrono::seconds search_time = std::chrono::duration_cast<std::chrono::seconds>(std::chrono::steady_clock::now()-start_time);
 
                 // add statistics
+                stat_problem stat_p{search.get_problem(), search.get_graph_size(), search_time};
                 if (search.get_solution()) { // successful search
-                    successful_test.emplace_back(stat_problem{search.get_problem(), search.get_graph_size()});
+                    successful_test.emplace_back(stat_p);
                     //std::vector<Sy2CPP::DefineFunCmd> sol = search.get_solution().value();
                     //std::cout << Sy2CPP::AstToString::to_string(sol[0]) << std::endl;
                 } else {
                     if (search.search_timed_out()) {
-                        timed_out_test.emplace_back(stat_problem{search.get_problem(), search.get_graph_size()});
+                        timed_out_test.emplace_back(stat_p);
                     } else {
-                        failed_test.emplace_back(stat_problem{search.get_problem(), search.get_graph_size()});
+                        failed_test.emplace_back(stat_p);
                     }
                 }
-                ftxui_print_searcher_status_test(experim_stats, RL_Iterations, successful_test.size(), failed_test.size(), timed_out_test.size());
+                ftxui_print_searcher_status(experim_stats, "Training Iteration " + std::to_string(std::min(iteration+1, RL_Iterations)) + "/" + std::to_string(RL_Iterations), successful_test.size(), failed_test.size(), timed_out_test.size());
             });
         }
         // start TESTING RUN with timing
@@ -211,8 +221,8 @@ experiment_statistics ParallelLearningManager<Search, AbstractFeatureGenerator>:
                 }
             }
         }
-
-        ftxui_print_searcher_status(experim_stats, RL_Iterations, successful_test.size(), failed_test.size(), timed_out_test.size());
+        experim_stats.print_to_file("tmp_results.json");
+        ftxui_print_searcher_status(experim_stats, "Training Iteration " + std::to_string(std::min(iteration+1, RL_Iterations)) + "/" + std::to_string(RL_Iterations), successful_test.size(), failed_test.size(), timed_out_test.size());
     }
 
     return this->experim_stats;
