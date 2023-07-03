@@ -71,6 +71,7 @@ Sy2CPP::Term *CandidateTreeGenerator::get_root() {
 }
 
 bool CandidateTreeGenerator::is_leaf(Sy2CPP::Term *term) {
+    //return is_leaf_visitor.is_leaf(term);
     return count_non_terminals(term) == 0;
 }
 
@@ -130,7 +131,7 @@ CountNonTerminals::CountNonTerminals(const std::vector<Sy2CPP::SortedVar>& vecto
     }
 }
 
-int CountNonTerminals::count_non_terminals(Sy2CPP::Term *term) {
+int CountNonTerminals::count_non_terminals(Sy2CPP::Term *term){
     return std::any_cast<int>(term->accept(*this));
 }
 
@@ -207,4 +208,58 @@ std::vector<Sy2CPP::TermPtr> GenerateLeftMostProdukts::generate_leftmost_product
     return std::any_cast<std::vector<Sy2CPP::TermPtr>>(term->accept(*this));
 }
 
+/*
+IsLeaf::IsLeaf(const std::vector<Sy2CPP::SortedVar> &vector) {
+    for (const auto& s_var: vector) {
+        this->non_terminals.insert(s_var.first);
+    }
+}
+
+int IsLeaf::is_leaf(Sy2CPP::Term *term) {
+    return std::any_cast<bool>(term->accept(*this));
+}
+
+
+std::any IsLeaf::visitNumeral(Sy2CPP::Numeral &numeral) {
+    return true;
+}
+
+std::any IsLeaf::visitDecimal(Sy2CPP::Decimal &decimal) {
+    return true;
+}
+
+std::any IsLeaf::visitBoolConst(Sy2CPP::BoolConst &boolConst) {
+    return true;
+}
+
+std::any IsLeaf::visitHexConst(Sy2CPP::HexConst &hex) {
+    return true;
+}
+
+std::any IsLeaf::visitBinConst(Sy2CPP::BinConst &bin) {
+    return true;
+
+}
+
+std::any IsLeaf::visitStringConst(Sy2CPP::StringConst &s) {
+    return true;
+
+}
+
+std::any IsLeaf::visitIdentifierTerm(Sy2CPP::IdentifierTerm &term) {
+    if (this->non_terminals.contains(term.get_identifier())) {
+        return false;
+    }
+    return true;
+}
+
+std::any IsLeaf::visitApplicationTerm(Sy2CPP::ApplicationTerm &application) {
+    for (auto& arg : application.get_arguments()) {
+        if(!std::any_cast<bool>(arg->accept(*this))) {
+            return false;
+        }
+    }
+    return true;
+}
+ */
 

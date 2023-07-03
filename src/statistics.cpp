@@ -142,21 +142,13 @@ ftxui::Element experiment_statistics::render_iterations_abs() const {
         int policy_data_size = static_cast<int>(iterations[i].policy_data_size);
         int value_data_size = static_cast<int>(iterations[i].value_data_size);
 
-        unsigned long avg_graph_size = fplus::fold_left([](const auto &x, const auto &y) { return x + y; }, 0,
-                                                        fplus::transform(
-                                                                [](const stat_problem &problem) { return problem.graph_size; },
-                                                                iterations[i].succeeded)) /
-                                       std::max(iterations[i].succeeded.size(), static_cast<std::size_t>(1));
+        unsigned long avg_graph_size =  iterations[i].get_average_graph_size_training();
 
-        unsigned long avg_graph_size_test = fplus::fold_left([](const auto &x, const auto &y) { return x + y; }, 0,
-                                                             fplus::transform(
-                                                                     [](const stat_problem &problem) { return problem.graph_size; },
-                                                                     iterations[i].test_succeeded)) /
-                                            std::max(iterations[i].test_succeeded.size(), static_cast<std::size_t>(1));
+        unsigned long avg_graph_size_test = iterations[i].get_average_graph_size_test();
 
 
         its.push_back(ftxui::vbox({
-                                          to_ftxui_text(i + 1),
+                                          i==(iterations.size() - 1) ? ftxui::text(std::to_string(i+1) + " (current)") : to_ftxui_text(i + 1),
                                           ftxui::separator(),
                                           to_ftxui_text(get_formatted_percentage_of(solved, total) + "% (" +
                                                         std::to_string(solved) + ")"),
@@ -287,13 +279,13 @@ ordered_json to_json(const experiment_statistics &exp_stats) {
 }
 
 
-void ftxui_print_searcher_status(experiment_statistics &experim_stats, const std::string& heading, std::size_t successful,
+void ftxui_print_searcher_status(const experiment_statistics &experim_stats, const std::string& heading, std::size_t successful,
                                  std::size_t failed,
                                  std::size_t timed_out) {
 
     auto total_completed = successful + failed + timed_out;
     auto stats = experim_stats.render_statistics();
-    stats.push_back(ftxui::window(ftxui::text("Training Current Iteration " + heading),
+    stats.push_back(ftxui::window(ftxui::text(heading),
                                   ftxui::vbox({
                                                       ftxui::hbox({
                                                                           ftxui::text(pad_right("Completed ", 12)),

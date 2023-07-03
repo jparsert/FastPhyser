@@ -137,6 +137,8 @@ public:
 
     static std::string  get_search_name() {return "AlphaZero";}
 
+    static std::string  get_feature_generator_name() {return FeatureGenerator::get_name();}
+
 
 };
 

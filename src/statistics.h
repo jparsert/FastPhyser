@@ -11,17 +11,19 @@
 #include <vector>
 #include <chrono>
 
-
 #include <ftxui/dom/elements.hpp>  // for operator|, text, Element, hbox, bold, color, filler, separator, vbox, window, gauge, Fit, size, dim, EQUAL, WIDTH
 #include <ftxui/screen/screen.hpp>  // for Full, Screen
 #include <ftxui/dom/node.hpp>  // for Render
 #include <ftxui/screen/color.hpp>  // for Color, Color:
+
+#include <oneapi/tbb/concurrent_vector.h>
 
 #include "guidance/Value.h"
 #include "Features.h"
 #include "guidance/Policy.h"
 
 #include <nlohmann/json.hpp>
+
 using json = nlohmann::json;
 
 // Holding the statistics during training for printing and saving
@@ -43,17 +45,36 @@ struct experiment_iteration {
     std::size_t policy_data_size;
     std::size_t value_data_size;
 
-    std::vector<stat_problem> failed;
+    tbb::concurrent_vector<stat_problem> failed;
 
-    std::vector<stat_problem> succeeded;
+    tbb::concurrent_vector<stat_problem> succeeded;
 
-    std::vector<stat_problem> timed_out;
+    tbb::concurrent_vector<stat_problem> timed_out;
 
-    std::vector<stat_problem> test_failed;
+    tbb::concurrent_vector<stat_problem> test_failed;
 
-    std::vector<stat_problem> test_succeeded;
+    tbb::concurrent_vector<stat_problem> test_succeeded;
 
-    std::vector<stat_problem> test_timed_out;
+    tbb::concurrent_vector<stat_problem> test_timed_out;
+
+public:
+    [[nodiscard]] unsigned long get_average_graph_size_test() const {
+        unsigned long sum = 0;
+        for (const auto& x : test_succeeded) {
+            sum += x.graph_size;
+        }
+
+        return sum/std::max(test_succeeded.size(), static_cast<std::size_t>(1));
+    }
+
+    [[nodiscard]] unsigned long get_average_graph_size_training() const {
+        unsigned long sum = 0;
+        for (const auto& x : succeeded) {
+            sum += x.graph_size;
+        }
+
+        return sum/std::max(succeeded.size(), static_cast<std::size_t>(1));
+    }
 
 };
 
@@ -79,7 +100,7 @@ struct experiment_statistics {
 
 private:
     [[nodiscard]] ftxui::Element render_general_info() const;
-    ftxui::Element render_iterations_abs() const;
+    [[nodiscard]] ftxui::Element render_iterations_abs() const;
 
 public:
 
@@ -108,7 +129,7 @@ public:
 
 };
 
-void ftxui_print_searcher_status(experiment_statistics& experim_stats,
+void ftxui_print_searcher_status(const experiment_statistics& experim_stats,
                                  const std::string& text,
                                  std::size_t successful,
                                  std::size_t failed,

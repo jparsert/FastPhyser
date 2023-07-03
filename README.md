@@ -99,7 +99,7 @@ make -j$(nproc)
 
 
 ## Compile
-
+After all dependencies are installed FastPhyser can be compiled as follows:
 ```
 mkdir build
 cd build

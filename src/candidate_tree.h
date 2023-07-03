@@ -22,7 +22,7 @@ public:
 
     CountNonTerminals() = default;
 
-    int count_non_terminals(Sy2CPP::Term* term);
+    int count_non_terminals(Sy2CPP::Term* term) ;
 
     // visito functions
     std::any visitNumeral(Sy2CPP::Numeral &numeral) override;
@@ -35,6 +35,35 @@ public:
     std::any visitApplicationTerm(Sy2CPP::ApplicationTerm &application) override;
 
 };
+
+/*
+class IsLeaf :public Sy2CPP::BfTermVisitor {
+
+private:
+    std::unordered_set<Sy2CPP::EitherIdentifier> non_terminals;
+
+public:
+    explicit IsLeaf(const std::unordered_set<Sy2CPP::EitherIdentifier>& non_terms):
+            non_terminals{non_terms} {}
+
+    explicit IsLeaf(const std::vector<Sy2CPP::SortedVar>& vector);
+
+    IsLeaf() = default;
+
+    int is_leaf(Sy2CPP::Term* term);
+
+    // visito functions
+    std::any visitNumeral(Sy2CPP::Numeral &numeral) override;
+    std::any visitDecimal(Sy2CPP::Decimal &decimal) override ;
+    std::any visitBoolConst(Sy2CPP::BoolConst &boolConst) override;
+    std::any visitHexConst(Sy2CPP::HexConst &hex) override;
+    std::any visitBinConst(Sy2CPP::BinConst &bin) override;
+    std::any visitStringConst(Sy2CPP::StringConst &s) override;
+    std::any visitIdentifierTerm(Sy2CPP::IdentifierTerm &term) override;
+    std::any visitApplicationTerm(Sy2CPP::ApplicationTerm &application) override;
+
+};
+*/
 
 class GenerateLeftMostProdukts : public Sy2CPP::BfTermVisitor {
 
@@ -68,6 +97,7 @@ private:
     std::unordered_map<Sy2CPP::EitherIdentifier, std::vector<Sy2CPP::TermPtr>> rules;
     CountNonTerminals non_terminal_counter;
     GenerateLeftMostProdukts left_most_product_generator;
+    //IsLeaf is_leaf_visitor;
     Sy2CPP::TermPtr root;
 
     // Properties of function to be synthesised (used to generate Sy2CPP::SynthesisSolution)

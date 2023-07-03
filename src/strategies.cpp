@@ -21,7 +21,7 @@ experiment_statistics balancedBDMC_complete(std::vector<std::string>& problems, 
     std::unique_ptr<DataCollector> policy_data_co = std::make_unique<DefaultDataCollector>();
     std::unique_ptr<DataCollector> value_data_co = std::make_unique<DefaultDataCollector>();
 
-    ParallelLearningManager<BalancedBDMonteCarlo<Size2TermWalk>, Size2TermWalk> learner(policy.get(), value.get(), policy_data_co.get(), value_data_co.get(), opts);
+    ParallelLearningManager<BalancedBDMonteCarlo<Size2TermWalk>> learner(policy.get(), value.get(), policy_data_co.get(), value_data_co.get(), opts);
     auto stats = learner.start(problems, test_set);
     return stats;
 }
@@ -32,7 +32,7 @@ experiment_statistics balancedBDMC_policy_only(std::vector<std::string>& problem
     std::unique_ptr<DataCollector> policy_data_co = std::make_unique<DefaultDataCollector>();
     std::unique_ptr<DataCollector> value_data_co = std::make_unique<DefaultDataCollector>();
 
-    ParallelLearningManager<BalancedBDMonteCarlo<Size2TermWalk>, Size2TermWalk> learner(policy.get(), nullptr, policy_data_co.get(), value_data_co.get(), opts);
+    ParallelLearningManager<BalancedBDMonteCarlo<Size2TermWalk>> learner(policy.get(), nullptr, policy_data_co.get(), value_data_co.get(), opts);
     auto stats = learner.start(problems, test_set);
     return stats;
 }
@@ -42,7 +42,7 @@ experiment_statistics balancedBDMC_value_only(std::vector<std::string>& problems
     std::unique_ptr<DataCollector> policy_data_co = std::make_unique<DefaultDataCollector>();
     std::unique_ptr<DataCollector> value_data_co = std::make_unique<DefaultDataCollector>();
 
-    ParallelLearningManager<BalancedBDMonteCarlo<Size2TermWalk>, Size2TermWalk> learner(nullptr, value.get(), policy_data_co.get(), value_data_co.get(), opts);
+    ParallelLearningManager<BalancedBDMonteCarlo<Size2TermWalk>> learner(nullptr, value.get(), policy_data_co.get(), value_data_co.get(), opts);
     auto stats = learner.start(problems, test_set);
     return stats;
 }
@@ -53,7 +53,7 @@ experiment_statistics AlphaZero_complete(std::vector<std::string>& problems, std
     std::unique_ptr<DataCollector> policy_data_co = std::make_unique<DefaultDataCollector>();
     std::unique_ptr<DataCollector> value_data_co = std::make_unique<DefaultDataCollector>();
 
-    ParallelLearningManager<AlphaZero<Size2TermWalk>, Size2TermWalk> learner(policy.get(), value.get(), policy_data_co.get(), value_data_co.get(), opts);
+    ParallelLearningManager<AlphaZero<Size2TermWalk>> learner(policy.get(), value.get(), policy_data_co.get(), value_data_co.get(), opts);
     auto stats = learner.start(problems, test_set);
     return stats;
 }
@@ -64,7 +64,7 @@ experiment_statistics AlphaZero_Circular(std::vector<std::string>& problems, std
     CircularDataCollector policy_data_co(POLICY_CIRCULAR_BUFFER);
     CircularDataCollector value_data_co(VALUE_CIRCULAR_BUFFER);
 
-    ParallelLearningManager<AlphaZero<Size2TermWalk>, Size2TermWalk> learner(policy.get(), value.get(), &policy_data_co, &value_data_co, opts);
+    ParallelLearningManager<AlphaZero<Size2TermWalk>> learner(policy.get(), value.get(), &policy_data_co, &value_data_co, opts);
     auto stats = learner.start(problems, test_set);
     return stats;
 }
@@ -77,7 +77,7 @@ experiment_statistics AlphaZeroPrefetch_complete(std::vector<std::string>& probl
     std::unique_ptr<DataCollector> policy_data_co = std::make_unique<DefaultDataCollector>();
     std::unique_ptr<DataCollector> value_data_co = std::make_unique<DefaultDataCollector>();
 
-    ParallelLearningManager<AZ_Prefetch<Size2TermWalk>, Size2TermWalk> learner(policy.get(), value.get(), policy_data_co.get(), value_data_co.get(), opts);
+    ParallelLearningManager<AZ_Prefetch<Size2TermWalk>> learner(policy.get(), value.get(), policy_data_co.get(), value_data_co.get(), opts);
     auto stats = learner.start(problems, test_set);
     return stats;
 }

@@ -33,11 +33,11 @@ FetchContent_Declare(functional_plus
 FetchContent_MakeAvailable(functional_plus)
 
 
-FetchContent_Declare(taskflow
-        GIT_REPOSITORY https://github.com/taskflow/taskflow
-        GIT_TAG v3.5.0
-        )
-FetchContent_MakeAvailable(taskflow)
+#FetchContent_Declare(taskflow
+#        GIT_REPOSITORY https://github.com/taskflow/taskflow
+#        GIT_TAG v3.5.0
+#        )
+#FetchContent_MakeAvailable(taskflow)
 
 
 #oneTBB
@@ -156,7 +156,7 @@ target_compile_definitions(${PROJECT_NAME} PRIVATE
 include_directories(
         ${Boost_INCLUDE_DIRS}
         ${progressbar_SOURCE_DIR}/single_include
-        ${taskflow_SOURCE_DIR}
+#        ${taskflow_SOURCE_DIR}
         ${z3_SOURCE_DIR}/src/api/c++
         ${z3_SOURCE_DIR}/src/api
 )

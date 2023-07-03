@@ -40,7 +40,7 @@ public:
 
     Size2TermWalk(): features(NUM_FEATURES,0) { }
 
-    static std::string get_class_name() {return "Size2TermWalk";}
+    static std::string get_name() {return "Size2TermWalk";}
 
     static size_t get_spec_feature_dim() { return NUM_FEATURES; } ;
 
