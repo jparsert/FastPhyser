@@ -77,15 +77,15 @@ public:
     /**
      * Should probably return some statistics
      */
-    experiment_statistics start(std::vector<std::string>& problems, std::vector<std::string>& test_set);
+    experiment_statistics start(std::vector<std::string>& train_set, std::vector<std::string>& test_set);
 
 };
 
 
 template<class Search, class AbstractFeatureGenerator>
-experiment_statistics ParallelLearningManager<Search, AbstractFeatureGenerator>::start(std::vector<std::string>& problems, std::vector<std::string>& test_set) {
+experiment_statistics ParallelLearningManager<Search, AbstractFeatureGenerator>::start(std::vector<std::string>& train_set, std::vector<std::string>& test_set) {
 
-    experim_stats.problems = problems;
+    experim_stats.problems = train_set;
     experim_stats.testing_set = test_set;
 
 
@@ -103,9 +103,9 @@ experiment_statistics ParallelLearningManager<Search, AbstractFeatureGenerator>:
         tbb::concurrent_vector<stat_problem> timed_out;
         tf::Executor executor( parallel_cores == 0 ? std::thread::hardware_concurrency() : parallel_cores);
         tf::Taskflow taskflow;
-        for (auto & problem : problems) {
+        for (int i = 0; i < train_set.size(); ++i) {
             taskflow.emplace([&](){
-                Search search(problem, policy, value, search_timeout, argument_map, iteration=iteration);
+                Search search(train_set[i], policy, value, search_timeout, argument_map, iteration=iteration);
 
                 // get timing
                 auto start_time = std::chrono::steady_clock::now();
@@ -154,9 +154,9 @@ experiment_statistics ParallelLearningManager<Search, AbstractFeatureGenerator>:
         tbb::concurrent_vector<stat_problem> timed_out_test;
         tf::Executor executor_test( parallel_cores == 0 ? std::thread::hardware_concurrency() : parallel_cores);
         tf::Taskflow taskflow_test;
-        for (auto & problem : test_set) {
+        for (int i = 0; i < test_set.size(); ++i) {
             taskflow_test.emplace([&](){
-                Search search(problem, policy, value, search_timeout, argument_map, iteration);
+                Search search(test_set[i], policy, value, search_timeout, argument_map, iteration);
 
                 // get timing
                 auto start_time = std::chrono::steady_clock::now();
@@ -182,7 +182,7 @@ experiment_statistics ParallelLearningManager<Search, AbstractFeatureGenerator>:
         // start TESTING RUN with timing
         executor.run(taskflow_test).wait();
 
-        // look at all problems to gather statistics and training data
+        // look at all train_set to gather statistics and training data
         experiment_iteration& it_stat = experim_stats.iterations.emplace_back();
         it_stat.iteration_time = time;
         it_stat.policy_data_size = policy_data_collector->get_size();
