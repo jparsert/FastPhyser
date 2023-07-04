@@ -197,9 +197,7 @@ json to_json(const stat_problem &prob) {
     json j;
     j["problem"] = prob.name;
     j["graph_size"] = prob.graph_size;
-    std::stringstream ss;
-    ss << prob.search_time;
-    j["search_time_seconds"] = ss.str();
+    j["search_time_seconds"] = prob.search_time.count();
     return j;
 }
 
