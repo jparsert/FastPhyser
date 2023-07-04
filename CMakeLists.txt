@@ -26,11 +26,11 @@ FetchContent_MakeAvailable(z3)
 #find_package(z3 REQUIRED)
 
 #functional plus is a library for functional programming idioms in c++
-FetchContent_Declare(functional_plus
-        GIT_REPOSITORY https://github.com/Dobiasd/FunctionalPlus
-        GIT_TAG c644862
-)
-FetchContent_MakeAvailable(functional_plus)
+#FetchContent_Declare(functional_plus
+#        GIT_REPOSITORY https://github.com/Dobiasd/FunctionalPlus
+#        GIT_TAG c644862
+#)
+#FetchContent_MakeAvailable(functional_plus)
 
 
 #FetchContent_Declare(taskflow
@@ -155,7 +155,7 @@ target_compile_definitions(${PROJECT_NAME} PRIVATE
 # add required runtime library
 include_directories(
         ${Boost_INCLUDE_DIRS}
-        ${progressbar_SOURCE_DIR}/single_include
+        #${progressbar_SOURCE_DIR}/single_include
 #        ${taskflow_SOURCE_DIR}
         ${z3_SOURCE_DIR}/src/api/c++
         ${z3_SOURCE_DIR}/src/api
@@ -167,7 +167,7 @@ include_directories(
 target_link_libraries(FastPhyser PRIVATE
         Sy2CPP-shared
         libz3
-        FunctionalPlus::fplus
+        #FunctionalPlus::fplus
         ${Boost_LIBRARIES}
         xgboost::xgboost
         ftxui::screen
