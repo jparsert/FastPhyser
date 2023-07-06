@@ -89,6 +89,11 @@ ftxui::Element experiment_statistics::render_general_info() const {
                                                                                                      to_ftxui_text(
                                                                                                              static_cast<int>(this->testing_set.size())),
                                                                                              }),
+                                                                                 ftxui::hbox({
+                                                                                                     to_ftxui_text(
+                                                                                                             "Parallelism :"),
+                                                                                                     to_ftxui_text(std::to_string(this->num_parallel_option)),
+                                                                                             }),
                                                                          }),
                                                      })
                                  });
@@ -262,7 +267,7 @@ ordered_json to_json(const experiment_statistics &exp_stats) {
     res["run_command"] = exp_stats.run_command;
     res["seed"] = exp_stats.seed;
     res["search_algorithm"] = exp_stats.search_name;
-
+    res["parallelism"] = exp_stats.num_parallel_option;
     res["all_problems"] = exp_stats.problems;
     res["testing_set_problems"] = exp_stats.testing_set;
 
@@ -277,7 +282,8 @@ ordered_json to_json(const experiment_statistics &exp_stats) {
 
 void ftxui_print_searcher_status(const experiment_statistics &experim_stats, const std::string& heading, std::size_t successful,
                                  std::size_t failed,
-                                 std::size_t timed_out) {
+                                 std::size_t timed_out,
+                                 std::size_t overall_num) {
 
     auto total_completed = successful + failed + timed_out;
     auto stats = experim_stats.render_statistics();
@@ -289,7 +295,7 @@ void ftxui_print_searcher_status(const experiment_statistics &experim_stats, con
                                                                           ftxui::text(pad_right(
                                                                                   std::to_string(total_completed) +
                                                                                   "/" + std::to_string(
-                                                                                          experim_stats.problems.size()),
+                                                                                          overall_num),
                                                                                   12)),
                                                                           ftxui::separator(),
                                                                           ftxui::text(pad_right(

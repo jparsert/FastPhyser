@@ -65,7 +65,10 @@ public:
             policy_data_collector{pol_data_col},
             value_data_collector{val_data_col},
             search_timeout(vm["timeout"].as<int>()),
-            experim_stats(Search::get_feature_generator_name(), pol, val, search_timeout, Search::get_search_name(), vm.count("seed") ? std::to_string(vm["seed"].as<int>()) : ""),
+            experim_stats(Search::get_feature_generator_name(), pol, val, search_timeout,
+                          Search::get_search_name(),
+                          vm.count("seed") ? std::to_string(vm["seed"].as<int>()) : "",
+                          vm["num-parallel"].as<int>()),
             parallel_cores{vm["num-parallel"].as<int>()},
             argument_map(vm)
     {
@@ -143,7 +146,7 @@ experiment_statistics ParallelLearningManager<Search>::start(std::vector<std::st
             }
 
             // print output
-            ftxui_print_searcher_status(experim_stats, "TRAINING Iteration " + std::to_string(std::min(iteration+1, RL_Iterations)) + "/" + std::to_string(RL_Iterations), successful.size(), failed.size(), timed_out.size());
+            ftxui_print_searcher_status(experim_stats, "TRAINING Iteration " + std::to_string(std::min(iteration+1, RL_Iterations)) + "/" + std::to_string(RL_Iterations), successful.size(), failed.size(), timed_out.size(), experim_stats.problems.size());
         };
 
         // start TRAINING RUN with timing
@@ -180,7 +183,7 @@ experiment_statistics ParallelLearningManager<Search>::start(std::vector<std::st
                         failed_test.emplace_back(stat_p);
                     }
                 }
-                ftxui_print_searcher_status(experim_stats, "TESTING Iteration " + std::to_string(std::min(iteration+1, RL_Iterations)) + "/" + std::to_string(RL_Iterations), successful_test.size(), failed_test.size(), timed_out_test.size());
+                ftxui_print_searcher_status(experim_stats, "TESTING Iteration " + std::to_string(std::min(iteration+1, RL_Iterations)) + "/" + std::to_string(RL_Iterations), successful_test.size(), failed_test.size(), timed_out_test.size(), experim_stats.testing_set.size());
             };
 
         // start TESTING RUN with timing
@@ -212,7 +215,7 @@ experiment_statistics ParallelLearningManager<Search>::start(std::vector<std::st
             }
         }
         experim_stats.print_to_file("tmp_results.json");
-        ftxui_print_searcher_status(experim_stats, "" + std::to_string(std::min(iteration+1, RL_Iterations)) + "/" + std::to_string(RL_Iterations), successful_test.size(), failed_test.size(), timed_out_test.size());
+        //ftxui_print_searcher_status(experim_stats, "" + std::to_string(std::min(iteration+1, RL_Iterations)) + "/" + std::to_string(RL_Iterations), successful_test.size(), failed_test.size(), timed_out_test.size());
     }
 
     return this->experim_stats;
