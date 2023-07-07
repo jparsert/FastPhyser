@@ -126,7 +126,7 @@ ftxui::Element experiment_statistics::render_iterations_abs() const {
                               }));
     its.push_back(ftxui::separator());
 
-    for (int i = 0; i < iterations.size(); ++i) {
+    for (int i = static_cast<int>(std::max(iterations.size() - 10, std::size_t(0))); i < iterations.size(); ++i) {
         int solved = static_cast<int>(iterations[i].succeeded.size());
         int failed = static_cast<int>(iterations[i].failed.size());
         int timed_out = static_cast<int>(iterations[i].timed_out.size());
