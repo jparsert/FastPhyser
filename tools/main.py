@@ -30,6 +30,7 @@ def calc_solves_over_time(file):
     plt.xlabel('time (s)')
     plt.ylabel('solved problems')
     plt.show()
+    plt.savefig('plots/training_solved_over_time.eps', format='eps')
 
     plt.clf()
     for it in iterations:
@@ -42,13 +43,40 @@ def calc_solves_over_time(file):
 
     plt.xlabel('time (s)')
     plt.ylabel('solved problems')
-
+    plt.savefig('plots/testing_solved_over_time.eps', format='eps')
     plt.show()
 
-    plt.clf()
+
+def solved_over_iterations(file):
+    data = None
+    with open(file) as f:
+        data = json.load(f)
+    iterations = data["iterations"]
+    x = range(1, len(iterations) + 1)
+    y = []
+    for it in iterations:
+        y.append(len(it["successful"]))
+
+    fig, ax = plt.subplots()
+    ax.bar(x, y)
+    #ax.xlabel('iteration')
+    #ax.ylabel('solved problems')
+    plt.savefig('plots/training_solved_over_iterations.eps', format='eps')
+    plt.show()
+
+    fig, ax = plt.subplots()
+    y = []
+    for it in iterations:
+        y.append(len(it["successful_test"]))
+    ax.bar(x, y)
+    #ax.xlabel('iteration')
+    #ax.ylabel('solved problems')
+    plt.savefig('plots/test_solved_over_iterations.eps', format='eps')
+    plt.show()
+
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     calc_solves_over_time(FILE)
-
+    solved_over_iterations(FILE)
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
