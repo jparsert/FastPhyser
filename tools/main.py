@@ -2,7 +2,7 @@ import json
 import matplotlib.pyplot as plt
 
 
-FILE = "/home/julian/coding/tmp_results.json"
+FILE = "/home/julian/coding/FastPhyser/results/experiment_results07-07-2023||09-31-46.json"
 
 
 def accum_left(lst):
