@@ -86,6 +86,7 @@ struct experiment_statistics {
     std::vector<std::string> testing_set;
     std::vector<experiment_iteration> iterations;
     std::chrono::seconds timeout;
+    int num_parallel_option = 0;
     std::string features_generator;
     std::string policy;
     std::string value;
@@ -104,21 +105,22 @@ private:
 
 public:
 
-    experiment_statistics(std::string  feature_gen, std::string  policy, std::string  value, std::chrono::seconds timeout, std::string  searcher, std::string seed):
+    experiment_statistics(std::string  feature_gen, std::string  policy, std::string  value, std::chrono::seconds timeout, std::string  searcher, std::string seed, int parallelism):
         features_generator(std::move(feature_gen)),
         policy(std::move(policy)),
         value(std::move(value)),
         timeout(timeout),
         search_name(std::move(searcher)),
-        seed(std::move(seed))
+        seed(std::move(seed)),
+        num_parallel_option(parallelism)
     {   }
 
     experiment_statistics(std::string features, PolicyFunction* pol, ValueFunction* val,
-                          std::chrono::seconds timeout, std::string name, std::string seed) :
+                          std::chrono::seconds timeout, std::string name, std::string seed, int parallel) :
             experiment_statistics(std::move(features),
                    pol ? pol->get_name() : "DEFAULT",
                    val ? val->get_name() : "DEFAULT",
-                   timeout, std::move(name), std::move(seed))
+                   timeout, std::move(name), std::move(seed), parallel)
     {}
 
     [[nodiscard]] ftxui::Elements render_statistics() const;
@@ -133,7 +135,8 @@ void ftxui_print_searcher_status(const experiment_statistics& experim_stats,
                                  const std::string& text,
                                  std::size_t successful,
                                  std::size_t failed,
-                                 std::size_t timed_out);
+                                 std::size_t timed_out,
+                                 std::size_t overall_num);
 
 
 using ordered_json = nlohmann::ordered_json;
