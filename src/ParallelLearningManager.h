@@ -68,7 +68,9 @@ public:
             experim_stats(Search::get_feature_generator_name(), pol, val, search_timeout,
                           Search::get_search_name(),
                           vm.count("seed") ? std::to_string(vm["seed"].as<int>()) : "",
-                          vm["num-parallel"].as<int>()),
+                          vm["num-parallel"].as<int>(),
+                          pol_data_col->get_name(),
+                          val_data_col->get_name()),
             parallel_cores{vm["num-parallel"].as<int>()},
             argument_map(vm)
     {
@@ -155,7 +157,7 @@ experiment_statistics ParallelLearningManager<Search>::start(std::vector<std::st
         train_arena.execute([&](){oneapi::tbb::parallel_for(size_t(0), train_set.size() , size_t(1), run_training);}
         );
         auto time = std::chrono::duration_cast<std::chrono::seconds>(std::chrono::steady_clock::now() - t1);
-        it_stat.iteration_time = time;
+        it_stat.iteration_time_training = time;
 
         // Run Testing SET:
         tbb::concurrent_vector<stat_problem>& successful_test = it_stat.test_succeeded;
@@ -188,8 +190,12 @@ experiment_statistics ParallelLearningManager<Search>::start(std::vector<std::st
 
         // start TESTING RUN with timing
         oneapi::tbb::task_arena test_arena(parallel_cores == 0 ? std::thread::hardware_concurrency() : parallel_cores);
+
+        auto t1_test = std::chrono::steady_clock::now();
         test_arena.execute([&](){oneapi::tbb::parallel_for(size_t(0), test_set.size(), size_t(1), run_test);}
         );
+        auto time_test = std::chrono::duration_cast<std::chrono::seconds>(std::chrono::steady_clock::now() - t1);
+        it_stat.iteration_time_test = time_test;
 
         // add new training data and train if we have iterations left
         if (iteration < this->RL_Iterations - 1) {

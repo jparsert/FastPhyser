@@ -25,8 +25,8 @@ constexpr int POLICY_MAX_ITERATIONS = 200;
 
 
 // Ciruclar buffers for training data
-constexpr int VALUE_CIRCULAR_BUFFER = 3;
-constexpr int POLICY_CIRCULAR_BUFFER = 3;
+constexpr int VALUE_CIRCULAR_BUFFER = 4;
+constexpr int POLICY_CIRCULAR_BUFFER = 4;
 
 
 
@@ -35,15 +35,15 @@ constexpr int POLICY_CIRCULAR_BUFFER = 3;
 
 
 // Monte Carlo Search
-constexpr int NUM_BIG_STEPS = 20;
+constexpr int NUM_BIG_STEPS = 30;
 constexpr int NUM_SMALL_STEPS_BREADTH = 400;
 constexpr int NUM_SMALL_STEPS_DEPTH = 12;
 
-constexpr float ROLLOUT_DECAY_BASE = 0.95;
+constexpr float ROLLOUT_DECAY_BASE = 0.98;
 
-constexpr int MCTS_SIMULATIONS = 6000; // 2500
+constexpr int MCTS_SIMULATIONS = 6500;
 
-constexpr int RL_ITERATIONS = 10;
+constexpr int RL_ITERATIONS = 20;
 
 // Feature vector dimension
 constexpr int NUM_FEATURES = 4093;
@@ -52,7 +52,7 @@ constexpr int NUM_FEATURES = 4093;
 
 
 //timings
-constexpr std::chrono::seconds DEFAULT_SEARCH_TIMEOUT(240);
+constexpr std::chrono::seconds DEFAULT_SEARCH_TIMEOUT(100);
 
 
 constexpr void safe_xgboost(int call) {

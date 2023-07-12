@@ -41,7 +41,9 @@ struct stat_problem{
 
 
 struct experiment_iteration {
-    std::chrono::seconds iteration_time;
+    std::chrono::seconds iteration_time_training;
+    std::chrono::seconds iteration_time_test;
+
     std::size_t policy_data_size;
     std::size_t value_data_size;
 
@@ -96,7 +98,8 @@ struct experiment_statistics {
     std::string seed;
     std::string policy_max_depth = std::to_string(POLICY_MAX_DEPTH);
     std::string value_max_depth = std::to_string(VALUE_MAX_DEPTH);
-
+    std::string policy_data_mgr;
+    std::string value_data_mgr;
 
 
 private:
@@ -105,22 +108,42 @@ private:
 
 public:
 
-    experiment_statistics(std::string  feature_gen, std::string  policy, std::string  value, std::chrono::seconds timeout, std::string  searcher, std::string seed, int parallelism):
+    experiment_statistics(std::string  feature_gen,
+                          std::string  policy,
+                          std::string  value,
+                          std::chrono::seconds timeout,
+                          std::string  searcher,
+                          std::string seed,
+                          int parallelism,
+                          std::string policy_data_mgr,
+                          std::string value_data_mgr):
         features_generator(std::move(feature_gen)),
         policy(std::move(policy)),
         value(std::move(value)),
         timeout(timeout),
         search_name(std::move(searcher)),
         seed(std::move(seed)),
-        num_parallel_option(parallelism)
+        num_parallel_option(parallelism),
+        policy_data_mgr(std::move(policy_data_mgr)),
+        value_data_mgr(std::move(value_data_mgr))
     {   }
 
-    experiment_statistics(std::string features, PolicyFunction* pol, ValueFunction* val,
-                          std::chrono::seconds timeout, std::string name, std::string seed, int parallel) :
+    experiment_statistics(std::string features,
+                          PolicyFunction* pol,
+                          ValueFunction* val,
+                          std::chrono::seconds timeout,
+                          std::string name,
+                          std::string seed,
+                          int parallel,
+                          std::string policy_data_mgr,
+                          std::string value_data_mgr) :
             experiment_statistics(std::move(features),
                    pol ? pol->get_name() : "DEFAULT",
                    val ? val->get_name() : "DEFAULT",
-                   timeout, std::move(name), std::move(seed), parallel)
+                   timeout, std::move(name),
+                   std::move(seed), parallel,
+                   std::move(policy_data_mgr),
+                   std::move(value_data_mgr))
     {}
 
     [[nodiscard]] ftxui::Elements render_statistics() const;

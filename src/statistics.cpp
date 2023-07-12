@@ -95,6 +95,21 @@ ftxui::Element experiment_statistics::render_general_info() const {
                                                                                                      to_ftxui_text(std::to_string(this->num_parallel_option)),
                                                                                              }),
                                                                          }),
+                                                             ftxui::separator(),
+                                                             ftxui::vbox({
+                                                                                 ftxui::hbox({
+                                                                                                     to_ftxui_text(
+                                                                                                             "Policy Data MGR:"),
+                                                                                                     to_ftxui_text(
+                                                                                                             this->policy_data_mgr),
+                                                                                             }),
+                                                                                 ftxui::hbox({
+                                                                                                     to_ftxui_text(
+                                                                                                             "Value Data MGR:"),
+                                                                                                     to_ftxui_text(
+                                                                                                             this->value_data_mgr),
+                                                                                             }),
+                                                                         }),
                                                      })
                                  });
     return window(ftxui::text("Experiment Options"), some_info);
@@ -112,8 +127,8 @@ ftxui::Element experiment_statistics::render_iterations_abs() const {
                                       ftxui::separator(),
                                       ftxui::text(pad_left("T/O ", ' ', 16)),
                                       ftxui::separator(),
-                                      ftxui::text(pad_left("Avg. Graph Size", ' ', 16)),
-                                      ftxui::separator(),
+                                      //ftxui::text(pad_left("Avg. Graph Size", ' ', 16)),
+                                      //ftxui::separator(),
                                       ftxui::text(pad_left("Tot Tr Time ", ' ', 16)),
                                       ftxui::separator(),
                                       ftxui::text(pad_left("Test Succ ", ' ', 16)),
@@ -122,8 +137,10 @@ ftxui::Element experiment_statistics::render_iterations_abs() const {
                                       ftxui::separator(),
                                       ftxui::text(pad_left("Test T/O ", ' ', 16)),
                                       ftxui::separator(),
-                                      ftxui::text(pad_left("Avg. Graph Size", ' ', 16)),
+                                      ftxui::text(pad_left("Tot Ts Time ", ' ', 16)),
                                       ftxui::separator(),
+                                      //ftxui::text(pad_left("Avg. Graph Size", ' ', 16)),
+                                      //ftxui::separator(),
                                       ftxui::text(pad_left("Policy data len", ' ', 16)),
                                       ftxui::separator(),
                                       ftxui::text(pad_left("Value data len", ' ', 16)),
@@ -162,9 +179,9 @@ ftxui::Element experiment_statistics::render_iterations_abs() const {
                                           to_ftxui_text(get_formatted_percentage_of(timed_out, total) + "% (" +
                                                         std::to_string(timed_out) + ")"),
                                           ftxui::separator(),
-                                          to_ftxui_text(std::to_string(avg_graph_size) + " Vtx."),
-                                          ftxui::separator(),
-                                          to_ftxui_text(std::to_string(iterations[i].iteration_time.count()) + "s"),
+                                          //to_ftxui_text(std::to_string(avg_graph_size) + " Vtx."),
+                                          //ftxui::separator(),
+                                          to_ftxui_text(std::to_string(iterations[i].iteration_time_training.count()) + "s"),
                                           ftxui::separator(),
                                           to_ftxui_text(get_formatted_percentage_of(solved_test, total_test) + "% (" +
                                                         std::to_string(solved_test) + ")"),
@@ -176,8 +193,10 @@ ftxui::Element experiment_statistics::render_iterations_abs() const {
                                                   get_formatted_percentage_of(timed_out_test, total_test) + "% (" +
                                                   std::to_string(timed_out_test) + ")"),
                                           ftxui::separator(),
-                                          to_ftxui_text(std::to_string(avg_graph_size_test) + " Vtx."),
+                                          to_ftxui_text(std::to_string(iterations[i].iteration_time_test.count()) + "s"),
                                           ftxui::separator(),
+                                          //to_ftxui_text(std::to_string(avg_graph_size_test) + " Vtx."),
+                                          //ftxui::separator(),
                                           to_ftxui_text(std::to_string(policy_data_size) + " pairs"),
                                           ftxui::separator(),
                                           to_ftxui_text(std::to_string(value_data_size) + " pairs")
@@ -209,7 +228,9 @@ json to_json(const stat_problem &prob) {
 
 json to_json(const experiment_iteration &it) {
     json res;
-    res["iteration_time"] = it.iteration_time.count();
+    res["iteration_time_training"] = it.iteration_time_training.count();
+    res["iteration_time_test"] = it.iteration_time_test.count();
+
     res["policy_data_pairs"] = it.policy_data_size;
     res["value_data_pairs"] = it.value_data_size;
 
@@ -270,6 +291,9 @@ ordered_json to_json(const experiment_statistics &exp_stats) {
     res["parallelism"] = exp_stats.num_parallel_option;
     res["all_problems"] = exp_stats.problems;
     res["testing_set_problems"] = exp_stats.testing_set;
+    res["policy_data_mgr"] = exp_stats.policy_data_mgr;
+    res["value_data_mgr"] = exp_stats.value_data_mgr;
+
 
     auto iterations = json::array();
     for (const auto &it: exp_stats.iterations) {

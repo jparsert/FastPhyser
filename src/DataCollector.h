@@ -19,6 +19,8 @@ public:
 
     [[nodiscard]] virtual size_t get_size() const = 0;
 
+    [[nodiscard]] virtual std::string get_name() const = 0;
+
 };
 
 
@@ -34,6 +36,8 @@ public:
     [[nodiscard]] std::vector<std::pair<std::vector<float>, float>> get_all_data() const override { return data; }
 
     [[nodiscard]] size_t get_size() const override { return data.size(); }
+
+    [[nodiscard]] std::string get_name() const override { return "DefaultDataCollector"; }
 
 };
 
@@ -51,6 +55,8 @@ public:
     [[nodiscard]] std::vector<std::pair<std::vector<float>, float>> get_all_data() const override;
 
     [[nodiscard]] size_t get_size() const override;
+
+    [[nodiscard]] std::string get_name() const override { return "CircularColl(" + std::to_string(this->buffer.capacity()) + ")"; }
 
 };
 
