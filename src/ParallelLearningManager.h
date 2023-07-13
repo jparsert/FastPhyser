@@ -194,7 +194,7 @@ experiment_statistics ParallelLearningManager<Search>::start(std::vector<std::st
         auto t1_test = std::chrono::steady_clock::now();
         test_arena.execute([&](){oneapi::tbb::parallel_for(size_t(0), test_set.size(), size_t(1), run_test);}
         );
-        auto time_test = std::chrono::duration_cast<std::chrono::seconds>(std::chrono::steady_clock::now() - t1);
+        auto time_test = std::chrono::duration_cast<std::chrono::seconds>(std::chrono::steady_clock::now() - t1_test);
         it_stat.iteration_time_test = time_test;
 
         // add new training data and train if we have iterations left

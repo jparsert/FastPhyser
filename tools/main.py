@@ -5,6 +5,8 @@ import statistics
 
 FILE = "/home/julian/coding/FastPhyser/results/experiment_results07-07-2023||09-31-46.json"
 FILE1 = "/home/julian/coding/FastPhyser/results/experiment_results12-07-2023-circular-4.json"
+FILE2 = "/home/julian/coding/FastPhyser/results/all_training_datadkr14.json"
+
 
 
 def accum_left(lst):
@@ -26,7 +28,7 @@ def calc_solves_over_time(file):
         y = [0] * (max_time + 1)
         successful = it["successful"]
         for e in successful:
-            y[e["search_time_seconds"]] += 1
+            y[min(e["search_time_seconds"], max_time )] += 1
         y = accum_left(y)
         if idx > 0:
             plt.plot(x, y)
@@ -138,7 +140,8 @@ def print_stats(file):
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print_stats(FILE)
-    calc_solves_over_time(FILE)
-    solved_over_iterations(FILE)
+    f = FILE2
+    print_stats(f)
+    calc_solves_over_time(f)
+    solved_over_iterations(f)
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
