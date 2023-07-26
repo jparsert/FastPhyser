@@ -1,0 +1,5 @@
+(
+(define-fun f_338-17-338-60 ((entry Int) (MC_505948 Int) (i Int) (MC_741360 Int)) Bool (> entry 0))
+)
+0.04user 0.00system 0:00.04elapsed 100%CPU (0avgtext+0avgdata 20356maxresident)k
+0inputs+8outputs (0major+1192minor)pagefaults 0swaps

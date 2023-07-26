@@ -1,0 +1,5 @@
+(
+(define-fun f_122-16-122-32 ((this.y Int) (this.x Int) (y Int) (x Int)) Bool (= this.y y))
+)
+0.01user 0.00system 0:00.01elapsed 100%CPU (0avgtext+0avgdata 19392maxresident)k
+0inputs+8outputs (0major+936minor)pagefaults 0swaps

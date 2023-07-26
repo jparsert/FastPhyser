@@ -1,0 +1,5 @@
+(
+(define-fun inv-f ((n Int) (x Int) (y Int)) Bool (= x y))
+)
+0.01user 0.00system 0:00.01elapsed 100%CPU (0avgtext+0avgdata 19700maxresident)k
+0inputs+8outputs (0major+1013minor)pagefaults 0swaps

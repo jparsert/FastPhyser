@@ -1,0 +1,5 @@
+(
+(define-fun inv-f ((i Int) (sum Int) (n Int)) Bool (>= (ite (>= i sum) sum i) 0))
+)
+4.75user 0.01system 0:04.77elapsed 99%CPU (0avgtext+0avgdata 48840maxresident)k
+0inputs+8outputs (0major+8298minor)pagefaults 0swaps

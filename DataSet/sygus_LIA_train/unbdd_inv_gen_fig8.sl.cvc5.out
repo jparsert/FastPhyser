@@ -1,0 +1,5 @@
+(
+(define-fun inv ((l Int)) Bool (let ((_let_1 (* 0 l))) (and (<= (+ _let_1 _let_1) 0) (= (+ _let_1 (* 1 l)) 0))))
+)
+0.02user 0.00system 0:00.03elapsed 100%CPU (0avgtext+0avgdata 19984maxresident)k
+0inputs+8outputs (0major+1101minor)pagefaults 0swaps

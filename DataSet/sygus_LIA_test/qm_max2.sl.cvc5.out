@@ -1,0 +1,5 @@
+(
+(define-fun qm-foo ((x Int) (y Int)) Int (+ (qm (- x y) 0) y))
+)
+1.33user 0.01system 0:01.34elapsed 99%CPU (0avgtext+0avgdata 27900maxresident)k
+0inputs+8outputs (0major+3064minor)pagefaults 0swaps

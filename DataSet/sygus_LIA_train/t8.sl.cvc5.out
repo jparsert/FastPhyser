@@ -1,0 +1,5 @@
+(
+(define-fun f_143-17-143-55 ((x2 Int) (x1 Int) (parentNode Int) (EMPTY_PARENT Int)) Bool (= x1 x1))
+)
+0.01user 0.00system 0:00.01elapsed 100%CPU (0avgtext+0avgdata 18496maxresident)k
+0inputs+8outputs (0major+740minor)pagefaults 0swaps

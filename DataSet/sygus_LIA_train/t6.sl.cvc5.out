@@ -1,0 +1,5 @@
+(
+(define-fun f_30-42-30-64 ((i Int) (MC_741360 Int)) Bool (<= i MC_741360))
+)
+0.03user 0.00system 0:00.03elapsed 100%CPU (0avgtext+0avgdata 20620maxresident)k
+0inputs+8outputs (0major+1258minor)pagefaults 0swaps

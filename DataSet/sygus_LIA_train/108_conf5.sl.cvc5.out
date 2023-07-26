@@ -1,0 +1,5 @@
+(
+(define-fun inv-f ((a Int) (c Int) (j Int) (conf_0 Int) (conf_1 Int) (conf_2 Int) (conf_3 Int) (conf_4 Int) (k Int) (m Int) (a_0 Int) (c_0 Int) (j_0 Int) (j_1 Int) (conf_0_0 Int) (conf_0_1 Int) (conf_0_2 Int) (conf_0_3 Int) (conf_1_0 Int) (conf_2_0 Int) (conf_2_1 Int) (conf_2_2 Int) (conf_3_0 Int) (conf_4_0 Int) (k_0 Int) (k_1 Int) (k_2 Int) (k_3 Int) (m_0 Int) (m_1 Int) (m_2 Int) (m_3 Int)) Bool (>= m a))
+)
+0.16user 0.00system 0:00.16elapsed 100%CPU (0avgtext+0avgdata 23260maxresident)k
+0inputs+8outputs (0major+1903minor)pagefaults 0swaps

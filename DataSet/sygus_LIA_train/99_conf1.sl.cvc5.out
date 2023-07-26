@@ -1,0 +1,5 @@
+(
+(define-fun inv-f ((conf_0 Int) (n Int) (x Int) (y Int) (conf_0_0 Int) (conf_0_1 Int) (conf_0_2 Int) (conf_0_3 Int) (n_0 Int) (x_0 Int) (x_1 Int) (x_2 Int) (x_3 Int) (y_0 Int) (y_1 Int) (y_2 Int) (y_3 Int)) Bool (= n (+ x y)))
+)
+0.40user 0.00system 0:00.40elapsed 99%CPU (0avgtext+0avgdata 25148maxresident)k
+0inputs+8outputs (0major+2375minor)pagefaults 0swaps

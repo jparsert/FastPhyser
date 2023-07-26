@@ -1,0 +1,5 @@
+(
+(define-fun qm-multi-loop ((x Int) (y Int)) Int (qm (- x (qm (- 1 y) 0)) 3))
+)
+87.92user 0.02system 1:27.95elapsed 99%CPU (0avgtext+0avgdata 88136maxresident)k
+0inputs+8outputs (0major+18122minor)pagefaults 0swaps

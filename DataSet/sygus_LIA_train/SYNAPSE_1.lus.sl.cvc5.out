@@ -1,0 +1,5 @@
+(
+(define-fun str_invariant ((top.usr.e_s1 Bool) (top.usr.e_s2 Bool) (top.usr.e_s3 Bool) (top.usr.init_invalid_s Int) (top.usr.OK Bool) (top.res.init_flag Bool) (top.res.abs_0 Int) (top.res.abs_1 Int) (top.res.abs_2 Int) (top.res.abs_3 Int) (top.res.abs_4 Bool) (top.res.abs_5 Bool) (top.res.abs_6 Bool) (top.res.inst_2 Bool) (top.res.inst_1 Bool) (top.res.inst_0 Bool)) Bool (>= 1 (ite top.usr.OK top.res.abs_2 2)))
+)
+2.42user 0.00system 0:02.43elapsed 99%CPU (0avgtext+0avgdata 42780maxresident)k
+0inputs+8outputs (0major+6783minor)pagefaults 0swaps

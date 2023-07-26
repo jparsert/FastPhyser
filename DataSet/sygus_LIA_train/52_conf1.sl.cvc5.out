@@ -1,0 +1,5 @@
+(
+(define-fun inv-f ((c Int) (conf_0 Int) (tmp Int) (c_0 Int) (c_1 Int) (c_2 Int) (c_3 Int) (c_4 Int) (c_5 Int) (conf_0_0 Int) (conf_0_1 Int) (conf_0_2 Int) (conf_0_3 Int) (conf_0_4 Int)) Bool (= c c))
+)
+0.01user 0.00system 0:00.01elapsed 100%CPU (0avgtext+0avgdata 19572maxresident)k
+0inputs+8outputs (0major+981minor)pagefaults 0swaps

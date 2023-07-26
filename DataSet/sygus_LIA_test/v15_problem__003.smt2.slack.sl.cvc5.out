@@ -1,0 +1,5 @@
+(
+(define-fun synthTarget ((var_17316065290209322458 Int) (var_11118295626136379299 Int) (var_1822013725114363921 Int) (var_10323998140405688271 Int) (var_17384893453428540610 Int) (var_11692091190670200365 Int) (var_15657582578819649986 Int)) Int (+ var_11692091190670200365 1))
+)
+0.04user 0.00system 0:00.04elapsed 100%CPU (0avgtext+0avgdata 19548maxresident)k
+0inputs+8outputs (0major+1018minor)pagefaults 0swaps

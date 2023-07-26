@@ -1,0 +1,5 @@
+(
+(define-fun inv-f ((x Int) (y Int) (i Int) (j Int) (turn Int)) Bool (and (= x y) (>= i j)))
+)
+41.68user 0.11system 0:41.80elapsed 99%CPU (0avgtext+0avgdata 253912maxresident)k
+0inputs+8outputs (0major+61651minor)pagefaults 0swaps

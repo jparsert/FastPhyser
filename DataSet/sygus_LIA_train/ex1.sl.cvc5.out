@@ -1,0 +1,5 @@
+(
+(define-fun inv-f ((x Int) (y Int) (xa Int) (ya Int)) Bool (>= xa (- (+ ya ya))))
+)
+2.65user 0.01system 0:02.66elapsed 99%CPU (0avgtext+0avgdata 51368maxresident)k
+0inputs+8outputs (0major+8930minor)pagefaults 0swaps

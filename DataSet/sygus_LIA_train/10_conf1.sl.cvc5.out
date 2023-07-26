@@ -1,0 +1,5 @@
+(
+(define-fun inv-f ((conf_0 Int) (x Int) (y Int) (tmp Int) (conf_0_0 Int) (conf_0_1 Int) (conf_0_2 Int) (conf_0_3 Int) (x_0 Int) (x_1 Int) (x_2 Int) (y_0 Int) (y_1 Int) (y_2 Int)) Bool (>= y (- x 2)))
+)
+0.55user 0.00system 0:00.55elapsed 99%CPU (0avgtext+0avgdata 25516maxresident)k
+0inputs+8outputs (0major+2467minor)pagefaults 0swaps

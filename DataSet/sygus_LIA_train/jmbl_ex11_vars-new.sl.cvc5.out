@@ -1,0 +1,5 @@
+(
+(define-fun inv-f ((c Int) (n Int) (v1 Int) (v2 Int) (v3 Int)) Bool (> n (ite (= c 0) c n)))
+)
+3.29user 0.01system 0:03.31elapsed 100%CPU (0avgtext+0avgdata 60112maxresident)k
+0inputs+8outputs (0major+11116minor)pagefaults 0swaps

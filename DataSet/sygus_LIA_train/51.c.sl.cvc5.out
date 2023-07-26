@@ -1,0 +1,5 @@
+(
+(define-fun inv-f ((c Int) (tmp Int) (c_0 Int) (c_1 Int) (c_2 Int) (c_3 Int) (c_4 Int) (c_5 Int)) Bool (>= 1 (- c 3)))
+)
+0.52user 0.00system 0:00.52elapsed 99%CPU (0avgtext+0avgdata 25208maxresident)k
+0inputs+8outputs (0major+2391minor)pagefaults 0swaps

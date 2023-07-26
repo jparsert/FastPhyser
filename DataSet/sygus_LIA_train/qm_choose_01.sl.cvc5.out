@@ -1,0 +1,5 @@
+(
+(define-fun qm-choose ((x Int)) Int (qm (- 1 (qm x 0)) 0))
+)
+0.49user 0.00system 0:00.49elapsed 100%CPU (0avgtext+0avgdata 24948maxresident)k
+0inputs+8outputs (0major+2340minor)pagefaults 0swaps

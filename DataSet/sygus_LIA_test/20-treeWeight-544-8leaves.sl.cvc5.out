@@ -1,0 +1,5 @@
+(
+(define-fun synthTarget ((var_1748864193511696908 Int) (var_2902686752493170889 Int) (var_6002838495634955306 Int)) Int (ite (< var_6002838495634955306 var_1748864193511696908) var_1748864193511696908 var_2902686752493170889))
+)
+0.19user 0.00system 0:00.19elapsed 100%CPU (0avgtext+0avgdata 22648maxresident)k
+0inputs+8outputs (0major+1795minor)pagefaults 0swaps

@@ -1,0 +1,5 @@
+(
+(define-fun inv-f ((i Int) (c Int) (n Int)) Bool (>= (ite (>= i c) c i) 0))
+)
+4.76user 0.00system 0:04.76elapsed 100%CPU (0avgtext+0avgdata 49084maxresident)k
+0inputs+8outputs (0major+8359minor)pagefaults 0swaps

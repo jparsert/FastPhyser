@@ -1,0 +1,5 @@
+(
+(define-fun inv-f ((i Int) (pvlen Int) (t Int) (k Int) (n Int) (j Int) (turn Int)) Bool (>= k 0))
+)
+0.05user 0.00system 0:00.05elapsed 100%CPU (0avgtext+0avgdata 20496maxresident)k
+0inputs+8outputs (0major+1233minor)pagefaults 0swaps

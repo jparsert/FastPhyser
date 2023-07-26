@@ -1,0 +1,5 @@
+(
+(define-fun f_1981-20-1981-42 ((NCK_NEQ_741360 Bool) (NCK_NEQ_505948 Bool)) Bool (not NCK_NEQ_741360))
+)
+0.00user 0.00system 0:00.00elapsed 100%CPU (0avgtext+0avgdata 18564maxresident)k
+0inputs+8outputs (0major+744minor)pagefaults 0swaps

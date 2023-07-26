@@ -1,0 +1,5 @@
+(
+(define-fun inv-f ((c Int)) Bool (>= 1 (ite (>= c 0) (- c 3) 2)))
+)
+2.55user 0.00system 0:02.55elapsed 100%CPU (0avgtext+0avgdata 30032maxresident)k
+0inputs+8outputs (0major+3596minor)pagefaults 0swaps

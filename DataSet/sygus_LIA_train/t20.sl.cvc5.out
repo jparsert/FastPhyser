@@ -1,0 +1,5 @@
+(
+(define-fun f_68-13-68-36 ((next Int) (pos Int) (MC_741360 Bool)) Bool (= next next))
+)
+0.00user 0.00system 0:00.00elapsed 100%CPU (0avgtext+0avgdata 18876maxresident)k
+0inputs+8outputs (0major+822minor)pagefaults 0swaps

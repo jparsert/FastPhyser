@@ -1,0 +1,5 @@
+(
+(define-fun comm ((x Int) (y Int)) Int (- x x))
+)
+0.00user 0.00system 0:00.00elapsed 75%CPU (0avgtext+0avgdata 18280maxresident)k
+0inputs+8outputs (0major+689minor)pagefaults 0swaps

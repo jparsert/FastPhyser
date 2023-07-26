@@ -1,0 +1,5 @@
+(
+(define-fun f ((x Int)) Int (let ((_let_1 (+ x x))) (let ((_let_2 (+ x _let_1))) (let ((_let_3 (- 10 x))) (let ((_let_4 (= x 10))) (ite (not _let_4) (ite (<= x (- 30 _let_2)) (ite (or (<= x 0) (<= 10 _let_1)) (ite (or _let_4 (<= x _let_3)) (ite (not (or _let_4 (= x _let_3))) x 50) x) (ite (<= x (- 10 _let_2)) (ite (= x (- 10 (+ x _let_2))) 20 10) (ite (<= 10 _let_2) 40 30))) x) x))))))
+)
+43.65user 0.02system 0:43.67elapsed 99%CPU (0avgtext+0avgdata 73736maxresident)k
+0inputs+8outputs (0major+15202minor)pagefaults 0swaps

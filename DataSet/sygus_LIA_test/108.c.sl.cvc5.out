@@ -1,0 +1,5 @@
+(
+(define-fun inv-f ((a Int) (c Int) (j Int) (k Int) (m Int) (a_0 Int) (c_0 Int) (j_0 Int) (j_1 Int) (k_0 Int) (k_1 Int) (k_2 Int) (k_3 Int) (m_0 Int) (m_1 Int) (m_2 Int) (m_3 Int)) Bool (>= m a))
+)
+0.05user 0.00system 0:00.05elapsed 100%CPU (0avgtext+0avgdata 20872maxresident)k
+0inputs+8outputs (0major+1306minor)pagefaults 0swaps

@@ -1,0 +1,5 @@
+(
+(define-fun f_147-8-147-37 ((yearInt Int)) Bool (<= yearInt yearInt))
+)
+0.01user 0.00system 0:00.01elapsed 100%CPU (0avgtext+0avgdata 18780maxresident)k
+0inputs+8outputs (0major+813minor)pagefaults 0swaps

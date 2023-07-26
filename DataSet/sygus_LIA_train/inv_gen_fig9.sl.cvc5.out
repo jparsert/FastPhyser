@@ -1,0 +1,5 @@
+(
+(define-fun inv ((x Int) (y Int)) Bool (let ((_let_1 (* 0 x))) (and (= (+ _let_1 (* 1 x)) 0) (= (+ _let_1 (* 1 y)) 0))))
+)
+0.10user 0.00system 0:00.10elapsed 100%CPU (0avgtext+0avgdata 22164maxresident)k
+0inputs+8outputs (0major+1629minor)pagefaults 0swaps

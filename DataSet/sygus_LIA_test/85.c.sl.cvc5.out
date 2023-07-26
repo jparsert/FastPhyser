@@ -1,0 +1,5 @@
+(
+(define-fun inv-f ((x Int) (y Int) (x_0 Int) (x_1 Int) (x_2 Int) (x_3 Int) (y_0 Int) (y_1 Int) (y_2 Int)) Bool (>= y (ite (>= x 0) 1 y)))
+)
+16.92user 0.06system 0:16.99elapsed 99%CPU (0avgtext+0avgdata 210812maxresident)k
+0inputs+8outputs (0major+50857minor)pagefaults 0swaps

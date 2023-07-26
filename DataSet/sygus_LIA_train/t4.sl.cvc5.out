@@ -1,0 +1,5 @@
+(
+(define-fun f_141-11-141-28 ((x.end Int) (size Int) (i Int) (elem.end Int)) Bool (> x.end elem.end))
+)
+0.01user 0.00system 0:00.01elapsed 100%CPU (0avgtext+0avgdata 19048maxresident)k
+0inputs+8outputs (0major+865minor)pagefaults 0swaps

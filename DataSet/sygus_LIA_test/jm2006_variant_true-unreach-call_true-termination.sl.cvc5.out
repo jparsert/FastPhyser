@@ -1,0 +1,5 @@
+(
+(define-fun inv-f ((i Int) (j Int) (x Int) (y Int) (z Int)) Bool (= i (+ j (- x (+ y z)))))
+)
+46.46user 0.10system 0:46.57elapsed 99%CPU (0avgtext+0avgdata 280536maxresident)k
+0inputs+8outputs (0major+68287minor)pagefaults 0swaps
