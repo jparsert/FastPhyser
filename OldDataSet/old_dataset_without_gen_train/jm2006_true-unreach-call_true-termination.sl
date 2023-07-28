@@ -1,0 +1,22 @@
+(set-logic LIA)
+(synth-fun inv-f((i Int)(j Int)(x Int)(y Int))
+ Bool
+(( NTbool Bool)(NTnonbool Int))
+((NTbool Bool((and NTbool NTbool)(or NTbool NTbool)(not NTbool)(= NTnonbool NTnonbool)(>= NTnonbool NTnonbool)(> NTnonbool NTnonbool)))
+(NTnonbool Int(i j x y 0 1 2 3  (+ NTnonbool NTnonbool)(- NTnonbool NTnonbool)(- NTnonbool)(ite NTbool NTnonbool NTnonbool)))
+
+)
+)
+
+(declare-var i Int)
+(declare-var i! Int)
+(declare-var j Int)
+(declare-var j! Int)
+(declare-var x Int)
+(declare-var x! Int)
+(declare-var y Int)
+(declare-var y! Int)
+( constraint  (=> (and (>= i 0) (>= j 0) (= x i) (= y j)) (inv-f i j x y )) ) 
+( constraint  (=> (and (inv-f i j x y ) (and (not (= x 0)) (= i! i) (= j! j) (= x! (- x 1)) (= y! (- y 1)))) (inv-f i! j! x! y! )) ) 
+( constraint  (=> (inv-f i j x y ) (or (not (= x 0)) (=> (= i j) (= y 0)))) ) 
+(check-synth)

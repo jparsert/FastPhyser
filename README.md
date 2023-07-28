@@ -1,3 +1,10 @@
+## Project Structure
+* DataSet : Contains the training/testing data set with generated sygus problems and old sygus problems
+* OldDataSet : contains the training/testing data set without generated problems
+* src : source code
+* tools : scripts etc. for producing figures etc.
+
+
 ## REQUIREMENTS
 * cmake v3.24
 * Sy2CPP
