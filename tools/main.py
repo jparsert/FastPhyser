@@ -102,18 +102,40 @@ def print_stats(file):
     with open(file) as f:
         data = json.load(f)
     iterations = data["iterations"]
+    all_training = len(data["all_problems"])
+    all_testing = len(data["testing_set_problems"])
     succ_train = []
     succ_test = []
     for idx, it in enumerate(iterations):
-        print("{:10}".format(idx+1), end="")
         succ_train.append(len(it["successful"]))
         succ_test.append(len(it["successful_test"]))
     print()
     print("Solved Training:")
-    for train in succ_train:
-        print("{:10}".format(train), end="")
+
+    df = pd.DataFrame()
+    df[0] = succ_train
+    min = int(df.min())
+    max = int(df.max())
+    print("min {}\t max {}\t total {}".format(min, max, all_training))
+    print("Increase by {:5.2f}%".format((float(max) - float(min))*100/min))
+    print("Solved as % of all min: {:5.2f}% and max: {:5.2f}% with diff {:5.2f}%"
+          .format(min*100/all_training, max*100/all_training, (max*100/all_training) - (min*100/all_training) ))
     print()
     print("Solved Testing:")
+
+    df = pd.DataFrame()
+    df[0] = succ_test
+    min = int(df.min())
+    max = int(df.max())
+    print("min {}\t max {}\t total {}".format(min, max, all_testing))
+    print("Increase by {:5.2f}%".format((float(max) - float(min))*100/min))
+    print("Solved as % of all min: {:5.2f}% and max: {:5.2f}% with diff {:5.2f}%"
+          .format(min*100/all_testing, max*100/all_testing, (max*100/all_testing) - (min*100/all_testing) ))
+    print()
+    for idx,train in enumerate(succ_train):
+        print("{:10}".format(idx+1), end="")
+    for train in succ_train:
+        print("{:10}".format(train), end="")
     for test in succ_test:
         print("{:10}".format(test), end="")
     print()
