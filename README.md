@@ -1,6 +1,5 @@
-## Project Structure
-* DataSet : Contains the training/testing data set with generated sygus problems and old sygus problems
-* OldDataSet : contains the training/testing data set without generated problems
+q## Project Structure
+* Data : contains training/testning data. Both old and newly generated problems
 * src : source code
 * tools : scripts etc. for producing figures etc.
 

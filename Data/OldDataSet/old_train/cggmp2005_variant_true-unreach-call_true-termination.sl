@@ -1,0 +1,20 @@
+(set-logic LIA)
+(synth-fun inv-f((lo Int)(mid Int)(hi Int))
+ Bool
+(( NTbool Bool)(NTnonbool Int))
+((NTbool Bool((and NTbool NTbool)(or NTbool NTbool)(not NTbool)(= NTnonbool NTnonbool)(>= NTnonbool NTnonbool)(> NTnonbool NTnonbool)))
+(NTnonbool Int(lo mid hi 0 1 2 3  (+ NTnonbool NTnonbool)(- NTnonbool NTnonbool)(- NTnonbool)(ite NTbool NTnonbool NTnonbool)))
+
+)
+)
+
+(declare-var hi Int)
+(declare-var hi! Int)
+(declare-var lo Int)
+(declare-var lo! Int)
+(declare-var mid Int)
+(declare-var mid! Int)
+( constraint  (=> (and (= lo 0) (and (> mid 0) (= hi (* 2 mid)))) (inv-f lo mid hi )) ) 
+( constraint  (=> (and (inv-f lo mid hi ) (and (> mid 0) (= lo! (+ lo 1)) (= hi! (- hi 1)) (= mid! (- mid 1)))) (inv-f lo! mid! hi! )) ) 
+( constraint  (=> (inv-f lo mid hi ) (or (> mid 0) (= lo hi))) ) 
+(check-synth)
