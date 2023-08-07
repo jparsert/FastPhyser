@@ -2,14 +2,42 @@ import json
 import matplotlib.pyplot as plt
 import statistics
 import pandas as pd
+import os
 
 
-files = [   "../results/experiment_result_d8872f8_seed_2.json",
-            "../results/experiment_result_d8872f8_seed_3.json",
-            "../results/experiment_result_d8872f8_seed_4.json",
-            "../results/experiment_result_d8872f8_seed_5.json",
-            "../results/experiment_result_d8872f8_seed_6.json",
-         ]
+def partition(p, l):
+    a, b = [], []
+    for n in l:
+        if p(n):
+            a.append(n)
+        else:
+            b.append(n)
+    return a, b
+
+
+def percentage(part, whole):
+  return 100 * float(part)/float(whole)
+
+
+def get_all_files_in_dir(dir, suffix):
+    res = []
+    for dirpath, dirnames, filenames in os.walk(dir):
+        for filename in [f for f in filenames if f.endswith(suffix)]:
+            if os.path.isfile(os.path.join(dirpath, filename)):
+                res.append(os.path.join(dirpath, filename))
+    return res
+
+
+def all_files_in_dirs(dirs, suffix):
+    res = []
+    for dir in dirs:
+        res = res + get_all_files_in_dir(dir, suffix)
+    return res
+
+
+generated_problem_set = list(map(lambda x: os.path.basename(x), all_files_in_dirs(["../Data/NewDataSet/new_compl_set/"], ".sl")))
+old_problem_set = list(map(lambda x: os.path.basename(x), all_files_in_dirs(["../Data/OldDataSet/old_compl_set/"], ".sl")))
+
 
 def accum_left(lst):
     res = [lst[0]]
@@ -18,7 +46,7 @@ def accum_left(lst):
     return res
 
 
-def calc_solves_over_time(file):
+def plot_solved_over_time(file):
     data = None
     with open(file) as f:
         data = json.load(f)
@@ -59,7 +87,7 @@ def calc_solves_over_time(file):
     plt.show()
 
 
-def solved_over_iterations(file):
+def plot_solved_over_iterations(file):
     data = None
     with open(file) as f:
         data = json.load(f)
@@ -97,7 +125,7 @@ def solved_over_iterations(file):
     plt.show()
 
 
-def print_stats(file):
+def print_stats(file, flag=True):
     data = None
     with open(file) as f:
         data = json.load(f)
@@ -110,34 +138,70 @@ def print_stats(file):
         succ_train.append(len(it["successful"]))
         succ_test.append(len(it["successful_test"]))
     print()
-    print("Solved Training:")
 
+    print("Solved Training:")
     df = pd.DataFrame()
     df[0] = succ_train
-    min = int(df.min())
-    max = int(df.max())
+    min = int(df.min().iloc[0])
+    max = int(df.max().iloc[0])
     print("min {}\t max {}\t total {}".format(min, max, all_training))
     print("Increase by {:5.2f}%".format((float(max) - float(min))*100/min))
     print("Solved as % of all min: {:5.2f}% and max: {:5.2f}% with diff {:5.2f}%"
           .format(min*100/all_training, max*100/all_training, (max*100/all_training) - (min*100/all_training) ))
     print()
-    print("Solved Testing:")
 
+    print("Solved Testing:")
     df = pd.DataFrame()
     df[0] = succ_test
-    min = int(df.min())
-    max = int(df.max())
+    min = int(df.min().iloc[0])
+    max = int(df.max().iloc[0])
     print("min {}\t max {}\t total {}".format(min, max, all_testing))
     print("Increase by {:5.2f}%".format((float(max) - float(min))*100/min))
     print("Solved as % of all min: {:5.2f}% and max: {:5.2f}% with diff {:5.2f}%"
           .format(min*100/all_testing, max*100/all_testing, (max*100/all_testing) - (min*100/all_testing) ))
     print()
-    for idx,train in enumerate(succ_train):
-        print("{:10}".format(idx+1), end="")
+    print("{:6}".format("Iter"), end="")
+    for idx, train in enumerate(succ_train):
+        print("{:15}".format(idx+1), end="")
+    print()
+    print("{:6}".format("Train"), end="")
     for train in succ_train:
-        print("{:10}".format(train), end="")
+        print("{:15}".format(train), end="")
+    print()
+    if flag:
+        print("{:6}".format("TR Old"), end="")
+        for idx, it in enumerate(iterations):
+            succ_train.append(len(it["successful"]))
+            old, _ = partition(lambda x: os.path.basename(x["problem"]) in old_problem_set, it["successful"])
+            print("{:8} {:3.2f}%".format(len(old), percentage(len(old), len(it["successful"]))), end="")
+        print()
+        print("{:6}".format("TR New"), end="")
+        for idx, it in enumerate(iterations):
+            succ_train.append(len(it["successful"]))
+            gen, _ = partition(lambda x: os.path.basename(x["problem"]) in generated_problem_set, it["successful"])
+            print("{:8} {:3.2f}%".format(len(gen), percentage(len(gen), len(it["successful"]))), end="")
+        print()
+    print("{:6}".format("Test"), end="")
     for test in succ_test:
-        print("{:10}".format(test), end="")
+        print("{:15}".format(test), end="")
+    print()
+    if flag:
+        print("{:6}".format("Te Old"), end="")
+        for idx, it in enumerate(iterations):
+            succ_train.append(len(it["successful"]))
+            old, _ = partition(lambda x: os.path.basename(x["problem"]) in old_problem_set, it["successful_test"])
+            print("{:8} {:3.2f}%".format(len(old), percentage(len(old), len(it["successful_test"]))), end="")
+        print()
+        print("{:6}".format("Te New"), end="")
+        for idx, it in enumerate(iterations):
+            succ_train.append(len(it["successful"]))
+            gen, _ = partition(lambda x: os.path.basename(x["problem"]) in generated_problem_set, it["successful_test"])
+            print("{:8} {:3.2f}%".format(len(gen), percentage(len(gen), len(it["successful_test"]))), end="")
+        print()
+
+        print("TR Old/Gen means number of old benchmark and generated benchmark problems solved in training.")
+        print("TE Old/Gen means number of old benchmark and generated benchmark problems solved in testing.")
+
     print()
     print("Average Time For Solved problem in Training")
     for it in iterations:
@@ -161,6 +225,7 @@ def print_stats(file):
 
 def plot_iterations_in_experiements(files):
     iterations = 0
+    plt.clf()
     for file in files:
         data = None
         with open(file) as f:
@@ -181,7 +246,7 @@ def plot_iterations_in_experiements(files):
     plt.show()
 
 
-def calc_stats_for_experiemnts(files):
+def calc_stats_for_mult_exp_files(files):
     df = pd.DataFrame()
     for idx, file in enumerate(files):
         data = None
@@ -206,16 +271,47 @@ def calc_stats_for_experiemnts(files):
             solved.append(len(it["successful_test"]))
         df[idx] = solved
     print("The best (most solved on testing set) iterations in each experiment differ from each other as follows:")
-    print("Best {}\t Worst {}\t STDEV {:5.2f}".format(df.max().max(), df.max().min(), df.max().std() ))
+    print("Best {}\t Worst {}\t STDEV {:5.2f}".format(df.max().max(), df.max().min(), df.max().std()))
 
 
+def main():
+    overall_files = ["../results/overall_exp_result_seed_2.json",
+             "../results/overall_exp_result_seed_3.json",
+             "../results/overall_exp_result_seed_4.json",
+             "../results/overall_exp_result_seed_5.json",
+             "../results/overall_exp_result_seed_6.json",
+             ]
+
+    print("############################################")
+    print("########## OVERALL EXPERIMENTS #############")
+    print("############################################")
+    print()
+    plot_iterations_in_experiements(overall_files)
+    calc_stats_for_mult_exp_files(overall_files)
+    print()
+    print()
+    print("############################################")
+    print("## Stats of Single OVERALL Experiment RUN ##")
+    print("############################################")
+    one_experiment = overall_files[4]
+    print_stats(one_experiment, True)
+    plot_solved_over_time(one_experiment)
+    plot_solved_over_iterations(one_experiment)
+    print()
+    print()
+    print("############################################")
+    print("###### TRAIN ON GENERATED/TEST on BM #######")
+    print("############################################")
+    print()
+    #print_stats("../results/train_new_test_old_1.json")
+    print()
+    print()
+    print("############################################")
+    print("######### TRAIN ON BM/TEST on BM ###########")
+    print("############################################")
+    print_stats("../results/train_and_test_old_bm_set.json", False)
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    plot_iterations_in_experiements(files)
-    calc_stats_for_experiemnts(files)
-    f = files[2]
-    print_stats(f)
-    calc_solves_over_time(f)
-    solved_over_iterations(f)
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    main()
+

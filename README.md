@@ -43,9 +43,9 @@ sudo yum install -y cmake
 sudo yum install -y git
 sudo yum install -y gcc
 sudo yum install -y gcc-c++
-sudo yum install boost
-sudo yum install boost-static
-sudo yum install java-11-amazon-corretto
+sudo yum install -y boost
+sudo yum install -y  boost-static
+sudo yum install -y java-11-amazon-corretto
 ```
 
 
