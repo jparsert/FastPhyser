@@ -258,7 +258,7 @@ def calc_stats_for_mult_exp_files(files):
             solved.append(len(it["successful"]))
         df[idx] = solved
     print("The best (most solved on training set) iterations in each experiment differ from each other as follows:")
-    print("Best {}\t Worst {}\t STDEV {:5.2f}".format(df.max().max(), df.max().min(), df.max().std() ))
+    print("Best {}\t Worst {}\t Mean of best {}\t STDEV of best {:5.2f}".format(df.max().max(), df.max().min(), df.max().mean(), df.max().std() ))
 
     df = pd.DataFrame()
     for idx, file in enumerate(files):
@@ -271,16 +271,33 @@ def calc_stats_for_mult_exp_files(files):
             solved.append(len(it["successful_test"]))
         df[idx] = solved
     print("The best (most solved on testing set) iterations in each experiment differ from each other as follows:")
-    print("Best {}\t Worst {}\t STDEV {:5.2f}".format(df.max().max(), df.max().min(), df.max().std()))
+    print("Best {}\t Worst {}\t Mean of best {}\t STDEV of best {:5.2f}".format(df.max().max(), df.max().min(), df.max().mean(), df.max().std() ))
 
 
 def main():
-    overall_files = ["../results/overall_exp_result_seed_2.json",
+    overall_files = [
+             "../results/overall_exp_result_seed_2.json",
              "../results/overall_exp_result_seed_3.json",
              "../results/overall_exp_result_seed_4.json",
              "../results/overall_exp_result_seed_5.json",
              "../results/overall_exp_result_seed_6.json",
              ]
+
+    tain_old_test_old = [
+            "../results/train_and_test_old_bm_set_1.json",
+            #"../results/train_and_test_old_bm_set_2.json",
+            #"../results/train_and_test_old_bm_set_3.json",
+            #"../results/train_and_test_old_bm_set_4.json",
+            #"../results/train_and_test_old_bm_set_5.json",
+    ]
+
+    train_new_test_old = [
+            "../results/train_new_test_old_1.json",
+            #"../results/train_new_test_old_2.json",
+            #"../results/train_new_test_old_3.json",
+            #"../results/train_new_test_old_4.json",
+            #"../results/train_new_test_old_5.json",
+    ]
 
     print("############################################")
     print("########## OVERALL EXPERIMENTS #############")
@@ -303,13 +320,16 @@ def main():
     print("###### TRAIN ON GENERATED/TEST on BM #######")
     print("############################################")
     print()
-    #print_stats("../results/train_new_test_old_1.json")
+    calc_stats_for_mult_exp_files(train_new_test_old)
+    print_stats(train_new_test_old[0], False)
     print()
     print()
     print("############################################")
     print("######### TRAIN ON BM/TEST on BM ###########")
     print("############################################")
-    print_stats("../results/train_and_test_old_bm_set.json", False)
+    calc_stats_for_mult_exp_files(tain_old_test_old)
+    print_stats(tain_old_test_old[0], False)
+
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':

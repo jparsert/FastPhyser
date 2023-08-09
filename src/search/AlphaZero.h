@@ -380,7 +380,7 @@ std::vector<std::pair<std::vector<float>, float>> AlphaZero<FeatureGenerator>::g
         auto fst_term = FeatureGenerator::get_candidate_features(graph[path[i]].term.get());
         auto snd_term = FeatureGenerator::get_candidate_features(graph[path[i+1]].term.get());
         auto fts = concat_copy({this->specification_features, fst_term, snd_term});
-        data.emplace_back(fts, static_cast<float>(graph[path[i]].visit_count)/std::max(static_cast<float>(get_child_visits_sum(graph, path[i])), 1.0f));
+        data.emplace_back(fts, static_cast<float>(graph[path[i+1]].visit_count)/std::max(static_cast<float>(get_child_visits_sum(graph, path[i])), 1.0f));
     }
 
     return data;
