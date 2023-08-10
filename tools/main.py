@@ -132,6 +132,9 @@ def print_stats(file, flag=True):
     iterations = data["iterations"]
     all_training = len(data["all_problems"])
     all_testing = len(data["testing_set_problems"])
+    all_old_training, _ = partition(lambda x: os.path.basename(x) in old_problem_set, data["all_problems"])
+    all_old_testing,_ = partition(lambda x: os.path.basename(x) in old_problem_set, data["testing_set_problems"])
+
     succ_train = []
     succ_test = []
     for idx, it in enumerate(iterations):
@@ -173,7 +176,7 @@ def print_stats(file, flag=True):
         for idx, it in enumerate(iterations):
             succ_train.append(len(it["successful"]))
             old, _ = partition(lambda x: os.path.basename(x["problem"]) in old_problem_set, it["successful"])
-            print("{:8} {:3.2f}%".format(len(old), percentage(len(old), len(it["successful"]))), end="")
+            print("{:>15}".format(str(len(old)) + "/" + str(len(all_old_training))), end="")
         print()
         print("{:6}".format("TR New"), end="")
         for idx, it in enumerate(iterations):
@@ -190,7 +193,8 @@ def print_stats(file, flag=True):
         for idx, it in enumerate(iterations):
             succ_train.append(len(it["successful"]))
             old, _ = partition(lambda x: os.path.basename(x["problem"]) in old_problem_set, it["successful_test"])
-            print("{:8} {:3.2f}%".format(len(old), percentage(len(old), len(it["successful_test"]))), end="")
+            print("{:>15}".format(str(len(old)) + "/" + str(len(all_old_testing))), end="")
+
         print()
         print("{:6}".format("Te New"), end="")
         for idx, it in enumerate(iterations):
@@ -285,7 +289,7 @@ def main():
 
     tain_old_test_old = [
             "../results/train_and_test_old_bm_set_1.json",
-            #"../results/train_and_test_old_bm_set_2.json",
+            "../results/train_and_test_old_bm_set_2.json",
             #"../results/train_and_test_old_bm_set_3.json",
             #"../results/train_and_test_old_bm_set_4.json",
             #"../results/train_and_test_old_bm_set_5.json",
@@ -293,7 +297,7 @@ def main():
 
     train_new_test_old = [
             "../results/train_new_test_old_1.json",
-            #"../results/train_new_test_old_2.json",
+            "../results/train_new_test_old_2.json",
             #"../results/train_new_test_old_3.json",
             #"../results/train_new_test_old_4.json",
             #"../results/train_new_test_old_5.json",
@@ -334,4 +338,3 @@ def main():
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     main()
-
