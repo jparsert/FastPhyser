@@ -17,7 +17,7 @@ RUN apt-get install -y software-properties-common
 RUN apt-get install -y git
 RUN apt-get install -y g++-11
 RUN apt-get install -y gcc-11
-RUN ln -s g++-11 /usr/bin/g++
+#RUN ln -s g++-11 /usr/bin/g++
 
 RUN apt-get install -y libboost-all-dev
 #RUN add-apt-repository -y ppa:openjdk-r/ppa

@@ -25,6 +25,7 @@ train_old_test_old: result_folder
 
 result_folder:
 	mkdir -p results
+	mkdir -p tools/plots
 
 
 

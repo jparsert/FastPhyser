@@ -54,6 +54,8 @@ FastPhyser can now be run as follows:
 
 `./FastPhyser --strategy balancedBDMC -I ../DataSet/sygus_LIA_train --test-set ../DataSet/sygus_LIA_test --num-parallel 50 --timeout 240 --seed 51`
 
+to run experiments as in the paper and create graphs go to the last section
+
 
 ## Compile by hand
 After all dependencies are installed FastPhyser can be compiled as follows:
