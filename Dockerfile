@@ -8,6 +8,10 @@ WORKDIR /home
 RUN apt-get update
 RUN apt-get install -y wget
 RUN apt-get install -y unzip
+RUN apt-get install -y python3
+RUN apt-get install -y python3-matplotlib
+RUN apt-get install -y python3-numpy
+RUN apt-get install -y python3-pandas
 RUN apt-get install -y cmake
 RUN apt-get install -y software-properties-common
 RUN apt-get install -y git

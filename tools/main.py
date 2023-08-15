@@ -1,6 +1,8 @@
 import json
 import matplotlib.pyplot as plt
 import statistics
+
+import numpy
 import pandas as pd
 import os
 
@@ -38,6 +40,13 @@ def all_files_in_dirs(dirs, suffix):
 generated_problem_set = list(map(lambda x: os.path.basename(x), all_files_in_dirs(["../Data/NewDataSet/new_compl_set/"], ".sl")))
 old_problem_set = list(map(lambda x: os.path.basename(x), all_files_in_dirs(["../Data/OldDataSet/old_compl_set/"], ".sl")))
 
+# f needs to be a path (I think) otherwise the call to os.path.basename fails. (change accordingly)
+def in_old(f):
+    return os.path.basename(f) in old_problem_set
+
+def in_new(f):
+    return os.path.basename(f) in generated_problem_set
+
 
 def accum_left(lst):
     res = [lst[0]]
@@ -67,7 +76,6 @@ def plot_solved_over_time(file):
     plt.xlabel('time (s)')
     plt.ylabel('solved problems')
     plt.savefig('plots/training_solved_over_time.eps', format='eps')
-    plt.show()
 
     plt.clf()
 
@@ -84,7 +92,6 @@ def plot_solved_over_time(file):
     plt.xlabel('time (s)')
     plt.ylabel('solved problems')
     plt.savefig('plots/testing_solved_over_time.eps', format='eps')
-    plt.show()
 
 
 def plot_solved_over_iterations(file):
@@ -105,7 +112,6 @@ def plot_solved_over_iterations(file):
     plt.xlabel('iteration')
     plt.ylabel('solved problems')
     plt.savefig('plots/training_solved_over_iterations.eps', format='eps')
-    plt.show()
 
     plt.clf()
 
@@ -122,7 +128,6 @@ def plot_solved_over_iterations(file):
     #ax.xlabel('iteration')
     #ax.ylabel('solved problems')
     plt.savefig('plots/test_solved_over_iterations.eps', format='eps')
-    plt.show()
 
 
 def print_stats(file, flag=True):
@@ -227,6 +232,52 @@ def print_stats(file, flag=True):
     print()
 
 
+def a_entries_not_in_b(a, b):
+    res = []
+    for e in a:
+        if e not in b:
+            res.append(e)
+    return res
+
+
+def unique_problems(files):
+    test_files_solved_cvc5 = []
+    with open("solved_test_cvc5.txt") as f:
+        test_files_solved_cvc5 = f.readlines()
+
+    train_files_solved_cvc5 = []
+    with open("solved_train_cvc5.txt") as f:
+        train_files_solved_cvc5 = f.readlines()
+
+    train_files_solved_cvc5 = list(map(lambda x: x.strip()[:-9], train_files_solved_cvc5))
+    test_files_solved_cvc5 = list(map(lambda x: x.strip()[:-9], test_files_solved_cvc5))
+
+
+    train_files_solved = []
+    test_files_solved = []
+
+    best_train_iterations = []
+    best_test_iterations = []
+
+    for file in files:
+        data = None
+        with open(file) as f:
+            data = json.load(f)
+        iterations = data["iterations"]
+        best_train_it_idx = numpy.argmax(list(map(lambda it: len(it["successful"]), iterations)))
+        best_train_iterations.append(list(map(lambda x: os.path.basename(x["problem"]), iterations[best_train_it_idx]["successful"])))
+
+        best_test_it_idx = numpy.argmax(list(map(lambda it: len(it["successful_test"]), iterations)))
+        best_test_iterations.append(list(map(lambda x: os.path.basename(x["problem"]), iterations[best_test_it_idx]["successful_test"])))
+
+    unique_files_in_best_train_it = list(map(lambda x: len(a_entries_not_in_b(x, train_files_solved_cvc5)), best_train_iterations))
+    unique_files_in_best_test_it = list(map(lambda x: len(a_entries_not_in_b(x, test_files_solved_cvc5)), best_test_iterations))
+    print("Unique Training problems in best iterations:")
+    print(unique_files_in_best_train_it)
+    print("Unique Testing problems in best iterations:")
+    print(unique_files_in_best_test_it)
+
+
 def plot_iterations_in_experiements(files):
     iterations = 0
     plt.clf()
@@ -246,36 +297,77 @@ def plot_iterations_in_experiements(files):
     plt.ylim(0, len(data["all_problems"]))
     plt.xlabel('iteration')
     plt.ylabel('solved problems')
-    plt.savefig('plots/training_solved_over_iterations.eps', format='eps')
-    plt.show()
+    plt.savefig('plots/training_solved_over_iterations_in_exp.eps', format='eps')
+
+    plt.clf()
+    for file in files:
+        data = None
+        with open(file) as f:
+            data = json.load(f)
+        iterations = data["iterations"]
+        x = range(1, len(iterations) + 1)
+        y = []
+        for it in iterations:
+            y.append(len(it["successful_test"]))
+
+        plt.plot(x, y)
+    plt.xticks(range(1, len(iterations, ) + 1, 2))
+    plt.xlabel("Solved Problems on Testing Set")
+    plt.ylim(0, len(data["testing_set_problems"]))
+    plt.xlabel('iteration')
+    plt.ylabel('solved problems')
+    plt.savefig('plots/testing_solved_over_iterations_in_exp.eps', format='eps')
 
 
 def calc_stats_for_mult_exp_files(files):
     df = pd.DataFrame()
+    df_in_old = pd.DataFrame()
     for idx, file in enumerate(files):
         data = None
         with open(file) as f:
             data = json.load(f)
         iterations = data["iterations"]
         solved = []
+        solved_old = []
         for it in iterations:
             solved.append(len(it["successful"]))
+            solved_old.append(len(partition(lambda x: os.path.basename(x["problem"]) in old_problem_set, it["successful"])[0]))
         df[idx] = solved
-    print("The best (most solved on training set) iterations in each experiment differ from each other as follows:")
+        df_in_old[idx] = solved_old
+    print("The best (most solved on training set) iterations in each experiment differ from each other on TRAINING as follows:")
     print("Best {}\t Worst {}\t Mean of best {}\t STDEV of best {:5.2f}".format(df.max().max(), df.max().min(), df.max().mean(), df.max().std() ))
+    print("Parts of old data set (Total:{})".format(len(partition(lambda x: os.path.basename(x) in old_problem_set, data["all_problems"])[0])))
+    print("Best {}\t Worst {}\t Mean of best {}\t STDEV of best {:5.2f}".format(df_in_old.max().max(), df_in_old.max().min(), df_in_old.max().mean(), df_in_old.max().std() ))
+    print()
 
+    print("The Worst (most solved on training set) iterations in each experiment differ from each other on TRAINING as follows:")
+    print("Worst {}\t Worst {}\t Mean of Worst {}\t STDEV of Worst {:5.2f}".format(df.min().max(), df.min().min(), df.min().mean(), df.min().std() ))
+    print("Parts of old data set (Total:{})".format(len(partition(lambda x: os.path.basename(x) in old_problem_set, data["all_problems"])[0])))
+    print("Worst {}\t Worst {}\t Mean of Worst {}\t STDEV of Worst {:5.2f}".format(df_in_old.min().max(), df_in_old.min().min(), df_in_old.min().mean(), df_in_old.min().std() ))
+    print()
     df = pd.DataFrame()
+    df_in_old = pd.DataFrame()
     for idx, file in enumerate(files):
         data = None
         with open(file) as f:
             data = json.load(f)
         iterations = data["iterations"]
         solved = []
+        solved_old = []
         for it in iterations:
             solved.append(len(it["successful_test"]))
+            solved_old.append(len(partition(lambda x: os.path.basename(x["problem"]) in old_problem_set, it["successful_test"])[0]))
         df[idx] = solved
+        df_in_old[idx] = solved_old
     print("The best (most solved on testing set) iterations in each experiment differ from each other as follows:")
     print("Best {}\t Worst {}\t Mean of best {}\t STDEV of best {:5.2f}".format(df.max().max(), df.max().min(), df.max().mean(), df.max().std() ))
+    print("Parts of old data set (Total:{})".format(len(partition(lambda x: os.path.basename(x) in old_problem_set, data["testing_set_problems"])[0])))
+    print("Best {}\t Worst {}\t Mean of best {}\t STDEV of best {:5.2f}".format(df_in_old.max().max(), df_in_old.max().min(), df_in_old.max().mean(), df_in_old.max().std() ))
+    print()
+    print("The worst (most solved on testing set) iterations in each experiment differ from each other as follows:")
+    print("worst {}\t Worst {}\t Mean of worst {}\t STDEV of worst {:5.2f}".format(df.min().max(), df.min().min(), df.min().mean(), df.min().std() ))
+    print("Parts of old data set (Total:{})".format(len(partition(lambda x: os.path.basename(x) in old_problem_set, data["testing_set_problems"])[0])))
+    print("worst {}\t Worst {}\t Mean of worst {}\t STDEV of worst {:5.2f}".format(df_in_old.min().max(), df_in_old.min().min(), df_in_old.min().mean(), df_in_old.min().std() ))
 
 
 def main():
@@ -290,18 +382,19 @@ def main():
     tain_old_test_old = [
             "../results/train_and_test_old_bm_set_1.json",
             "../results/train_and_test_old_bm_set_2.json",
-            #"../results/train_and_test_old_bm_set_3.json",
-            #"../results/train_and_test_old_bm_set_4.json",
-            #"../results/train_and_test_old_bm_set_5.json",
+            "../results/train_and_test_old_bm_set_3.json",
+            "../results/train_and_test_old_bm_set_4.json",
+            "../results/train_and_test_old_bm_set_5.json",
     ]
 
     train_new_test_old = [
             "../results/train_new_test_old_1.json",
             "../results/train_new_test_old_2.json",
-            #"../results/train_new_test_old_3.json",
-            #"../results/train_new_test_old_4.json",
-            #"../results/train_new_test_old_5.json",
+            "../results/train_new_test_old_3.json",
+            "../results/train_new_test_old_4.json",
+            "../results/train_new_test_old_5.json",
     ]
+    const = 0
 
     print("############################################")
     print("########## OVERALL EXPERIMENTS #############")
@@ -310,11 +403,12 @@ def main():
     plot_iterations_in_experiements(overall_files)
     calc_stats_for_mult_exp_files(overall_files)
     print()
+    unique_problems(overall_files)
     print()
     print("############################################")
     print("## Stats of Single OVERALL Experiment RUN ##")
     print("############################################")
-    one_experiment = overall_files[4]
+    one_experiment = overall_files[const]
     print_stats(one_experiment, True)
     plot_solved_over_time(one_experiment)
     plot_solved_over_iterations(one_experiment)
@@ -325,14 +419,14 @@ def main():
     print("############################################")
     print()
     calc_stats_for_mult_exp_files(train_new_test_old)
-    print_stats(train_new_test_old[0], False)
+    print_stats(train_new_test_old[const], False)
     print()
     print()
     print("############################################")
     print("######### TRAIN ON BM/TEST on BM ###########")
     print("############################################")
     calc_stats_for_mult_exp_files(tain_old_test_old)
-    print_stats(tain_old_test_old[0], False)
+    print_stats(tain_old_test_old[const], False)
 
 
 # Press the green button in the gutter to run the script.
