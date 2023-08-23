@@ -6,7 +6,7 @@
 
 #include <utility>
 
-#include <nlohmann/json.hpp>
+#include "nlohmann/json.hpp"
 #include <fstream>
 
 using ordered_json = nlohmann::ordered_json;
@@ -30,7 +30,7 @@ ftxui::Elements experiment_statistics::render_statistics() const {
 
 ftxui::Element experiment_statistics::render_general_info() const {
     auto some_info = ftxui::vbox({
-                                         ftxui::hbox({
+        ftxui::hbox({
                                                              ftxui::vbox({
                                                                                  ftxui::hbox({
                                                                                                      to_ftxui_text(

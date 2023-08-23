@@ -5,27 +5,30 @@
 #ifndef FASTPHYSER_ALPHAZERO_H
 #define FASTPHYSER_ALPHAZERO_H
 
-#include <Sy2CPP.h>
-#include "../verification/smt_problem_builder.h"
-#include "../candidate_tree.h"
 
 #include <unordered_map>
-
+#include <chrono>
 #include <iostream>                  // for std::cout
 #include <algorithm>                 // for std::for_each
+
 #include <boost/graph/graph_traits.hpp>
 #include <boost/graph/adjacency_list.hpp>
+
 #include "search.h"
-#include "../guidance/Value.h"
-#include "../guidance/Policy.h"
-#include "../Features.h"
-#include "../BGLHelper.h"
+#include "../../guidance/Value.h"
+#include "../../guidance/Policy.h"
+#include "../../guidance/Features.h"
+#include "BGLHelper.h"
+#include "../../verification/smt_problem_builder.h"
+#include "../../grammar_tree/candidate_tree.h"
+
+#include "Sy2CPP.h"
+
 #include <boost/graph/lookup_edge.hpp>
 #include <boost/program_options.hpp>
 
-#include <chrono>
-
 #include "search.h"
+
 
 template<class FeatureGenerator>
 class AlphaZero : public AbstractSearch {

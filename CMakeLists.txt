@@ -107,43 +107,38 @@ execute_process(
 
 set(sources
         src/verification/smt_problem_builder.cpp
-        src/data_structures/UnorderedStack.cpp
-        src/data_structures/UnorderedStack.h
-        src/candidate_tree.cpp
+        src/grammar_tree/candidate_tree.cpp
         src/exceptions/exceptions.cpp
-        src/search/BalancedBDMonteCarlo.cpp
+        src/search/rl_search/BalancedBDMonteCarlo.cpp
         src/utilities.cpp
-        src/DefaultLearningManager.cpp
         src/guidance/Policy.cpp
         src/guidance/Value.cpp
-        src/Features.cpp
-        src/search/search.cpp
-        src/ParallelLearningManager.cpp
-        src/statistics.cpp
-        src/search/AlphaZero.cpp
+        src/guidance/Features.cpp
+        src/search/rl_search/search.cpp
+        src/reinforcement_learning/statistics.cpp
+        src/search/rl_search/AlphaZero.cpp
         src/strategies.cpp
-        src/BGLHelper.cpp
-        src/search/AZ_Prefetch.cpp
-        src/DataCollector.cpp)
+        src/search/rl_search/BGLHelper.cpp
+        src/search/rl_search/AZ_Prefetch.cpp
+        src/reinforcement_learning/DataCollector.cpp)
 
 set(headers
         src/verification/smt_problem_builder.h
-        src/candidate_tree.h
+        src/grammar_tree/candidate_tree.h
         src/exceptions/exceptions.h
-        src/search/BalancedBDMonteCarlo.h
+        src/search/rl_search/BalancedBDMonteCarlo.h
         src/utilities.h
-        src/constants.h src/DefaultLearningManager.h
+        src/constants.h
         src/guidance/Policy.h
         src/guidance/Value.h
-        src/Features.h
-        src/search/search.h
-        src/ParallelLearningManager.h
-        src/statistics.h
-        src/search/AlphaZero.h
-        src/BGLHelper.h
+        src/guidance/Features.h
+        src/search/rl_search/search.h
+        src/reinforcement_learning/statistics.h
+        src/search/rl_search/AlphaZero.h
+        src/search/rl_search/BGLHelper.h
         src/strategies.h
-        src/search/AZ_Prefetch.h
-        src/DataCollector.h)
+        src/search/rl_search/AZ_Prefetch.h
+        src/reinforcement_learning/DataCollector.h)
 
 
 add_executable(FastPhyser src/main.cpp ${sources} ${headers})

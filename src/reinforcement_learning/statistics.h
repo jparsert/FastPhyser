@@ -5,24 +5,24 @@
 #ifndef FASTPHYSER_STATISTICS_H
 #define FASTPHYSER_STATISTICS_H
 
-#include "constants.h"
+#include "../constants.h"
 #include <string>
 #include <utility>
 #include <vector>
 #include <chrono>
 
-#include <ftxui/dom/elements.hpp>  // for operator|, text, Element, hbox, bold, color, filler, separator, vbox, window, gauge, Fit, size, dim, EQUAL, WIDTH
-#include <ftxui/screen/screen.hpp>  // for Full, Screen
-#include <ftxui/dom/node.hpp>  // for Render
-#include <ftxui/screen/color.hpp>  // for Color, Color:
+#include "ftxui/dom/elements.hpp"  // for operator|, text, Element, hbox, bold, color, filler, separator, vbox, window, gauge, Fit, size, dim, EQUAL, WIDTH
+#include "ftxui/screen/screen.hpp"  // for Full, Screen
+#include "ftxui/dom/node.hpp"  // for Render
+#include "ftxui/screen/color.hpp"  // for Color, Color:
 
 #include <oneapi/tbb/concurrent_vector.h>
 
-#include "guidance/Value.h"
-#include "Features.h"
-#include "guidance/Policy.h"
+#include "../guidance/Value.h"
+#include "../guidance/Features.h"
+#include "../guidance/Policy.h"
 
-#include <nlohmann/json.hpp>
+#include "nlohmann/json.hpp"
 
 using json = nlohmann::json;
 

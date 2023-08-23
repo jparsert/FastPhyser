@@ -3,7 +3,7 @@
 //
 
 #include "DataCollector.h"
-#include "utilities.h"
+#include "../utilities.h"
 
 void DefaultDataCollector::add_iteration_data(const tbb::concurrent_vector<std::pair<std::vector<float>, float>> &d) {
     concat(data, std::vector<std::pair<std::vector<float>,float>>(d.begin(), d.end()));

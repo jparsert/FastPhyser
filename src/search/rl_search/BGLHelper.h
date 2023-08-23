@@ -5,7 +5,7 @@
 #ifndef FASTPHYSER_BGLHELPER_H
 #define FASTPHYSER_BGLHELPER_H
 
-#include <Sy2CPP.h>
+#include "Sy2CPP.h"
 #include <boost/graph/graph_traits.hpp>
 #include <boost/graph/adjacency_list.hpp>
 #include <boost/graph/lookup_edge.hpp>

@@ -9,7 +9,7 @@
 #include <string>
 
 #include <boost/program_options.hpp>
-#include "statistics.h"
+#include "reinforcement_learning/statistics.h"
 
 namespace po = boost::program_options;
 

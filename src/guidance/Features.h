@@ -6,8 +6,8 @@
 #define FASTPHYSER_FEATURES_H
 
 #include "ast.h"
-#include "constants.h"
-#include "utilities.h"
+#include "../constants.h"
+#include "../utilities.h"
 #include <map>
 #include <unordered_map>
 

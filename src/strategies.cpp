@@ -4,13 +4,13 @@
 
 #include "strategies.h"
 
-#include "search/BalancedBDMonteCarlo.h"
-#include "search/AZ_Prefetch.h"
+#include "search/rl_search/BalancedBDMonteCarlo.h"
+#include "search/rl_search/AZ_Prefetch.h"
 
-#include "ParallelLearningManager.h"
-#include "search/AlphaZero.h"
-#include "statistics.h"
-#include "DataCollector.h"
+#include "reinforcement_learning/ParallelLearningManager.h"
+#include "search/rl_search/AlphaZero.h"
+#include "reinforcement_learning/statistics.h"
+#include "reinforcement_learning/DataCollector.h"
 
 #include <boost/program_options.hpp>
 
