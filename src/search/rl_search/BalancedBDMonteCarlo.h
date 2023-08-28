@@ -30,7 +30,7 @@
 #include <utility>
 
 template<class FeatureGenerator>
-class BalancedBDMonteCarlo : public AbstractSearch {
+class BalancedBDMonteCarlo : public AbstractRLSearch {
 
 private:
     std::string problem;

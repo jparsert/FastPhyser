@@ -30,7 +30,7 @@
 
 
 template<class FeatureGenerator>
-class AZ_Prefetch : public AbstractSearch {
+class AZ_Prefetch : public AbstractRLSearch {
 
 
 private:

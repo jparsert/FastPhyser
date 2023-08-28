@@ -14,8 +14,24 @@
 
 #include <boost/program_options.hpp>
 
+#include "search/SimpleEnumerativeSearch.h"
 
-experiment_statistics balancedBDMC_complete(std::vector<std::string>& problems, std::vector<std::string>& test_set, po::variables_map& opts) {
+
+std::optional<experiment_statistics> default_simple_enumerative_search(std::vector<std::string>& problems, std::vector<std::string>& test_set, po::variables_map& opts) {
+
+    for (const auto& prob : problems){
+        SimpleEnumerativeSearch search(problems[0], opts);
+        //Sy2CPP::SyGuSSolution sol = search.start_search();
+        //if (sol) {
+        //    std::cout << "Found the following solution to file: " << prob << std::endl;
+        //    std::cout << Sy2CPP::to_string(sol);
+        //}
+    }
+
+    return std::nullopt;
+}
+
+std::optional<experiment_statistics> balancedBDMC_complete(std::vector<std::string>& problems, std::vector<std::string>& test_set, po::variables_map& opts) {
     std::unique_ptr<PolicyFunction> policy = std::make_unique<XGBoostPolicy>();
     std::unique_ptr<ValueFunction> value = std::make_unique<XGBoostValue>();
     std::unique_ptr<DataCollector> policy_data_co = std::make_unique<DefaultDataCollector>();
@@ -26,8 +42,7 @@ experiment_statistics balancedBDMC_complete(std::vector<std::string>& problems, 
     return stats;
 }
 
-
-experiment_statistics balancedBDMC_policy_only(std::vector<std::string>& problems, std::vector<std::string>& test_set, po::variables_map& opts) {
+std::optional<experiment_statistics> balancedBDMC_policy_only(std::vector<std::string>& problems, std::vector<std::string>& test_set, po::variables_map& opts) {
     std::unique_ptr<PolicyFunction> policy = std::make_unique<XGBoostPolicy>();
     std::unique_ptr<DataCollector> policy_data_co = std::make_unique<DefaultDataCollector>();
     std::unique_ptr<DataCollector> value_data_co = std::make_unique<DefaultDataCollector>();
@@ -37,7 +52,7 @@ experiment_statistics balancedBDMC_policy_only(std::vector<std::string>& problem
     return stats;
 }
 
-experiment_statistics balancedBDMC_value_only(std::vector<std::string>& problems, std::vector<std::string>& test_set, po::variables_map& opts) {
+std::optional<experiment_statistics> balancedBDMC_value_only(std::vector<std::string>& problems, std::vector<std::string>& test_set, po::variables_map& opts) {
     std::unique_ptr<ValueFunction> value = std::make_unique<XGBoostValue>();
     std::unique_ptr<DataCollector> policy_data_co = std::make_unique<DefaultDataCollector>();
     std::unique_ptr<DataCollector> value_data_co = std::make_unique<DefaultDataCollector>();
@@ -47,7 +62,7 @@ experiment_statistics balancedBDMC_value_only(std::vector<std::string>& problems
     return stats;
 }
 
-experiment_statistics AlphaZero_complete(std::vector<std::string>& problems, std::vector<std::string>& test_set, po::variables_map& opts) {
+std::optional<experiment_statistics> AlphaZero_complete(std::vector<std::string>& problems, std::vector<std::string>& test_set, po::variables_map& opts) {
     std::unique_ptr<PolicyFunction> policy = std::make_unique<XGBoostPolicy>();
     std::unique_ptr<ValueFunction> value = std::make_unique<XGBoostValue>();
     std::unique_ptr<DataCollector> policy_data_co = std::make_unique<DefaultDataCollector>();
@@ -58,7 +73,7 @@ experiment_statistics AlphaZero_complete(std::vector<std::string>& problems, std
     return stats;
 }
 
-experiment_statistics AlphaZero_Circular(std::vector<std::string>& problems, std::vector<std::string>& test_set, po::variables_map& opts) {
+std::optional<experiment_statistics> AlphaZero_Circular(std::vector<std::string>& problems, std::vector<std::string>& test_set, po::variables_map& opts) {
     std::unique_ptr<PolicyFunction> policy = std::make_unique<XGBoostPolicy>();
     std::unique_ptr<ValueFunction> value = std::make_unique<XGBoostValue>();
     CircularDataCollector policy_data_co(POLICY_CIRCULAR_BUFFER);
@@ -70,7 +85,7 @@ experiment_statistics AlphaZero_Circular(std::vector<std::string>& problems, std
 }
 
 
-experiment_statistics AlphaZeroPrefetch_complete(std::vector<std::string>& problems, std::vector<std::string>& test_set, po::variables_map& opts)
+std::optional<experiment_statistics> AlphaZeroPrefetch_complete(std::vector<std::string>& problems, std::vector<std::string>& test_set, po::variables_map& opts)
 {
     std::unique_ptr<PolicyFunction> policy = std::make_unique<XGBoostPolicy>();
     std::unique_ptr<ValueFunction> value = std::make_unique<XGBoostValue>();

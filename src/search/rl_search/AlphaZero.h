@@ -31,7 +31,7 @@
 
 
 template<class FeatureGenerator>
-class AlphaZero : public AbstractSearch {
+class AlphaZero : public AbstractRLSearch {
 
 
 private:

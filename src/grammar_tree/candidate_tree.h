@@ -98,6 +98,9 @@ private:
     CountNonTerminals non_terminal_counter;
     GenerateLeftMostProdukts left_most_product_generator;
     //IsLeaf is_leaf_visitor;
+
+    // This is where we do memory management of root. Hence, get_root returns a raw pointer, not a smart pointer.
+    // The raw pointer will remain valid as long as the instance of this class is valid.
     Sy2CPP::TermPtr root;
 
     // Properties of function to be synthesised (used to generate Sy2CPP::SynthesisSolution)
@@ -121,6 +124,12 @@ public:
      */
     std::vector<Sy2CPP::TermPtr> generate_leftmost_product_terms(Sy2CPP::Term* term);
 
+    /**
+     * We make a deep copy of the term and wrap it into a SyGuS solution. The memory of the given Term pointer is not
+     * managed
+     * @param term that will be wrapped
+     * @return Copy of term wrapped in SyGuS solution`
+     */
     Sy2CPP::SyGuSSolution get_term_as_solution(Sy2CPP::Term* term);
 
     int count_non_terminals(Sy2CPP::Term* term);

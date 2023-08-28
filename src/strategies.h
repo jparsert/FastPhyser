@@ -13,11 +13,17 @@
 
 namespace po = boost::program_options;
 
+/**
+ * To do simple implementations to understand and work with the codebase, start here
+ * @return
+ */
+std::optional<experiment_statistics> default_simple_enumerative_search(std::vector<std::string>& problems, std::vector<std::string>& test_set, po::variables_map& opts);
+
 /*
  *  Runs Balanced Breadth-Depths Monte Carlo Search with XGBOOST policy and value functions and Siz2TermWalk
  *
  * */
-experiment_statistics balancedBDMC_complete(std::vector<std::string>& problems, std::vector<std::string>& test_set, po::variables_map& opts);
+std::optional<experiment_statistics> balancedBDMC_complete(std::vector<std::string>& problems, std::vector<std::string>& test_set, po::variables_map& opts);
 
 
 /*
@@ -25,33 +31,33 @@ experiment_statistics balancedBDMC_complete(std::vector<std::string>& problems, 
  *  NO Value Function!!!
  *
  * */
-experiment_statistics balancedBDMC_policy_only(std::vector<std::string>& problems, std::vector<std::string>& test_set, po::variables_map& opts);
+std::optional<experiment_statistics> balancedBDMC_policy_only(std::vector<std::string>& problems, std::vector<std::string>& test_set, po::variables_map& opts);
 
 /*
  *  Runs Balanced Breadth-Depths Monte Carlo Search with XGBOOST value and Siz2TermWalk
  *  NO policy Function!!!
  *
  * */
-experiment_statistics balancedBDMC_value_only(std::vector<std::string>& problems, std::vector<std::string>& test_set, po::variables_map& opts);
+std::optional<experiment_statistics> balancedBDMC_value_only(std::vector<std::string>& problems, std::vector<std::string>& test_set, po::variables_map& opts);
 
 /*
  *  Runs AlphaZero Carlo Search with XGBOOST value/policy and Siz2TermWalk
  *
  * */
-experiment_statistics AlphaZero_complete(std::vector<std::string>& problems, std::vector<std::string>& test_set, po::variables_map& opts);
+std::optional<experiment_statistics> AlphaZero_complete(std::vector<std::string>& problems, std::vector<std::string>& test_set, po::variables_map& opts);
 
 /*
  *  Runs AlphaZero Carlo Search with XGBOOST value/policy and Siz2TermWalk and circular buffer for training data retention
  *
  * */
-experiment_statistics AlphaZero_Circular(std::vector<std::string>& problems, std::vector<std::string>& test_set, po::variables_map& opts);
+std::optional<experiment_statistics> AlphaZero_Circular(std::vector<std::string>& problems, std::vector<std::string>& test_set, po::variables_map& opts);
 
 
 /*
  *  Runs AlphaZero Carlo Search and Prefetching of sibling nodes with XGBOOST value/policy and Siz2TermWalk
  *
  * */
-experiment_statistics AlphaZeroPrefetch_complete(std::vector<std::string>& problems, std::vector<std::string>& test_set, po::variables_map& opts);
+std::optional<experiment_statistics> AlphaZeroPrefetch_complete(std::vector<std::string>& problems, std::vector<std::string>& test_set, po::variables_map& opts);
 
 
 

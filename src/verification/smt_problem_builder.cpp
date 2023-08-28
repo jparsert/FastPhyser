@@ -551,6 +551,7 @@ SyGuSZ3SolverReprBuilder::check_candidate(Sy2CPP::FunctionDescriptor& descr, Sy2
     return res;
 }
 
+//TODO, do we handle assumptions correctly, I don't think so. (Note, that this does not inhibit the soundness of this procedure as B ==> A -> B), but it may not be very efficient.
 std::optional<z3::model> SyGuSZ3SolverReprBuilder::check_cegis_previous_models(const z3::expr& expr) {
     for (const auto& model : cegis_models) {
         z3::expr e_cpy = expr;

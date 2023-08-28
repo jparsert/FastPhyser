@@ -138,7 +138,9 @@ set(headers
         src/search/rl_search/BGLHelper.h
         src/strategies.h
         src/search/rl_search/AZ_Prefetch.h
-        src/reinforcement_learning/DataCollector.h)
+        src/reinforcement_learning/DataCollector.h
+        src/search/SimpleEnumerativeSearch.cpp
+        src/search/SimpleEnumerativeSearch.h)
 
 
 add_executable(FastPhyser src/main.cpp ${sources} ${headers})

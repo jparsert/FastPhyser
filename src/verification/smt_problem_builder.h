@@ -107,6 +107,14 @@ public:
 
     std::vector<Sy2CPP::FunctionDescriptor> get_synth_funs() const;
 
+    /**
+     * Checks a given candidate with the saved specification. Internally, we use CEGIS. This means that calling it twice
+     * will not have the same intentional behaviour, as in the second time we will be able to use the counter example
+     * previously generated to do a ground analysis.
+     * @param descr Descriptor containing name, types etc.
+     * @param term the candidate
+     * @return unsat in case the candidate is correct, sat, if it is not, unkonwn otherwise
+     */
     z3::check_result check_candidate(Sy2CPP::FunctionDescriptor& descr, Sy2CPP::Term* term );
 
     /**

@@ -14,7 +14,7 @@ float calc_uct(float target_val, int source_visits, int target_visits, float pol
 
 
 
-class AbstractSearch {
+class AbstractRLSearch {
 
 public:
     virtual bool start_search() = 0;
