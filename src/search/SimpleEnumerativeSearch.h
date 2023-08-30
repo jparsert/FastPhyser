@@ -9,10 +9,13 @@
 #include <string>
 #include <memory>
 #include <chrono>
-#include <boost/program_options/variables_map.hpp>
 #include <utility>
+
+#include <boost/program_options/variables_map.hpp>
+
 #include "../grammar_tree/candidate_tree.h"
 #include "../verification/smt_problem_builder.h"
+
 #include "Sy2CPP.h"
 
 

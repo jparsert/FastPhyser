@@ -20,6 +20,18 @@ public:
 };
 
 
+class MissingProbabilitiesFile : std::exception {
+
+private:
+    std::string message;
+
+public:
+    explicit MissingProbabilitiesFile(std::string msg) : message{std::move(msg)}{}
+
+    std::string what() {return message;}
+};
+
+
 class XGBoostException : std::exception {
 
 private:

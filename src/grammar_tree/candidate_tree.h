@@ -8,95 +8,18 @@
 
 #include "ast.h"
 #include "symbol_table.h"
-
-class CountNonTerminals : public Sy2CPP::BfTermVisitor {
-
-private:
-    std::unordered_set<Sy2CPP::EitherIdentifier> non_terminals;
-
-public:
-    explicit CountNonTerminals(const std::unordered_set<Sy2CPP::EitherIdentifier>& non_terms):
-        non_terminals{non_terms} {}
-
-    explicit CountNonTerminals(const std::vector<Sy2CPP::SortedVar>& vector);
-
-    CountNonTerminals() = default;
-
-    int count_non_terminals(Sy2CPP::Term* term) ;
-
-    // visito functions
-    std::any visitNumeral(Sy2CPP::Numeral &numeral) override;
-    std::any visitDecimal(Sy2CPP::Decimal &decimal) override ;
-    std::any visitBoolConst(Sy2CPP::BoolConst &boolConst) override;
-    std::any visitHexConst(Sy2CPP::HexConst &hex) override;
-    std::any visitBinConst(Sy2CPP::BinConst &bin) override;
-    std::any visitStringConst(Sy2CPP::StringConst &s) override;
-    std::any visitIdentifierTerm(Sy2CPP::IdentifierTerm &term) override;
-    std::any visitApplicationTerm(Sy2CPP::ApplicationTerm &application) override;
-
-};
-
-/*
-class IsLeaf :public Sy2CPP::BfTermVisitor {
-
-private:
-    std::unordered_set<Sy2CPP::EitherIdentifier> non_terminals;
-
-public:
-    explicit IsLeaf(const std::unordered_set<Sy2CPP::EitherIdentifier>& non_terms):
-            non_terminals{non_terms} {}
-
-    explicit IsLeaf(const std::vector<Sy2CPP::SortedVar>& vector);
-
-    IsLeaf() = default;
-
-    int is_leaf(Sy2CPP::Term* term);
-
-    // visito functions
-    std::any visitNumeral(Sy2CPP::Numeral &numeral) override;
-    std::any visitDecimal(Sy2CPP::Decimal &decimal) override ;
-    std::any visitBoolConst(Sy2CPP::BoolConst &boolConst) override;
-    std::any visitHexConst(Sy2CPP::HexConst &hex) override;
-    std::any visitBinConst(Sy2CPP::BinConst &bin) override;
-    std::any visitStringConst(Sy2CPP::StringConst &s) override;
-    std::any visitIdentifierTerm(Sy2CPP::IdentifierTerm &term) override;
-    std::any visitApplicationTerm(Sy2CPP::ApplicationTerm &application) override;
-
-};
-*/
-
-class GenerateLeftMostProdukts : public Sy2CPP::BfTermVisitor {
-
-private:
-    std::unordered_map<Sy2CPP::EitherIdentifier, std::vector<Sy2CPP::TermPtr>> rules;
-
-public:
-    explicit GenerateLeftMostProdukts(const std::unordered_map<Sy2CPP::EitherIdentifier, std::vector<Sy2CPP::TermPtr>>& vector);
-    GenerateLeftMostProdukts() = default;
-
-    std::vector<Sy2CPP::TermPtr> generate_leftmost_products(Sy2CPP::Term*);
-
-    // visitor functions
-    std::any visitNumeral(Sy2CPP::Numeral &numeral) override;
-    std::any visitDecimal(Sy2CPP::Decimal &decimal) override ;
-    std::any visitBoolConst(Sy2CPP::BoolConst &boolConst) override;
-    std::any visitHexConst(Sy2CPP::HexConst &hex) override;
-    std::any visitBinConst(Sy2CPP::BinConst &bin) override;
-    std::any visitStringConst(Sy2CPP::StringConst &s) override;
-    std::any visitIdentifierTerm(Sy2CPP::IdentifierTerm &term) override;
-    std::any visitApplicationTerm(Sy2CPP::ApplicationTerm &application) override;
-
-};
+#include "CountNonTerminals.h"
+#include "GenerateAllLeftMostProducts.h"
 
 /**
  * Generator class for generating the graph
  */
-class CandidateTreeGenerator : public Sy2CPP::AstBaseVisitor{
+class CandidateTreeGenerator : public Sy2CPP::AstBaseVisitor {
 
 private:
     std::unordered_map<Sy2CPP::EitherIdentifier, std::vector<Sy2CPP::TermPtr>> rules;
     CountNonTerminals non_terminal_counter;
-    GenerateLeftMostProdukts left_most_product_generator;
+    GenerateAllLeftMostProducts left_most_product_generator;
     //IsLeaf is_leaf_visitor;
 
     // This is where we do memory management of root. Hence, get_root returns a raw pointer, not a smart pointer.

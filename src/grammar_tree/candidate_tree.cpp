@@ -2,6 +2,7 @@
 // Created by julian on 01.02.23.
 //
 
+#include "CountNonTerminals.h"
 #include "candidate_tree.h"
 #include "ast.h"
 #include "../exceptions/exceptions.h"
@@ -34,7 +35,7 @@ std::any CandidateTreeGenerator::visitGrammarDef(Sy2CPP::GrammarDef &grammarDef)
     for (auto& rule : grammarDef.get_rules()) {
         rule.accept(*this);
     }
-    this->left_most_product_generator = GenerateLeftMostProdukts(this->rules);
+    this->left_most_product_generator = GenerateAllLeftMostProducts(this->rules);
     if (grammarDef.get_non_terminals().empty()) {
         throw ForbiddenState("List of non terminals in Grammar definition cannot be empty.");
     }
@@ -78,134 +79,6 @@ bool CandidateTreeGenerator::is_leaf(Sy2CPP::Term *term) {
 Sy2CPP::SyGuSSolution CandidateTreeGenerator::get_term_as_solution(Sy2CPP::Term* term) {
     this->solution.value()[0].set_term(term->copy());
     return solution;
-}
-
-std::any CountNonTerminals::visitNumeral(Sy2CPP::Numeral &numeral) {
-    return 0;
-}
-
-std::any CountNonTerminals::visitDecimal(Sy2CPP::Decimal &decimal) {
-    return 0;
-
-}
-
-std::any CountNonTerminals::visitBoolConst(Sy2CPP::BoolConst &boolConst) {
-    return 0;
-
-}
-
-std::any CountNonTerminals::visitBinConst(Sy2CPP::BinConst &bin) {
-    return 0;
-
-}
-
-std::any CountNonTerminals::visitHexConst(Sy2CPP::HexConst &hex) {
-    return 0;
-
-}
-
-std::any CountNonTerminals::visitStringConst(Sy2CPP::StringConst &s) {
-    return 0;
-
-}
-
-std::any CountNonTerminals::visitIdentifierTerm(Sy2CPP::IdentifierTerm &term)  {
-    if (this->non_terminals.contains(term.get_identifier())){
-        return 1;
-    } else {
-        return 0;
-    }
-}
-
-std::any CountNonTerminals::visitApplicationTerm(Sy2CPP::ApplicationTerm &application) {
-    int sum = 0;
-    for (auto& arg : application.get_arguments()) {
-        sum += std::any_cast<int>(arg->accept(*this));
-    }
-    return sum;
-}
-
-CountNonTerminals::CountNonTerminals(const std::vector<Sy2CPP::SortedVar>& vector) {
-    for (const auto& s_var: vector) {
-        this->non_terminals.insert(s_var.first);
-    }
-}
-
-int CountNonTerminals::count_non_terminals(Sy2CPP::Term *term){
-    return std::any_cast<int>(term->accept(*this));
-}
-
-GenerateLeftMostProdukts::GenerateLeftMostProdukts(const std::unordered_map<Sy2CPP::EitherIdentifier, std::vector<Sy2CPP::TermPtr>>& vector) :
-    rules{vector} {
-}
-
-std::any GenerateLeftMostProdukts::visitNumeral(Sy2CPP::Numeral &numeral) {
-    return std::vector<Sy2CPP::TermPtr>();
-}
-
-std::any GenerateLeftMostProdukts::visitDecimal(Sy2CPP::Decimal &decimal) {
-    return std::vector<Sy2CPP::TermPtr>();
-}
-
-std::any GenerateLeftMostProdukts::visitBoolConst(Sy2CPP::BoolConst &boolConst) {
-    return std::vector<Sy2CPP::TermPtr>();
-}
-
-std::any GenerateLeftMostProdukts::visitHexConst(Sy2CPP::HexConst &hex) {
-    return std::vector<Sy2CPP::TermPtr>();
-}
-
-std::any GenerateLeftMostProdukts::visitBinConst(Sy2CPP::BinConst &bin) {
-    return std::vector<Sy2CPP::TermPtr>();
-}
-
-std::any GenerateLeftMostProdukts::visitStringConst(Sy2CPP::StringConst &s) {
-    return std::vector<Sy2CPP::TermPtr>();
-}
-
-std::any GenerateLeftMostProdukts::visitIdentifierTerm(Sy2CPP::IdentifierTerm &term) {
-    if (this->rules.contains(term.get_identifier())) {
-        std::vector<Sy2CPP::TermPtr> new_sub_terms;
-        for(const Sy2CPP::TermPtr& t : rules.at(term.get_identifier())) {
-            new_sub_terms.push_back(std::move(t->copy()));
-        }
-        return new_sub_terms;
-    } else {
-        return std::vector<Sy2CPP::TermPtr>();
-    }
-}
-
-std::any GenerateLeftMostProdukts::visitApplicationTerm(Sy2CPP::ApplicationTerm &application) {
-    std::vector<Sy2CPP::TermPtr> args = application.get_arguments();
-    Sy2CPP::EitherIdentifier id = application.get_identifier();
-    std::vector<Sy2CPP::TermPtr> results;
-
-    for (int i = 0; i < args.size(); ++i) {
-        //recurse into arguments
-        auto new_subterms = std::any_cast<std::vector<Sy2CPP::TermPtr>>(args[i]->accept(*this));
-        if (!new_subterms.empty()){ // This means that while recursing we found new terms (i.e. we encountered non-temrinal)
-            for (auto& new_arg : new_subterms) {
-                std::vector<Sy2CPP::TermPtr> new_arg_list;
-                for (int j = 0; j < args.size(); ++j) {
-                    if (i == j) {
-                        new_arg_list.push_back(std::move(new_arg));
-                    } else {
-                        new_arg_list.push_back(std::move(args[j]->copy()));
-                    }
-                }
-                results.emplace_back(
-                        std::static_pointer_cast<Sy2CPP::Term>(
-                                std::make_shared<Sy2CPP::ApplicationTerm>(id,new_arg_list)));
-            }
-            return results; // Since we produce leftmost products we can finish interation here.
-        }
-    }
-
-    return results;
-}
-
-std::vector<Sy2CPP::TermPtr> GenerateLeftMostProdukts::generate_leftmost_products(Sy2CPP::Term * term) {
-    return std::any_cast<std::vector<Sy2CPP::TermPtr>>(term->accept(*this));
 }
 
 /*

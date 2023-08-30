@@ -19,6 +19,14 @@ namespace po = boost::program_options;
  */
 std::optional<experiment_statistics> default_simple_enumerative_search(std::vector<std::string>& problems, std::vector<std::string>& test_set, po::variables_map& opts);
 
+/**
+ * Default probabilistic search. It is important that opts also contains a file with probabilties
+ * @return
+ */
+std::optional<experiment_statistics> simple_probabilistic_search(std::vector<std::string>& problems, std::vector<std::string>& test_set, po::variables_map& opts);
+
+
+
 /*
  *  Runs Balanced Breadth-Depths Monte Carlo Search with XGBOOST policy and value functions and Siz2TermWalk
  *

@@ -131,4 +131,12 @@ size_t current_process_vmemory();
 // Unit in bytes
 size_t total_system_vmemory();
 
+
+/**
+ * Reads a given file one line at a time where each line contains exactly one integer.
+ * @return
+ */
+std::vector<int> read_lines_in_file_as_int(const std::string& path);
+
+
 #endif //FASTPHYSER_UTILITIES_H

@@ -120,7 +120,12 @@ set(sources
         src/strategies.cpp
         src/search/rl_search/BGLHelper.cpp
         src/search/rl_search/AZ_Prefetch.cpp
-        src/reinforcement_learning/DataCollector.cpp)
+        src/reinforcement_learning/DataCollector.cpp
+        src/grammar_tree/GenerateNMostLikelyLMProds.cpp
+        src/grammar_tree/GenerateAllLeftMostProducts.cpp
+        src/search/SimpleEnumerativeSearch.cpp
+        src/search/SimpleProbabilisticSearch.cpp
+)
 
 set(headers
         src/verification/smt_problem_builder.h
@@ -139,8 +144,13 @@ set(headers
         src/strategies.h
         src/search/rl_search/AZ_Prefetch.h
         src/reinforcement_learning/DataCollector.h
-        src/search/SimpleEnumerativeSearch.cpp
-        src/search/SimpleEnumerativeSearch.h)
+        src/search/SimpleEnumerativeSearch.h
+        src/search/SimpleProbabilisticSearch.h
+        src/grammar_tree/CountNonTerminals.cpp
+        src/grammar_tree/CountNonTerminals.h
+        src/grammar_tree/CountNonTerminals.h
+        src/grammar_tree/GenerateAllLeftMostProducts.h
+        src/grammar_tree/GenerateNMostLikelyLMProds.h)
 
 
 add_executable(FastPhyser src/main.cpp ${sources} ${headers})

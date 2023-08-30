@@ -15,21 +15,49 @@
 #include <boost/program_options.hpp>
 
 #include "search/SimpleEnumerativeSearch.h"
+#include "search/SimpleProbabilisticSearch.h"
 
 
 std::optional<experiment_statistics> default_simple_enumerative_search(std::vector<std::string>& problems, std::vector<std::string>& test_set, po::variables_map& opts) {
 
     for (const auto& prob : problems){
-        SimpleEnumerativeSearch search(problems[0], opts);
-        //Sy2CPP::SyGuSSolution sol = search.start_search();
-        //if (sol) {
-        //    std::cout << "Found the following solution to file: " << prob << std::endl;
-        //    std::cout << Sy2CPP::to_string(sol);
-        //}
+        SimpleEnumerativeSearch search(prob, opts);
+        Sy2CPP::SyGuSSolution sol = search.start_search();
+        if (sol.has_value()) {
+            std::cout << "Found the following solution to file: " << prob << std::endl;
+            std::cout << Sy2CPP::to_string(sol);
+        } else {
+            std::cout << prob <<": UNKNOWN" << std::endl;
+        }
+
     }
 
     return std::nullopt;
 }
+
+
+
+std::optional<experiment_statistics> simple_probabilistic_search(std::vector<std::string>& problems, std::vector<std::string>& test_set, po::variables_map& opts)
+{
+    if (problems.size() != 1) {
+        std::cout << "Too few or too many problems. You need to specify exactly one problem." << std::endl;
+        return std::nullopt;
+    }
+
+    SimpleProbabilisticSearch search(problems[0], opts); /// problems[0] as we only consider 1 problem as input for now
+    Sy2CPP::SyGuSSolution sol = search.start_search();
+
+    if (sol.has_value()) {
+        std::cout << "Found the following solution to file: " << problems[0] << std::endl;
+        std::cout << Sy2CPP::to_string(sol);
+    } else {
+        std::cout << problems[0] <<": UNKNOWN" << std::endl;
+    }
+
+    return std::nullopt;
+
+}
+
 
 std::optional<experiment_statistics> balancedBDMC_complete(std::vector<std::string>& problems, std::vector<std::string>& test_set, po::variables_map& opts) {
     std::unique_ptr<PolicyFunction> policy = std::make_unique<XGBoostPolicy>();

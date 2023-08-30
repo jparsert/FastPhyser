@@ -4,6 +4,8 @@
 
 #include "SimpleEnumerativeSearch.h"
 #include "../utilities.h"
+#include <AstPrinter.h>
+
 
 Sy2CPP::SyGuSSolution SimpleEnumerativeSearch::start_search() {
     Sy2CPP::Term* root = tree_generator->get_root();

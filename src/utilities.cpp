@@ -3,6 +3,11 @@
 //
 
 #include "utilities.h"
+#include <fstream>
+#include <iterator>
+#include <sstream>
+#include <string>
+#include <vector>
 
 std::vector<std::string> files_with_suffix_in_dirs(const std::vector<std::string>& dirs, const std::string& suffix) {
     std::vector<std::string> res;
@@ -116,4 +121,21 @@ size_t total_system_vmemory() {
     totalVirtualMem *= memInfo.mem_unit;
 
     return totalVirtualMem;
+}
+
+std::vector<int> read_lines_in_file_as_int(const std::string& path) {
+    std::vector<int> vec;
+
+    std::ifstream file_in(path);
+    if (!file_in) {
+        throw std::exception();
+    }
+
+    std::string line;
+    while (std::getline(file_in, line))
+    {
+        vec.push_back(std::stoi(line));
+    }
+
+    return vec;
 }
