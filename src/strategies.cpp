@@ -18,6 +18,26 @@
 #include "search/SimpleProbabilisticSearch.h"
 
 
+std::optional<experiment_statistics> debug(std::vector<std::string>& problems, std::vector<std::string>& test_set, po::variables_map& opts) {
+    std::unique_ptr<PolicyFunction> policy = std::make_unique<XGBoostPolicy>();
+    std::unique_ptr<ValueFunction> value = std::make_unique<XGBoostValue>();
+    std::unique_ptr<DataCollector> policy_data_co = std::make_unique<DefaultDataCollector>();
+    std::unique_ptr<DataCollector> value_data_co = std::make_unique<DefaultDataCollector>();
+
+    for (const auto& prob : problems){
+        try {
+            AlphaZero<Size2TermWalk> search(prob, policy.get(), value.get(),
+                                            static_cast<std::chrono::seconds>(opts["timeout"].as<int>()), opts, 1);
+        } catch (Sy2CPP::TypingError& e) {
+            std::cout << "Error on: " << prob << std::endl;
+            std::cout << e.what() << std::endl;
+        }
+
+    }
+
+    return std::nullopt;
+}
+
 std::optional<experiment_statistics> default_simple_enumerative_search(std::vector<std::string>& problems, std::vector<std::string>& test_set, po::variables_map& opts) {
 
     for (const auto& prob : problems){

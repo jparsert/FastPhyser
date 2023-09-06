@@ -14,6 +14,7 @@ namespace po = boost::program_options;
 
 
 std::map<std::string, std::function<std::optional<experiment_statistics>(std::vector<std::string>&, std::vector<std::string>& test_set, po::variables_map&)>> strategies {
+    {"debug", debug},
     {"default", default_simple_enumerative_search},
     {"simple_probabilistic", simple_probabilistic_search},
     {"balancedBDMC", balancedBDMC_complete},

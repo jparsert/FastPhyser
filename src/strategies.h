@@ -13,6 +13,13 @@
 
 namespace po = boost::program_options;
 
+
+/**
+ * To do simple implementations to understand and work with the codebase, start here
+ * @return
+ */
+std::optional<experiment_statistics> debug(std::vector<std::string>& problems, std::vector<std::string>& test_set, po::variables_map& opts);
+
 /**
  * To do simple implementations to understand and work with the codebase, start here
  * @return
