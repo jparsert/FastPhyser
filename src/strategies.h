@@ -67,6 +67,18 @@ std::optional<experiment_statistics> AlphaZero_complete(std::vector<std::string>
  * */
 std::optional<experiment_statistics> AlphaZero_Circular(std::vector<std::string>& problems, std::vector<std::string>& test_set, po::variables_map& opts);
 
+/*
+ *  Runs AlphaZero Carlo Search with XGBOOST value/policy and Siz2TermWalk and circular buffer for training data retention
+ *
+ * */
+std::optional<experiment_statistics> AlphaZero_Circular_value_only(std::vector<std::string>& problems, std::vector<std::string>& test_set, po::variables_map& opts);
+
+/*
+ *  Runs AlphaZero Carlo Search with XGBOOST value/policy and Siz2TermWalk and circular buffer for training data retention
+ *
+ * */
+std::optional<experiment_statistics> AlphaZero_Circular_policy_only(std::vector<std::string>& problems, std::vector<std::string>& test_set, po::variables_map& opts);
+
 
 /*
  *  Runs AlphaZero Carlo Search and Prefetching of sibling nodes with XGBOOST value/policy and Siz2TermWalk

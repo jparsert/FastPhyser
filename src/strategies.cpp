@@ -132,6 +132,26 @@ std::optional<experiment_statistics> AlphaZero_Circular(std::vector<std::string>
     return stats;
 }
 
+std::optional<experiment_statistics> AlphaZero_Circular_value_only(std::vector<std::string>& problems, std::vector<std::string>& test_set, po::variables_map& opts) {
+    std::unique_ptr<ValueFunction> value = std::make_unique<XGBoostValue>();
+    CircularDataCollector policy_data_co(POLICY_CIRCULAR_BUFFER);
+    CircularDataCollector value_data_co(VALUE_CIRCULAR_BUFFER);
+
+    ParallelLearningManager<AlphaZero<Size2TermWalk>> learner(nullptr, value.get(), &policy_data_co, &value_data_co, opts);
+    auto stats = learner.start(problems, test_set);
+    return stats;
+}
+
+std::optional<experiment_statistics> AlphaZero_Circular_policy_only(std::vector<std::string>& problems, std::vector<std::string>& test_set, po::variables_map& opts) {
+    std::unique_ptr<PolicyFunction> policy = std::make_unique<XGBoostPolicy>();
+    CircularDataCollector policy_data_co(POLICY_CIRCULAR_BUFFER);
+    CircularDataCollector value_data_co(VALUE_CIRCULAR_BUFFER);
+
+    ParallelLearningManager<AlphaZero<Size2TermWalk>> learner(policy.get(), nullptr, &policy_data_co, &value_data_co, opts);
+    auto stats = learner.start(problems, test_set);
+    return stats;
+}
+
 
 std::optional<experiment_statistics> AlphaZeroPrefetch_complete(std::vector<std::string>& problems, std::vector<std::string>& test_set, po::variables_map& opts)
 {

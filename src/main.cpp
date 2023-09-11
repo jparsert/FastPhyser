@@ -22,7 +22,10 @@ std::map<std::string, std::function<std::optional<experiment_statistics>(std::ve
     {"balancedBDMC_value", balancedBDMC_value_only},
     {"AlphaZero_complete" , AlphaZero_complete},
     {"AlphaZeroPrefetch_complete" , AlphaZeroPrefetch_complete},
-    {"AlphaZero_Circular", AlphaZero_Circular}
+    {"AlphaZero_Circular", AlphaZero_Circular},
+    {"AlphaZero_Circular", AlphaZero_Circular_value_only},
+    {"AlphaZero_Circular", AlphaZero_Circular_policy_only},
+
 };
 
 
