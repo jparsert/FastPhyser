@@ -21,6 +21,8 @@ public:
 
     [[nodiscard]] virtual std::string get_name() const = 0;
 
+    virtual ~DataCollector() = default;
+
 };
 
 
