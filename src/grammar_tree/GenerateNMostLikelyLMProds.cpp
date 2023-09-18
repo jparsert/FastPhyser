@@ -32,16 +32,17 @@ std::any GenerateNMostLikelyLMProds::visitGrammarDef(Sy2CPP::GrammarDef &grammar
         auto res = std::any_cast<std::pair<Sy2CPP::EitherIdentifier, std::vector<Sy2CPP::TermPtr>>>(rule.accept(*this));
         rules.push_back(res);
     }
-    // add probabilities
 
+    // add probabilities
     size_t i = 0;
     for (auto& x : rules) {
         std::vector<std::pair<int, Sy2CPP::TermPtr>> rh_sides;
         for(auto& rule: x.second) {
             rh_sides.emplace_back(probabilities[i], rule);
-            std::sort(rh_sides.rbegin(), rh_sides.rend()); // Sort is important as we will use this to get the most likely elements
             ++i;
         }
+        std::sort(rh_sides.rbegin(), rh_sides.rend()); // Sort is important as we will use this to get the most likely elements
+
         rules_and_probs.insert({x.first, rh_sides});
     }
 
