@@ -114,6 +114,8 @@ std::any GenerateNMostLikelyLMProds::visitIdentifierTerm(Sy2CPP::IdentifierTerm 
         // Check that we get the first N elements, if N is LEQ than to size then get all elements.
         auto new_n = N >= rh_sides.size() ? rh_sides.size() - 1 : N;
 
+        // Since the list rh_sides is already sorted by the probabilities we only have to take the first N elements
+        // to obtain the N most likely elements
         std::vector<std::pair<int, Sy2CPP::TermPtr>> N_most_liekly(rh_sides.begin(), rh_sides.begin() + static_cast<long>(new_n));
 
         for(const std::pair<int, Sy2CPP::TermPtr>& t : N_most_liekly) {
@@ -121,7 +123,7 @@ std::any GenerateNMostLikelyLMProds::visitIdentifierTerm(Sy2CPP::IdentifierTerm 
             new_sub_terms.push_back(std::move(t.second->copy()));
         }
         return new_sub_terms;
-    } else {
+    } else { // this branch "probably" occurs if we have "standard" first-order variables that are not grammar variables
         return std::vector<Sy2CPP::TermPtr>();
     }
 }
