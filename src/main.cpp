@@ -90,6 +90,14 @@ int main(int argc, char* argv[]) {
 
     std::string strategy = vm.count("strategy") ? vm["strategy"].as<std::string>() : "default";
     // run experiments with the correct strategy
+    if (! strategies.contains(strategy)){
+        std::cerr << "Strategy " << strategy << " not found." << std::endl;
+        std::cerr << "Known strategies are:" << std::endl;
+        for (const auto& x: strategies) {
+            std::cerr << "\t" << x.first << std::endl;
+        }
+        return -1;
+    }
     std::optional<experiment_statistics> results = strategies[strategy](problems, test_set_problems, vm);
 
     if (results) {
