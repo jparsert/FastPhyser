@@ -340,7 +340,7 @@ def calc_stats_for_mult_exp_files(files):
     print("Best {}\t Worst {}\t Mean of best {}\t STDEV of best {:5.2f}".format(df_in_old.max().max(), df_in_old.max().min(), df_in_old.max().mean(), df_in_old.max().std() ))
     print()
 
-    print("The Worst (most solved on training set) iterations in each experiment differ from each other on TRAINING as follows:")
+    print("The Worst (least on training set) iterations in each experiment differ from each other on TRAINING as follows:")
     print("Worst {}\t Worst {}\t Mean of Worst {}\t STDEV of Worst {:5.2f}".format(df.min().max(), df.min().min(), df.min().mean(), df.min().std() ))
     print("Parts of old data set (Total:{})".format(len(partition(lambda x: os.path.basename(x) in old_problem_set, data["all_problems"])[0])))
     print("Worst {}\t Worst {}\t Mean of Worst {}\t STDEV of Worst {:5.2f}".format(df_in_old.min().max(), df_in_old.min().min(), df_in_old.min().mean(), df_in_old.min().std() ))
@@ -360,14 +360,86 @@ def calc_stats_for_mult_exp_files(files):
         df[idx] = solved
         df_in_old[idx] = solved_old
     print("The best (most solved on testing set) iterations in each experiment differ from each other as follows:")
-    print("Best {}\t Worst {}\t Mean of best {}\t STDEV of best {:5.2f}".format(df.max().max(), df.max().min(), df.max().mean(), df.max().std() ))
+    print("max {}\t min {}\t Mean of best {}\t STDEV of best {:5.2f}".format(df.max().max(), df.max().min(), df.max().mean(), df.max().std() ))
     print("Parts of old data set (Total:{})".format(len(partition(lambda x: os.path.basename(x) in old_problem_set, data["testing_set_problems"])[0])))
+    print("max {}\t min {}\t Mean of best {}\t STDEV of best {:5.2f}".format(df_in_old.max().max(), df_in_old.max().min(), df_in_old.max().mean(), df_in_old.max().std() ))
+    print()
+    print("The worst (least solved on testing set) iterations in each experiment differ from each other as follows:")
+    print("max {}\t min {}\t Mean of worst {}\t STDEV of worst {:5.2f}".format(df.min().max(), df.min().min(), df.min().mean(), df.min().std() ))
+    print("Parts of old data set (Total:{})".format(len(partition(lambda x: os.path.basename(x) in old_problem_set, data["testing_set_problems"])[0])))
+    print("max {}\t min {}\t Mean of worst {}\t STDEV of worst {:5.2f}".format(df_in_old.min().max(), df_in_old.min().min(), df_in_old.min().mean(), df_in_old.min().std() ))
+
+
+
+
+def calc_stats_subset_of(files, superset):
+
+    print("############################################")
+    print("##SUBSET STATS ##")
+    print("############################################")
+
+    the_subset = None
+    with open(superset[0]) as f:
+        data = json.load(f)
+        the_subset = data["testing_set_problems"]
+
+    print("Subset size: {}".format(len(the_subset)))
+
+    the_subset = list(map(lambda x: os.path.basename(x), the_subset))
+
+    df = pd.DataFrame()
+    df_in_old = pd.DataFrame()
+    for idx, file in enumerate(files):
+        data = None
+        with open(file) as f:
+            data = json.load(f)
+        iterations = data["iterations"]
+        solved = []
+        solved_old = []
+        for it in iterations:
+            solved.append(len([e for e in it["successful"] if e["problem"] in the_subset]))
+            solved_old.append(len(partition(lambda x: os.path.basename(x["problem"]) in old_problem_set, it["successful"])[0]))
+        df[idx] = solved
+        df_in_old[idx] = solved_old
+    print("The best (most solved on training set) iterations in each experiment differ from each other on TRAINING as follows:")
+    print("Best {}\t Worst {}\t Mean of best {}\t STDEV of best {:5.2f}".format(df.max().max(), df.max().min(), df.max().mean(), df.max().std() ))
+    print("Parts of old data set (Total:{})".format(len(partition(lambda x: os.path.basename(x) in old_problem_set, data["all_problems"])[0])))
     print("Best {}\t Worst {}\t Mean of best {}\t STDEV of best {:5.2f}".format(df_in_old.max().max(), df_in_old.max().min(), df_in_old.max().mean(), df_in_old.max().std() ))
     print()
-    print("The worst (most solved on testing set) iterations in each experiment differ from each other as follows:")
-    print("worst {}\t Worst {}\t Mean of worst {}\t STDEV of worst {:5.2f}".format(df.min().max(), df.min().min(), df.min().mean(), df.min().std() ))
+
+    print("The Worst (least on training set) iterations in each experiment differ from each other on TRAINING as follows:")
+    print("Worst {}\t Worst {}\t Mean of Worst {}\t STDEV of Worst {:5.2f}".format(df.min().max(), df.min().min(), df.min().mean(), df.min().std() ))
+    print("Parts of old data set (Total:{})".format(len(partition(lambda x: os.path.basename(x) in old_problem_set, data["all_problems"])[0])))
+    print("Worst {}\t Worst {}\t Mean of Worst {}\t STDEV of Worst {:5.2f}".format(df_in_old.min().max(), df_in_old.min().min(), df_in_old.min().mean(), df_in_old.min().std() ))
+    print()
+    df = pd.DataFrame()
+    df_in_old = pd.DataFrame()
+    for idx, file in enumerate(files):
+        data = None
+        with open(file) as f:
+            data = json.load(f)
+        iterations = data["iterations"]
+        solved = []
+        solved_old = []
+        for it in iterations:
+            solved.append(len([e for e in it["successful_test"] if os.path.basename(e["problem"]) in the_subset]))
+            solved_old.append(len(partition(lambda x: os.path.basename(x["problem"]) in old_problem_set, it["successful_test"])[0]))
+        df[idx] = solved
+        df_in_old[idx] = solved_old
+    print("The best (most solved on testing set) iterations in each experiment differ from each other as follows:")
+    print("max {}\t min {}\t Mean of best {}\t STDEV of best {:5.2f}".format(df.max().max(), df.max().min(), df.max().mean(), df.max().std() ))
     print("Parts of old data set (Total:{})".format(len(partition(lambda x: os.path.basename(x) in old_problem_set, data["testing_set_problems"])[0])))
-    print("worst {}\t Worst {}\t Mean of worst {}\t STDEV of worst {:5.2f}".format(df_in_old.min().max(), df_in_old.min().min(), df_in_old.min().mean(), df_in_old.min().std() ))
+    print("max {}\t min {}\t Mean of best {}\t STDEV of best {:5.2f}".format(df_in_old.max().max(), df_in_old.max().min(), df_in_old.max().mean(), df_in_old.max().std() ))
+    print()
+    print("The worst (least solved on testing set) iterations in each experiment differ from each other as follows:")
+    print("max {}\t min {}\t Mean of worst {}\t STDEV of worst {:5.2f}".format(df.min().max(), df.min().min(), df.min().mean(), df.min().std() ))
+    print("Parts of old data set (Total:{})".format(len(partition(lambda x: os.path.basename(x) in old_problem_set, data["testing_set_problems"])[0])))
+    print("max {}\t min {}\t Mean of worst {}\t STDEV of worst {:5.2f}".format(df_in_old.min().max(), df_in_old.min().min(), df_in_old.min().mean(), df_in_old.min().std() ))
+
+    print("############################################")
+    print()
+    print()
+
 
 
 def main():
@@ -419,6 +491,7 @@ def main():
     print("############################################")
     print()
     calc_stats_for_mult_exp_files(train_new_test_old)
+    calc_stats_subset_of(train_new_test_old, tain_old_test_old)
     print_stats(train_new_test_old[const], False)
     print()
     print()
@@ -427,6 +500,7 @@ def main():
     print("############################################")
     calc_stats_for_mult_exp_files(tain_old_test_old)
     print_stats(tain_old_test_old[const], False)
+
 
 
 # Press the green button in the gutter to run the script.
