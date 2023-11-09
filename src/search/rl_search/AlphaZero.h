@@ -103,7 +103,13 @@ public:
 
         std::pair<std::shared_ptr<Sy2CPP::Problem>, std::shared_ptr<Sy2CPP::SymbolTable>> pair;
 
-        pair = Sy2CPP::get_ast_and_symbol_table_from_file(path);
+        try {
+            pair = Sy2CPP::get_ast_and_symbol_table_from_file(path);
+        } catch (Sy2CPP::TypingError& e) {
+            std::cout << "Could not parse " << path << std::endl;
+            std::cout << e.what() << std::endl;
+            throw e;
+        }
 
         ast = pair.first;
         symbol_table = pair.second;
