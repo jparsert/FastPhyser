@@ -59,3 +59,13 @@ CountNonTerminals::CountNonTerminals(const std::vector<Sy2CPP::SortedVar>& vecto
 int CountNonTerminals::count_non_terminals(Sy2CPP::Term *term){
     return std::any_cast<int>(term->accept(*this));
 }
+
+std::any CountNonTerminals::visitBVConst(Sy2CPP::BVConst &cnst) {
+    return 0;
+
+}
+
+std::any CountNonTerminals::visitVariableGTerm(Sy2CPP::VariableGTerm &context) {
+    return 0;
+
+}

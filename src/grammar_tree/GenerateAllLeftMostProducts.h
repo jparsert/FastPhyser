@@ -30,7 +30,8 @@ public:
     std::any visitStringConst(Sy2CPP::StringConst &s) override;
     std::any visitIdentifierTerm(Sy2CPP::IdentifierTerm &term) override;
     std::any visitApplicationTerm(Sy2CPP::ApplicationTerm &application) override;
-
+    std::any visitBVConst(Sy2CPP::BVConst &cnst) override;
+    std::any visitVariableGTerm(Sy2CPP::VariableGTerm &context) override;
 };
 
 

@@ -17,6 +17,14 @@ std::any GenerateAllLeftMostProducts::visitDecimal(Sy2CPP::Decimal &decimal) {
     return std::vector<Sy2CPP::TermPtr>();
 }
 
+std::any GenerateAllLeftMostProducts::visitBVConst(Sy2CPP::BVConst &cnst) {
+    return std::vector<Sy2CPP::TermPtr>();
+}
+
+std::any GenerateAllLeftMostProducts::visitVariableGTerm(Sy2CPP::VariableGTerm &context) {
+    return std::vector<Sy2CPP::TermPtr>();
+}
+
 std::any GenerateAllLeftMostProducts::visitBoolConst(Sy2CPP::BoolConst &boolConst) {
     return std::vector<Sy2CPP::TermPtr>();
 }

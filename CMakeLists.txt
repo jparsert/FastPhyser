@@ -9,7 +9,7 @@ set(CMAKE_CXX_STANDARD 20)
 
 FetchContent_Declare(Sy2CPP
         GIT_REPOSITORY https://github.com/jparsert/Sy2CPP
-        GIT_TAG main
+        GIT_TAG e33d95a07a2c5683cabb595f9f6b4c947f227ab0 # Don't forget to change this in case something changes
         )
 FetchContent_MakeAvailable(Sy2CPP)
 
