@@ -162,6 +162,14 @@ std::any SyGuSZ3SolverReprBuilder::visitSimpleSort(Sy2CPP::SimpleSort &sort) {
         } else if (simple_id.get_symbol() == "Bool") {
             return context.bool_sort();
         }
+    } else if (sort_id.index() == 1) {
+        Sy2CPP::IndexedIdentifier indexed_id = std::get<1>(sort_id);
+        if (Sy2CPP::BVResolver::is_bv_sort({sort})) {
+            auto x = Sy2CPP::BVResolver::get_size_of_bv(sort);
+            if(x) {
+                return context.bv_sort(x.value());
+            }
+        }
     }
     throw Sy2CPP::UnsupportedFeature("The required sort is neither Int nor Bool.");
 }
