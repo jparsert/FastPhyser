@@ -6,21 +6,25 @@
 #include "ast.h"
 #include "../exceptions/exceptions.h"
 #include "AstPrinter.h"
+#include <random>
+#include <cmath>
 
-std::any GenerateNMostLikelyLMProds::visitSynthFunCmd(Sy2CPP::SynthFunCmd &synthFun)  {
+unsigned int seed = 42;
+std::mt19937 gen(seed);
+std::any GenerateNMostLikelyLMProds::visitSynthFunCmd(Sy2CPP::SynthFunCmd& synthFun) {
 
     if (!synthFun.get_grammar()) {
         throw ForbiddenState("The parsed problem does not have a grammar. We do not support default grammars for now.");
     }
     synthFun.get_grammar()->accept(*this);
     std::vector<Sy2CPP::DefineFunCmd> sols;
-    sols.emplace_back(synthFun.get_identifier(),synthFun.get_arguments(),synthFun.get_sort(),this->root->copy());
+    sols.emplace_back(synthFun.get_identifier(), synthFun.get_arguments(), synthFun.get_sort(), this->root->copy());
     this->solution = std::make_optional<std::vector<Sy2CPP::DefineFunCmd>>(sols);
 
     return {};
 }
 
-std::any GenerateNMostLikelyLMProds::visitGrammarDef(Sy2CPP::GrammarDef &grammarDef)  {
+std::any GenerateNMostLikelyLMProds::visitGrammarDef(Sy2CPP::GrammarDef& grammarDef) {
     Sy2CPP::EitherIdentifier id = grammarDef.get_non_terminals()[0].first;
     root = std::static_pointer_cast<Sy2CPP::Term>(std::make_shared<Sy2CPP::IdentifierTerm>(id));
 
@@ -37,13 +41,13 @@ std::any GenerateNMostLikelyLMProds::visitGrammarDef(Sy2CPP::GrammarDef &grammar
     size_t i = 0;
     for (auto& x : rules) {
         std::vector<std::pair<int, Sy2CPP::TermPtr>> rh_sides;
-        for(auto& rule: x.second) {
+        for (auto& rule : x.second) {
             rh_sides.emplace_back(probabilities[i], rule);
             ++i;
         }
         std::sort(rh_sides.rbegin(), rh_sides.rend()); // Sort is important as we will use this to get the most likely elements
 
-        rules_and_probs.insert({x.first, rh_sides});
+        rules_and_probs.insert({ x.first, rh_sides });
     }
 
     if (grammarDef.get_non_terminals().empty()) {
@@ -55,18 +59,18 @@ std::any GenerateNMostLikelyLMProds::visitGrammarDef(Sy2CPP::GrammarDef &grammar
     return {};
 }
 
-std::any GenerateNMostLikelyLMProds::visitGroupedRuleList(Sy2CPP::GroupedRuleList &groupedRuleList)  {
+std::any GenerateNMostLikelyLMProds::visitGroupedRuleList(Sy2CPP::GroupedRuleList& groupedRuleList) {
     Sy2CPP::EitherIdentifier lhs = groupedRuleList.get_identifier();
     std::vector<Sy2CPP::TermPtr> rhs;
-    for(const auto &term : groupedRuleList.get_terms()) {
+    for (const auto& term : groupedRuleList.get_terms()) {
         rhs.push_back(term->copy());
     }
     std::pair<Sy2CPP::EitherIdentifier, std::vector<Sy2CPP::TermPtr>> res(lhs, rhs);
-    return {res};
+    return { res };
 }
 
 std::shared_ptr<GenerateNMostLikelyLMProds>
-GenerateNMostLikelyLMProds::build(Sy2CPP::Problem &problem, Sy2CPP::SymbolTable &symbolT, const std::vector<int>& probs, int N) {
+GenerateNMostLikelyLMProds::build(Sy2CPP::Problem& problem, Sy2CPP::SymbolTable& symbolT, const std::vector<int>& probs, int N) {
     auto generator = std::make_shared<GenerateNMostLikelyLMProds>(probs, N);
     problem.accept(*generator);
     /*
@@ -80,55 +84,117 @@ GenerateNMostLikelyLMProds::build(Sy2CPP::Problem &problem, Sy2CPP::SymbolTable 
     return generator;
 }
 
-std::any GenerateNMostLikelyLMProds::visitNumeral(Sy2CPP::Numeral &numeral) {
+std::any GenerateNMostLikelyLMProds::visitNumeral(Sy2CPP::Numeral& numeral) {
     return std::vector<Sy2CPP::TermPtr>();
 }
 
-std::any GenerateNMostLikelyLMProds::visitDecimal(Sy2CPP::Decimal &decimal) {
+std::any GenerateNMostLikelyLMProds::visitDecimal(Sy2CPP::Decimal& decimal) {
     return std::vector<Sy2CPP::TermPtr>();
 }
 
-std::any GenerateNMostLikelyLMProds::visitBoolConst(Sy2CPP::BoolConst &boolConst) {
+std::any GenerateNMostLikelyLMProds::visitBoolConst(Sy2CPP::BoolConst& boolConst) {
     return std::vector<Sy2CPP::TermPtr>();
 }
 
-std::any GenerateNMostLikelyLMProds::visitHexConst(Sy2CPP::HexConst &hex) {
+std::any GenerateNMostLikelyLMProds::visitHexConst(Sy2CPP::HexConst& hex) {
     return std::vector<Sy2CPP::TermPtr>();
 }
 
-std::any GenerateNMostLikelyLMProds::visitBinConst(Sy2CPP::BinConst &bin) {
+std::any GenerateNMostLikelyLMProds::visitBinConst(Sy2CPP::BinConst& bin) {
     return std::vector<Sy2CPP::TermPtr>();
 }
 
-std::any GenerateNMostLikelyLMProds::visitStringConst(Sy2CPP::StringConst &s) {
+std::any GenerateNMostLikelyLMProds::visitStringConst(Sy2CPP::StringConst& s) {
     return std::vector<Sy2CPP::TermPtr>();
 }
 
-std::any GenerateNMostLikelyLMProds::visitIdentifierTerm(Sy2CPP::IdentifierTerm &term) {
-    if (this->rules_and_probs.contains(term.get_identifier())) {
-        std::vector<Sy2CPP::TermPtr> new_sub_terms;
+// std::any GenerateNMostLikelyLMProds::visitIdentifierTerm(Sy2CPP::IdentifierTerm& term) {
+//     if (this->rules_and_probs.contains(term.get_identifier())) {
 
-        // the right-hand sides for the identifier
-        const std::vector<std::pair<int, Sy2CPP::TermPtr>>& rh_sides = rules_and_probs.at(term.get_identifier());
+//         std::cout << "Found non-terminal " << Sy2CPP::to_string(term.get_identifier()) << std::endl;
 
-        // Check that we get the first N elements, if N is LEQ than to size then get all elements.
-        auto new_n = N >= rh_sides.size() ? rh_sides.size() - 1 : N;
+//         std::vector<Sy2CPP::TermPtr> new_sub_terms;
 
-        // Since the list rh_sides is already sorted by the probabilities we only have to take the first N elements
-        // to obtain the N most likely elements
-        std::vector<std::pair<int, Sy2CPP::TermPtr>> N_most_liekly(rh_sides.begin(), rh_sides.begin() + static_cast<long>(new_n));
+//         // the right-hand sides for the identifier
+//         const std::vector<std::pair<int, Sy2CPP::TermPtr>>& rh_sides = rules_and_probs.at(term.get_identifier());
 
-        for(const std::pair<int, Sy2CPP::TermPtr>& t : N_most_liekly) {
-            // For now we don't care about the actual probablities. The comparative probability is encoded in the sorting of the rule list.
-            new_sub_terms.push_back(std::move(t.second->copy()));
+//         // Check that we get the first N elements, if N is LEQ than to size then get all elements.
+//         auto new_n = N >= rh_sides.size() ? rh_sides.size() - 1 : N;
+
+//         // Since the list rh_sides is already sorted by the probabilities we only have to take the first N elements
+//         // to obtain the N most likely elements
+//         std::vector<std::pair<int, Sy2CPP::TermPtr>> N_most_liekly(rh_sides.begin(), rh_sides.begin() + static_cast<long>(new_n));
+
+//         for (const std::pair<int, Sy2CPP::TermPtr>& t : N_most_liekly) {
+//             // For now we don't care about the actual probablities. The comparative probability is encoded in the sorting of the rule list.
+//             new_sub_terms.push_back(std::move(t.second->copy()));
+//         }
+//         return new_sub_terms;
+//     }
+//     else { // this branch "probably" occurs if we have "standard" first-order variables that are not grammar variables
+//         return std::vector<Sy2CPP::TermPtr>();
+//     }
+// }
+
+// by Yixuan Start ////////////////////////////////////////////////////////////////////////////////////
+
+std::vector<double> applyGammaCorrection(const std::vector<double>& input, double gamma) {
+    std::vector<double> correctedValues;
+    for (double value : input) {
+        // Applying gamma correction formula: corrected_value = original_value ^ (1 / gamma)
+        double correctedValue = std::pow(value, 1.0 / gamma);
+        correctedValues.push_back(correctedValue);
+    }
+    return correctedValues;
+}
+
+std::vector<Sy2CPP::TermPtr> sample_n_elements(const std::vector<std::pair<int, Sy2CPP::TermPtr>>& rh_sides, int N) {
+    std::vector<Sy2CPP::TermPtr> new_sub_terms;
+    std::vector<double> probabilities;
+    double sum = 0.0;
+    for (const auto& element : rh_sides) {
+        double prob = static_cast<double>(element.first);
+        // std::cout << "prob: " << prob << std::endl;
+        // std::cout << "element: " << Sy2CPP::AstToString::to_string(*element.second) << std::endl;
+
+        if (prob == 0.0) {
+            prob = 0.1;
+        } else {
+            prob = 10 * prob;
         }
+        probabilities.push_back(prob);
+        sum += prob;
+    }
+
+    double gamma = 1.1;
+    probabilities = applyGammaCorrection(probabilities, gamma);
+
+    // std::random_device rd;
+    // std::mt19937 gen(rd());
+    std::discrete_distribution<int> discrete_dist(probabilities.begin(), probabilities.end());
+    for (int i = 0; i < N; ++i) {
+        int index = discrete_dist(gen);
+        new_sub_terms.push_back(rh_sides[index].second->copy());
+    }
+    return new_sub_terms;
+}
+
+std::any GenerateNMostLikelyLMProds::visitIdentifierTerm(Sy2CPP::IdentifierTerm& term) {
+    if (this->rules_and_probs.contains(term.get_identifier())) {
+        const std::vector<std::pair<int, Sy2CPP::TermPtr>>& rh_sides =
+            rules_and_probs.at(term.get_identifier());
+        std::vector<Sy2CPP::TermPtr> new_sub_terms = sample_n_elements(rh_sides, N);
         return new_sub_terms;
-    } else { // this branch "probably" occurs if we have "standard" first-order variables that are not grammar variables
+    }
+    else {
         return std::vector<Sy2CPP::TermPtr>();
     }
 }
 
-std::any GenerateNMostLikelyLMProds::visitApplicationTerm(Sy2CPP::ApplicationTerm &application) {
+// By Yixuan END ///////////////////////////////////////////////////////////////////////////////////
+
+
+std::any GenerateNMostLikelyLMProds::visitApplicationTerm(Sy2CPP::ApplicationTerm& application) {
     std::vector<Sy2CPP::TermPtr> args = application.get_arguments();
     Sy2CPP::EitherIdentifier id = application.get_identifier();
     std::vector<Sy2CPP::TermPtr> results;
@@ -136,19 +202,20 @@ std::any GenerateNMostLikelyLMProds::visitApplicationTerm(Sy2CPP::ApplicationTer
     for (int i = 0; i < args.size(); ++i) {
         //recurse into arguments
         auto new_subterms = std::any_cast<std::vector<Sy2CPP::TermPtr>>(args[i]->accept(*this));
-        if (!new_subterms.empty()){ // This means that while recursing we found new terms (i.e. we encountered non-temrinal)
+        if (!new_subterms.empty()) { // This means that while recursing we found new terms (i.e. we encountered non-temrinal)
             for (auto& new_arg : new_subterms) {
                 std::vector<Sy2CPP::TermPtr> new_arg_list;
                 for (int j = 0; j < args.size(); ++j) {
                     if (i == j) {
                         new_arg_list.push_back(std::move(new_arg));
-                    } else {
+                    }
+                    else {
                         new_arg_list.push_back(std::move(args[j]->copy()));
                     }
                 }
                 results.emplace_back(
-                        std::static_pointer_cast<Sy2CPP::Term>(
-                                std::make_shared<Sy2CPP::ApplicationTerm>(id,new_arg_list)));
+                    std::static_pointer_cast<Sy2CPP::Term>(
+                        std::make_shared<Sy2CPP::ApplicationTerm>(id, new_arg_list)));
             }
             return results; // Since we produce leftmost products we can finish interation here.
         }
@@ -157,12 +224,12 @@ std::any GenerateNMostLikelyLMProds::visitApplicationTerm(Sy2CPP::ApplicationTer
     return results;
 }
 
-std::vector<Sy2CPP::TermPtr> GenerateNMostLikelyLMProds::generate_n_most_likely_LM_products(Sy2CPP::Term *term) {
+std::vector<Sy2CPP::TermPtr> GenerateNMostLikelyLMProds::generate_n_most_likely_LM_products(Sy2CPP::Term* term) {
     return std::any_cast<std::vector<Sy2CPP::TermPtr>>(term->accept(*this));
 
 }
 
-Sy2CPP::Term *GenerateNMostLikelyLMProds::get_root() {
+Sy2CPP::Term* GenerateNMostLikelyLMProds::get_root() {
     return root.get();
 }
 
@@ -171,7 +238,6 @@ Sy2CPP::SyGuSSolution GenerateNMostLikelyLMProds::get_term_as_solution(Sy2CPP::T
     return solution;
 }
 
-bool GenerateNMostLikelyLMProds::is_leaf(Sy2CPP::Term *term) {
+bool GenerateNMostLikelyLMProds::is_leaf(Sy2CPP::Term* term) {
     return this->non_terminal_counter.count_non_terminals(term) == 0;
 }
-
