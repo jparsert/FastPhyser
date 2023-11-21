@@ -136,7 +136,7 @@ public:
     //TODO these functions
     std::any visitHexConst(Sy2CPP::HexConst& hexConst) override;
     std::any visitBinConst(Sy2CPP::BinConst& hexConst) override;
-    std::any visitBVConst(Sy2CPP::BVConst& bvconst) override;
+    //std::any visitBVConst(Sy2CPP::BVConst& bvconst) override;
     //maybe
     //std::any visitConstantGTerm(Sy2CPP::ConstantGTerm& hexConst) override;
     //TODO these functions
