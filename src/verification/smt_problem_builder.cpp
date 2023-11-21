@@ -373,9 +373,9 @@ std::any SyGuSZ3SolverReprBuilder::visitApplicationTerm(Sy2CPP::ApplicationTerm 
 
     // recurse into ast
     z3::expr_vector visited_args(context);
-    Sy2CPP::AstToString pr;
-    for (auto& arg_sub: application.get_arguments()) {
-        auto any = arg_sub->accept(*this);
+    for (Sy2CPP::TermPtr& arg_sub: application.get_arguments()) {
+        std::cout << "TERMPT: " << Sy2CPP::AstToString::to_string(*arg_sub) << std::endl;
+        std::any any = arg_sub->accept(*this);
         visited_args.push_back(std::any_cast<z3::expr>(any));
     }
 
@@ -785,4 +785,21 @@ std::optional<z3::model> SyGuSZ3SolverReprBuilder::check_cegis_previous_models(c
         }
     }
     return std::nullopt;
+}
+
+std::any SyGuSZ3SolverReprBuilder::visitHexConst(Sy2CPP::HexConst &hexConst) {
+    //TODO resolve this because 3,3 is not what we want
+    // probably hexConst.value().hex_string_to_int_val
+    // We don't know the width of this const, or maybe we do ?
+    return context.bv_val(3,3);
+}
+
+std::any SyGuSZ3SolverReprBuilder::visitBinConst(Sy2CPP::BinConst &hexConst) {
+    //todo
+    return {};
+}
+
+std::any SyGuSZ3SolverReprBuilder::visitBVConst(Sy2CPP::BVConst &bvconst) {
+    //todo
+    return {};
 }

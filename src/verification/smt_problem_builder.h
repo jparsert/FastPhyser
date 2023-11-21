@@ -30,7 +30,8 @@ class SyGuSZ3SolverReprBuilder : public Sy2CPP::AstBaseVisitor {
     z3::expr_vector negated_constraints;
 
     // function declaration map does not need to be sorted as names have to be unique
-    std::unordered_map<Sy2CPP::FunctionDescriptor, z3::func_decl> function_declarations;
+    std::unordered_map<Sy2CPP::FunctionDescriptor, z3::func_decl>
+            function_declarations;
 
     std::vector<Sy2CPP::FunctionDescriptor> synth_fun;
 
@@ -131,6 +132,15 @@ public:
     std::any visitProblem(Sy2CPP::Problem &problem) override;
     std::any visitNumeral(Sy2CPP::Numeral &numeral) override;
     std::any visitBoolConst(Sy2CPP::BoolConst &boolConst) override;
+
+    //TODO these functions
+    std::any visitHexConst(Sy2CPP::HexConst& hexConst) override;
+    std::any visitBinConst(Sy2CPP::BinConst& hexConst) override;
+    std::any visitBVConst(Sy2CPP::BVConst& bvconst) override;
+    //maybe
+    //std::any visitConstantGTerm(Sy2CPP::ConstantGTerm& hexConst) override;
+    //TODO these functions
+
     std::any visitStringConst(Sy2CPP::StringConst &s) override;
     std::any visitSimpleSort(Sy2CPP::SimpleSort &sort) override;
     std::any visitParametricSort(Sy2CPP::ParametricSort &sort) override {
