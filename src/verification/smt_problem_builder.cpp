@@ -374,7 +374,7 @@ std::any SyGuSZ3SolverReprBuilder::visitApplicationTerm(Sy2CPP::ApplicationTerm 
     // recurse into ast
     z3::expr_vector visited_args(context);
     for (Sy2CPP::TermPtr& arg_sub: application.get_arguments()) {
-        std::cout << "TERMPT: " << Sy2CPP::AstToString::to_string(*arg_sub) << std::endl;
+        //std::cout << "TERMPT: " << Sy2CPP::AstToString::to_string(*arg_sub) << std::endl;
         std::any any = arg_sub->accept(*this);
         visited_args.push_back(std::any_cast<z3::expr>(any));
     }
@@ -456,14 +456,12 @@ SyGuSZ3SolverReprBuilder::create_theory_fun_expr(Sy2CPP::FunctionDescriptor& des
     // Add bvnot operator
     Sy2CPP::EitherIdentifier bvnot = Sy2CPP::get_simple_id_from_str("bvnot");
     if (descriptor == Sy2CPP::FunctionDescriptor(bvnot, arg_list1B, bv_sort, Sy2CPP::FunctionKind::THEORY, false)) {
-        std::cout << "bvnot" << std::endl;
         return ~args[0];
     }
 
     // Add bvneg operator
     Sy2CPP::EitherIdentifier bvneg = Sy2CPP::get_simple_id_from_str("bvneg");
     if (descriptor == Sy2CPP::FunctionDescriptor(bvneg, arg_list1B, bv_sort, Sy2CPP::FunctionKind::THEORY, false)) {
-        std::cout << "bvneg" << std::endl;
         return -args[0];
     }
 
@@ -471,42 +469,36 @@ SyGuSZ3SolverReprBuilder::create_theory_fun_expr(Sy2CPP::FunctionDescriptor& des
     // Add bvurem operator
     Sy2CPP::EitherIdentifier bvurem = Sy2CPP::get_simple_id_from_str("bvurem");
     if (descriptor == Sy2CPP::FunctionDescriptor(bvurem, arg_list2B, bv_sort, Sy2CPP::FunctionKind::THEORY, false)) {
-        std::cout << "bvurem" << std::endl;
         return z3::urem(args[0], args[1]);
     }
 
     // Add bvsrem operator
     Sy2CPP::EitherIdentifier bvsrem = Sy2CPP::get_simple_id_from_str("bvsrem");
     if (descriptor == Sy2CPP::FunctionDescriptor(bvsrem, arg_list2B, bv_sort, Sy2CPP::FunctionKind::THEORY, false)) {
-        std::cout << "bvsrem" << std::endl;
         return z3::srem(args[0], args[1]);
     }
 
     // Add bvsmod operator
     Sy2CPP::EitherIdentifier bvsmod = Sy2CPP::get_simple_id_from_str("bvsmod");
     if (descriptor == Sy2CPP::FunctionDescriptor(bvsmod, arg_list2B, bv_sort, Sy2CPP::FunctionKind::THEORY, false)) {
-        std::cout << "bvsmod" << std::endl;
         return z3::smod(args[0], args[1]);
     }
 
     // Add bvshl operator
     Sy2CPP::EitherIdentifier bvshl = Sy2CPP::get_simple_id_from_str("bvshl");
     if (descriptor == Sy2CPP::FunctionDescriptor(bvshl, arg_list2B, bv_sort, Sy2CPP::FunctionKind::THEORY, false)) {
-        std::cout << "bvshl" << std::endl;
         return z3::shl(args[0], args[1]);
     }
  
     // Add bvlshr operator
     Sy2CPP::EitherIdentifier bvlshr = Sy2CPP::get_simple_id_from_str("bvlshr");
     if (descriptor == Sy2CPP::FunctionDescriptor(bvlshr, arg_list2B, bv_sort, Sy2CPP::FunctionKind::THEORY, false)) {
-        std::cout << "bvlshr" << std::endl;
         return z3::lshr(args[0], args[1]);
     }
 
     // Add bvashr operator
     Sy2CPP::EitherIdentifier bvashr = Sy2CPP::get_simple_id_from_str("bvashr");
     if (descriptor == Sy2CPP::FunctionDescriptor(bvashr, arg_list2B, bv_sort, Sy2CPP::FunctionKind::THEORY, false)) {
-        std::cout << "bvashr" << std::endl;
         return z3::ashr(args[0], args[1]);
     }
 
@@ -514,77 +506,66 @@ SyGuSZ3SolverReprBuilder::create_theory_fun_expr(Sy2CPP::FunctionDescriptor& des
     // Add bvand operator
     Sy2CPP::EitherIdentifier bvand = Sy2CPP::get_simple_id_from_str("bvand");
     if (descriptor == Sy2CPP::FunctionDescriptor(bvand, arg_list2B, bv_sort, Sy2CPP::FunctionKind::THEORY, true)) {
-        std::cout << "bvand" << std::endl;
         return z3::operator&(args[0], args[1]);
     }
 
     // Add bvor operator
     Sy2CPP::EitherIdentifier bvor = Sy2CPP::get_simple_id_from_str("bvor");
     if (descriptor == Sy2CPP::FunctionDescriptor(bvor, arg_list2B, bv_sort, Sy2CPP::FunctionKind::THEORY, true)) {
-        std::cout << "bvor" << std::endl;
         return z3::operator|(args[0], args[1]);
     }
 
     // Add bvnand operator
     Sy2CPP::EitherIdentifier bvnand = Sy2CPP::get_simple_id_from_str("bvnand");
     if (descriptor == Sy2CPP::FunctionDescriptor(bvnand, arg_list2B, bv_sort, Sy2CPP::FunctionKind::THEORY, true)) {
-        std::cout << "bvnand" << std::endl;
         return ~(z3::operator&(args[0], args[1]));
     }
 
     // Add bvnor operator
     Sy2CPP::EitherIdentifier bvnor = Sy2CPP::get_simple_id_from_str("bvnor");
     if (descriptor == Sy2CPP::FunctionDescriptor(bvnor, arg_list2B, bv_sort, Sy2CPP::FunctionKind::THEORY, true)) {
-        std::cout << "bvnor" << std::endl;
         return ~(z3::operator|(args[0], args[1]));
     }
 
     // Add bvxor operator
     Sy2CPP::EitherIdentifier bvxor = Sy2CPP::get_simple_id_from_str("bvxor");
     if (descriptor == Sy2CPP::FunctionDescriptor(bvxor, arg_list2B, bv_sort, Sy2CPP::FunctionKind::THEORY, true)) {
-        std::cout << "bvxor" << std::endl;
         return z3::operator^(args[0], args[1]);
     }
 
     // Add bvxnor operator
     Sy2CPP::EitherIdentifier bvxnor = Sy2CPP::get_simple_id_from_str("bvxnor");
     if (descriptor == Sy2CPP::FunctionDescriptor(bvxnor, arg_list2B, bv_sort, Sy2CPP::FunctionKind::THEORY, true)) {
-        std::cout << "bvxnor" << std::endl;
         return ~(z3::operator^(args[0], args[1]));
     }
 
     // Add bvadd operator
     Sy2CPP::EitherIdentifier bvadd = Sy2CPP::get_simple_id_from_str("bvadd");
     if (descriptor == Sy2CPP::FunctionDescriptor(bvadd, arg_list2B, bv_sort, Sy2CPP::FunctionKind::THEORY, true)) {
-        std::cout << "bvadd" << std::endl;
         return z3::operator+(args[0], args[1]);
     }
 
     // Add bvsub operator
     Sy2CPP::EitherIdentifier bvsub = Sy2CPP::get_simple_id_from_str("bvsub");
     if (descriptor == Sy2CPP::FunctionDescriptor(bvsub, arg_list2B, bv_sort, Sy2CPP::FunctionKind::THEORY, true)) {
-        std::cout << "bvsub" << std::endl;
         return z3::operator-(args[0], args[1]);
     }
 
     // Add bvmul operator
     Sy2CPP::EitherIdentifier bvmul = Sy2CPP::get_simple_id_from_str("bvmul");
     if (descriptor == Sy2CPP::FunctionDescriptor(bvmul, arg_list2B, bv_sort, Sy2CPP::FunctionKind::THEORY, true)) {
-        std::cout << "bvmul" << std::endl;
         return z3::operator*(args[0], args[1]);
     }
 
     // Add bvudiv operator
     Sy2CPP::EitherIdentifier bvudiv = Sy2CPP::get_simple_id_from_str("bvudiv");
     if (descriptor == Sy2CPP::FunctionDescriptor(bvudiv, arg_list2B, bv_sort, Sy2CPP::FunctionKind::THEORY, true)) {
-        std::cout << "bvudiv" << std::endl;
         return z3::udiv(args[0], args[1]);
     }
 
     // Add bvsdiv operator
     Sy2CPP::EitherIdentifier bvsdiv = Sy2CPP::get_simple_id_from_str("bvsdiv");
     if (descriptor == Sy2CPP::FunctionDescriptor(bvsdiv, arg_list2B, bv_sort, Sy2CPP::FunctionKind::THEORY, true)) {
-        std::cout << "bvsdiv" << std::endl;
         return z3::operator/(args[0], args[1]);
     }
 
@@ -592,56 +573,48 @@ SyGuSZ3SolverReprBuilder::create_theory_fun_expr(Sy2CPP::FunctionDescriptor& des
     // Add bvult operator
     Sy2CPP::EitherIdentifier bvult = Sy2CPP::get_simple_id_from_str("bvult");
     if (descriptor == Sy2CPP::FunctionDescriptor(bvult, arg_list2B, bool_sort, Sy2CPP::FunctionKind::THEORY, false)) {
-        std::cout << "bvult" << std::endl;
         return z3::ult(args[0], args[1]);
     }
 
     // Add bvule operator
     Sy2CPP::EitherIdentifier bvule = Sy2CPP::get_simple_id_from_str("bvule");
     if (descriptor == Sy2CPP::FunctionDescriptor(bvule, arg_list2B, bool_sort, Sy2CPP::FunctionKind::THEORY, false)) {
-        std::cout << "bvule" << std::endl;
         return z3::ule(args[0], args[1]);
     }
 
     // Add bvugt operator
     Sy2CPP::EitherIdentifier bvugt = Sy2CPP::get_simple_id_from_str("bvugt");
     if (descriptor == Sy2CPP::FunctionDescriptor(bvugt, arg_list2B, bool_sort, Sy2CPP::FunctionKind::THEORY, false)) {
-        std::cout << "bvugt" << std::endl;
         return z3::ugt(args[0], args[1]);
     }
 
     // Add bvuge operator
     Sy2CPP::EitherIdentifier bvuge = Sy2CPP::get_simple_id_from_str("bvuge");
     if (descriptor == Sy2CPP::FunctionDescriptor(bvuge, arg_list2B, bool_sort, Sy2CPP::FunctionKind::THEORY, false)) {
-        std::cout << "bvuge" << std::endl;
         return z3::uge(args[0], args[1]);
     }
 
     // Add bvslt operator
     Sy2CPP::EitherIdentifier bvslt = Sy2CPP::get_simple_id_from_str("bvslt");
     if (descriptor == Sy2CPP::FunctionDescriptor(bvslt, arg_list2B, bool_sort, Sy2CPP::FunctionKind::THEORY, false)) {
-        std::cout << "bvslt" << std::endl;
         return z3::slt(args[0], args[1]);
     }
 
     // Add bvsle operator
     Sy2CPP::EitherIdentifier bvsle = Sy2CPP::get_simple_id_from_str("bvsle");
     if (descriptor == Sy2CPP::FunctionDescriptor(bvsle, arg_list2B, bool_sort, Sy2CPP::FunctionKind::THEORY, false)) {
-        std::cout << "bvsle" << std::endl;
         return z3::sle(args[0], args[1]);
     }
 
     // Add bvsgt operator
     Sy2CPP::EitherIdentifier bvsgt = Sy2CPP::get_simple_id_from_str("bvsgt");
     if (descriptor == Sy2CPP::FunctionDescriptor(bvsgt, arg_list2B, bool_sort, Sy2CPP::FunctionKind::THEORY, false)) {
-        std::cout << "bvsgt" << std::endl;
         return z3::sgt(args[0], args[1]);
     }
 
     // Add bvsge operator
     Sy2CPP::EitherIdentifier bvsge = Sy2CPP::get_simple_id_from_str("bvsge");
     if (descriptor == Sy2CPP::FunctionDescriptor(bvsge, arg_list2B, bool_sort, Sy2CPP::FunctionKind::THEORY, false)) {
-        std::cout << "bvsge" << std::endl;
         return z3::sge(args[0], args[1]);
     }
 
@@ -788,18 +761,24 @@ std::optional<z3::model> SyGuSZ3SolverReprBuilder::check_cegis_previous_models(c
 }
 
 std::any SyGuSZ3SolverReprBuilder::visitHexConst(Sy2CPP::HexConst &hexConst) {
-    //TODO resolve this because 3,3 is not what we want
-    // probably hexConst.value().hex_string_to_int_val
-    // We don't know the width of this const, or maybe we do ?
-    return context.bv_val(3,3);
+    std::string hexString = hexConst.get_value();
+    hexString.erase(0, 2);
+    int intValue = std::stoi(hexString, nullptr, 16);
+    auto len = hexString.length();
+    return context.bv_val(intValue, len * 4);
 }
 
 std::any SyGuSZ3SolverReprBuilder::visitBinConst(Sy2CPP::BinConst &hexConst) {
-    //todo
-    return {};
+    std::string binString = hexConst.get_value();
+    binString.erase(0, 2);
+    int intValue = std::stoi(binString, nullptr, 2);
+    auto len = binString.length();
+    return context.bv_val(intValue, len);
 }
 
-std::any SyGuSZ3SolverReprBuilder::visitBVConst(Sy2CPP::BVConst &bvconst) {
-    //todo
-    return {};
-}
+// std::any SyGuSZ3SolverReprBuilder::visitBVConst(Sy2CPP::BVConst &bvconst) {
+//     std::string bvString = bvconst.get_value();
+//     int intValue = std::stoi(bvString, nullptr, 10);
+//     auto len = bvString.length();
+//     return context.bv_val(intValue, len);
+// }
