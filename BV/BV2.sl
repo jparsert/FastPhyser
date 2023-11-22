@@ -2,8 +2,22 @@
 (synth-fun findIdx((y1 (_ BitVec 32)) (y2 (_ BitVec 32)) (k1 (_ BitVec 32)))
  (_ BitVec 32) 
 (( NTnonbool (_ BitVec 32)) (NTbool Bool)) 
-((NTnonbool (_ BitVec 32) (y1 y2 k1 #x00000000 #x00000001 #x00000002 #x00000003  (bvadd NTnonbool NTnonbool) (bvsub NTnonbool NTnonbool) (bvshl NTnonbool NTnonbool) (bvlshr NTnonbool NTnonbool) (bvurem NTnonbool NTnonbool) (ite NTbool NTnonbool NTnonbool))) 
-(NTbool Bool ((and NTbool NTbool) (or NTbool NTbool) (not NTbool) (= NTnonbool NTnonbool) (bvuge NTnonbool NTnonbool) (bvugt NTnonbool NTnonbool)))
+((NTnonbool (_ BitVec 32) (
+    y1 y2 k1 #x00000000 #x00000001 #x00000002 #x00000003  
+    (bvadd NTnonbool NTnonbool) 
+    (bvsub NTnonbool NTnonbool) 
+    (bvshl NTnonbool NTnonbool) 
+    (bvlshr NTnonbool NTnonbool) 
+    (bvurem NTnonbool NTnonbool) 
+    (ite NTbool NTnonbool NTnonbool)
+)) 
+(NTbool Bool (
+    (and NTbool NTbool) 
+    (or NTbool NTbool) 
+    (not NTbool) 
+    (= NTnonbool NTnonbool) 
+    (bvuge NTnonbool NTnonbool) 
+    (bvugt NTnonbool NTnonbool)))
 
 )
 )
