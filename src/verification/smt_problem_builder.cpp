@@ -455,166 +455,166 @@ SyGuSZ3SolverReprBuilder::create_theory_fun_expr(Sy2CPP::FunctionDescriptor& des
     /* Unary */
     // Add bvnot operator
     Sy2CPP::EitherIdentifier bvnot = Sy2CPP::get_simple_id_from_str("bvnot");
-    if (descriptor == Sy2CPP::FunctionDescriptor(bvnot, arg_list1B, bv_sort, Sy2CPP::FunctionKind::THEORY, false)) {
+    if (descriptor.get_identifier() == Sy2CPP::FunctionDescriptor(bvnot, arg_list1B, bv_sort, Sy2CPP::FunctionKind::THEORY, false).get_identifier()) {
         return ~args[0];
     }
 
     // Add bvneg operator
     Sy2CPP::EitherIdentifier bvneg = Sy2CPP::get_simple_id_from_str("bvneg");
-    if (descriptor == Sy2CPP::FunctionDescriptor(bvneg, arg_list1B, bv_sort, Sy2CPP::FunctionKind::THEORY, false)) {
+    if (descriptor.get_identifier() == Sy2CPP::FunctionDescriptor(bvneg, arg_list1B, bv_sort, Sy2CPP::FunctionKind::THEORY, false).get_identifier()) {
         return -args[0];
     }
 
     /* Binary  not chainable */
     // Add bvurem operator
     Sy2CPP::EitherIdentifier bvurem = Sy2CPP::get_simple_id_from_str("bvurem");
-    if (descriptor == Sy2CPP::FunctionDescriptor(bvurem, arg_list2B, bv_sort, Sy2CPP::FunctionKind::THEORY, false)) {
+    if (descriptor.get_identifier() == Sy2CPP::FunctionDescriptor(bvurem, arg_list2B, bv_sort, Sy2CPP::FunctionKind::THEORY, false).get_identifier()) {
         return z3::urem(args[0], args[1]);
     }
 
     // Add bvsrem operator
     Sy2CPP::EitherIdentifier bvsrem = Sy2CPP::get_simple_id_from_str("bvsrem");
-    if (descriptor == Sy2CPP::FunctionDescriptor(bvsrem, arg_list2B, bv_sort, Sy2CPP::FunctionKind::THEORY, false)) {
+    if (descriptor.get_identifier() == Sy2CPP::FunctionDescriptor(bvsrem, arg_list2B, bv_sort, Sy2CPP::FunctionKind::THEORY, false).get_identifier()) {
         return z3::srem(args[0], args[1]);
     }
 
     // Add bvsmod operator
     Sy2CPP::EitherIdentifier bvsmod = Sy2CPP::get_simple_id_from_str("bvsmod");
-    if (descriptor == Sy2CPP::FunctionDescriptor(bvsmod, arg_list2B, bv_sort, Sy2CPP::FunctionKind::THEORY, false)) {
+    if (descriptor.get_identifier() == Sy2CPP::FunctionDescriptor(bvsmod, arg_list2B, bv_sort, Sy2CPP::FunctionKind::THEORY, false).get_identifier()) {
         return z3::smod(args[0], args[1]);
     }
 
     // Add bvshl operator
     Sy2CPP::EitherIdentifier bvshl = Sy2CPP::get_simple_id_from_str("bvshl");
-    if (descriptor == Sy2CPP::FunctionDescriptor(bvshl, arg_list2B, bv_sort, Sy2CPP::FunctionKind::THEORY, false)) {
+    if (descriptor.get_identifier() == Sy2CPP::FunctionDescriptor(bvshl, arg_list2B, bv_sort, Sy2CPP::FunctionKind::THEORY, false).get_identifier()) {
         return z3::shl(args[0], args[1]);
     }
  
     // Add bvlshr operator
     Sy2CPP::EitherIdentifier bvlshr = Sy2CPP::get_simple_id_from_str("bvlshr");
-    if (descriptor == Sy2CPP::FunctionDescriptor(bvlshr, arg_list2B, bv_sort, Sy2CPP::FunctionKind::THEORY, false)) {
+    if (descriptor.get_identifier() == Sy2CPP::FunctionDescriptor(bvlshr, arg_list2B, bv_sort, Sy2CPP::FunctionKind::THEORY, false).get_identifier()) {
         return z3::lshr(args[0], args[1]);
     }
 
     // Add bvashr operator
     Sy2CPP::EitherIdentifier bvashr = Sy2CPP::get_simple_id_from_str("bvashr");
-    if (descriptor == Sy2CPP::FunctionDescriptor(bvashr, arg_list2B, bv_sort, Sy2CPP::FunctionKind::THEORY, false)) {
+    if (descriptor.get_identifier() == Sy2CPP::FunctionDescriptor(bvashr, arg_list2B, bv_sort, Sy2CPP::FunctionKind::THEORY, false).get_identifier()) {
         return z3::ashr(args[0], args[1]);
     }
 
     /* Arithmetic chainable */
     // Add bvand operator
     Sy2CPP::EitherIdentifier bvand = Sy2CPP::get_simple_id_from_str("bvand");
-    if (descriptor == Sy2CPP::FunctionDescriptor(bvand, arg_list2B, bv_sort, Sy2CPP::FunctionKind::THEORY, true)) {
+    if (descriptor.get_identifier() == Sy2CPP::FunctionDescriptor(bvand, arg_list2B, bv_sort, Sy2CPP::FunctionKind::THEORY, true).get_identifier()) {
         return z3::operator&(args[0], args[1]);
     }
 
     // Add bvor operator
     Sy2CPP::EitherIdentifier bvor = Sy2CPP::get_simple_id_from_str("bvor");
-    if (descriptor == Sy2CPP::FunctionDescriptor(bvor, arg_list2B, bv_sort, Sy2CPP::FunctionKind::THEORY, true)) {
+    if (descriptor.get_identifier() == Sy2CPP::FunctionDescriptor(bvor, arg_list2B, bv_sort, Sy2CPP::FunctionKind::THEORY, true).get_identifier()) {
         return z3::operator|(args[0], args[1]);
     }
 
     // Add bvnand operator
     Sy2CPP::EitherIdentifier bvnand = Sy2CPP::get_simple_id_from_str("bvnand");
-    if (descriptor == Sy2CPP::FunctionDescriptor(bvnand, arg_list2B, bv_sort, Sy2CPP::FunctionKind::THEORY, true)) {
+    if (descriptor.get_identifier() == Sy2CPP::FunctionDescriptor(bvnand, arg_list2B, bv_sort, Sy2CPP::FunctionKind::THEORY, true).get_identifier()) {
         return ~(z3::operator&(args[0], args[1]));
     }
 
     // Add bvnor operator
     Sy2CPP::EitherIdentifier bvnor = Sy2CPP::get_simple_id_from_str("bvnor");
-    if (descriptor == Sy2CPP::FunctionDescriptor(bvnor, arg_list2B, bv_sort, Sy2CPP::FunctionKind::THEORY, true)) {
+    if (descriptor.get_identifier() == Sy2CPP::FunctionDescriptor(bvnor, arg_list2B, bv_sort, Sy2CPP::FunctionKind::THEORY, true).get_identifier()) {
         return ~(z3::operator|(args[0], args[1]));
     }
 
     // Add bvxor operator
     Sy2CPP::EitherIdentifier bvxor = Sy2CPP::get_simple_id_from_str("bvxor");
-    if (descriptor == Sy2CPP::FunctionDescriptor(bvxor, arg_list2B, bv_sort, Sy2CPP::FunctionKind::THEORY, true)) {
+    if (descriptor.get_identifier() == Sy2CPP::FunctionDescriptor(bvxor, arg_list2B, bv_sort, Sy2CPP::FunctionKind::THEORY, true).get_identifier()) {
         return z3::operator^(args[0], args[1]);
     }
 
     // Add bvxnor operator
     Sy2CPP::EitherIdentifier bvxnor = Sy2CPP::get_simple_id_from_str("bvxnor");
-    if (descriptor == Sy2CPP::FunctionDescriptor(bvxnor, arg_list2B, bv_sort, Sy2CPP::FunctionKind::THEORY, true)) {
+    if (descriptor.get_identifier() == Sy2CPP::FunctionDescriptor(bvxnor, arg_list2B, bv_sort, Sy2CPP::FunctionKind::THEORY, true).get_identifier()) {
         return ~(z3::operator^(args[0], args[1]));
     }
 
     // Add bvadd operator
     Sy2CPP::EitherIdentifier bvadd = Sy2CPP::get_simple_id_from_str("bvadd");
-    if (descriptor == Sy2CPP::FunctionDescriptor(bvadd, arg_list2B, bv_sort, Sy2CPP::FunctionKind::THEORY, true)) {
+    if (descriptor.get_identifier() == Sy2CPP::FunctionDescriptor(bvadd, arg_list2B, bv_sort, Sy2CPP::FunctionKind::THEORY, true).get_identifier()) {
         return z3::operator+(args[0], args[1]);
     }
 
     // Add bvsub operator
     Sy2CPP::EitherIdentifier bvsub = Sy2CPP::get_simple_id_from_str("bvsub");
-    if (descriptor == Sy2CPP::FunctionDescriptor(bvsub, arg_list2B, bv_sort, Sy2CPP::FunctionKind::THEORY, true)) {
+    if (descriptor.get_identifier() == Sy2CPP::FunctionDescriptor(bvsub, arg_list2B, bv_sort, Sy2CPP::FunctionKind::THEORY, true).get_identifier()) {
         return z3::operator-(args[0], args[1]);
     }
 
     // Add bvmul operator
     Sy2CPP::EitherIdentifier bvmul = Sy2CPP::get_simple_id_from_str("bvmul");
-    if (descriptor == Sy2CPP::FunctionDescriptor(bvmul, arg_list2B, bv_sort, Sy2CPP::FunctionKind::THEORY, true)) {
+    if (descriptor.get_identifier() == Sy2CPP::FunctionDescriptor(bvmul, arg_list2B, bv_sort, Sy2CPP::FunctionKind::THEORY, true).get_identifier()) {
         return z3::operator*(args[0], args[1]);
     }
 
     // Add bvudiv operator
     Sy2CPP::EitherIdentifier bvudiv = Sy2CPP::get_simple_id_from_str("bvudiv");
-    if (descriptor == Sy2CPP::FunctionDescriptor(bvudiv, arg_list2B, bv_sort, Sy2CPP::FunctionKind::THEORY, true)) {
+    if (descriptor.get_identifier() == Sy2CPP::FunctionDescriptor(bvudiv, arg_list2B, bv_sort, Sy2CPP::FunctionKind::THEORY, true).get_identifier()) {
         return z3::udiv(args[0], args[1]);
     }
 
     // Add bvsdiv operator
     Sy2CPP::EitherIdentifier bvsdiv = Sy2CPP::get_simple_id_from_str("bvsdiv");
-    if (descriptor == Sy2CPP::FunctionDescriptor(bvsdiv, arg_list2B, bv_sort, Sy2CPP::FunctionKind::THEORY, true)) {
+    if (descriptor.get_identifier() == Sy2CPP::FunctionDescriptor(bvsdiv, arg_list2B, bv_sort, Sy2CPP::FunctionKind::THEORY, true).get_identifier()) {
         return z3::operator/(args[0], args[1]);
     }
 
     /* Comparison */
     // Add bvult operator
     Sy2CPP::EitherIdentifier bvult = Sy2CPP::get_simple_id_from_str("bvult");
-    if (descriptor == Sy2CPP::FunctionDescriptor(bvult, arg_list2B, bool_sort, Sy2CPP::FunctionKind::THEORY, false)) {
+    if (descriptor.get_identifier() == Sy2CPP::FunctionDescriptor(bvult, arg_list2B, bool_sort, Sy2CPP::FunctionKind::THEORY, false).get_identifier()) {
         return z3::ult(args[0], args[1]);
     }
 
     // Add bvule operator
     Sy2CPP::EitherIdentifier bvule = Sy2CPP::get_simple_id_from_str("bvule");
-    if (descriptor == Sy2CPP::FunctionDescriptor(bvule, arg_list2B, bool_sort, Sy2CPP::FunctionKind::THEORY, false)) {
+    if (descriptor.get_identifier() == Sy2CPP::FunctionDescriptor(bvule, arg_list2B, bool_sort, Sy2CPP::FunctionKind::THEORY, false).get_identifier()) {
         return z3::ule(args[0], args[1]);
     }
 
     // Add bvugt operator
     Sy2CPP::EitherIdentifier bvugt = Sy2CPP::get_simple_id_from_str("bvugt");
-    if (descriptor == Sy2CPP::FunctionDescriptor(bvugt, arg_list2B, bool_sort, Sy2CPP::FunctionKind::THEORY, false)) {
+    if (descriptor.get_identifier() == Sy2CPP::FunctionDescriptor(bvugt, arg_list2B, bool_sort, Sy2CPP::FunctionKind::THEORY, false).get_identifier()) {
         return z3::ugt(args[0], args[1]);
     }
 
     // Add bvuge operator
     Sy2CPP::EitherIdentifier bvuge = Sy2CPP::get_simple_id_from_str("bvuge");
-    if (descriptor == Sy2CPP::FunctionDescriptor(bvuge, arg_list2B, bool_sort, Sy2CPP::FunctionKind::THEORY, false)) {
+    if (descriptor.get_identifier() == Sy2CPP::FunctionDescriptor(bvuge, arg_list2B, bool_sort, Sy2CPP::FunctionKind::THEORY, false).get_identifier()) {
         return z3::uge(args[0], args[1]);
     }
 
     // Add bvslt operator
     Sy2CPP::EitherIdentifier bvslt = Sy2CPP::get_simple_id_from_str("bvslt");
-    if (descriptor == Sy2CPP::FunctionDescriptor(bvslt, arg_list2B, bool_sort, Sy2CPP::FunctionKind::THEORY, false)) {
+    if (descriptor.get_identifier() == Sy2CPP::FunctionDescriptor(bvslt, arg_list2B, bool_sort, Sy2CPP::FunctionKind::THEORY, false).get_identifier()) {
         return z3::slt(args[0], args[1]);
     }
 
     // Add bvsle operator
     Sy2CPP::EitherIdentifier bvsle = Sy2CPP::get_simple_id_from_str("bvsle");
-    if (descriptor == Sy2CPP::FunctionDescriptor(bvsle, arg_list2B, bool_sort, Sy2CPP::FunctionKind::THEORY, false)) {
+    if (descriptor.get_identifier() == Sy2CPP::FunctionDescriptor(bvsle, arg_list2B, bool_sort, Sy2CPP::FunctionKind::THEORY, false).get_identifier()) {
         return z3::sle(args[0], args[1]);
     }
 
     // Add bvsgt operator
     Sy2CPP::EitherIdentifier bvsgt = Sy2CPP::get_simple_id_from_str("bvsgt");
-    if (descriptor == Sy2CPP::FunctionDescriptor(bvsgt, arg_list2B, bool_sort, Sy2CPP::FunctionKind::THEORY, false)) {
+    if (descriptor.get_identifier() == Sy2CPP::FunctionDescriptor(bvsgt, arg_list2B, bool_sort, Sy2CPP::FunctionKind::THEORY, false).get_identifier()) {
         return z3::sgt(args[0], args[1]);
     }
 
     // Add bvsge operator
     Sy2CPP::EitherIdentifier bvsge = Sy2CPP::get_simple_id_from_str("bvsge");
-    if (descriptor == Sy2CPP::FunctionDescriptor(bvsge, arg_list2B, bool_sort, Sy2CPP::FunctionKind::THEORY, false)) {
+    if (descriptor.get_identifier() == Sy2CPP::FunctionDescriptor(bvsge, arg_list2B, bool_sort, Sy2CPP::FunctionKind::THEORY, false).get_identifier()) {
         return z3::sge(args[0], args[1]);
     }
 

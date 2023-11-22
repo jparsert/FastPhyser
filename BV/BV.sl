@@ -4,7 +4,7 @@
 (( NTnonbool (_ BitVec 32))) (
     (NTnonbool (_ BitVec 32)
         (y1 y2 k1 #x00000000 
-        (bvadd NTnonbool NTnonbool)
+        (bvugt NTnonbool NTnonbool)
         (bvneg NTnonbool)
         )
     ) 
