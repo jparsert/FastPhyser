@@ -1,0 +1,10 @@
+(bvand BV BV): 5
+vr0: 22
+vr1: 26
+(bvsub BV BV): 1
+(bvadd BV BV): 2
+(ite B BV BV): 6
+(bvult BV BV): 6
+(bvlshr BV BV): 2
+(bvashr BV BV): 2
+(bvugt BV BV): 4

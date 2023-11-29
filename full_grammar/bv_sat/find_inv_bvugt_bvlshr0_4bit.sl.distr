@@ -1,0 +1,5 @@
+(bvand BV BV): 5
+vr0: 8
+vr1: 8
+(bvsub BV BV): 1
+(bvadd BV BV): 2

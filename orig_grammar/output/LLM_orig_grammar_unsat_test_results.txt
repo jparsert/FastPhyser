@@ -1,0 +1,45 @@
+./orig_grammar/unsat_test/max2.sl
+Found the following solution to file: ./orig_grammar/unsat_test/max2.sl
+(
+(define-fun fn0 ( (vr0 Int) (vr1 Int) ) Int (ite (>= (+ 0 vr1) vr0) vr1 vr0))
+)
+./orig_grammar/unsat_test/t15.sl
+Found the following solution to file: ./orig_grammar/unsat_test/t15.sl
+(
+(define-fun fn0 ( (NOACK Int) (acknowledgeId Int) (enabled Bool) ) Bool (or (= 1 0) enabled))
+)
+./orig_grammar/unsat_test/qm_neg_eq_1.sl
+Found the following solution to file: ./orig_grammar/unsat_test/qm_neg_eq_1.sl
+(
+(define-fun fn1 ( (vr0 Int) ) Int (fn0 (- (- (- 1 vr0) 0) (fn0 vr0 (- 0 vr0))) 0))
+)
+./orig_grammar/unsat_test/t20.sl
+Found the following solution to file: ./orig_grammar/unsat_test/t20.sl
+(
+(define-fun fn0 ( (next Int) (pos Int) (MC_741360 Bool) ) Bool (or (= 55 56) (or (or (not (not (not MC_741360))) (not MC_741360)) MC_741360)))
+)
+./orig_grammar/unsat_test/s2.sl
+Found the following solution to file: ./orig_grammar/unsat_test/s2.sl
+(
+(define-fun fn0 ( (vr0 Int) (vr1 Int) ) Int (- 1))
+)
+./orig_grammar/unsat_test/qm_neg_1.sl
+Found the following solution to file: ./orig_grammar/unsat_test/qm_neg_1.sl
+(
+(define-fun fn1 ( (vr0 Int) ) Int (fn0 (fn0 (fn0 (- 0 1) (- 0 (fn0 (fn0 (- (fn0 0 (fn0 0 vr0)) vr0) (- 1 1)) 1))) 1) vr0))
+)
+./orig_grammar/unsat_test/constant.sl
+Found the following solution to file: ./orig_grammar/unsat_test/constant.sl
+(
+(define-fun fn0 ( (vr0 Int) ) Int 1)
+)
+./orig_grammar/unsat_test/inv_gen_term2.sl
+Found the following solution to file: ./orig_grammar/unsat_test/inv_gen_term2.sl
+(
+(define-fun fn8 ( (vr1 Int) (vr2 Int) (vr3 Int) ) Bool (or (<= (+ (* 0 vr1) (* 0 vr2)) 3) (= (+ (* 1 vr1) (* 1 vr1)) 0)))
+)
+./orig_grammar/unsat_test/t17.sl
+Found the following solution to file: ./orig_grammar/unsat_test/t17.sl
+(
+(define-fun fn0 ( (j Int) (MC_741360 Int) ) Bool (= 1 (- 1 (+ 0 0))))
+)

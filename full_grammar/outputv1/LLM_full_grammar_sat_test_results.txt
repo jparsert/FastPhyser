@@ -1,0 +1,35 @@
+./full_grammar/sat_test/inv_gen_tcs.sl
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_tcs.sl
+(
+(define-fun fn8 ( (vr1 Int) (vr2 Int) (vr3 Int) (vr4 Int) ) Bool (or (not (= vr3 vr4)) (= vr2 vr1)))
+)
+./full_grammar/sat_test/inv_gen_sum3.sl
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_sum3.sl
+(
+(define-fun fn8 ( (vr1 Int) (vr0 Int) (vr2 Int) (vr3 Int) ) Bool (= vr1 vr3))
+)
+./full_grammar/sat_test/inv_gen_n_c11.sl
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_n_c11.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr1 Int) ) Bool (= (mod vr1 5) vr1))
+)
+./full_grammar/sat_test/inv_gen_cgr1.sl
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_cgr1.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr1 Int) ) Bool (>= (+ vr1 (+ (mod vr0 4) vr1)) vr0))
+)
+./full_grammar/sat_test/inv_gen_array.sl
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_array.sl
+(
+(define-fun fn8 ( (vr3 Int) (vr1 Int) (vr4 Int) ) Bool (= vr1 (ite (> vr3 vr4) (- vr1) vr1)))
+)
+./full_grammar/sat_test/inv_gen_finf1.sl
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_finf1.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr1 Int) (vr2 Int) (vr3 Int) ) Bool (and (= vr1 vr1) (= (+ vr1 vr1) vr1)))
+)
+./full_grammar/sat_test/inv_gen_finf2.sl
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_finf2.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr1 Int) (vr2 Int) (vr3 Int) ) Bool (= vr0 (+ vr0 vr1)))
+)

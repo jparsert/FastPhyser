@@ -1,0 +1,1 @@
+['(define-fun fn1 ((vr0 Int) (vr1 Int) (vr2 Int) (vr3 Int) (vr4 Int)) Int\n  (ite (and (>= vr0 vr1) (>= vr0 vr2) (>= vr0 vr3) (>= vr0 vr4)) vr0\n  (ite (and (>= vr1 vr2) (>= vr1 vr3) (>= vr1 vr4)) vr1\n  (ite (and (>= vr2 vr3) (>= vr2 vr4)) vr2\n  (ite (>= vr3 vr4) vr3\n   vr4)))))']

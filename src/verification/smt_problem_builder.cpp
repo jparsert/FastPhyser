@@ -763,15 +763,21 @@ std::optional<z3::model> SyGuSZ3SolverReprBuilder::check_cegis_previous_models(c
 std::any SyGuSZ3SolverReprBuilder::visitHexConst(Sy2CPP::HexConst &hexConst) {
     std::string hexString = hexConst.get_value();
     hexString.erase(0, 2);
-    int intValue = std::stoi(hexString, nullptr, 16);
     auto len = hexString.length();
-    return context.bv_val(intValue, len * 4);
+    if (len >= 16) {
+        uint64_t intValue = std::stoull(hexString, nullptr, 16);
+        return context.bv_val(intValue, len * 4);
+    } else {
+        // unsigned
+        unsigned int intValue = std::strtoul(hexString.c_str(), nullptr, 16);
+        return context.bv_val(intValue, len * 4);
+    }
 }
 
 std::any SyGuSZ3SolverReprBuilder::visitBinConst(Sy2CPP::BinConst &hexConst) {
     std::string binString = hexConst.get_value();
     binString.erase(0, 2);
-    int intValue = std::stoi(binString, nullptr, 2);
+    unsigned int intValue = std::stoul(binString.c_str(), nullptr, 2);
     auto len = binString.length();
     return context.bv_val(intValue, len);
 }

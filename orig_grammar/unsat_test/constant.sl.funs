@@ -1,0 +1,1 @@
+['(define-fun fn0 ((vr0 Int)) Int vr0)', '(define-fun fn0 ((vr0 Int)) Int vr0)', '(define-fun fn0 ((vr0 Int)) Int (+ (* 2 vr0) 0))', '(define-fun fn0 ((vr0 Int)) Int ( 1 ) )']

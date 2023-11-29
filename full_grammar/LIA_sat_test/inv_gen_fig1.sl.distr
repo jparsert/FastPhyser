@@ -1,0 +1,12 @@
+(and StartBool StartBool): 19
+(<= Start Start): 15
+vr0: 63
+vr1: 35
+(>= Start Start): 33
+(= Start Start): 2
+(- Start): 2
+(+ Start Start): 2
+(> Start Start): 7
+true: 4
+false: 4
+(ite StartBool Start Start): 2

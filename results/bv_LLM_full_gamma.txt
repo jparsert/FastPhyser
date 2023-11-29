@@ -1,0 +1,471 @@
+bv_sat starting...
+Files to process:
+['find_inv_bvsge_bvurem0_4bit',
+ '28_10',
+ '61_10',
+ '90_10',
+ 'find_inv_bvugt_bvashr0_4bit',
+ '84_10',
+ '68_10',
+ '16_10',
+ '83_10',
+ '98_10',
+ 'find_inv_bvugt_bvlshr1_4bit',
+ 'icfp_30_10',
+ 'find_inv_bvsge_bvadd_4bit',
+ '24_10',
+ '72_10',
+ '67_10',
+ 'find_inv_bvslt_bvurem0_4bit',
+ 'find_inv_bvslt_bvudiv1_4bit',
+ '60_10',
+ 'find_inv_bvsge_bvnot_4bit',
+ 'find_inv_bvsgt_bvshl1_4bit',
+ 'find_inv_bvsge_bvneg_4bit',
+ '2_10',
+ '91_10',
+ '30_10',
+ 'find_inv_bvuge_bvlshr1_4bit',
+ 'find_inv_bvsgt_bvnot_4bit',
+ 'rank-loop1-mod',
+ 'find_inv_bvugt_bvadd_4bit',
+ 'icfp_64_10',
+ '38_10',
+ 'icfp_72_10',
+ 'find_inv_bvsge_bvudiv1_4bit',
+ '77_10',
+ 'find_inv_bvslt_bvurem1_4bit',
+ '39_10',
+ '62_10',
+ 'find_inv_bvugt_bvlshr0_4bit',
+ 'icfp_96_10',
+ '17_10',
+ 'icfp_69_10',
+ 'find_inv_bvsge_bvashr0_4bit',
+ '78_10',
+ 'find_inv_bvslt_bvlshr1_4bit',
+ 'icfp_103_10',
+ 'find_inv_bvslt_bvshl0_4bit',
+ 'find_inv_bvslt_bvnot_4bit',
+ 'find_inv_bvuge_bvnot_4bit',
+ 'find_inv_bvsgt_bvneg_4bit',
+ 'find_inv_bvugt_bvashr1_4bit',
+ 'icfp_38_10',
+ '95_10',
+ 'find_inv_bvuge_bvashr1_4bit',
+ 'find_inv_bvsge_bvlshr1_4bit',
+ '5_10',
+ '7_10',
+ 'icfp_32_10',
+ '69_10',
+ 'find_inv_bvsge_bvand_4bit',
+ '6_10',
+ '51_10',
+ 'icfp_139_10',
+ 'find_inv_bvuge_bvadd_4bit',
+ '82_10',
+ 'find_inv_bvsge_bvshl0_4bit',
+ 'find_inv_bvslt_bvmul_4bit']
+
+Processing find_inv_bvsge_bvurem0_4bit
+Timeout occurred after 120 seconds. Moving on to the next file.
+No solved files yet.
+
+Processing 28_10
+Found the following solution to file: ./full_grammar/bv_sat/28_10.sl
+(
+(define-fun f ( (x (_ BitVec 64)) ) (_ BitVec 64) (shr16 x))
+)
+
+Solved: 1/2
+Total time taken: 0.04926776885986328
+Average time taken: 0.04926776885986328
+
+Processing 61_10
+Timeout occurred after 120 seconds. Moving on to the next file.
+Solved: 1/3
+Total time taken: 0.04926776885986328
+Average time taken: 0.04926776885986328
+
+Processing 90_10
+Timeout occurred after 120 seconds. Moving on to the next file.
+Solved: 1/4
+Total time taken: 0.04926776885986328
+Average time taken: 0.04926776885986328
+
+Processing find_inv_bvugt_bvashr0_4bit
+Timeout occurred after 120 seconds. Moving on to the next file.
+Solved: 1/5
+Total time taken: 0.04926776885986328
+Average time taken: 0.04926776885986328
+
+Processing 84_10
+Timeout occurred after 120 seconds. Moving on to the next file.
+Solved: 1/6
+Total time taken: 0.04926776885986328
+Average time taken: 0.04926776885986328
+
+Processing 68_10
+Timeout occurred after 120 seconds. Moving on to the next file.
+Solved: 1/7
+Total time taken: 0.04926776885986328
+Average time taken: 0.04926776885986328
+
+Processing 16_10
+Timeout occurred after 120 seconds. Moving on to the next file.
+Solved: 1/8
+Total time taken: 0.04926776885986328
+Average time taken: 0.04926776885986328
+
+Processing 83_10
+Timeout occurred after 120 seconds. Moving on to the next file.
+Solved: 1/9
+Total time taken: 0.04926776885986328
+Average time taken: 0.04926776885986328
+
+Processing 98_10
+Timeout occurred after 120 seconds. Moving on to the next file.
+Solved: 1/10
+Total time taken: 0.04926776885986328
+Average time taken: 0.04926776885986328
+
+Processing find_inv_bvugt_bvlshr1_4bit
+Timeout occurred after 120 seconds. Moving on to the next file.
+Solved: 1/11
+Total time taken: 0.04926776885986328
+Average time taken: 0.04926776885986328
+
+Processing icfp_30_10
+Timeout occurred after 120 seconds. Moving on to the next file.
+Solved: 1/12
+Total time taken: 0.04926776885986328
+Average time taken: 0.04926776885986328
+
+Processing find_inv_bvsge_bvadd_4bit
+Timeout occurred after 120 seconds. Moving on to the next file.
+Solved: 1/13
+Total time taken: 0.04926776885986328
+Average time taken: 0.04926776885986328
+
+Processing 24_10
+Timeout occurred after 120 seconds. Moving on to the next file.
+Solved: 1/14
+Total time taken: 0.04926776885986328
+Average time taken: 0.04926776885986328
+
+Processing 72_10
+Timeout occurred after 120 seconds. Moving on to the next file.
+Solved: 1/15
+Total time taken: 0.04926776885986328
+Average time taken: 0.04926776885986328
+
+Processing 67_10
+Timeout occurred after 120 seconds. Moving on to the next file.
+Solved: 1/16
+Total time taken: 0.04926776885986328
+Average time taken: 0.04926776885986328
+
+Processing find_inv_bvslt_bvurem0_4bit
+Timeout occurred after 120 seconds. Moving on to the next file.
+Solved: 1/17
+Total time taken: 0.04926776885986328
+Average time taken: 0.04926776885986328
+
+Processing find_inv_bvslt_bvudiv1_4bit
+Timeout occurred after 120 seconds. Moving on to the next file.
+Solved: 1/18
+Total time taken: 0.04926776885986328
+Average time taken: 0.04926776885986328
+
+Processing 60_10
+Timeout occurred after 120 seconds. Moving on to the next file.
+Solved: 1/19
+Total time taken: 0.04926776885986328
+Average time taken: 0.04926776885986328
+
+Processing find_inv_bvsge_bvnot_4bit
+Timeout occurred after 120 seconds. Moving on to the next file.
+Solved: 1/20
+Total time taken: 0.04926776885986328
+Average time taken: 0.04926776885986328
+
+Processing find_inv_bvsgt_bvshl1_4bit
+Timeout occurred after 120 seconds. Moving on to the next file.
+Solved: 1/21
+Total time taken: 0.04926776885986328
+Average time taken: 0.04926776885986328
+
+Processing find_inv_bvsge_bvneg_4bit
+Timeout occurred after 120 seconds. Moving on to the next file.
+Solved: 1/22
+Total time taken: 0.04926776885986328
+Average time taken: 0.04926776885986328
+
+Processing 2_10
+Timeout occurred after 120 seconds. Moving on to the next file.
+Solved: 1/23
+Total time taken: 0.04926776885986328
+Average time taken: 0.04926776885986328
+
+Processing 91_10
+Timeout occurred after 120 seconds. Moving on to the next file.
+Solved: 1/24
+Total time taken: 0.04926776885986328
+Average time taken: 0.04926776885986328
+
+Processing 30_10
+Timeout occurred after 120 seconds. Moving on to the next file.
+Solved: 1/25
+Total time taken: 0.04926776885986328
+Average time taken: 0.04926776885986328
+
+Processing find_inv_bvuge_bvlshr1_4bit
+Timeout occurred after 120 seconds. Moving on to the next file.
+Solved: 1/26
+Total time taken: 0.04926776885986328
+Average time taken: 0.04926776885986328
+
+Processing find_inv_bvsgt_bvnot_4bit
+Timeout occurred after 120 seconds. Moving on to the next file.
+Solved: 1/27
+Total time taken: 0.04926776885986328
+Average time taken: 0.04926776885986328
+
+Processing rank-loop1-mod
+Timeout occurred after 120 seconds. Moving on to the next file.
+Solved: 1/28
+Total time taken: 0.04926776885986328
+Average time taken: 0.04926776885986328
+
+Processing find_inv_bvugt_bvadd_4bit
+Timeout occurred after 120 seconds. Moving on to the next file.
+Solved: 1/29
+Total time taken: 0.04926776885986328
+Average time taken: 0.04926776885986328
+
+Processing icfp_64_10
+Timeout occurred after 120 seconds. Moving on to the next file.
+Solved: 1/30
+Total time taken: 0.04926776885986328
+Average time taken: 0.04926776885986328
+
+Processing 38_10
+Timeout occurred after 120 seconds. Moving on to the next file.
+Solved: 1/31
+Total time taken: 0.04926776885986328
+Average time taken: 0.04926776885986328
+
+Processing icfp_72_10
+Timeout occurred after 120 seconds. Moving on to the next file.
+Solved: 1/32
+Total time taken: 0.04926776885986328
+Average time taken: 0.04926776885986328
+
+Processing find_inv_bvsge_bvudiv1_4bit
+Timeout occurred after 120 seconds. Moving on to the next file.
+Solved: 1/33
+Total time taken: 0.04926776885986328
+Average time taken: 0.04926776885986328
+
+Processing 77_10
+Timeout occurred after 120 seconds. Moving on to the next file.
+Solved: 1/34
+Total time taken: 0.04926776885986328
+Average time taken: 0.04926776885986328
+
+Processing find_inv_bvslt_bvurem1_4bit
+Timeout occurred after 120 seconds. Moving on to the next file.
+Solved: 1/35
+Total time taken: 0.04926776885986328
+Average time taken: 0.04926776885986328
+
+Processing 39_10
+Timeout occurred after 120 seconds. Moving on to the next file.
+Solved: 1/36
+Total time taken: 0.04926776885986328
+Average time taken: 0.04926776885986328
+
+Processing 62_10
+Timeout occurred after 120 seconds. Moving on to the next file.
+Solved: 1/37
+Total time taken: 0.04926776885986328
+Average time taken: 0.04926776885986328
+
+Processing find_inv_bvugt_bvlshr0_4bit
+Timeout occurred after 120 seconds. Moving on to the next file.
+Solved: 1/38
+Total time taken: 0.04926776885986328
+Average time taken: 0.04926776885986328
+
+Processing icfp_96_10
+Timeout occurred after 120 seconds. Moving on to the next file.
+Solved: 1/39
+Total time taken: 0.04926776885986328
+Average time taken: 0.04926776885986328
+
+Processing 17_10
+Timeout occurred after 120 seconds. Moving on to the next file.
+Solved: 1/40
+Total time taken: 0.04926776885986328
+Average time taken: 0.04926776885986328
+
+Processing icfp_69_10
+Timeout occurred after 120 seconds. Moving on to the next file.
+Solved: 1/41
+Total time taken: 0.04926776885986328
+Average time taken: 0.04926776885986328
+
+Processing find_inv_bvsge_bvashr0_4bit
+Timeout occurred after 120 seconds. Moving on to the next file.
+Solved: 1/42
+Total time taken: 0.04926776885986328
+Average time taken: 0.04926776885986328
+
+Processing 78_10
+Timeout occurred after 120 seconds. Moving on to the next file.
+Solved: 1/43
+Total time taken: 0.04926776885986328
+Average time taken: 0.04926776885986328
+
+Processing find_inv_bvslt_bvlshr1_4bit
+Timeout occurred after 120 seconds. Moving on to the next file.
+Solved: 1/44
+Total time taken: 0.04926776885986328
+Average time taken: 0.04926776885986328
+
+Processing icfp_103_10
+Timeout occurred after 120 seconds. Moving on to the next file.
+Solved: 1/45
+Total time taken: 0.04926776885986328
+Average time taken: 0.04926776885986328
+
+Processing find_inv_bvslt_bvshl0_4bit
+Timeout occurred after 120 seconds. Moving on to the next file.
+Solved: 1/46
+Total time taken: 0.04926776885986328
+Average time taken: 0.04926776885986328
+
+Processing find_inv_bvslt_bvnot_4bit
+Timeout occurred after 120 seconds. Moving on to the next file.
+Solved: 1/47
+Total time taken: 0.04926776885986328
+Average time taken: 0.04926776885986328
+
+Processing find_inv_bvuge_bvnot_4bit
+Timeout occurred after 120 seconds. Moving on to the next file.
+Solved: 1/48
+Total time taken: 0.04926776885986328
+Average time taken: 0.04926776885986328
+
+Processing find_inv_bvsgt_bvneg_4bit
+Timeout occurred after 120 seconds. Moving on to the next file.
+Solved: 1/49
+Total time taken: 0.04926776885986328
+Average time taken: 0.04926776885986328
+
+Processing find_inv_bvugt_bvashr1_4bit
+Timeout occurred after 120 seconds. Moving on to the next file.
+Solved: 1/50
+Total time taken: 0.04926776885986328
+Average time taken: 0.04926776885986328
+
+Processing icfp_38_10
+Timeout occurred after 120 seconds. Moving on to the next file.
+Solved: 1/51
+Total time taken: 0.04926776885986328
+Average time taken: 0.04926776885986328
+
+Processing 95_10
+Timeout occurred after 120 seconds. Moving on to the next file.
+Solved: 1/52
+Total time taken: 0.04926776885986328
+Average time taken: 0.04926776885986328
+
+Processing find_inv_bvuge_bvashr1_4bit
+Timeout occurred after 120 seconds. Moving on to the next file.
+Solved: 1/53
+Total time taken: 0.04926776885986328
+Average time taken: 0.04926776885986328
+
+Processing find_inv_bvsge_bvlshr1_4bit
+Timeout occurred after 120 seconds. Moving on to the next file.
+Solved: 1/54
+Total time taken: 0.04926776885986328
+Average time taken: 0.04926776885986328
+
+Processing 5_10
+Timeout occurred after 120 seconds. Moving on to the next file.
+Solved: 1/55
+Total time taken: 0.04926776885986328
+Average time taken: 0.04926776885986328
+
+Processing 7_10
+Timeout occurred after 120 seconds. Moving on to the next file.
+Solved: 1/56
+Total time taken: 0.04926776885986328
+Average time taken: 0.04926776885986328
+
+Processing icfp_32_10
+Timeout occurred after 120 seconds. Moving on to the next file.
+Solved: 1/57
+Total time taken: 0.04926776885986328
+Average time taken: 0.04926776885986328
+
+Processing 69_10
+Timeout occurred after 120 seconds. Moving on to the next file.
+Solved: 1/58
+Total time taken: 0.04926776885986328
+Average time taken: 0.04926776885986328
+
+Processing find_inv_bvsge_bvand_4bit
+Timeout occurred after 120 seconds. Moving on to the next file.
+Solved: 1/59
+Total time taken: 0.04926776885986328
+Average time taken: 0.04926776885986328
+
+Processing 6_10
+Timeout occurred after 120 seconds. Moving on to the next file.
+Solved: 1/60
+Total time taken: 0.04926776885986328
+Average time taken: 0.04926776885986328
+
+Processing 51_10
+Timeout occurred after 120 seconds. Moving on to the next file.
+Solved: 1/61
+Total time taken: 0.04926776885986328
+Average time taken: 0.04926776885986328
+
+Processing icfp_139_10
+Timeout occurred after 120 seconds. Moving on to the next file.
+Solved: 1/62
+Total time taken: 0.04926776885986328
+Average time taken: 0.04926776885986328
+
+Processing find_inv_bvuge_bvadd_4bit
+Timeout occurred after 120 seconds. Moving on to the next file.
+Solved: 1/63
+Total time taken: 0.04926776885986328
+Average time taken: 0.04926776885986328
+
+Processing 82_10
+Timeout occurred after 120 seconds. Moving on to the next file.
+Solved: 1/64
+Total time taken: 0.04926776885986328
+Average time taken: 0.04926776885986328
+
+Processing find_inv_bvsge_bvshl0_4bit
+Timeout occurred after 120 seconds. Moving on to the next file.
+Solved: 1/65
+Total time taken: 0.04926776885986328
+Average time taken: 0.04926776885986328
+
+Processing find_inv_bvslt_bvmul_4bit
+Timeout occurred after 120 seconds. Moving on to the next file.
+Solved: 1/66
+Total time taken: 0.04926776885986328
+Average time taken: 0.04926776885986328
+Total files processed: 66
+Total unsolved benchmarks: 65
+Total solved benchmarks: 1
+bv_sat Done!
+=============================================================

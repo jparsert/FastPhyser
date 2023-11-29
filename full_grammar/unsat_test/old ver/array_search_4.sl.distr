@@ -1,0 +1,12 @@
+(ite BoolExpr Start Start): 5
+(< Start Start): 8
+k1: 8
+y1: 2
+0: 1
+y2: 2
+1: 2
+y3: 2
+2: 1
+y4: 2
+3: 1
+4: 1

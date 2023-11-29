@@ -1,0 +1,46 @@
+(set-logic BV)
+(synth-fun fn0 ((vr0 (_ BitVec 32))) (_ BitVec 32)
+    ((BV (_ BitVec 32)) (B Bool) (Const (_ BitVec 32))) (
+    (BV (_ BitVec 32)
+        (BV
+        Const
+        vr0
+        (bvand BV BV)
+        (bvor BV BV)
+        (bvxor BV BV)
+        (bvxnor BV BV)
+        (bvnot BV)
+        (bvneg BV)
+        (bvadd BV BV)
+        (bvsub BV BV)
+        (bvmul BV BV)
+        (bvsdiv BV BV)
+        (bvudiv BV BV)
+        (bvsrem BV BV)
+        (bvsmod BV BV)
+        (bvurem BV BV)
+        (bvshl BV BV)
+        (bvashr BV BV)
+        (bvlshr BV BV)
+        (ite B BV BV)))
+    (B Bool
+        (B
+        (= BV BV)
+        true
+        false
+        (bvult BV BV)
+        (and B B)
+        (or B B)
+        (not B)
+        (bvule BV BV)
+        (bvugt BV BV)
+        (bvuge BV BV)
+        (bvslt BV BV)
+        (bvsle BV BV)
+        (bvsgt BV BV)
+        (bvsge BV BV)))
+    (Const (_ BitVec 32) (#x00000000 #x00000001 #xFFFFFFFF))))
+(declare-var vr0 (_ BitVec 32))
+( constraint  (=> (bvugt vr0 #x00000000) (bvugt (fn0 vr0 ) #x00000000)) ) 
+( constraint  (=> (bvugt vr0 #x00000000) (bvugt (fn0 vr0 ) (fn0 (bvmul vr0 #x00000002) ))) ) 
+(check-synth)

@@ -1,0 +1,6 @@
+x: 18
+#x0000000000000001: 5
+(shr1 BV): 8
+(shl1 BV): 9
+(bvadd BV BV): 4
+(bvand BV BV): 2

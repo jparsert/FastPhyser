@@ -1,0 +1,211 @@
+(synth-fun fn8 ((vr3 Int) (vr1 Int) (vr4 Int)) Bool
+    ((StartBool Bool) (Start Int) (Const Int)) (
+    (StartBool Bool
+        (StartBool
+        (> Start Start)
+        (= Start Start)
+        (< Start Start)
+        (>= Start Start)
+        (<= Start Start)
+        (and StartBool StartBool)
+        (or StartBool StartBool)
+        (not StartBool)
+        true
+        false))
+    (Start Int
+        (Start
+        Const
+        (- Start)
+        (+ Start Start)
+        (- Start Start)
+        (* Start Const)
+        (abs Start)
+        (ite StartBool Start Start)
+        vr3 vr1 vr4))
+    (Const Int (0 1 2 3 4 5 6 7 8 9))))
+(base) hiya@ubuntu:~/GitHub/LLM-sygus/FastPhyser$ python test-cvc5.py 
+sat_test_cvc5 starting...
+Files to process:
+['inv_gen_finf1',
+ 'inv_gen_finf2',
+ 'inv_gen_ex7',
+ 'LinExpr_inv1',
+ 'inv_gen_ex23',
+ 'inv_gen_sum3',
+ 'inv_gen_trex2',
+ 'inv_gen_term3',
+ 'inv_gen_n_c11',
+ 'inv_gen_sum1',
+ 'max12',
+ 'inv_gen_tcs',
+ 'inv_gen_trex1',
+ 'inv_gen_fig8',
+ 'inv_gen_cgr1',
+ 'inv_gen_fig6',
+ 'inv_gen_fig1',
+ 'inv_gen_sum4',
+ 'inv_gen_ex14',
+ 'inv_gen_array']
+
+Processing inv_gen_finf1
+(
+(define-fun fn8 ((vr0 Int) (vr1 Int) (vr2 Int) (vr3 Int)) Bool (= vr0 (+ vr0 vr1)))
+)
+
+Solved: 1/1
+Total time taken: 0.06743359565734863
+Average time taken: 0.06743359565734863
+
+Processing inv_gen_finf2
+(
+(define-fun fn8 ((vr0 Int) (vr1 Int) (vr2 Int) (vr3 Int)) Bool (= vr0 (+ vr0 vr1)))
+)
+
+Solved: 2/2
+Total time taken: 0.13114142417907715
+Average time taken: 0.06557071208953857
+
+Processing inv_gen_ex7
+(error "Parse Error: ./full_grammar/sat_test_cvc5/inv_gen_ex7.sl:53.14: number of arguments does not match the function type")
+
+Solved: 2/3
+Total time taken: 0.13114142417907715
+Average time taken: 0.06557071208953857
+
+Processing LinExpr_inv1
+Timeout occurred after 90 seconds. Moving on to the next file.
+Solved: 2/4
+Total time taken: 0.13114142417907715
+Average time taken: 0.06557071208953857
+
+Processing inv_gen_ex23
+(error "Parse Error: ./full_grammar/sat_test_cvc5/inv_gen_ex23.sl:51.14: number of arguments does not match the function type")
+
+Solved: 2/5
+Total time taken: 0.13114142417907715
+Average time taken: 0.06557071208953857
+
+Processing inv_gen_sum3
+(
+(define-fun fn8 ((vr1 Int) (vr0 Int) (vr2 Int) (vr3 Int)) Bool (= vr1 vr3))
+)
+
+Solved: 3/6
+Total time taken: 0.1604936122894287
+Average time taken: 0.053497870763142906
+
+Processing inv_gen_trex2
+(error "Parse Error: ./full_grammar/sat_test_cvc5/inv_gen_trex2.sl:49.24: number of arguments does not match the function type")
+
+Solved: 3/7
+Total time taken: 0.1604936122894287
+Average time taken: 0.053497870763142906
+
+Processing inv_gen_term3
+(
+(define-fun fn8 ((vr1 Int) (vr2 Int)) Bool true)
+)
+
+Solved: 4/8
+Total time taken: 0.17810845375061035
+Average time taken: 0.04452711343765259
+
+Processing inv_gen_n_c11
+Timeout occurred after 90 seconds. Moving on to the next file.
+Solved: 4/9
+Total time taken: 0.17810845375061035
+Average time taken: 0.04452711343765259
+
+Processing inv_gen_sum1
+Timeout occurred after 90 seconds. Moving on to the next file.
+Solved: 4/10
+Total time taken: 0.17810845375061035
+Average time taken: 0.04452711343765259
+
+Processing max12
+Timeout occurred after 90 seconds. Moving on to the next file.
+Solved: 4/11
+Total time taken: 0.17810845375061035
+Average time taken: 0.04452711343765259
+
+Processing inv_gen_tcs
+(
+(define-fun fn8 ((vr1 Int) (vr2 Int) (vr3 Int) (vr4 Int)) Bool (= vr1 (+ vr2 (- vr3 vr4))))
+)
+
+Solved: 5/12
+Total time taken: 2.086019992828369
+Average time taken: 0.4172039985656738
+
+Processing inv_gen_trex1
+(
+(define-fun fn8 ((vr1 Int) (vr2 Int) (vr3 Int) (vr4 Int) (vr5 Int)) Bool (> vr1 (- vr1 vr4)))
+)
+
+Solved: 6/13
+Total time taken: 2.328294515609741
+Average time taken: 0.38804908593495685
+
+Processing inv_gen_fig8
+(
+(define-fun fn8 ((vr5 Int)) Bool (= vr5 0))
+)
+
+Solved: 7/14
+Total time taken: 2.3753926753997803
+Average time taken: 0.3393418107713972
+
+Processing inv_gen_cgr1
+(
+(define-fun fn8 ((vr0 Int) (vr1 Int)) Bool (>= vr1 (- vr0 2)))
+)
+
+Solved: 8/15
+Total time taken: 3.081449031829834
+Average time taken: 0.38518112897872925
+
+Processing inv_gen_fig6
+(error "Parse Error: ./full_grammar/sat_test_cvc5/inv_gen_fig6.sl:47.24: number of arguments does not match the function type")
+
+Solved: 8/16
+Total time taken: 3.081449031829834
+Average time taken: 0.38518112897872925
+
+Processing inv_gen_fig1
+(
+(define-fun fn0 ((vr0 Int) (vr1 Int)) Bool (> vr1 (- vr0 (abs vr1))))
+)
+
+Solved: 9/17
+Total time taken: 4.020900011062622
+Average time taken: 0.4467666678958469
+
+Processing inv_gen_sum4
+Timeout occurred after 90 seconds. Moving on to the next file.
+Solved: 9/18
+Total time taken: 4.020900011062622
+Average time taken: 0.4467666678958469
+
+Processing inv_gen_ex14
+(
+(define-fun fn8 ((vr0 Int) (vr1 Int)) Bool (> vr0 0))
+)
+
+Solved: 10/19
+Total time taken: 4.1275858879089355
+Average time taken: 0.41275858879089355
+
+Processing inv_gen_array
+(
+(define-fun fn8 ((vr3 Int) (vr1 Int) (vr4 Int)) Bool (= vr3 (ite (> vr3 vr4) (+ vr3 vr1) vr3)))
+)
+
+Solved: 11/20
+Total time taken: 32.92974090576172
+Average time taken: 2.9936128096147017
+Total files processed: 20
+Total unsolved benchmarks: 5
+Total solved benchmarks: 15
+sat_test_cvc5 Done!
+=============================================================
+

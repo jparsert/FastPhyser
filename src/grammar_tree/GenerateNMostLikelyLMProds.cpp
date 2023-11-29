@@ -162,6 +162,7 @@ std::vector<Sy2CPP::TermPtr> sample_n_elements(const std::vector<std::pair<int, 
         } else {
             prob = 10 * prob;
         }
+        //prob = 1.0;
         probabilities.push_back(prob);
         sum += prob;
     }

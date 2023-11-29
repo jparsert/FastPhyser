@@ -1,0 +1,1 @@
+['(define-fun fn1 ((vr0 Int)) Int\n    (ite (<= vr0 0) 1 0))']

@@ -1,0 +1,22 @@
+(= Start Start): 81
+(mod Start Const): 2
+(+ Start Start): 10
+vr1: 96
+vr4: 21
+vr3: 49
+0: 85
+(and StartBool StartBool): 46
+(or StartBool StartBool): 11
+(>= Start Start): 45
+(< Start Start): 3
+(<= Start Start): 18
+(> Start Start): 11
+(ite StartBool Start Start): 1
+true: 1
+vr2: 44
+StartBool: 1
+(abs Start): 1
+5: 2
+(not StartBool): 4
+(* Start Const): 1
+(- Start): 1

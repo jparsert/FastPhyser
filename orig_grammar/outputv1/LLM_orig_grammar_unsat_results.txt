@@ -1,0 +1,33 @@
+./orig_grammar/unsat_test/max3.sl
+Found the following solution to file: ./orig_grammar/unsat_test/max3.sl
+(
+(define-fun fn0 ( (vr0 Int) (vr1 Int) (vr2 Int) ) Int (ite (>= vr2 vr1) (ite (>= vr2 vr0) vr2 vr0) (ite (>= vr1 vr0) vr1 vr0)))
+)
+./orig_grammar/unsat_test/max2.sl
+Found the following solution to file: ./orig_grammar/unsat_test/max2.sl
+(
+(define-fun fn0 ( (vr0 Int) (vr1 Int) ) Int (ite (>= vr0 (ite (>= vr1 vr1) (ite (>= vr1 vr1) vr1 vr1) vr0)) vr0 vr1))
+)
+./orig_grammar/unsat_test/t15.sl
+terminate called after throwing an instance of 'Sy2CPP::TypingError'
+Aborted (core dumped)
+./orig_grammar/unsat_test/s2.sl
+Found the following solution to file: ./orig_grammar/unsat_test/s2.sl
+(
+(define-fun fn0 ( (vr0 Int) (vr1 Int) ) Int (- 1))
+)
+./orig_grammar/unsat_test/constant.sl
+Found the following solution to file: ./orig_grammar/unsat_test/constant.sl
+(
+(define-fun fn0 ( (vr0 Int) ) Int 1)
+)
+./orig_grammar/unsat_test/inv_gen_term2.sl
+Found the following solution to file: ./orig_grammar/unsat_test/inv_gen_term2.sl
+(
+(define-fun fn8 ( (vr1 Int) (vr2 Int) (vr3 Int) ) Bool (and (<= (+ (* 0 vr3) (* 0 vr1)) 3) (<= (+ (* 0 vr3) (* 0 vr3)) 3)))
+)
+./orig_grammar/unsat_test/t17.sl
+Found the following solution to file: ./orig_grammar/unsat_test/t17.sl
+(
+(define-fun fn0 ( (j Int) (MC_741360 Int) ) Bool (= MC_741360 MC_741360))
+)

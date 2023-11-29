@@ -1,0 +1,1 @@
+['(define-fun fn0 ((vr0 Int)) Int\n    (ite (= vr0 0) 0\n    (ite (= vr0 1) 10\n    (ite (= vr0 2) 20\n    (ite (= vr0 3) 30\n    (ite (= vr0 4) 40\n    (ite (= vr0 5) 50\n    vr0\n    )))))))']

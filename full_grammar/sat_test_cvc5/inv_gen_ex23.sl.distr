@@ -1,0 +1,8 @@
+(and StartBool StartBool): 14
+(<= Start Start): 8
+vr0: 42
+vr1: 26
+(>= Start Start): 26
+(= Start Start): 2
+(- Start): 2
+vr2: 6

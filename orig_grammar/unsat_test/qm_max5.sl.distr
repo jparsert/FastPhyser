@@ -1,0 +1,8 @@
+(ite StartBool Start Start): 4
+(and StartBool StartBool): 3
+(>= Start Start): 10
+vr0: 5
+vr1: 5
+vr2: 5
+vr3: 5
+vr4: 5

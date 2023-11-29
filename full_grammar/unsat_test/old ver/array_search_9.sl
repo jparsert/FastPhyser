@@ -1,0 +1,30 @@
+(set-logic LIA)
+
+(synth-fun fn0 ((y1 Int) (y2 Int) (y3 Int) (y4 Int) (y5 Int) (y6 Int) (y7 Int) (y8 Int) (y9 Int) (k1 Int)) Int
+    ((Start Int) (BoolExpr Bool))
+    ((Start Int (0 1 2 3 4 5 6 7 8 9 y1 y2 y3 y4 y5 y6 y7 y8 y9 k1 (ite BoolExpr Start Start)))
+    (BoolExpr Bool ((< Start Start) (<= Start Start) (> Start Start) (>= Start Start)))))
+
+(declare-var vr0 Int)
+(declare-var vr1 Int)
+(declare-var vr2 Int)
+(declare-var vr3 Int)
+(declare-var vr4 Int)
+(declare-var vr5 Int)
+(declare-var vr6 Int)
+(declare-var vr7 Int)
+(declare-var vr8 Int)
+(declare-var vr9 Int)
+(constraint (=> (and (< vr0 vr1) (and (< vr1 vr2) (and (< vr2 vr3) (and (< vr3 vr4) (and (< vr4 vr5) (and (< vr5 vr6) (and (< vr6 vr7) (< vr7 vr8)))))))) (=> (< vr9 vr0) (= (fn0 vr0 vr1 vr2 vr3 vr4 vr5 vr6 vr7 vr8 vr9) 0))))
+(constraint (=> (and (< vr0 vr1) (and (< vr1 vr2) (and (< vr2 vr3) (and (< vr3 vr4) (and (< vr4 vr5) (and (< vr5 vr6) (and (< vr6 vr7) (< vr7 vr8)))))))) (=> (> vr9 vr8) (= (fn0 vr0 vr1 vr2 vr3 vr4 vr5 vr6 vr7 vr8 vr9) 9))))
+(constraint (=> (and (< vr0 vr1) (and (< vr1 vr2) (and (< vr2 vr3) (and (< vr3 vr4) (and (< vr4 vr5) (and (< vr5 vr6) (and (< vr6 vr7) (< vr7 vr8)))))))) (=> (and (> vr9 vr0) (< vr9 vr1)) (= (fn0 vr0 vr1 vr2 vr3 vr4 vr5 vr6 vr7 vr8 vr9) 1))))
+(constraint (=> (and (< vr0 vr1) (and (< vr1 vr2) (and (< vr2 vr3) (and (< vr3 vr4) (and (< vr4 vr5) (and (< vr5 vr6) (and (< vr6 vr7) (< vr7 vr8)))))))) (=> (and (> vr9 vr1) (< vr9 vr2)) (= (fn0 vr0 vr1 vr2 vr3 vr4 vr5 vr6 vr7 vr8 vr9) 2))))
+(constraint (=> (and (< vr0 vr1) (and (< vr1 vr2) (and (< vr2 vr3) (and (< vr3 vr4) (and (< vr4 vr5) (and (< vr5 vr6) (and (< vr6 vr7) (< vr7 vr8)))))))) (=> (and (> vr9 vr2) (< vr9 vr3)) (= (fn0 vr0 vr1 vr2 vr3 vr4 vr5 vr6 vr7 vr8 vr9) 3))))
+(constraint (=> (and (< vr0 vr1) (and (< vr1 vr2) (and (< vr2 vr3) (and (< vr3 vr4) (and (< vr4 vr5) (and (< vr5 vr6) (and (< vr6 vr7) (< vr7 vr8)))))))) (=> (and (> vr9 vr3) (< vr9 vr4)) (= (fn0 vr0 vr1 vr2 vr3 vr4 vr5 vr6 vr7 vr8 vr9) 4))))
+(constraint (=> (and (< vr0 vr1) (and (< vr1 vr2) (and (< vr2 vr3) (and (< vr3 vr4) (and (< vr4 vr5) (and (< vr5 vr6) (and (< vr6 vr7) (< vr7 vr8)))))))) (=> (and (> vr9 vr4) (< vr9 vr5)) (= (fn0 vr0 vr1 vr2 vr3 vr4 vr5 vr6 vr7 vr8 vr9) 5))))
+(constraint (=> (and (< vr0 vr1) (and (< vr1 vr2) (and (< vr2 vr3) (and (< vr3 vr4) (and (< vr4 vr5) (and (< vr5 vr6) (and (< vr6 vr7) (< vr7 vr8)))))))) (=> (and (> vr9 vr5) (< vr9 vr6)) (= (fn0 vr0 vr1 vr2 vr3 vr4 vr5 vr6 vr7 vr8 vr9) 6))))
+(constraint (=> (and (< vr0 vr1) (and (< vr1 vr2) (and (< vr2 vr3) (and (< vr3 vr4) (and (< vr4 vr5) (and (< vr5 vr6) (and (< vr6 vr7) (< vr7 vr8)))))))) (=> (and (> vr9 vr6) (< vr9 vr7)) (= (fn0 vr0 vr1 vr2 vr3 vr4 vr5 vr6 vr7 vr8 vr9) 7))))
+(constraint (=> (and (< vr0 vr1) (and (< vr1 vr2) (and (< vr2 vr3) (and (< vr3 vr4) (and (< vr4 vr5) (and (< vr5 vr6) (and (< vr6 vr7) (< vr7 vr8)))))))) (=> (and (> vr9 vr7) (< vr9 vr8)) (= (fn0 vr0 vr1 vr2 vr3 vr4 vr5 vr6 vr7 vr8 vr9) 8))))
+
+(check-synth)
+

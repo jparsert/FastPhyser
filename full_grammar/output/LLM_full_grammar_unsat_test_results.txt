@@ -1,0 +1,39 @@
+./full_grammar/unsat_test/max12.sl
+terminate called after throwing an instance of 'std::exception'
+  what():  std::exception
+Aborted (core dumped)
+./full_grammar/unsat_test/t15.sl
+Found the following solution to file: ./full_grammar/unsat_test/t15.sl
+(
+(define-fun fn0 ( (NOACK Int) (this.acknowledgeId Int) (enabled Bool) ) Bool (> this.acknowledgeId (div (abs 9) 6)))
+)
+./full_grammar/unsat_test/t20.sl
+Found the following solution to file: ./full_grammar/unsat_test/t20.sl
+(
+(define-fun fn0 ( (next Int) (pos Int) (MC_741360 Bool) ) Bool (<= (- (* (mod next 3) 2) next) (* pos 5)))
+)
+./full_grammar/unsat_test/s2.sl
+Found the following solution to file: ./full_grammar/unsat_test/s2.sl
+(
+(define-fun fn0 ( (vr0 Int) (vr1 Int) ) Int (div (- (mod 9 7)) 7))
+)
+./full_grammar/unsat_test/qm_neg_1.sl
+Found the following solution to file: ./full_grammar/unsat_test/qm_neg_1.sl
+(
+(define-fun fn1 ( (vr0 Int) ) Int (div vr0 (+ (- (* vr0 4) 7) vr0)))
+)
+./full_grammar/unsat_test/constant.sl
+Found the following solution to file: ./full_grammar/unsat_test/constant.sl
+(
+(define-fun fn0 ( (vr0 Int) ) Int 9)
+)
+./full_grammar/unsat_test/inv_gen_term2.sl
+Found the following solution to file: ./full_grammar/unsat_test/inv_gen_term2.sl
+(
+(define-fun fn8 ( (vr1 Int) (vr2 Int) (vr3 Int) ) Bool (> 9 (mod 6 3)))
+)
+./full_grammar/unsat_test/t17.sl
+Found the following solution to file: ./full_grammar/unsat_test/t17.sl
+(
+(define-fun fn0 ( (j Int) (MC_741360 Int) ) Bool (>= MC_741360 (- (* (mod MC_741360 7) 7))))
+)
