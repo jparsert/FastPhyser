@@ -1,0 +1,8 @@
+'(+ Start Start)': 1
+'(* Start Const)': 1
+'vr2': 22, 'vr0': 44
+'(and StartBool StartBool)': 9
+'(>= Start Start)': 12
+'vr1': 15
+'(<= Start Start)': 24
+'(> Start Start)': 3

@@ -1,0 +1,1 @@
+['(define-fun fn0 ((vr0 Int) (vr1 Int)) Bool\n    (if (and (= vr0 2) (= vr1 3))\n        true\n        false\n    )\n)', '(define-fun fn0 ((vr0 Int) (vr1 Int)) Bool\n    (ite (and (= vr0 2) (= vr1 3))\n        true\n        false\n    )\n)']

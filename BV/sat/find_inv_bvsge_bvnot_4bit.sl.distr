@@ -1,0 +1,18 @@
+(bvlshr BV BV): 31
+(bvxor BV BV): 105
+vr1: 69
+(bvadd BV BV): 31
+(bvand BV BV): 36
+(ite B BV BV): 20
+(= BV BV): 18
+vr0: 61
+(bvshl BV BV): 9
+(bvor BV BV): 6
+#xF: 4
+(bvsge BV BV): 2
+(bvurem BV BV): 2
+(bvmul BV BV): 4
+(bvugt BV BV): 2
+(bvsub BV BV): 2
+#x0: 8
+(bvudiv BV BV): 8

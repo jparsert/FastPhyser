@@ -1,0 +1,11 @@
+x: 92
+#x0000000000000001: 16
+(shr1 BV): 8
+(shl1 BV): 23
+(bvadd BV BV): 12
+(bvand BV BV): 19
+(if0 BV BV BV): 7
+(bvxor BV BV): 3
+(bvor BV BV): 6
+(shr4 BV): 6
+(shr16 BV): 6

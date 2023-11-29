@@ -1,0 +1,277 @@
+sat_test starting...
+Files to process:
+['inv_gen_tcs',
+ 'max12',
+ 'inv_gen_sum3',
+ 'inv_gen_n_c11',
+ 'inv_gen_cgr1',
+ 'inv_gen_array',
+ 'inv_gen_finf1',
+ 'inv_gen_finf2']
+
+Processing inv_gen_tcs
+Timeout occurred after 180 seconds. Moving on to the next file.
+No solved files yet.
+
+Processing max12
+Timeout occurred after 180 seconds. Moving on to the next file.
+No solved files yet.
+
+Processing inv_gen_sum3
+./orig_grammar/sat_test/inv_gen_sum3.sl
+Found the following solution to file: ./orig_grammar/sat_test/inv_gen_sum3.sl
+(
+(define-fun fn8 ( (vr1 Int) (vr0 Int) (vr2 Int) (vr3 Int) ) Bool (and (<= (+ (* 0 vr3) (* 0 vr3)) 1) (= (+ (* 1 vr3) (* (- 1) vr1)) 0)))
+)
+
+Solved: 1/3
+Total time taken: 9.807560920715332
+Average time taken: 9.807560920715332
+
+Processing inv_gen_n_c11
+./orig_grammar/sat_test/inv_gen_n_c11.sl
+Found the following solution to file: ./orig_grammar/sat_test/inv_gen_n_c11.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr1 Int) ) Bool (and (<= (+ (* (- 1) vr1) (* 0 vr0)) 0) (<= (+ (* 1 vr1) (* 0 vr1)) 4)))
+)
+
+Solved: 2/4
+Total time taken: 61.53505897521973
+Average time taken: 30.767529487609863
+
+Processing inv_gen_cgr1
+./orig_grammar/sat_test/inv_gen_cgr1.sl
+Found the following solution to file: ./orig_grammar/sat_test/inv_gen_cgr1.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr1 Int) ) Bool (or (<= (+ (* 1 vr0) (* (- 1) vr1)) 2) (<= (+ (* 0 vr0) (* 0 vr0)) (- 3))))
+)
+
+Solved: 3/5
+Total time taken: 62.222299337387085
+Average time taken: 20.740766445795696
+
+Processing inv_gen_array
+./orig_grammar/sat_test/inv_gen_array.sl
+Found the following solution to file: ./orig_grammar/sat_test/inv_gen_array.sl
+(
+(define-fun fn8 ( (vr3 Int) (vr1 Int) (vr4 Int) ) Bool (or (= (+ (* (- 1) vr1) (* 0 vr4)) 0) (<= (+ (* 1 vr3) (* (- 1) vr4)) 0)))
+)
+
+Solved: 4/6
+Total time taken: 123.58246231079102
+Average time taken: 30.895615577697754
+
+Processing inv_gen_finf1
+./orig_grammar/sat_test/inv_gen_finf1.sl
+Found the following solution to file: ./orig_grammar/sat_test/inv_gen_finf1.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr1 Int) (vr2 Int) (vr3 Int) ) Bool (and (<= (+ (* 0 vr1) (* 0 vr1)) 1) (= (+ (* 0 vr0) (* 1 vr1)) 0)))
+)
+
+Solved: 5/7
+Total time taken: 125.90115213394165
+Average time taken: 25.18023042678833
+
+Processing inv_gen_finf2
+./orig_grammar/sat_test/inv_gen_finf2.sl
+Found the following solution to file: ./orig_grammar/sat_test/inv_gen_finf2.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr1 Int) (vr2 Int) (vr3 Int) ) Bool (or (= (+ (* 1 vr2) (* 1 vr2)) (- 1)) (= (+ (* 1 vr1) (* 0 vr1)) 0)))
+)
+
+Solved: 6/8
+Total time taken: 128.79270362854004
+Average time taken: 21.465450604756672
+Total files processed: 8
+Total unsolved benchmarks: 2
+Total solved benchmarks: 6
+sat_test Done!
+=============================================================
+unsat_test starting...
+Files to process:
+['s0_d1',
+ 'qm_max5',
+ 'qm_neg_5',
+ 'qm_area_sel_2',
+ 'max12',
+ 'max3',
+ 'max2',
+ 't15',
+ 'qm_neg_eq_1',
+ 'max9',
+ 't20',
+ 's2',
+ 's1',
+ 'qm_neg_1',
+ 'qm_max4',
+ 's0_d2',
+ 'max13',
+ 'constant',
+ 'inv_gen_term2',
+ 'max10',
+ 't17']
+
+Processing s0_d1
+Timeout occurred after 180 seconds. Moving on to the next file.
+No solved files yet.
+
+Processing qm_max5
+Timeout occurred after 180 seconds. Moving on to the next file.
+No solved files yet.
+
+Processing qm_neg_5
+Timeout occurred after 180 seconds. Moving on to the next file.
+No solved files yet.
+
+Processing qm_area_sel_2
+Timeout occurred after 180 seconds. Moving on to the next file.
+No solved files yet.
+
+Processing max12
+Timeout occurred after 180 seconds. Moving on to the next file.
+No solved files yet.
+
+Processing max3
+Timeout occurred after 180 seconds. Moving on to the next file.
+No solved files yet.
+
+Processing max2
+./orig_grammar/unsat_test/max2.sl
+Found the following solution to file: ./orig_grammar/unsat_test/max2.sl
+(
+(define-fun fn0 ( (vr0 Int) (vr1 Int) ) Int (ite (>= (+ 0 vr1) vr0) vr1 vr0))
+)
+
+Solved: 1/7
+Total time taken: 14.392036199569702
+Average time taken: 14.392036199569702
+
+Processing t15
+./orig_grammar/unsat_test/t15.sl
+Found the following solution to file: ./orig_grammar/unsat_test/t15.sl
+(
+(define-fun fn0 ( (NOACK Int) (acknowledgeId Int) (enabled Bool) ) Bool (or (= 1 0) enabled))
+)
+
+Solved: 2/8
+Total time taken: 15.027674198150635
+Average time taken: 7.513837099075317
+
+Processing qm_neg_eq_1
+./orig_grammar/unsat_test/qm_neg_eq_1.sl
+Found the following solution to file: ./orig_grammar/unsat_test/qm_neg_eq_1.sl
+(
+(define-fun fn1 ( (vr0 Int) ) Int (fn0 (- (- (- 1 vr0) 0) (fn0 vr0 (- 0 vr0))) 0))
+)
+
+Solved: 3/9
+Total time taken: 17.279654264450073
+Average time taken: 5.759884754816691
+
+Processing max9
+Timeout occurred after 180 seconds. Moving on to the next file.
+Solved: 3/10
+Total time taken: 17.279654264450073
+Average time taken: 5.759884754816691
+
+Processing t20
+./orig_grammar/unsat_test/t20.sl
+Found the following solution to file: ./orig_grammar/unsat_test/t20.sl
+(
+(define-fun fn0 ( (next Int) (pos Int) (MC_741360 Bool) ) Bool (or (= 55 56) (or (or (not (not (not MC_741360))) (not MC_741360)) MC_741360)))
+)
+
+Solved: 4/11
+Total time taken: 18.235335111618042
+Average time taken: 4.5588337779045105
+
+Processing s2
+./orig_grammar/unsat_test/s2.sl
+Found the following solution to file: ./orig_grammar/unsat_test/s2.sl
+(
+(define-fun fn0 ( (vr0 Int) (vr1 Int) ) Int (- 1))
+)
+
+Solved: 5/12
+Total time taken: 18.9386887550354
+Average time taken: 3.78773775100708
+
+Processing s1
+Timeout occurred after 180 seconds. Moving on to the next file.
+Solved: 5/13
+Total time taken: 18.9386887550354
+Average time taken: 3.78773775100708
+
+Processing qm_neg_1
+./orig_grammar/unsat_test/qm_neg_1.sl
+Found the following solution to file: ./orig_grammar/unsat_test/qm_neg_1.sl
+(
+(define-fun fn1 ( (vr0 Int) ) Int (fn0 (fn0 (fn0 (- 0 1) (- 0 (fn0 (fn0 (- (fn0 0 (fn0 0 vr0)) vr0) (- 1 1)) 1))) 1) vr0))
+)
+
+Solved: 6/14
+Total time taken: 20.066935777664185
+Average time taken: 3.3444892962773642
+
+Processing qm_max4
+Timeout occurred after 180 seconds. Moving on to the next file.
+Solved: 6/15
+Total time taken: 20.066935777664185
+Average time taken: 3.3444892962773642
+
+Processing s0_d2
+Timeout occurred after 180 seconds. Moving on to the next file.
+Solved: 6/16
+Total time taken: 20.066935777664185
+Average time taken: 3.3444892962773642
+
+Processing max13
+Timeout occurred after 180 seconds. Moving on to the next file.
+Solved: 6/17
+Total time taken: 20.066935777664185
+Average time taken: 3.3444892962773642
+
+Processing constant
+./orig_grammar/unsat_test/constant.sl
+Found the following solution to file: ./orig_grammar/unsat_test/constant.sl
+(
+(define-fun fn0 ( (vr0 Int) ) Int 1)
+)
+
+Solved: 7/18
+Total time taken: 24.38264536857605
+Average time taken: 3.4832350526537215
+
+Processing inv_gen_term2
+./orig_grammar/unsat_test/inv_gen_term2.sl
+Found the following solution to file: ./orig_grammar/unsat_test/inv_gen_term2.sl
+(
+(define-fun fn8 ( (vr1 Int) (vr2 Int) (vr3 Int) ) Bool (or (<= (+ (* 0 vr1) (* 0 vr2)) 3) (= (+ (* 1 vr1) (* 1 vr1)) 0)))
+)
+
+Solved: 8/19
+Total time taken: 25.692548274993896
+Average time taken: 3.211568534374237
+
+Processing max10
+Timeout occurred after 180 seconds. Moving on to the next file.
+Solved: 8/20
+Total time taken: 25.692548274993896
+Average time taken: 3.211568534374237
+
+Processing t17
+./orig_grammar/unsat_test/t17.sl
+Found the following solution to file: ./orig_grammar/unsat_test/t17.sl
+(
+(define-fun fn0 ( (j Int) (MC_741360 Int) ) Bool (= 1 (- 1 (+ 0 0))))
+)
+
+Solved: 9/21
+Total time taken: 26.979244232177734
+Average time taken: 2.997693803575304
+Total files processed: 21
+Total unsolved benchmarks: 12
+Total solved benchmarks: 9
+unsat_test Done!
+=============================================================
+

@@ -1,0 +1,29 @@
+./full_grammar/unsat_test/max12.sl
+terminate called after throwing an instance of 'std::exception'
+  what():  std::exception
+Aborted (core dumped)
+./full_grammar/unsat_test/max3.sl
+Found the following solution to file: ./full_grammar/unsat_test/max3.sl
+(
+(define-fun fn0 ( (vr0 Int) (vr1 Int) (vr2 Int) ) Int (ite (>= vr2 vr1) (ite (>= vr2 vr0) vr2 vr0) (ite (>= vr1 vr0) vr1 vr0)))
+)
+./full_grammar/unsat_test/max2.sl
+Found the following solution to file: ./full_grammar/unsat_test/max2.sl
+(
+(define-fun fn0 ( (vr0 Int) (vr1 Int) ) Int (ite (>= vr0 (ite (>= vr1 vr1) (ite (>= vr1 vr1) vr1 vr1) vr0)) vr0 vr1))
+)
+./full_grammar/unsat_test/t15.sl
+Found the following solution to file: ./full_grammar/unsat_test/t15.sl
+(
+(define-fun fn0 ( (NOACK Int) (this.acknowledgeId Int) (enabled Bool) ) Bool (and (= (ite true NOACK NOACK) NOACK) (= NOACK NOACK)))
+)
+./full_grammar/unsat_test/t20.sl
+Found the following solution to file: ./full_grammar/unsat_test/t20.sl
+(
+(define-fun fn0 ( (next Int) (pos Int) (MC_741360 Bool) ) Bool (>= next next))
+)
+./full_grammar/unsat_test/t17.sl
+Found the following solution to file: ./full_grammar/unsat_test/t17.sl
+(
+(define-fun fn0 ( (j Int) (MC_741360 Int) ) Bool (= (ite true MC_741360 MC_741360) MC_741360))
+)

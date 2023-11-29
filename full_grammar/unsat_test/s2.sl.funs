@@ -1,0 +1,1 @@
+['(define-fun fn0 ((vr0 Int) (vr1 Int)) Int\n    (ite (= vr0 vr1) \n        0 \n        (ite (> vr0 vr1) \n            1 \n            (- 1)\n        )\n    )\n)']

@@ -1,0 +1,10 @@
+x: 44
+#x0000000000000001: 4
+(bvnot BV): 1
+(if0 BV BV BV): 1
+(bvand BV BV): 10
+(bvxor BV BV): 9
+(bvor BV BV): 16
+(shl1 BV): 12
+(shr4 BV): 12
+(shr16 BV): 6

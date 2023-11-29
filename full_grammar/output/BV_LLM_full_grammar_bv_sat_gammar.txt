@@ -1,0 +1,436 @@
+terminate called after throwing an instance of 'std::out_of_range'
+  what():  stoi
+Aborted (core dumped)
+terminate called after throwing an instance of 'std::out_of_range'
+  what():  stoi
+Aborted (core dumped)
+terminate called after throwing an instance of 'std::out_of_range'
+  what():  stoi
+Aborted (core dumped)
+Found the following solution to file: ./full_grammar/bv_sat/28_10.sl
+(
+(define-fun f ( (x (_ BitVec 64)) ) (_ BitVec 64) (shr16 x))
+)
+terminate called after throwing an instance of 'std::out_of_range'
+  what():  stoi
+Aborted (core dumped)
+terminate called after throwing an instance of 'std::out_of_range'
+  what():  stoi
+Aborted (core dumped)
+terminate called after throwing an instance of 'std::out_of_range'
+  what():  stoi
+Aborted (core dumped)
+Starting SimpleProbabilisticSearch
+Found the following solution to file: ./FastPhyser/full_grammar/bv_sat/28_10.sl
+(
+(define-fun f ( (x (_ BitVec 64)) ) (_ BitVec 64) (shr16 x))
+)
+Starting SimpleProbabilisticSearch
+Found the following solution to file: ./FastPhyser/full_grammar/bv_sat/28_10.sl
+(
+(define-fun f ( (x (_ BitVec 64)) ) (_ BitVec 64) (shr16 x))
+)
+Start Searching
+>> SimpleProbabilisticSearch
+Found the following solution to file: ./FastPhyser/full_grammar/bv_sat/28_10.sl
+(
+(define-fun f ( (x (_ BitVec 64)) ) (_ BitVec 64) (shr16 x))
+)
+Start Searching
+>> SimpleProbabilisticSearch
+Found the following solution to file: ./FastPhyser/full_grammar/bv_sat/28_10.sl
+(
+(define-fun f ( (x (_ BitVec 64)) ) (_ BitVec 64) (shr16 x))
+)
+Start Searching
+>> SimpleProbabilisticSearch
+Found the following solution to file: ./FastPhyser/full_grammar/bv_sat/28_10.sl
+(
+(define-fun f ( (x (_ BitVec 64)) ) (_ BitVec 64) (shr16 x))
+)
+Start Searching
+>> SimpleProbabilisticSearch
+(shr1 BV)
+(shr1 x)
+(shr1 BV)
+(shr1 (bvadd BV BV))
+(shr1 (bvadd (bvand BV BV) BV))
+(shr1 (bvadd (bvand x BV) BV))
+(shr1 (bvadd (bvand x (bvand BV BV)) BV))
+(shr1 (bvadd (bvand x (bvand (bvor BV BV) BV)) BV))
+(shr1 (bvadd (bvand x (bvand (bvor x BV) BV)) BV))
+(shr1 (bvadd (bvand x (bvand (bvor x (shr16 BV)) BV)) BV))
+(shr1 (bvadd (bvand x (bvand (bvor x (shr16 x)) BV)) BV))
+(shr1 (bvadd (bvand x (bvand (bvor x (shr16 x)) BV)) BV))
+(shr1 (bvadd (bvand x (bvand (bvor x (shr16 x)) (bvxor BV BV))) BV))
+(shr1 (bvadd (bvand x (bvand (bvor x (shr16 x)) (bvxor x BV))) BV))
+(shr1 (bvadd (bvand x (bvand (bvor x (shr16 x)) (bvxor x (bvxor BV BV)))) BV))
+(shr1 (bvadd (bvand x (bvand (bvor x (shr16 x)) (bvxor x (bvxor (shr16 BV) BV)))) BV))
+(shr1 (bvadd (bvand x (bvand (bvor x (shr16 x)) (bvxor x (bvxor (shr16 (shr16 BV)) BV)))) BV))
+x
+(if0 BV BV BV)
+(if0 (bvor BV BV) BV BV)
+(if0 (bvor x BV) BV BV)
+(if0 (bvor x (bvxor BV BV)) BV BV)
+(if0 (bvor x (bvxor Const BV)) BV BV)
+(if0 (bvor x (bvxor #x0000000000000001 BV)) BV BV)
+(if0 (bvor x (bvxor #x0000000000000001 (shr16 BV))) BV BV)
+(if0 (bvor x (bvxor #x0000000000000001 (shr16 (bvor BV BV)))) BV BV)
+(if0 (bvor x (bvxor #x0000000000000001 (shr16 (bvor (bvxor BV BV) BV)))) BV BV)
+(if0 (bvor x (bvxor #x0000000000000001 (shr16 (bvor (bvxor (if0 BV BV BV) BV) BV)))) BV BV)
+(if0 (bvor x (bvxor #x0000000000000001 (shr16 (bvor (bvxor (if0 (shl1 BV) BV BV) BV) BV)))) BV BV)
+(if0 (bvor x (bvxor #x0000000000000001 (shr16 (bvor (bvxor (if0 (shl1 BV) BV BV) BV) BV)))) BV BV)
+(if0 (bvor x (bvxor #x0000000000000001 (shr16 (bvor (bvxor (if0 (shl1 (bvand BV BV)) BV BV) BV) BV)))) BV BV)
+(if0 (bvor x (bvxor #x0000000000000001 (shr16 (bvor (bvxor (if0 (shl1 (bvand x BV)) BV BV) BV) BV)))) BV BV)
+(if0 (bvor x (bvxor #x0000000000000001 (shr16 (bvor (bvxor (if0 (shl1 (bvand x (bvxor BV BV))) BV BV) BV) BV)))) BV BV)
+(bvor BV BV)
+(bvor x BV)
+(bvor x Const)
+(bvor x #x0000000000000001)
+BV
+(shr16 BV)
+(shr16 (shl1 BV))
+(shr16 (shl1 x))
+(bvor BV BV)
+(bvor x BV)
+(bvor x (shr1 BV))
+(bvor x (shr1 (bvand BV BV)))
+(bvor x (shr1 (bvand Const BV)))
+(bvor x (shr1 (bvand #x0000000000000001 BV)))
+(bvor x (shr1 (bvand #x0000000000000001 x)))
+(shl1 BV)
+(shl1 (bvand BV BV))
+(shl1 (bvand (bvor BV BV) BV))
+(shl1 (bvand (bvor (bvnot BV) BV) BV))
+(shl1 (bvand (bvor (bvnot BV) BV) BV))
+(shl1 (bvand (bvor (bvnot (shr4 BV)) BV) BV))
+(shl1 (bvand (bvor (bvnot (shr4 (bvadd BV BV))) BV) BV))
+(shl1 (bvand (bvor (bvnot (shr4 (bvadd (if0 BV BV BV) BV))) BV) BV))
+(shl1 (bvand (bvor (bvnot (shr4 (bvadd (if0 (bvxor BV BV) BV BV) BV))) BV) BV))
+(shl1 (bvand (bvor (bvnot (shr4 (bvadd (if0 (bvxor (shl1 BV) BV) BV BV) BV))) BV) BV))
+(shl1 (bvand (bvor (bvnot (shr4 (bvadd (if0 (bvxor (shl1 (shr1 BV)) BV) BV BV) BV))) BV) BV))
+(shl1 (bvand (bvor (bvnot (shr4 (bvadd (if0 (bvxor (shl1 (shr1 (bvadd BV BV))) BV) BV BV) BV))) BV) BV))
+(shl1 (bvand (bvor (bvnot (shr4 (bvadd (if0 (bvxor (shl1 (shr1 (bvadd (bvadd BV BV) BV))) BV) BV BV) BV))) BV) BV))
+(shl1 (bvand (bvor (bvnot (shr4 (bvadd (if0 (bvxor (shl1 (shr1 (bvadd (bvadd (bvxor BV BV) BV) BV))) BV) BV BV) BV))) BV) BV))
+(shl1 (bvand (bvor (bvnot (shr4 (bvadd (if0 (bvxor (shl1 (shr1 (bvadd (bvadd (bvxor (shr16 BV) BV) BV) BV))) BV) BV BV) BV))) BV) BV))
+(shr4 BV)
+(shr4 x)
+x
+(bvand BV BV)
+(bvand (bvor BV BV) BV)
+(bvand (bvor (shr4 BV) BV) BV)
+(bvand (bvor (shr4 x) BV) BV)
+(bvand (bvor (shr4 x) x) BV)
+(bvand (bvor (shr4 x) x) BV)
+(bvand (bvor (shr4 x) x) (shr1 BV))
+(bvand (bvor (shr4 x) x) (shr1 (shr16 BV)))
+(bvand (bvor (shr4 x) x) (shr1 (shr16 (bvnot BV))))
+(bvand (bvor (shr4 x) x) (shr1 (shr16 (bvnot (shr16 BV)))))
+(bvand (bvor (shr4 x) x) (shr1 (shr16 (bvnot (shr16 (bvnot BV))))))
+(bvand (bvor (shr4 x) x) (shr1 (shr16 (bvnot (shr16 (bvnot (shl1 BV)))))))
+(bvand (bvor (shr4 x) x) (shr1 (shr16 (bvnot (shr16 (bvnot (shl1 (bvand BV BV))))))))
+(bvand (bvor (shr4 x) x) (shr1 (shr16 (bvnot (shr16 (bvnot (shl1 (bvand x BV))))))))
+(bvand (bvor (shr4 x) x) (shr1 (shr16 (bvnot (shr16 (bvnot (shl1 (bvand x (bvor BV BV)))))))))
+(shr16 BV)
+(shr16 (bvadd BV BV))
+(shr16 (bvadd (shr4 BV) BV))
+(shr16 (bvadd (shr4 (bvadd BV BV)) BV))
+(shr16 (bvadd (shr4 (bvadd (bvor BV BV) BV)) BV))
+(shr16 (bvadd (shr4 (bvadd (bvor (bvxor BV BV) BV) BV)) BV))
+(shr16 (bvadd (shr4 (bvadd (bvor (bvxor (shl1 BV) BV) BV) BV)) BV))
+(shr16 (bvadd (shr4 (bvadd (bvor (bvxor (shl1 BV) BV) BV) BV)) BV))
+(shr16 (bvadd (shr4 (bvadd (bvor (bvxor (shl1 Const) BV) BV) BV)) BV))
+(shr16 (bvadd (shr4 (bvadd (bvor (bvxor (shl1 #x0000000000000001) BV) BV) BV)) BV))
+(shr16 (bvadd (shr4 (bvadd (bvor (bvxor (shl1 #x0000000000000001) x) BV) BV)) BV))
+(shr16 (bvadd (shr4 (bvadd (bvor (bvxor (shl1 #x0000000000000001) x) BV) BV)) BV))
+(shr16 (bvadd (shr4 (bvadd (bvor (bvxor (shl1 #x0000000000000001) x) x) BV)) BV))
+(shr16 (bvadd (shr4 (bvadd (bvor (bvxor (shl1 #x0000000000000001) x) x) (bvand BV BV))) BV))
+(shr16 (bvadd (shr4 (bvadd (bvor (bvxor (shl1 #x0000000000000001) x) x) (bvand Const BV))) BV))
+(if0 BV BV BV)
+(if0 (bvadd BV BV) BV BV)
+(if0 (bvadd BV BV) BV BV)
+(if0 (bvadd x BV) BV BV)
+(if0 (bvadd x (shr16 BV)) BV BV)
+(if0 (bvadd x (shr16 (bvadd BV BV))) BV BV)
+(if0 (bvadd x (shr16 (bvadd Const BV))) BV BV)
+(if0 (bvadd x (shr16 (bvadd #x0000000000000000 BV))) BV BV)
+(if0 (bvadd x (shr16 (bvadd #x0000000000000000 (bvadd BV BV)))) BV BV)
+(if0 (bvadd x (shr16 (bvadd #x0000000000000000 (bvadd BV BV)))) BV BV)
+(if0 (bvadd x (shr16 (bvadd #x0000000000000000 (bvadd (bvnot BV) BV)))) BV BV)
+(if0 (bvadd x (shr16 (bvadd #x0000000000000000 (bvadd (bvnot (shr16 BV)) BV)))) BV BV)
+(if0 (bvadd x (shr16 (bvadd #x0000000000000000 (bvadd (bvnot (shr16 (shr4 BV))) BV)))) BV BV)
+(if0 (bvadd x (shr16 (bvadd #x0000000000000000 (bvadd (bvnot (shr16 (shr4 x))) BV)))) BV BV)
+(if0 (bvadd x (shr16 (bvadd #x0000000000000000 (bvadd (bvnot (shr16 (shr4 x))) (bvand BV BV))))) BV BV)
+(bvand BV BV)
+(bvand (bvnot BV) BV)
+(bvand (bvnot (shr4 BV)) BV)
+(bvand (bvnot (shr4 x)) BV)
+(bvand (bvnot (shr4 x)) (bvor BV BV))
+(bvand (bvnot (shr4 x)) (bvor (bvnot BV) BV))
+(bvand (bvnot (shr4 x)) (bvor (bvnot (shr4 BV)) BV))
+(bvand (bvnot (shr4 x)) (bvor (bvnot (shr4 (shr16 BV))) BV))
+(bvand (bvnot (shr4 x)) (bvor (bvnot (shr4 (shr16 x))) BV))
+(bvand (bvnot (shr4 x)) (bvor (bvnot (shr4 (shr16 x))) (bvor BV BV)))
+(bvand (bvnot (shr4 x)) (bvor (bvnot (shr4 (shr16 x))) (bvor (shr4 BV) BV)))
+(bvand (bvnot (shr4 x)) (bvor (bvnot (shr4 (shr16 x))) (bvor (shr4 x) BV)))
+(bvand (bvnot (shr4 x)) (bvor (bvnot (shr4 (shr16 x))) (bvor (shr4 x) (bvadd BV BV))))
+(bvand (bvnot (shr4 x)) (bvor (bvnot (shr4 (shr16 x))) (bvor (shr4 x) (bvadd (if0 BV BV BV) BV))))
+(bvand (bvnot (shr4 x)) (bvor (bvnot (shr4 (shr16 x))) (bvor (shr4 x) (bvadd (if0 BV BV BV) BV))))
+Const
+#x0000000000000001
+Const
+#x0000000000000001
+(bvand BV BV)
+(bvand x BV)
+(bvand x Const)
+(bvand x #x0000000000000001)
+BV
+BV
+x
+(bvxor BV BV)
+(bvxor (shr4 BV) BV)
+(bvxor (shr4 (bvxor BV BV)) BV)
+(bvxor (shr4 (bvxor (bvand BV BV) BV)) BV)
+(bvxor (shr4 (bvxor (bvand x BV) BV)) BV)
+(bvxor (shr4 (bvxor (bvand x (bvor BV BV)) BV)) BV)
+(bvxor (shr4 (bvxor (bvand x (bvor (shr16 BV) BV)) BV)) BV)
+(bvxor (shr4 (bvxor (bvand x (bvor (shr16 BV) BV)) BV)) BV)
+(bvxor (shr4 (bvxor (bvand x (bvor (shr16 (if0 BV BV BV)) BV)) BV)) BV)
+(bvxor (shr4 (bvxor (bvand x (bvor (shr16 (if0 (bvand BV BV) BV BV)) BV)) BV)) BV)
+(bvxor (shr4 (bvxor (bvand x (bvor (shr16 (if0 (bvand (bvadd BV BV) BV) BV BV)) BV)) BV)) BV)
+(bvxor (shr4 (bvxor (bvand x (bvor (shr16 (if0 (bvand (bvadd (bvadd BV BV) BV) BV) BV BV)) BV)) BV)) BV)
+(bvxor (shr4 (bvxor (bvand x (bvor (shr16 (if0 (bvand (bvadd (bvadd x BV) BV) BV) BV BV)) BV)) BV)) BV)
+(bvxor (shr4 (bvxor (bvand x (bvor (shr16 (if0 (bvand (bvadd (bvadd x (bvor BV BV)) BV) BV) BV BV)) BV)) BV)) BV)
+(bvxor (shr4 (bvxor (bvand x (bvor (shr16 (if0 (bvand (bvadd (bvadd x (bvor Const BV)) BV) BV) BV BV)) BV)) BV)) BV)
+(if0 BV BV BV)
+(if0 (bvxor BV BV) BV BV)
+(if0 (bvxor (bvor BV BV) BV) BV BV)
+(if0 (bvxor (bvor (shl1 BV) BV) BV) BV BV)
+(if0 (bvxor (bvor (shl1 (shr1 BV)) BV) BV) BV BV)
+(if0 (bvxor (bvor (shl1 (shr1 x)) BV) BV) BV BV)
+(if0 (bvxor (bvor (shl1 (shr1 x)) (if0 BV BV BV)) BV) BV BV)
+(if0 (bvxor (bvor (shl1 (shr1 x)) (if0 BV BV BV)) BV) BV BV)
+(if0 (bvxor (bvor (shl1 (shr1 x)) (if0 (shl1 BV) BV BV)) BV) BV BV)
+(if0 (bvxor (bvor (shl1 (shr1 x)) (if0 (shl1 (shr4 BV)) BV BV)) BV) BV BV)
+(if0 (bvxor (bvor (shl1 (shr1 x)) (if0 (shl1 (shr4 Const)) BV BV)) BV) BV BV)
+(if0 (bvxor (bvor (shl1 (shr1 x)) (if0 (shl1 (shr4 #x0000000000000001)) BV BV)) BV) BV BV)
+(if0 (bvxor (bvor (shl1 (shr1 x)) (if0 (shl1 (shr4 #x0000000000000001)) (shl1 BV) BV)) BV) BV BV)
+(if0 (bvxor (bvor (shl1 (shr1 x)) (if0 (shl1 (shr4 #x0000000000000001)) (shl1 (bvor BV BV)) BV)) BV) BV BV)
+(if0 (bvxor (bvor (shl1 (shr1 x)) (if0 (shl1 (shr4 #x0000000000000001)) (shl1 (bvor x BV)) BV)) BV) BV BV)
+(bvor BV BV)
+(bvor (if0 BV BV BV) BV)
+(bvor (if0 (shl1 BV) BV BV) BV)
+(bvor (if0 (shl1 BV) BV BV) BV)
+(bvor (if0 (shl1 (shr1 BV)) BV BV) BV)
+(bvor (if0 (shl1 (shr1 Const)) BV BV) BV)
+(bvor (if0 (shl1 (shr1 #x0000000000000001)) BV BV) BV)
+(bvor (if0 (shl1 (shr1 #x0000000000000001)) BV BV) BV)
+(bvor (if0 (shl1 (shr1 #x0000000000000001)) Const BV) BV)
+(bvor (if0 (shl1 (shr1 #x0000000000000001)) #x0000000000000001 BV) BV)
+(bvor (if0 (shl1 (shr1 #x0000000000000001)) #x0000000000000001 (bvxor BV BV)) BV)
+(bvor (if0 (shl1 (shr1 #x0000000000000001)) #x0000000000000001 (bvxor (if0 BV BV BV) BV)) BV)
+(bvor (if0 (shl1 (shr1 #x0000000000000001)) #x0000000000000001 (bvxor (if0 Const BV BV) BV)) BV)
+(bvor (if0 (shl1 (shr1 #x0000000000000001)) #x0000000000000001 (bvxor (if0 #x0000000000000000 BV BV) BV)) BV)
+(bvor (if0 (shl1 (shr1 #x0000000000000001)) #x0000000000000001 (bvxor (if0 #x0000000000000000 (bvxor BV BV) BV) BV)) BV)
+(bvnot BV)
+(bvnot x)
+(shr4 BV)
+(shr4 BV)
+(shr4 (shl1 BV))
+(shr4 (shl1 (shl1 BV)))
+(shr4 (shl1 (shl1 (bvand BV BV))))
+(shr4 (shl1 (shl1 (bvand (bvnot BV) BV))))
+(shr4 (shl1 (shl1 (bvand (bvnot (shl1 BV)) BV))))
+(shr4 (shl1 (shl1 (bvand (bvnot (shl1 (bvxor BV BV))) BV))))
+(shr4 (shl1 (shl1 (bvand (bvnot (shl1 (bvxor (shr1 BV) BV))) BV))))
+(shr4 (shl1 (shl1 (bvand (bvnot (shl1 (bvxor (shr1 BV) BV))) BV))))
+(shr4 (shl1 (shl1 (bvand (bvnot (shl1 (bvxor (shr1 (bvadd BV BV)) BV))) BV))))
+(shr4 (shl1 (shl1 (bvand (bvnot (shl1 (bvxor (shr1 (bvadd (bvor BV BV) BV)) BV))) BV))))
+(shr4 (shl1 (shl1 (bvand (bvnot (shl1 (bvxor (shr1 (bvadd (bvor (bvxor BV BV) BV) BV)) BV))) BV))))
+(shr4 (shl1 (shl1 (bvand (bvnot (shl1 (bvxor (shr1 (bvadd (bvor (bvxor (bvxor BV BV) BV) BV) BV)) BV))) BV))))
+(shr4 (shl1 (shl1 (bvand (bvnot (shl1 (bvxor (shr1 (bvadd (bvor (bvxor (bvxor (shr4 BV) BV) BV) BV) BV)) BV))) BV))))
+(if0 BV BV BV)
+(if0 (bvand BV BV) BV BV)
+(if0 (bvand (bvxor BV BV) BV) BV BV)
+(if0 (bvand (bvxor x BV) BV) BV BV)
+(if0 (bvand (bvxor x x) BV) BV BV)
+(if0 (bvand (bvxor x x) (if0 BV BV BV)) BV BV)
+(if0 (bvand (bvxor x x) (if0 x BV BV)) BV BV)
+(if0 (bvand (bvxor x x) (if0 x (bvor BV BV) BV)) BV BV)
+(if0 (bvand (bvxor x x) (if0 x (bvor (shr1 BV) BV) BV)) BV BV)
+(if0 (bvand (bvxor x x) (if0 x (bvor (shr1 BV) BV) BV)) BV BV)
+(if0 (bvand (bvxor x x) (if0 x (bvor (shr1 (shr4 BV)) BV) BV)) BV BV)
+(if0 (bvand (bvxor x x) (if0 x (bvor (shr1 (shr4 (bvadd BV BV))) BV) BV)) BV BV)
+(if0 (bvand (bvxor x x) (if0 x (bvor (shr1 (shr4 (bvadd (if0 BV BV BV) BV))) BV) BV)) BV BV)
+(if0 (bvand (bvxor x x) (if0 x (bvor (shr1 (shr4 (bvadd (if0 (shr16 BV) BV BV) BV))) BV) BV)) BV BV)
+(if0 (bvand (bvxor x x) (if0 x (bvor (shr1 (shr4 (bvadd (if0 (shr16 Const) BV BV) BV))) BV) BV)) BV BV)
+(bvxor BV BV)
+(bvxor (if0 BV BV BV) BV)
+(bvxor (if0 (bvnot BV) BV BV) BV)
+(bvxor (if0 (bvnot (bvand BV BV)) BV BV) BV)
+(bvxor (if0 (bvnot (bvand (bvor BV BV) BV)) BV BV) BV)
+(bvxor (if0 (bvnot (bvand (bvor (shr16 BV) BV) BV)) BV BV) BV)
+(bvxor (if0 (bvnot (bvand (bvor (shr16 BV) BV) BV)) BV BV) BV)
+(bvxor (if0 (bvnot (bvand (bvor (shr16 (shl1 BV)) BV) BV)) BV BV) BV)
+(bvxor (if0 (bvnot (bvand (bvor (shr16 (shl1 Const)) BV) BV)) BV BV) BV)
+(bvxor (if0 (bvnot (bvand (bvor (shr16 (shl1 #x0000000000000001)) BV) BV)) BV BV) BV)
+(bvxor (if0 (bvnot (bvand (bvor (shr16 (shl1 #x0000000000000001)) (bvadd BV BV)) BV)) BV BV) BV)
+(bvxor (if0 (bvnot (bvand (bvor (shr16 (shl1 #x0000000000000001)) (bvadd (shr1 BV) BV)) BV)) BV BV) BV)
+(bvxor (if0 (bvnot (bvand (bvor (shr16 (shl1 #x0000000000000001)) (bvadd (shr1 x) BV)) BV)) BV BV) BV)
+(bvxor (if0 (bvnot (bvand (bvor (shr16 (shl1 #x0000000000000001)) (bvadd (shr1 x) (bvxor BV BV))) BV)) BV BV) BV)
+(bvxor (if0 (bvnot (bvand (bvor (shr16 (shl1 #x0000000000000001)) (bvadd (shr1 x) (bvxor (if0 BV BV BV) BV))) BV)) BV BV) BV)
+(bvnot BV)
+(bvnot (shr1 BV))
+(bvnot (shr1 (bvxor BV BV)))
+(bvnot (shr1 (bvxor (shr4 BV) BV)))
+(bvnot (shr1 (bvxor (shr4 (bvadd BV BV)) BV)))
+(bvnot (shr1 (bvxor (shr4 (bvadd (bvadd BV BV) BV)) BV)))
+(bvnot (shr1 (bvxor (shr4 (bvadd (bvadd (bvxor BV BV) BV) BV)) BV)))
+(bvnot (shr1 (bvxor (shr4 (bvadd (bvadd (bvxor x BV) BV) BV)) BV)))
+(bvnot (shr1 (bvxor (shr4 (bvadd (bvadd (bvxor x (shr4 BV)) BV) BV)) BV)))
+(bvnot (shr1 (bvxor (shr4 (bvadd (bvadd (bvxor x (shr4 x)) BV) BV)) BV)))
+(bvnot (shr1 (bvxor (shr4 (bvadd (bvadd (bvxor x (shr4 x)) (shr4 BV)) BV)) BV)))
+(bvnot (shr1 (bvxor (shr4 (bvadd (bvadd (bvxor x (shr4 x)) (shr4 (if0 BV BV BV))) BV)) BV)))
+(bvnot (shr1 (bvxor (shr4 (bvadd (bvadd (bvxor x (shr4 x)) (shr4 (if0 (bvor BV BV) BV BV))) BV)) BV)))
+(bvnot (shr1 (bvxor (shr4 (bvadd (bvadd (bvxor x (shr4 x)) (shr4 (if0 (bvor (bvor BV BV) BV) BV BV))) BV)) BV)))
+(bvnot (shr1 (bvxor (shr4 (bvadd (bvadd (bvxor x (shr4 x)) (shr4 (if0 (bvor (bvor (shl1 BV) BV) BV) BV BV))) BV)) BV)))
+x
+Const
+#x0000000000000001
+(bvor BV BV)
+(bvor Const BV)
+(bvor #x0000000000000001 BV)
+(bvor #x0000000000000001 (shr4 BV))
+(bvor #x0000000000000001 (shr4 (shl1 BV)))
+(bvor #x0000000000000001 (shr4 (shl1 x)))
+BV
+(bvadd BV BV)
+(bvadd (shr4 BV) BV)
+(bvadd (shr4 (bvand BV BV)) BV)
+(bvadd (shr4 (bvand Const BV)) BV)
+(bvadd (shr4 (bvand #x0000000000000001 BV)) BV)
+(bvadd (shr4 (bvand #x0000000000000001 x)) BV)
+(bvadd (shr4 (bvand #x0000000000000001 x)) x)
+(shr16 BV)
+(shr16 x)
+Found the following solution to file: ./FastPhyser/full_grammar/bv_sat/28_10.sl
+(
+(define-fun f ( (x (_ BitVec 64)) ) (_ BitVec 64) (shr16 x))
+)
+terminate called after throwing an instance of 'std::out_of_range'
+  what():  stoi
+Aborted (core dumped)
+terminate called after throwing an instance of 'std::out_of_range'
+  what():  stoi
+Aborted (core dumped)
+terminate called after throwing an instance of 'std::out_of_range'
+  what():  stoi
+Aborted (core dumped)
+terminate called after throwing an instance of 'std::out_of_range'
+  what():  stoi
+Aborted (core dumped)
+terminate called after throwing an instance of 'std::out_of_range'
+  what():  stoi
+Aborted (core dumped)
+terminate called after throwing an instance of 'std::out_of_range'
+  what():  stoi
+Aborted (core dumped)
+terminate called after throwing an instance of 'std::out_of_range'
+  what():  stoi
+Aborted (core dumped)
+terminate called after throwing an instance of 'std::out_of_range'
+  what():  stoi
+Aborted (core dumped)
+terminate called after throwing an instance of 'std::out_of_range'
+  what():  stoi
+Aborted (core dumped)
+terminate called after throwing an instance of 'std::out_of_range'
+  what():  stoi
+Aborted (core dumped)
+terminate called after throwing an instance of 'std::out_of_range'
+  what():  stoi
+Aborted (core dumped)
+terminate called after throwing an instance of 'std::out_of_range'
+  what():  stoi
+Aborted (core dumped)
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+>> Starting SimpleProbabilisticSearch
+Found the following solution to file: ./FastPhyser/full_grammar/bv_sat/28_10.sl
+(
+(define-fun f ( (x (_ BitVec 64)) ) (_ BitVec 64) (shr16 x))
+)
+>> Starting SimpleProbabilisticSearch
+Found the following solution to file: ./FastPhyser/full_grammar/bv_sat/28_10.sl
+(
+(define-fun f ( (x (_ BitVec 64)) ) (_ BitVec 64) (shr16 x))
+)
+>> Starting SimpleProbabilisticSearch
+Found the following solution to file: ./FastPhyser/full_grammar/bv_sat/28_10.sl
+(
+(define-fun f ( (x (_ BitVec 64)) ) (_ BitVec 64) (shr16 x))
+)

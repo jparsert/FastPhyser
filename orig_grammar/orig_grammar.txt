@@ -1,0 +1,228 @@
+Path './orig_grammar/output' created successfully.
+sat_test starting...
+Files to process:
+['inv_gen_tcs',
+ 'max12',
+ 'inv_gen_sum3',
+ 'inv_gen_n_c11',
+ 'inv_gen_cgr1',
+ 'inv_gen_array',
+ 'inv_gen_finf1',
+ 'inv_gen_finf2']
+
+Processing inv_gen_tcs
+Timeout occurred after 180 seconds. Moving on to the next file.
+No solved files yet.
+
+Processing max12
+Timeout occurred after 180 seconds. Moving on to the next file.
+No solved files yet.
+
+Processing inv_gen_sum3
+Timeout occurred after 180 seconds. Moving on to the next file.
+No solved files yet.
+
+Processing inv_gen_n_c11
+Timeout occurred after 180 seconds. Moving on to the next file.
+No solved files yet.
+
+Processing inv_gen_cgr1
+Timeout occurred after 180 seconds. Moving on to the next file.
+No solved files yet.
+
+Processing inv_gen_array
+Timeout occurred after 180 seconds. Moving on to the next file.
+No solved files yet.
+
+Processing inv_gen_finf1
+Timeout occurred after 180 seconds. Moving on to the next file.
+No solved files yet.
+
+Processing inv_gen_finf2
+Timeout occurred after 180 seconds. Moving on to the next file.
+No solved files yet.
+Total files processed: 8
+Total unsolved benchmarks: 8
+Total solved benchmarks: 0
+sat_test Done!
+=============================================================
+unsat_test starting...
+Files to process:
+['s0_d1',
+ 'qm_max5',
+ 'qm_neg_5',
+ 'qm_area_sel_2',
+ 'max12',
+ 'max3',
+ 'max2',
+ 't15',
+ 'qm_neg_eq_1',
+ 'max9',
+ 't20',
+ 's2',
+ 's1',
+ 'qm_neg_1',
+ 'qm_max4',
+ 's0_d2',
+ 'max13',
+ 'constant',
+ 'inv_gen_term2',
+ 'max10',
+ 't17']
+
+Processing s0_d1
+Timeout occurred after 180 seconds. Moving on to the next file.
+No solved files yet.
+
+Processing qm_max5
+Timeout occurred after 180 seconds. Moving on to the next file.
+No solved files yet.
+
+Processing qm_neg_5
+Timeout occurred after 180 seconds. Moving on to the next file.
+No solved files yet.
+
+Processing qm_area_sel_2
+Timeout occurred after 180 seconds. Moving on to the next file.
+No solved files yet.
+
+Processing max12
+Timeout occurred after 180 seconds. Moving on to the next file.
+No solved files yet.
+
+Processing max3
+./orig_grammar/unsat_test/max3.sl
+Found the following solution to file: ./orig_grammar/unsat_test/max3.sl
+(
+(define-fun fn0 ( (vr0 Int) (vr1 Int) (vr2 Int) ) Int (ite (>= vr2 vr1) (ite (>= vr2 vr0) vr2 vr0) (ite (>= vr1 vr0) vr1 vr0)))
+)
+
+Solved: 1/6
+Total time taken: 71.36803388595581
+Average time taken: 71.36803388595581
+
+Processing max2
+./orig_grammar/unsat_test/max2.sl
+Found the following solution to file: ./orig_grammar/unsat_test/max2.sl
+(
+(define-fun fn0 ( (vr0 Int) (vr1 Int) ) Int (ite (>= vr0 (ite (>= vr1 vr1) (ite (>= vr1 vr1) vr1 vr1) vr0)) vr0 vr1))
+)
+
+Solved: 2/7
+Total time taken: 71.8873062133789
+Average time taken: 35.94365310668945
+
+Processing t15
+./orig_grammar/unsat_test/t15.sl
+Found the following solution to file: ./orig_grammar/unsat_test/t15.sl
+(
+(define-fun fn0 ( (NOACK Int) (acknowledgeId Int) (enabled Bool) ) Bool (and (= NOACK NOACK) (= NOACK NOACK)))
+)
+
+Solved: 3/8
+Total time taken: 72.23482990264893
+Average time taken: 24.07827663421631
+
+Processing qm_neg_eq_1
+Timeout occurred after 180 seconds. Moving on to the next file.
+Solved: 3/9
+Total time taken: 72.23482990264893
+Average time taken: 24.07827663421631
+
+Processing max9
+Timeout occurred after 180 seconds. Moving on to the next file.
+Solved: 3/10
+Total time taken: 72.23482990264893
+Average time taken: 24.07827663421631
+
+Processing t20
+Timeout occurred after 180 seconds. Moving on to the next file.
+Solved: 3/11
+Total time taken: 72.23482990264893
+Average time taken: 24.07827663421631
+
+Processing s2
+./orig_grammar/unsat_test/s2.sl
+Found the following solution to file: ./orig_grammar/unsat_test/s2.sl
+(
+(define-fun fn0 ( (vr0 Int) (vr1 Int) ) Int (- 1))
+)
+
+Solved: 4/12
+Total time taken: 72.83059191703796
+Average time taken: 18.20764797925949
+
+Processing s1
+Timeout occurred after 180 seconds. Moving on to the next file.
+Solved: 4/13
+Total time taken: 72.83059191703796
+Average time taken: 18.20764797925949
+
+Processing qm_neg_1
+Timeout occurred after 180 seconds. Moving on to the next file.
+Solved: 4/14
+Total time taken: 72.83059191703796
+Average time taken: 18.20764797925949
+
+Processing qm_max4
+Timeout occurred after 180 seconds. Moving on to the next file.
+Solved: 4/15
+Total time taken: 72.83059191703796
+Average time taken: 18.20764797925949
+
+Processing s0_d2
+Timeout occurred after 180 seconds. Moving on to the next file.
+Solved: 4/16
+Total time taken: 72.83059191703796
+Average time taken: 18.20764797925949
+
+Processing max13
+Timeout occurred after 180 seconds. Moving on to the next file.
+Solved: 4/17
+Total time taken: 72.83059191703796
+Average time taken: 18.20764797925949
+
+Processing constant
+./orig_grammar/unsat_test/constant.sl
+Found the following solution to file: ./orig_grammar/unsat_test/constant.sl
+(
+(define-fun fn0 ( (vr0 Int) ) Int 1)
+)
+
+Solved: 5/18
+Total time taken: 73.50215172767639
+Average time taken: 14.700430345535278
+
+Processing inv_gen_term2
+./orig_grammar/unsat_test/inv_gen_term2.sl
+Found the following solution to file: ./orig_grammar/unsat_test/inv_gen_term2.sl
+(
+(define-fun fn8 ( (vr1 Int) (vr2 Int) (vr3 Int) ) Bool (and (<= (+ (* 0 vr3) (* 0 vr1)) 3) (<= (+ (* 0 vr3) (* 0 vr3)) 3)))
+)
+
+Solved: 6/19
+Total time taken: 74.14881300926208
+Average time taken: 12.35813550154368
+
+Processing max10
+Timeout occurred after 180 seconds. Moving on to the next file.
+Solved: 6/20
+Total time taken: 74.14881300926208
+Average time taken: 12.35813550154368
+
+Processing t17
+./orig_grammar/unsat_test/t17.sl
+Found the following solution to file: ./orig_grammar/unsat_test/t17.sl
+(
+(define-fun fn0 ( (j Int) (MC_741360 Int) ) Bool (= MC_741360 MC_741360))
+)
+
+Solved: 7/21
+Total time taken: 74.50454640388489
+Average time taken: 10.643506629126412
+Total files processed: 21
+Total unsolved benchmarks: 14
+Total solved benchmarks: 7
+unsat_test Done!
+=============================================================
+

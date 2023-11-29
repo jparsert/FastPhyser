@@ -1,0 +1,193 @@
+sat_test_cvc5 starting...
+Files to process:
+['inv_gen_finf1',
+ 'inv_gen_finf2',
+ 'inv_gen_ex7',
+ 'LinExpr_inv1',
+ 'inv_gen_ex23',
+ 'inv_gen_sum3',
+ 'inv_gen_trex2',
+ 'inv_gen_term3',
+ 'inv_gen_n_c11',
+ 'inv_gen_sum1',
+ 'max12',
+ 'inv_gen_tcs',
+ 'inv_gen_trex1',
+ 'inv_gen_fig8',
+ 'inv_gen_cgr1',
+ 'inv_gen_fig6',
+ 'inv_gen_fig1',
+ 'inv_gen_sum4',
+ 'inv_gen_ex14',
+ 'inv_gen_array']
+
+Processing inv_gen_finf1
+(
+(define-fun fn8 ((vr0 Int) (vr1 Int) (vr2 Int) (vr3 Int)) Bool (= vr0 (+ vr0 vr1)))
+)
+
+Solved: 1/1
+Total time taken: 0.11786150932312012
+Average time taken: 0.11786150932312012
+
+Processing inv_gen_finf2
+(
+(define-fun fn8 ((vr0 Int) (vr1 Int) (vr2 Int) (vr3 Int)) Bool (= vr0 (+ vr0 vr1)))
+)
+
+Solved: 2/2
+Total time taken: 0.234116792678833
+Average time taken: 0.1170583963394165
+
+Processing inv_gen_ex7
+(
+(define-fun fn8 ((vr0 Int) (vr2 Int) (vr3 Int)) Bool (= vr0 (abs (ite (> vr2 vr3) vr2 vr0))))
+)
+
+Solved: 3/3
+Total time taken: 4.229556322097778
+Average time taken: 1.409852107365926
+
+Processing LinExpr_inv1
+Timeout occurred after 180 seconds. Moving on to the next file.
+Solved: 3/4
+Total time taken: 4.229556322097778
+Average time taken: 1.409852107365926
+
+Processing inv_gen_ex23
+Timeout occurred after 180 seconds. Moving on to the next file.
+Solved: 3/5
+Total time taken: 4.229556322097778
+Average time taken: 1.409852107365926
+
+Processing inv_gen_sum3
+(
+(define-fun fn8 ((vr1 Int) (vr0 Int) (vr2 Int) (vr3 Int)) Bool (= vr1 vr3))
+)
+
+Solved: 4/6
+Total time taken: 4.3019609451293945
+Average time taken: 1.0754902362823486
+
+Processing inv_gen_trex2
+(
+(define-fun fn8 ((vr1 Int)) Bool true)
+)
+
+Solved: 5/7
+Total time taken: 4.359929800033569
+Average time taken: 0.8719859600067139
+
+Processing inv_gen_term3
+(
+(define-fun fn8 ((vr1 Int) (vr2 Int)) Bool true)
+)
+
+Solved: 6/8
+Total time taken: 4.4178147315979
+Average time taken: 0.7363024552663168
+
+Processing inv_gen_n_c11
+(
+(define-fun fn8 ((vr0 Int) (vr1 Int)) Bool (>= 2 (abs (- vr1 2))))
+)
+
+Solved: 7/9
+Total time taken: 93.04117894172668
+Average time taken: 13.29159699167524
+
+Processing inv_gen_sum1
+Timeout occurred after 180 seconds. Moving on to the next file.
+Solved: 7/10
+Total time taken: 93.04117894172668
+Average time taken: 13.29159699167524
+
+Processing max12
+Timeout occurred after 180 seconds. Moving on to the next file.
+Solved: 7/11
+Total time taken: 93.04117894172668
+Average time taken: 13.29159699167524
+
+Processing inv_gen_tcs
+(
+(define-fun fn8 ((vr1 Int) (vr2 Int) (vr3 Int) (vr4 Int)) Bool (= vr1 (+ vr2 (- vr3 vr4))))
+)
+
+Solved: 8/12
+Total time taken: 94.90505027770996
+Average time taken: 11.863131284713745
+
+Processing inv_gen_trex1
+(
+(define-fun fn8 ((vr1 Int) (vr2 Int) (vr3 Int) (vr4 Int) (vr5 Int)) Bool (> vr1 (- vr1 vr4)))
+)
+
+Solved: 9/13
+Total time taken: 95.17176485061646
+Average time taken: 10.574640538957384
+
+Processing inv_gen_fig8
+(
+(define-fun fn8 ((vr5 Int)) Bool (= vr5 0))
+)
+
+Solved: 10/14
+Total time taken: 95.28331065177917
+Average time taken: 9.528331065177918
+
+Processing inv_gen_cgr1
+(
+(define-fun fn8 ((vr0 Int) (vr1 Int)) Bool (>= vr1 (- vr0 2)))
+)
+
+Solved: 11/15
+Total time taken: 95.81054282188416
+Average time taken: 8.710049347444015
+
+Processing inv_gen_fig6
+(
+(define-fun fn8 ((vr0 Int)) Bool true)
+)
+
+Solved: 12/16
+Total time taken: 95.8890106678009
+Average time taken: 7.990750888983409
+
+Processing inv_gen_fig1
+(
+(define-fun fn0 ((vr0 Int) (vr1 Int)) Bool (> vr1 (- vr0 (abs vr1))))
+)
+
+Solved: 13/17
+Total time taken: 96.38288116455078
+Average time taken: 7.414067781888521
+
+Processing inv_gen_sum4
+Timeout occurred after 180 seconds. Moving on to the next file.
+Solved: 13/18
+Total time taken: 96.38288116455078
+Average time taken: 7.414067781888521
+
+Processing inv_gen_ex14
+(
+(define-fun fn8 ((vr0 Int) (vr1 Int)) Bool (> vr0 0))
+)
+
+Solved: 14/19
+Total time taken: 96.53047847747803
+Average time taken: 6.895034176962716
+
+Processing inv_gen_array
+(
+(define-fun fn8 ((vr3 Int) (vr1 Int) (vr4 Int)) Bool (= vr3 (ite (> vr3 vr4) (+ vr3 vr1) vr3)))
+)
+
+Solved: 15/20
+Total time taken: 109.79838156700134
+Average time taken: 7.319892104466756
+Total files processed: 20
+Total unsolved benchmarks: 5
+Total solved benchmarks: 15
+sat_test_cvc5 Done!
+=============================================================
+

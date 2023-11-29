@@ -1,0 +1,10 @@
+(bvand BV BV): 5
+(bvadd BV BV): 2
+(bvor BV BV): 4
+(bvxor BV BV): 2
+(shl1 BV): 2
+x: 14
+(shr1 BV): 2
+(shr4 BV): 2
+(shr16 BV): 2
+#x0000000000000001: 6

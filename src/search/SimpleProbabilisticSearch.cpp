@@ -7,14 +7,16 @@
 
 Sy2CPP::SyGuSSolution SimpleProbabilisticSearch::start_search() {
 
+    std::cout << ">> Starting SimpleProbabilisticSearch" << std::endl;
+    std::cout<<std::flush;
     for (int j = 0; j < 20000000; j++) {
-        // std::cout << "Iteration: " << j << std::endl;
+
         Sy2CPP::Term* root = term_generator->get_root();
         auto current_iteration = term_generator->generate_n_most_likely_LM_products(root);
         std::vector<Sy2CPP::TermPtr> next_iteration;
-        for (int i = 0; i < 30; ++i) {
+        for (int i = 0; i < 15; ++i) {
             for (auto& term : current_iteration) {
-                // std::cout << Sy2CPP::AstToString::to_string(*term) << std::endl;
+                //std::cout << Sy2CPP::AstToString::to_string(*term) << std::endl;
                 //std::cout << "verifier->get_synth_funs()[0]: " << verifier->get_synth_funs()[0] << std::endl;
                 if (term_generator->is_leaf(term.get())) {
                     z3::check_result res = verifier->check_candidate(verifier->get_synth_funs()[0], term.get());

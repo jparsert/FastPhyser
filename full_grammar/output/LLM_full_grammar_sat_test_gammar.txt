@@ -1,0 +1,716 @@
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_finf1.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr1 Int) (vr2 Int) (vr3 Int) ) Bool (= (+ vr1 vr3) vr3))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_finf2.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr1 Int) (vr2 Int) (vr3 Int) ) Bool (= (+ vr1 vr3) vr3))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_ex7.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr2 Int) (vr3 Int) ) Bool (and (>= (+ vr0 vr0) vr0) (<= vr2 vr3)))
+)
+Found the following solution to file: ./full_grammar/sat_test/LinExpr_inv1.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr3 Int) ) Int (+ (+ vr3 (ite (> (ite (>= vr0 vr3) vr0 vr3) vr3) vr0 vr3)) vr0))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_sum3.sl
+(
+(define-fun fn8 ( (vr1 Int) (vr0 Int) (vr2 Int) (vr3 Int) ) Bool (or (= vr3 vr1) (and (and (<= vr1 vr3) (> vr1 (+ vr1 vr1))) (and (= vr3 vr1) (and (> vr0 vr1) (>= vr3 vr1))))))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_trex2.sl
+(
+(define-fun fn8 ( (vr1 Int) ) Bool (and (<= vr1 vr1) (<= vr1 vr1)))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_term3.sl
+(
+(define-fun fn8 ( (vr1 Int) (vr2 Int) ) Bool (<= vr1 vr1))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_n_c11.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr1 Int) ) Bool (and (= vr1 (mod vr1 5)) (or (>= vr1 vr1) (>= vr0 vr1))))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_tcs.sl
+(
+(define-fun fn8 ( (vr1 Int) (vr2 Int) (vr3 Int) (vr4 Int) ) Bool (= (+ vr4 vr1) (+ vr3 vr2)))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_trex1.sl
+(
+(define-fun fn8 ( (vr1 Int) (vr2 Int) (vr3 Int) (vr4 Int) (vr5 Int) ) Bool (> (+ vr4 vr1) vr1))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_fig8.sl
+(
+(define-fun fn8 ( (vr5 Int) ) Bool (= vr5 (- (+ vr5 (- (- vr5))))))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_cgr1.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr1 Int) ) Bool (>= (+ (+ vr1 vr1) (mod vr0 4)) vr0))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_fig6.sl
+(
+(define-fun fn8 ( (vr0 Int) ) Bool (>= vr0 vr0))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_fig1.sl
+(
+(define-fun fn0 ( (vr0 Int) (vr1 Int) ) Bool (> (ite (>= vr0 vr1) (- vr0) vr1) vr0))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_ex14.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr1 Int) ) Bool (< (- vr0) vr0))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_array.sl
+(
+(define-fun fn8 ( (vr3 Int) (vr1 Int) (vr4 Int) ) Bool (or (= vr4 vr3) (not (and (> vr1 (- vr1)) (<= vr4 vr3)))))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_finf1.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr1 Int) (vr2 Int) (vr3 Int) ) Bool (= (+ vr1 vr3) vr3))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_finf2.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr1 Int) (vr2 Int) (vr3 Int) ) Bool (= (+ vr1 vr3) vr3))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_ex7.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr2 Int) (vr3 Int) ) Bool (and (>= (+ vr0 vr0) vr0) (<= vr2 vr3)))
+)
+Found the following solution to file: ./full_grammar/sat_test/LinExpr_inv1.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr3 Int) ) Int (+ (+ vr3 (ite (> (ite (>= vr0 vr3) vr0 vr3) vr3) vr0 vr3)) vr0))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_sum3.sl
+(
+(define-fun fn8 ( (vr1 Int) (vr0 Int) (vr2 Int) (vr3 Int) ) Bool (= vr3 vr1))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_trex2.sl
+(
+(define-fun fn8 ( (vr1 Int) ) Bool (and (<= vr1 vr1) (<= vr1 vr1)))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_term3.sl
+(
+(define-fun fn8 ( (vr1 Int) (vr2 Int) ) Bool (<= vr1 vr1))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_n_c11.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr1 Int) ) Bool (= (mod vr1 5) vr1))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_tcs.sl
+(
+(define-fun fn8 ( (vr1 Int) (vr2 Int) (vr3 Int) (vr4 Int) ) Bool (= (+ vr4 vr1) (+ vr3 vr2)))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_trex1.sl
+(
+(define-fun fn8 ( (vr1 Int) (vr2 Int) (vr3 Int) (vr4 Int) (vr5 Int) ) Bool (> (+ vr4 vr1) vr1))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_fig8.sl
+(
+(define-fun fn8 ( (vr5 Int) ) Bool (= (- vr5) vr5))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_cgr1.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr1 Int) ) Bool (>= (+ vr1 2) vr0))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_fig6.sl
+(
+(define-fun fn8 ( (vr0 Int) ) Bool (>= vr0 vr0))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_fig1.sl
+(
+(define-fun fn0 ( (vr0 Int) (vr1 Int) ) Bool (> vr1 (ite (>= (ite (> vr0 vr0) vr1 vr0) vr1) (+ vr0 vr1) vr0)))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_ex14.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr1 Int) ) Bool (<= 1 vr0))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_array.sl
+(
+(define-fun fn8 ( (vr3 Int) (vr1 Int) (vr4 Int) ) Bool (or (= vr4 vr3) (not (and (> vr1 (- vr1)) (<= vr4 vr3)))))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_finf1.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr1 Int) (vr2 Int) (vr3 Int) ) Bool (= vr2 (+ vr2 vr1)))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_finf2.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr1 Int) (vr2 Int) (vr3 Int) ) Bool (= (- vr1) vr1))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_ex7.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr2 Int) (vr3 Int) ) Bool (or false (and (<= vr2 vr3) (>= vr0 (- vr0)))))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_sum3.sl
+(
+(define-fun fn8 ( (vr1 Int) (vr0 Int) (vr2 Int) (vr3 Int) ) Bool (= vr3 vr1))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_trex2.sl
+(
+(define-fun fn8 ( (vr1 Int) ) Bool true)
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_term3.sl
+(
+(define-fun fn8 ( (vr1 Int) (vr2 Int) ) Bool true)
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_n_c11.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr1 Int) ) Bool (= (mod vr1 5) vr1))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_tcs.sl
+(
+(define-fun fn8 ( (vr1 Int) (vr2 Int) (vr3 Int) (vr4 Int) ) Bool (= vr2 (+ (+ vr1 (- vr3)) vr4)))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_trex1.sl
+(
+(define-fun fn8 ( (vr1 Int) (vr2 Int) (vr3 Int) (vr4 Int) (vr5 Int) ) Bool (not (<= vr4 (* (* 9 4) 0))))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_fig8.sl
+(
+(define-fun fn8 ( (vr5 Int) ) Bool (<= (* (abs vr5) 9) 2))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_cgr1.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr1 Int) ) Bool (<= (- (abs vr0) vr1) 3))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_fig6.sl
+(
+(define-fun fn8 ( (vr0 Int) ) Bool true)
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_fig1.sl
+(
+(define-fun fn0 ( (vr0 Int) (vr1 Int) ) Bool (< vr0 (+ vr1 (abs vr1))))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_ex14.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr1 Int) ) Bool (> vr0 (- vr0)))
+)
+(error "Parse Error: ./full_grammar/sat_test/inv_gen_finf1.sl:29.38: A non-linear fact was asserted to arithmetic in a linear logic.
+The fact in question: (div BOUND_VARIABLE_430 BOUND_VARIABLE_431)
+")
+(error "Parse Error: ./full_grammar/sat_test/inv_gen_finf2.sl:29.38: A non-linear fact was asserted to arithmetic in a linear logic.
+The fact in question: (div BOUND_VARIABLE_430 BOUND_VARIABLE_431)
+")
+(error "Parse Error: ./full_grammar/sat_test/inv_gen_ex7.sl:29.38: A non-linear fact was asserted to arithmetic in a linear logic.
+The fact in question: (div BOUND_VARIABLE_429 BOUND_VARIABLE_430)
+")
+(error "Parse Error: ./full_grammar/sat_test/LinExpr_inv1.sl:29.38: A non-linear fact was asserted to arithmetic in a linear logic.
+The fact in question: (div BOUND_VARIABLE_370 BOUND_VARIABLE_371)
+")
+(error "Parse Error: ./full_grammar/sat_test/inv_gen_ex23.sl:29.38: A non-linear fact was asserted to arithmetic in a linear logic.
+The fact in question: (div BOUND_VARIABLE_429 BOUND_VARIABLE_430)
+")
+(error "Parse Error: ./full_grammar/sat_test/inv_gen_sum3.sl:29.38: A non-linear fact was asserted to arithmetic in a linear logic.
+The fact in question: (div BOUND_VARIABLE_430 BOUND_VARIABLE_431)
+")
+(error "Parse Error: ./full_grammar/sat_test/inv_gen_trex2.sl:29.38: A non-linear fact was asserted to arithmetic in a linear logic.
+The fact in question: (div BOUND_VARIABLE_427 BOUND_VARIABLE_428)
+")
+(error "Parse Error: ./full_grammar/sat_test/inv_gen_term3.sl:29.38: A non-linear fact was asserted to arithmetic in a linear logic.
+The fact in question: (div BOUND_VARIABLE_428 BOUND_VARIABLE_429)
+")
+(error "Parse Error: ./full_grammar/sat_test/inv_gen_n_c11.sl:29.38: A non-linear fact was asserted to arithmetic in a linear logic.
+The fact in question: (div BOUND_VARIABLE_428 BOUND_VARIABLE_429)
+")
+(error "Parse Error: ./full_grammar/sat_test/inv_gen_sum1.sl:29.38: A non-linear fact was asserted to arithmetic in a linear logic.
+The fact in question: (div BOUND_VARIABLE_429 BOUND_VARIABLE_430)
+")
+(error "Parse Error: ./full_grammar/sat_test/max12.sl:29.38: A non-linear fact was asserted to arithmetic in a linear logic.
+The fact in question: (div BOUND_VARIABLE_380 BOUND_VARIABLE_381)
+")
+(error "Parse Error: ./full_grammar/sat_test/inv_gen_tcs.sl:29.38: A non-linear fact was asserted to arithmetic in a linear logic.
+The fact in question: (div BOUND_VARIABLE_430 BOUND_VARIABLE_431)
+")
+(error "Parse Error: ./full_grammar/sat_test/inv_gen_trex1.sl:29.38: A non-linear fact was asserted to arithmetic in a linear logic.
+The fact in question: (div BOUND_VARIABLE_431 BOUND_VARIABLE_432)
+")
+(error "Parse Error: ./full_grammar/sat_test/inv_gen_fig8.sl:29.38: A non-linear fact was asserted to arithmetic in a linear logic.
+The fact in question: (div BOUND_VARIABLE_427 BOUND_VARIABLE_428)
+")
+(error "Parse Error: ./full_grammar/sat_test/inv_gen_cgr1.sl:29.38: A non-linear fact was asserted to arithmetic in a linear logic.
+The fact in question: (div BOUND_VARIABLE_428 BOUND_VARIABLE_429)
+")
+(error "Parse Error: ./full_grammar/sat_test/inv_gen_fig6.sl:29.38: A non-linear fact was asserted to arithmetic in a linear logic.
+The fact in question: (div BOUND_VARIABLE_427 BOUND_VARIABLE_428)
+")
+(error "Parse Error: ./full_grammar/sat_test/inv_gen_fig1.sl:29.38: A non-linear fact was asserted to arithmetic in a linear logic.
+The fact in question: (div BOUND_VARIABLE_428 BOUND_VARIABLE_429)
+")
+(error "Parse Error: ./full_grammar/sat_test/inv_gen_sum4.sl:29.38: A non-linear fact was asserted to arithmetic in a linear logic.
+The fact in question: (div BOUND_VARIABLE_428 BOUND_VARIABLE_429)
+")
+(error "Parse Error: ./full_grammar/sat_test/inv_gen_ex14.sl:29.38: A non-linear fact was asserted to arithmetic in a linear logic.
+The fact in question: (div BOUND_VARIABLE_428 BOUND_VARIABLE_429)
+")
+(error "Parse Error: ./full_grammar/sat_test/inv_gen_array.sl:29.38: A non-linear fact was asserted to arithmetic in a linear logic.
+The fact in question: (div BOUND_VARIABLE_429 BOUND_VARIABLE_430)
+")
+(error "Parse Error: ./full_grammar/sat_test/inv_gen_finf1.sl:29.38: A non-linear fact was asserted to arithmetic in a linear logic.
+The fact in question: (div BOUND_VARIABLE_430 BOUND_VARIABLE_431)
+")
+(error "Parse Error: ./full_grammar/sat_test/inv_gen_finf2.sl:29.38: A non-linear fact was asserted to arithmetic in a linear logic.
+The fact in question: (div BOUND_VARIABLE_430 BOUND_VARIABLE_431)
+")
+(error "Parse Error: ./full_grammar/sat_test/inv_gen_ex7.sl:29.38: A non-linear fact was asserted to arithmetic in a linear logic.
+The fact in question: (div BOUND_VARIABLE_429 BOUND_VARIABLE_430)
+")
+(error "Parse Error: ./full_grammar/sat_test/LinExpr_inv1.sl:29.38: A non-linear fact was asserted to arithmetic in a linear logic.
+The fact in question: (div BOUND_VARIABLE_370 BOUND_VARIABLE_371)
+")
+(error "Parse Error: ./full_grammar/sat_test/inv_gen_ex23.sl:29.38: A non-linear fact was asserted to arithmetic in a linear logic.
+The fact in question: (div BOUND_VARIABLE_429 BOUND_VARIABLE_430)
+")
+(error "Parse Error: ./full_grammar/sat_test/inv_gen_sum3.sl:29.38: A non-linear fact was asserted to arithmetic in a linear logic.
+The fact in question: (div BOUND_VARIABLE_430 BOUND_VARIABLE_431)
+")
+(error "Parse Error: ./full_grammar/sat_test/inv_gen_trex2.sl:29.38: A non-linear fact was asserted to arithmetic in a linear logic.
+The fact in question: (div BOUND_VARIABLE_427 BOUND_VARIABLE_428)
+")
+(error "Parse Error: ./full_grammar/sat_test/inv_gen_term3.sl:29.38: A non-linear fact was asserted to arithmetic in a linear logic.
+The fact in question: (div BOUND_VARIABLE_428 BOUND_VARIABLE_429)
+")
+(error "Parse Error: ./full_grammar/sat_test/inv_gen_n_c11.sl:29.38: A non-linear fact was asserted to arithmetic in a linear logic.
+The fact in question: (div BOUND_VARIABLE_428 BOUND_VARIABLE_429)
+")
+(error "Parse Error: ./full_grammar/sat_test/inv_gen_sum1.sl:29.38: A non-linear fact was asserted to arithmetic in a linear logic.
+The fact in question: (div BOUND_VARIABLE_429 BOUND_VARIABLE_430)
+")
+(error "Parse Error: ./full_grammar/sat_test/max12.sl:29.38: A non-linear fact was asserted to arithmetic in a linear logic.
+The fact in question: (div BOUND_VARIABLE_380 BOUND_VARIABLE_381)
+")
+(error "Parse Error: ./full_grammar/sat_test/inv_gen_tcs.sl:29.38: A non-linear fact was asserted to arithmetic in a linear logic.
+The fact in question: (div BOUND_VARIABLE_430 BOUND_VARIABLE_431)
+")
+(error "Parse Error: ./full_grammar/sat_test/inv_gen_trex1.sl:29.38: A non-linear fact was asserted to arithmetic in a linear logic.
+The fact in question: (div BOUND_VARIABLE_431 BOUND_VARIABLE_432)
+")
+(error "Parse Error: ./full_grammar/sat_test/inv_gen_fig8.sl:29.38: A non-linear fact was asserted to arithmetic in a linear logic.
+The fact in question: (div BOUND_VARIABLE_427 BOUND_VARIABLE_428)
+")
+(error "Parse Error: ./full_grammar/sat_test/inv_gen_cgr1.sl:29.38: A non-linear fact was asserted to arithmetic in a linear logic.
+The fact in question: (div BOUND_VARIABLE_428 BOUND_VARIABLE_429)
+")
+(error "Parse Error: ./full_grammar/sat_test/inv_gen_fig6.sl:29.38: A non-linear fact was asserted to arithmetic in a linear logic.
+The fact in question: (div BOUND_VARIABLE_427 BOUND_VARIABLE_428)
+")
+(error "Parse Error: ./full_grammar/sat_test/inv_gen_fig1.sl:29.38: A non-linear fact was asserted to arithmetic in a linear logic.
+The fact in question: (div BOUND_VARIABLE_428 BOUND_VARIABLE_429)
+")
+(error "Parse Error: ./full_grammar/sat_test/inv_gen_sum4.sl:29.38: A non-linear fact was asserted to arithmetic in a linear logic.
+The fact in question: (div BOUND_VARIABLE_428 BOUND_VARIABLE_429)
+")
+(error "Parse Error: ./full_grammar/sat_test/inv_gen_ex14.sl:29.38: A non-linear fact was asserted to arithmetic in a linear logic.
+The fact in question: (div BOUND_VARIABLE_428 BOUND_VARIABLE_429)
+")
+(error "Parse Error: ./full_grammar/sat_test/inv_gen_array.sl:29.38: A non-linear fact was asserted to arithmetic in a linear logic.
+The fact in question: (div BOUND_VARIABLE_429 BOUND_VARIABLE_430)
+")
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_finf1.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr1 Int) (vr2 Int) (vr3 Int) ) Bool (= vr0 (+ vr1 vr0)))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_finf2.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr1 Int) (vr2 Int) (vr3 Int) ) Bool (= vr0 (+ vr1 vr0)))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_ex7.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr2 Int) (vr3 Int) ) Bool (and (>= (+ vr0 vr0) vr0) (>= vr3 vr2)))
+)
+Found the following solution to file: ./full_grammar/sat_test/LinExpr_inv1.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr3 Int) ) Int (+ vr3 (+ vr0 (ite (>= vr0 vr3) vr0 vr3))))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_sum3.sl
+(
+(define-fun fn8 ( (vr1 Int) (vr0 Int) (vr2 Int) (vr3 Int) ) Bool (= vr1 vr3))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_trex2.sl
+(
+(define-fun fn8 ( (vr1 Int) ) Bool (and (<= vr1 vr1) (<= vr1 vr1)))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_term3.sl
+(
+(define-fun fn8 ( (vr1 Int) (vr2 Int) ) Bool (<= vr1 vr1))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_n_c11.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr1 Int) ) Bool (= (mod vr1 5) vr1))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_tcs.sl
+(
+(define-fun fn8 ( (vr1 Int) (vr2 Int) (vr3 Int) (vr4 Int) ) Bool (or (not (= vr3 vr4)) (= vr2 vr1)))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_trex1.sl
+(
+(define-fun fn8 ( (vr1 Int) (vr2 Int) (vr3 Int) (vr4 Int) (vr5 Int) ) Bool (> (+ vr1 vr4) vr1))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_fig8.sl
+(
+(define-fun fn8 ( (vr5 Int) ) Bool (= (- vr5) vr5))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_cgr1.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr1 Int) ) Bool (>= (+ vr1 (+ (mod vr0 4) vr1)) vr0))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_fig6.sl
+(
+(define-fun fn8 ( (vr0 Int) ) Bool (<= vr0 vr0))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_fig1.sl
+(
+(define-fun fn0 ( (vr0 Int) (vr1 Int) ) Bool (> (ite (>= vr0 vr1) (- vr0) vr1) vr0))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_ex14.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr1 Int) ) Bool (< (- vr0) vr0))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_array.sl
+(
+(define-fun fn8 ( (vr3 Int) (vr1 Int) (vr4 Int) ) Bool (or (not (not (= (- vr1) vr1))) (<= vr3 vr4)))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_finf1.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr1 Int) (vr2 Int) (vr3 Int) ) Bool (= vr0 (+ vr1 vr0)))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_finf2.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr1 Int) (vr2 Int) (vr3 Int) ) Bool (= vr0 (+ vr1 vr0)))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_ex7.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr2 Int) (vr3 Int) ) Bool (and (>= (+ vr0 vr0) vr0) (>= vr3 vr2)))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_finf1.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr1 Int) (vr2 Int) (vr3 Int) ) Bool (= vr0 (+ vr1 vr0)))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_finf2.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr1 Int) (vr2 Int) (vr3 Int) ) Bool (= vr0 (+ vr1 vr0)))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_ex7.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr2 Int) (vr3 Int) ) Bool (and (>= (+ vr0 vr0) vr0) (>= vr3 vr2)))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_sum3.sl
+(
+(define-fun fn8 ( (vr1 Int) (vr0 Int) (vr2 Int) (vr3 Int) ) Bool (= vr1 vr3))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_trex2.sl
+(
+(define-fun fn8 ( (vr1 Int) ) Bool (and (<= vr1 vr1) (<= vr1 vr1)))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_term3.sl
+(
+(define-fun fn8 ( (vr1 Int) (vr2 Int) ) Bool (<= vr1 vr1))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_n_c11.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr1 Int) ) Bool (= (mod vr1 5) vr1))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_trex1.sl
+(
+(define-fun fn8 ( (vr1 Int) (vr2 Int) (vr3 Int) (vr4 Int) (vr5 Int) ) Bool (> (+ vr1 vr4) vr1))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_fig8.sl
+(
+(define-fun fn8 ( (vr5 Int) ) Bool (= (- vr5) vr5))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_cgr1.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr1 Int) ) Bool (>= (+ vr1 (+ (mod vr0 4) vr1)) vr0))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_fig6.sl
+(
+(define-fun fn8 ( (vr0 Int) ) Bool (<= vr0 vr0))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_ex14.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr1 Int) ) Bool (< (- vr0) vr0))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_array.sl
+(
+(define-fun fn8 ( (vr3 Int) (vr1 Int) (vr4 Int) ) Bool (or (not (not (= (- vr1) vr1))) (<= vr3 vr4)))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_finf1.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr1 Int) (vr2 Int) (vr3 Int) ) Bool (= (+ vr1 vr3) vr3))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_finf2.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr1 Int) (vr2 Int) (vr3 Int) ) Bool (= (+ vr1 vr3) vr3))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_ex7.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr2 Int) (vr3 Int) ) Bool (and (>= (+ vr0 vr0) vr0) (<= vr2 vr3)))
+)
+Found the following solution to file: ./full_grammar/sat_test/LinExpr_inv1.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr3 Int) ) Int (+ (+ vr3 (ite (> (ite (>= vr0 vr3) vr0 vr3) vr3) vr0 vr3)) vr0))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_sum3.sl
+(
+(define-fun fn8 ( (vr1 Int) (vr0 Int) (vr2 Int) (vr3 Int) ) Bool (= vr3 vr1))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_trex2.sl
+(
+(define-fun fn8 ( (vr1 Int) ) Bool (and (<= vr1 vr1) (<= vr1 vr1)))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_term3.sl
+(
+(define-fun fn8 ( (vr1 Int) (vr2 Int) ) Bool (<= vr1 vr1))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_n_c11.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr1 Int) ) Bool (= (mod vr1 5) vr1))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_trex1.sl
+(
+(define-fun fn8 ( (vr1 Int) (vr2 Int) (vr3 Int) (vr4 Int) (vr5 Int) ) Bool (> (+ vr4 vr1) vr1))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_fig8.sl
+(
+(define-fun fn8 ( (vr5 Int) ) Bool (= (- vr5) vr5))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_cgr1.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr1 Int) ) Bool (>= (+ vr1 2) vr0))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_fig6.sl
+(
+(define-fun fn8 ( (vr0 Int) ) Bool (>= vr0 vr0))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_ex14.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr1 Int) ) Bool (<= 1 vr0))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_array.sl
+(
+(define-fun fn8 ( (vr3 Int) (vr1 Int) (vr4 Int) ) Bool (or (= vr4 vr3) (not (and (> vr1 (- vr1)) (<= vr4 vr3)))))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_finf1.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr1 Int) (vr2 Int) (vr3 Int) ) Bool (= (+ vr1 vr3) vr3))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_finf2.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr1 Int) (vr2 Int) (vr3 Int) ) Bool (= (+ vr1 vr3) vr3))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_ex7.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr2 Int) (vr3 Int) ) Bool (and (>= (+ vr0 vr0) vr0) (<= vr2 vr3)))
+)
+Found the following solution to file: ./full_grammar/sat_test/LinExpr_inv1.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr3 Int) ) Int (+ (+ vr3 (ite (> (ite (>= vr0 vr3) vr0 vr3) vr3) vr0 vr3)) vr0))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_sum3.sl
+(
+(define-fun fn8 ( (vr1 Int) (vr0 Int) (vr2 Int) (vr3 Int) ) Bool (= vr3 vr1))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_trex2.sl
+(
+(define-fun fn8 ( (vr1 Int) ) Bool (and (<= vr1 vr1) (<= vr1 vr1)))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_term3.sl
+(
+(define-fun fn8 ( (vr1 Int) (vr2 Int) ) Bool (<= vr1 vr1))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_n_c11.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr1 Int) ) Bool (= (mod vr1 5) vr1))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_trex1.sl
+(
+(define-fun fn8 ( (vr1 Int) (vr2 Int) (vr3 Int) (vr4 Int) (vr5 Int) ) Bool (> (+ vr4 vr1) vr1))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_fig8.sl
+(
+(define-fun fn8 ( (vr5 Int) ) Bool (= (- vr5) vr5))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_cgr1.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr1 Int) ) Bool (>= (+ vr1 2) vr0))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_fig6.sl
+(
+(define-fun fn8 ( (vr0 Int) ) Bool (>= vr0 vr0))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_fig1.sl
+(
+(define-fun fn0 ( (vr0 Int) (vr1 Int) ) Bool (> vr1 (ite (>= (ite (> vr0 vr0) vr1 vr0) vr1) (+ vr0 vr1) vr0)))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_ex14.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr1 Int) ) Bool (<= 1 vr0))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_array.sl
+(
+(define-fun fn8 ( (vr3 Int) (vr1 Int) (vr4 Int) ) Bool (or (= vr4 vr3) (not (and (> vr1 (- vr1)) (<= vr4 vr3)))))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_finf1.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr1 Int) (vr2 Int) (vr3 Int) ) Bool (= (+ vr1 vr3) vr3))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_finf2.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr1 Int) (vr2 Int) (vr3 Int) ) Bool (= (+ vr1 vr3) vr3))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_ex7.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr2 Int) (vr3 Int) ) Bool (and (>= (+ vr0 vr0) vr0) (<= vr2 vr3)))
+)
+Found the following solution to file: ./full_grammar/sat_test/LinExpr_inv1.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr3 Int) ) Int (+ (+ vr3 (ite (> (ite (>= vr0 vr3) vr0 vr3) vr3) vr0 vr3)) vr0))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_sum3.sl
+(
+(define-fun fn8 ( (vr1 Int) (vr0 Int) (vr2 Int) (vr3 Int) ) Bool (= vr3 vr1))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_trex2.sl
+(
+(define-fun fn8 ( (vr1 Int) ) Bool (and (<= vr1 vr1) (<= vr1 vr1)))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_term3.sl
+(
+(define-fun fn8 ( (vr1 Int) (vr2 Int) ) Bool (<= vr1 vr1))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_n_c11.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr1 Int) ) Bool (= (mod vr1 5) vr1))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_trex1.sl
+(
+(define-fun fn8 ( (vr1 Int) (vr2 Int) (vr3 Int) (vr4 Int) (vr5 Int) ) Bool (> (+ vr4 vr1) vr1))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_fig8.sl
+(
+(define-fun fn8 ( (vr5 Int) ) Bool (= (- vr5) vr5))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_cgr1.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr1 Int) ) Bool (>= (+ vr1 2) vr0))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_fig6.sl
+(
+(define-fun fn8 ( (vr0 Int) ) Bool (>= vr0 vr0))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_fig1.sl
+(
+(define-fun fn0 ( (vr0 Int) (vr1 Int) ) Bool (> vr1 (ite (>= (ite (> vr0 vr0) vr1 vr0) vr1) (+ vr0 vr1) vr0)))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_ex14.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr1 Int) ) Bool (<= 1 vr0))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_array.sl
+(
+(define-fun fn8 ( (vr3 Int) (vr1 Int) (vr4 Int) ) Bool (or (= vr4 vr3) (not (and (> vr1 (- vr1)) (<= vr4 vr3)))))
+)
+(error "Parse Error: ./full_grammar/sat_test/inv_gen_finf1.sl:29.38: A non-linear fact was asserted to arithmetic in a linear logic.
+The fact in question: (div BOUND_VARIABLE_430 BOUND_VARIABLE_431)
+")
+(error "Parse Error: ./full_grammar/sat_test/inv_gen_finf2.sl:29.38: A non-linear fact was asserted to arithmetic in a linear logic.
+The fact in question: (div BOUND_VARIABLE_430 BOUND_VARIABLE_431)
+")
+(error "Parse Error: ./full_grammar/sat_test/inv_gen_ex7.sl:29.38: A non-linear fact was asserted to arithmetic in a linear logic.
+The fact in question: (div BOUND_VARIABLE_429 BOUND_VARIABLE_430)
+")
+(error "Parse Error: ./full_grammar/sat_test/LinExpr_inv1.sl:29.38: A non-linear fact was asserted to arithmetic in a linear logic.
+The fact in question: (div BOUND_VARIABLE_370 BOUND_VARIABLE_371)
+")
+(error "Parse Error: ./full_grammar/sat_test/inv_gen_ex23.sl:29.38: A non-linear fact was asserted to arithmetic in a linear logic.
+The fact in question: (div BOUND_VARIABLE_429 BOUND_VARIABLE_430)
+")
+(error "Parse Error: ./full_grammar/sat_test/inv_gen_sum3.sl:29.38: A non-linear fact was asserted to arithmetic in a linear logic.
+The fact in question: (div BOUND_VARIABLE_430 BOUND_VARIABLE_431)
+")
+(error "Parse Error: ./full_grammar/sat_test/inv_gen_trex2.sl:29.38: A non-linear fact was asserted to arithmetic in a linear logic.
+The fact in question: (div BOUND_VARIABLE_427 BOUND_VARIABLE_428)
+")
+(error "Parse Error: ./full_grammar/sat_test/inv_gen_term3.sl:29.38: A non-linear fact was asserted to arithmetic in a linear logic.
+The fact in question: (div BOUND_VARIABLE_428 BOUND_VARIABLE_429)
+")
+(error "Parse Error: ./full_grammar/sat_test/inv_gen_n_c11.sl:29.38: A non-linear fact was asserted to arithmetic in a linear logic.
+The fact in question: (div BOUND_VARIABLE_428 BOUND_VARIABLE_429)
+")
+(error "Parse Error: ./full_grammar/sat_test/inv_gen_sum1.sl:29.38: A non-linear fact was asserted to arithmetic in a linear logic.
+The fact in question: (div BOUND_VARIABLE_429 BOUND_VARIABLE_430)
+")
+(error "Parse Error: ./full_grammar/sat_test/max12.sl:29.38: A non-linear fact was asserted to arithmetic in a linear logic.
+The fact in question: (div BOUND_VARIABLE_380 BOUND_VARIABLE_381)
+")
+(error "Parse Error: ./full_grammar/sat_test/inv_gen_tcs.sl:29.38: A non-linear fact was asserted to arithmetic in a linear logic.
+The fact in question: (div BOUND_VARIABLE_430 BOUND_VARIABLE_431)
+")
+(error "Parse Error: ./full_grammar/sat_test/inv_gen_trex1.sl:29.38: A non-linear fact was asserted to arithmetic in a linear logic.
+The fact in question: (div BOUND_VARIABLE_431 BOUND_VARIABLE_432)
+")
+(error "Parse Error: ./full_grammar/sat_test/inv_gen_fig8.sl:29.38: A non-linear fact was asserted to arithmetic in a linear logic.
+The fact in question: (div BOUND_VARIABLE_427 BOUND_VARIABLE_428)
+")
+(error "Parse Error: ./full_grammar/sat_test/inv_gen_cgr1.sl:29.38: A non-linear fact was asserted to arithmetic in a linear logic.
+The fact in question: (div BOUND_VARIABLE_428 BOUND_VARIABLE_429)
+")
+(error "Parse Error: ./full_grammar/sat_test/inv_gen_fig6.sl:29.38: A non-linear fact was asserted to arithmetic in a linear logic.
+The fact in question: (div BOUND_VARIABLE_427 BOUND_VARIABLE_428)
+")
+(error "Parse Error: ./full_grammar/sat_test/inv_gen_fig1.sl:29.38: A non-linear fact was asserted to arithmetic in a linear logic.
+The fact in question: (div BOUND_VARIABLE_428 BOUND_VARIABLE_429)
+")
+(error "Parse Error: ./full_grammar/sat_test/inv_gen_sum4.sl:29.38: A non-linear fact was asserted to arithmetic in a linear logic.
+The fact in question: (div BOUND_VARIABLE_428 BOUND_VARIABLE_429)
+")
+(error "Parse Error: ./full_grammar/sat_test/inv_gen_ex14.sl:29.38: A non-linear fact was asserted to arithmetic in a linear logic.
+The fact in question: (div BOUND_VARIABLE_428 BOUND_VARIABLE_429)
+")
+(error "Parse Error: ./full_grammar/sat_test/inv_gen_array.sl:29.38: A non-linear fact was asserted to arithmetic in a linear logic.
+The fact in question: (div BOUND_VARIABLE_429 BOUND_VARIABLE_430)
+")
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_finf1.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr1 Int) (vr2 Int) (vr3 Int) ) Bool (= vr2 (+ vr2 vr1)))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_finf2.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr1 Int) (vr2 Int) (vr3 Int) ) Bool (= (- vr1) vr1))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_sum3.sl
+(
+(define-fun fn8 ( (vr1 Int) (vr0 Int) (vr2 Int) (vr3 Int) ) Bool (= vr1 vr3))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_trex2.sl
+(
+(define-fun fn8 ( (vr1 Int) ) Bool true)
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_term3.sl
+(
+(define-fun fn8 ( (vr1 Int) (vr2 Int) ) Bool true)
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_n_c11.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr1 Int) ) Bool (= (div vr1 5) (- (mod (div vr1 8) 1))))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_trex1.sl
+(
+(define-fun fn8 ( (vr1 Int) (vr2 Int) (vr3 Int) (vr4 Int) (vr5 Int) ) Bool (not (<= vr4 (* (* 9 4) 0))))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_fig8.sl
+(
+(define-fun fn8 ( (vr5 Int) ) Bool (= vr5 (div (abs vr5) 9)))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_cgr1.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr1 Int) ) Bool (< (- vr0 vr1) (abs 4)))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_fig6.sl
+(
+(define-fun fn8 ( (vr0 Int) ) Bool true)
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_fig1.sl
+(
+(define-fun fn0 ( (vr0 Int) (vr1 Int) ) Bool (or (> (mod (abs (mod (* (* (- (mod vr0 0)) 7) 0) 8)) 6) (div (div (* vr0 4) 9) 5)) (< vr0 vr1)))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_ex14.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr1 Int) ) Bool (> vr0 (- vr0)))
+)

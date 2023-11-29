@@ -1,0 +1,233 @@
+Path './full_grammar/output' created successfully.
+sat_test starting...
+Files to process:
+['inv_gen_tcs',
+ 'max12',
+ 'inv_gen_sum3',
+ 'inv_gen_n_c11',
+ 'inv_gen_cgr1',
+ 'inv_gen_array',
+ 'inv_gen_finf1',
+ 'inv_gen_finf2']
+
+Processing inv_gen_tcs
+./full_grammar/sat_test/inv_gen_tcs.sl
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_tcs.sl
+(
+(define-fun fn8 ( (vr1 Int) (vr2 Int) (vr3 Int) (vr4 Int) ) Bool (or (not (= vr3 vr4)) (= vr2 vr1)))
+)
+
+Solved: 1/1
+Total time taken: 32.2977032661438
+Average time taken: 32.2977032661438
+
+Processing max12
+Timeout occurred after 180 seconds. Moving on to the next file.
+Solved: 1/2
+
+Processing inv_gen_sum3
+./full_grammar/sat_test/inv_gen_sum3.sl
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_sum3.sl
+(
+(define-fun fn8 ( (vr1 Int) (vr0 Int) (vr2 Int) (vr3 Int) ) Bool (= vr1 vr3))
+)
+
+Solved: 2/3
+Total time taken: 32.353545904159546
+Average time taken: 16.176772952079773
+
+Processing inv_gen_n_c11
+./full_grammar/sat_test/inv_gen_n_c11.sl
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_n_c11.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr1 Int) ) Bool (= (mod vr1 5) vr1))
+)
+
+Solved: 3/4
+Total time taken: 32.585479497909546
+Average time taken: 10.861826499303183
+
+Processing inv_gen_cgr1
+./full_grammar/sat_test/inv_gen_cgr1.sl
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_cgr1.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr1 Int) ) Bool (>= (+ vr1 (+ (mod vr0 4) vr1)) vr0))
+)
+
+Solved: 4/5
+Total time taken: 37.84935641288757
+Average time taken: 9.462339103221893
+
+Processing inv_gen_array
+./full_grammar/sat_test/inv_gen_array.sl
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_array.sl
+(
+(define-fun fn8 ( (vr3 Int) (vr1 Int) (vr4 Int) ) Bool (= vr1 (ite (> vr3 vr4) (- vr1) vr1)))
+)
+
+Solved: 5/6
+Total time taken: 40.93445944786072
+Average time taken: 8.186891889572143
+
+Processing inv_gen_finf1
+./full_grammar/sat_test/inv_gen_finf1.sl
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_finf1.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr1 Int) (vr2 Int) (vr3 Int) ) Bool (and (= vr1 vr1) (= (+ vr1 vr1) vr1)))
+)
+
+Solved: 6/7
+Total time taken: 41.06313753128052
+Average time taken: 6.84385625521342
+
+Processing inv_gen_finf2
+./full_grammar/sat_test/inv_gen_finf2.sl
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_finf2.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr1 Int) (vr2 Int) (vr3 Int) ) Bool (= vr0 (+ vr0 vr1)))
+)
+
+Solved: 7/8
+Total time taken: 41.207608461380005
+Average time taken: 5.886801208768572
+Total files processed: 8
+Total occurrences of "UNKNOWN" in command output: 1
+sat_test Done!
+=============================================================
+unsat_test starting...
+Files to process:
+['s0_d1',
+ 'qm_max5',
+ 'qm_neg_5',
+ 'qm_area_sel_2',
+ 'max12',
+ 'max3',
+ 'max2',
+ 't15',
+ 'qm_neg_eq_1',
+ 'max9',
+ 't20',
+ 's2',
+ 's1',
+ 'qm_neg_1',
+ 'qm_max4',
+ 's0_d2',
+ 'max13',
+ 'constant',
+ 'inv_gen_term2',
+ 'max10',
+ 't17']
+
+Processing s0_d1
+Timeout occurred after 180 seconds. Moving on to the next file.
+
+Processing qm_max5
+Timeout occurred after 180 seconds. Moving on to the next file.
+
+Processing qm_neg_5
+Timeout occurred after 180 seconds. Moving on to the next file.
+
+Processing qm_area_sel_2
+Timeout occurred after 180 seconds. Moving on to the next file.
+
+Processing max12
+./full_grammar/unsat_test/max12.sl
+terminate called after throwing an instance of 'std::exception'
+  what():  std::exception
+Aborted (core dumped)
+
+Unknown time taken 0.28766560554504395
+No solved files yet.
+
+Processing max3
+./full_grammar/unsat_test/max3.sl
+Found the following solution to file: ./full_grammar/unsat_test/max3.sl
+(
+(define-fun fn0 ( (vr0 Int) (vr1 Int) (vr2 Int) ) Int (ite (>= vr2 vr1) (ite (>= vr2 vr0) vr2 vr0) (ite (>= vr1 vr0) vr1 vr0)))
+)
+
+Solved: 1/2
+Total time taken: 14.387785196304321
+Average time taken: 14.387785196304321
+
+Processing max2
+./full_grammar/unsat_test/max2.sl
+Found the following solution to file: ./full_grammar/unsat_test/max2.sl
+(
+(define-fun fn0 ( (vr0 Int) (vr1 Int) ) Int (ite (>= vr0 (ite (>= vr1 vr1) (ite (>= vr1 vr1) vr1 vr1) vr0)) vr0 vr1))
+)
+
+Solved: 2/3
+Total time taken: 14.491672277450562
+Average time taken: 7.245836138725281
+
+Processing t15
+./full_grammar/unsat_test/t15.sl
+Found the following solution to file: ./full_grammar/unsat_test/t15.sl
+(
+(define-fun fn0 ( (NOACK Int) (this.acknowledgeId Int) (enabled Bool) ) Bool (and (= (ite true NOACK NOACK) NOACK) (= NOACK NOACK)))
+)
+
+Solved: 3/4
+Total time taken: 14.559672117233276
+Average time taken: 4.853224039077759
+
+Processing qm_neg_eq_1
+Timeout occurred after 180 seconds. Moving on to the next file.
+
+Processing max9
+Timeout occurred after 180 seconds. Moving on to the next file.
+
+Processing t20
+./full_grammar/unsat_test/t20.sl
+Found the following solution to file: ./full_grammar/unsat_test/t20.sl
+(
+(define-fun fn0 ( (next Int) (pos Int) (MC_741360 Bool) ) Bool (>= next next))
+)
+
+Solved: 4/5
+Total time taken: 14.729093551635742
+Average time taken: 3.6822733879089355
+
+Processing s2
+Timeout occurred after 180 seconds. Moving on to the next file.
+
+Processing s1
+Timeout occurred after 180 seconds. Moving on to the next file.
+
+Processing qm_neg_1
+Timeout occurred after 180 seconds. Moving on to the next file.
+
+Processing qm_max4
+Timeout occurred after 180 seconds. Moving on to the next file.
+
+Processing s0_d2
+Timeout occurred after 180 seconds. Moving on to the next file.
+
+Processing max13
+Timeout occurred after 180 seconds. Moving on to the next file.
+
+Processing constant
+Timeout occurred after 180 seconds. Moving on to the next file.
+
+Processing inv_gen_term2
+Timeout occurred after 180 seconds. Moving on to the next file.
+
+Processing max10
+Timeout occurred after 180 seconds. Moving on to the next file.
+
+Processing t17
+./full_grammar/unsat_test/t17.sl
+Found the following solution to file: ./full_grammar/unsat_test/t17.sl
+(
+(define-fun fn0 ( (j Int) (MC_741360 Int) ) Bool (= (ite true MC_741360 MC_741360) MC_741360))
+)
+
+Solved: 5/6
+Total time taken: 14.95224905014038
+Average time taken: 2.990449810028076
+Total files processed: 6
+Total occurrences of "UNKNOWN" in command output: 16
+unsat_test Done!
+=============================================================
+

@@ -1,0 +1,7 @@
+(and StartBool StartBool): 2
+(= Start Start): 6
+NOACK: 2
+enabled: 2
+true: 4
+false: 2
+(ite StartBool Start Start): 1

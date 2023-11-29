@@ -1,0 +1,207 @@
+sat_test starting...
+Files to process:
+['inv_gen_finf1',
+ 'inv_gen_finf2',
+ 'inv_gen_ex7',
+ 'LinExpr_inv1',
+ 'inv_gen_ex23',
+ 'inv_gen_sum3',
+ 'inv_gen_trex2',
+ 'inv_gen_term3',
+ 'inv_gen_n_c11',
+ 'inv_gen_sum1',
+ 'max12',
+ 'inv_gen_tcs',
+ 'inv_gen_trex1',
+ 'inv_gen_fig8',
+ 'inv_gen_cgr1',
+ 'inv_gen_fig6',
+ 'inv_gen_fig1',
+ 'inv_gen_sum4',
+ 'inv_gen_ex14',
+ 'inv_gen_array']
+
+Processing inv_gen_finf1
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_finf1.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr1 Int) (vr2 Int) (vr3 Int) ) Bool (= (+ vr1 vr3) vr3))
+)
+
+Solved: 1/1
+Total time taken: 0.1594235897064209
+Average time taken: 0.1594235897064209
+
+Processing inv_gen_finf2
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_finf2.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr1 Int) (vr2 Int) (vr3 Int) ) Bool (= (+ vr1 vr3) vr3))
+)
+
+Solved: 2/2
+Total time taken: 0.26466870307922363
+Average time taken: 0.13233435153961182
+
+Processing inv_gen_ex7
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_ex7.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr2 Int) (vr3 Int) ) Bool (and (>= (+ vr0 vr0) vr0) (<= vr2 vr3)))
+)
+
+Solved: 3/3
+Total time taken: 1.0261681079864502
+Average time taken: 0.3420560359954834
+
+Processing LinExpr_inv1
+Found the following solution to file: ./full_grammar/sat_test/LinExpr_inv1.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr3 Int) ) Int (+ (+ vr3 (ite (> (ite (>= vr0 vr3) vr0 vr3) vr3) vr0 vr3)) vr0))
+)
+
+Solved: 4/4
+Total time taken: 2.535269260406494
+Average time taken: 0.6338173151016235
+
+Processing inv_gen_ex23
+Timeout occurred after 90 seconds. Moving on to the next file.
+Solved: 4/5
+Total time taken: 2.535269260406494
+Average time taken: 0.6338173151016235
+
+Processing inv_gen_sum3
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_sum3.sl
+(
+(define-fun fn8 ( (vr1 Int) (vr0 Int) (vr2 Int) (vr3 Int) ) Bool (= vr3 vr1))
+)
+
+Solved: 5/6
+Total time taken: 2.7086827754974365
+Average time taken: 0.5417365550994873
+
+Processing inv_gen_trex2
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_trex2.sl
+(
+(define-fun fn8 ( (vr1 Int) ) Bool (and (<= vr1 vr1) (<= vr1 vr1)))
+)
+
+Solved: 6/7
+Total time taken: 2.782334804534912
+Average time taken: 0.46372246742248535
+
+Processing inv_gen_term3
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_term3.sl
+(
+(define-fun fn8 ( (vr1 Int) (vr2 Int) ) Bool (<= vr1 vr1))
+)
+
+Solved: 7/8
+Total time taken: 2.8597774505615234
+Average time taken: 0.40853963579450336
+
+Processing inv_gen_n_c11
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_n_c11.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr1 Int) ) Bool (= (mod vr1 5) vr1))
+)
+
+Solved: 8/9
+Total time taken: 3.529109239578247
+Average time taken: 0.4411386549472809
+
+Timeout occurred after 90 seconds. Moving on to the next file.
+Solved: 8/10
+Total time taken: 3.529109239578247
+Average time taken: 0.4411386549472809
+
+Processing max12
+Timeout occurred after 90 seconds. Moving on to the next file.
+Solved: 8/11
+Total time taken: 3.529109239578247
+Average time taken: 0.4411386549472809
+
+Processing inv_gen_tcs
+Timeout occurred after 90 seconds. Moving on to the next file.
+Solved: 8/12
+Total time taken: 3.529109239578247
+Average time taken: 0.4411386549472809
+
+Processing inv_gen_trex1
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_trex1.sl
+(
+(define-fun fn8 ( (vr1 Int) (vr2 Int) (vr3 Int) (vr4 Int) (vr5 Int) ) Bool (> (+ vr4 vr1) vr1))
+)
+
+Solved: 9/13
+Total time taken: 16.001736879348755
+Average time taken: 1.777970764372084
+
+Processing inv_gen_fig8
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_fig8.sl
+(
+(define-fun fn8 ( (vr5 Int) ) Bool (= (- vr5) vr5))
+)
+
+Solved: 10/14
+Total time taken: 16.114529132843018
+Average time taken: 1.6114529132843018
+
+Processing inv_gen_cgr1
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_cgr1.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr1 Int) ) Bool (>= (+ vr1 2) vr0))
+)
+
+Solved: 11/15
+Total time taken: 23.74228310585022
+Average time taken: 2.158389373259111
+
+Processing inv_gen_fig6
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_fig6.sl
+(
+(define-fun fn8 ( (vr0 Int) ) Bool (>= vr0 vr0))
+)
+
+Solved: 12/16
+Total time taken: 23.798968076705933
+Average time taken: 1.9832473397254944
+
+Processing inv_gen_fig1
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_fig1.sl
+(
+(define-fun fn0 ( (vr0 Int) (vr1 Int) ) Bool (> vr1 (ite (>= (ite (> vr0 vr0) vr1 vr0) vr1) (+ vr0 vr1) vr0)))
+)
+
+Solved: 13/17
+Total time taken: 109.09264278411865
+Average time taken: 8.391741752624512
+
+Processing inv_gen_ex14
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_ex14.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr1 Int) ) Bool (<= 1 vr0))
+)
+
+Solved: 14/18
+Total time taken: 111.66835975646973
+Average time taken: 7.976311411176409
+
+Processing inv_gen_sum4
+Timeout occurred after 90 seconds. Moving on to the next file.
+Solved: 14/19
+Total time taken: 111.66835975646973
+Average time taken: 7.976311411176409
+
+Processing inv_gen_array
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_array.sl
+(
+(define-fun fn8 ( (vr3 Int) (vr1 Int) (vr4 Int) ) Bool (or (= vr4 vr3) (not (and (> vr1 (- vr1)) (<= vr4 vr3)))))
+)
+
+Solved: 15/20
+Total time taken: 112.07747721672058
+Average time taken: 7.471831814448039
+Total files processed: 20
+Total unsolved benchmarks: 5
+Total solved benchmarks: 15
+sat_test Done!
+=============================================================
+

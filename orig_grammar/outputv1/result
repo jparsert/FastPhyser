@@ -1,0 +1,183 @@
+sat_test starting...
+Files to process:
+['inv_gen_tcs',
+ 'max12',
+ 'inv_gen_sum3',
+ 'inv_gen_n_c11',
+ 'inv_gen_cgr1',
+ 'inv_gen_array',
+ 'inv_gen_finf1',
+ 'inv_gen_finf2']
+
+Processing inv_gen_tcs
+Timeout occurred after 180 seconds. Moving on to the next file.
+
+Processing max12
+Timeout occurred after 180 seconds. Moving on to the next file.
+
+Processing inv_gen_sum3
+Timeout occurred after 180 seconds. Moving on to the next file.
+
+Processing inv_gen_n_c11
+Timeout occurred after 180 seconds. Moving on to the next file.
+
+Processing inv_gen_cgr1
+Timeout occurred after 180 seconds. Moving on to the next file.
+
+Processing inv_gen_array
+Timeout occurred after 180 seconds. Moving on to the next file.
+
+Processing inv_gen_finf1
+Timeout occurred after 180 seconds. Moving on to the next file.
+
+Processing inv_gen_finf2
+Timeout occurred after 180 seconds. Moving on to the next file.
+Total files processed: 0
+Total occurrences of "UNKNOWN" in command output: 8
+sat_test Done!
+=============================================================
+unsat_test starting...
+Files to process:
+['s0_d1',
+ 'qm_max5',
+ 'qm_neg_5',
+ 'qm_area_sel_2',
+ 'max12',
+ 'max3',
+ 'max2',
+ 't15',
+ 'qm_neg_eq_1',
+ 'max9',
+ 't20',
+ 's2',
+ 's1',
+ 'qm_neg_1',
+ 'qm_max4',
+ 's0_d2',
+ 'max13',
+ 'constant',
+ 'inv_gen_term2',
+ 'max10',
+ 't17']
+
+Processing s0_d1
+Timeout occurred after 180 seconds. Moving on to the next file.
+
+Processing qm_max5
+Timeout occurred after 180 seconds. Moving on to the next file.
+
+Processing qm_neg_5
+Timeout occurred after 180 seconds. Moving on to the next file.
+
+Processing qm_area_sel_2
+Timeout occurred after 180 seconds. Moving on to the next file.
+
+Processing max12
+Timeout occurred after 180 seconds. Moving on to the next file.
+
+Processing max3
+./orig_grammar/unsat_test/max3.sl
+Found the following solution to file: ./orig_grammar/unsat_test/max3.sl
+(
+(define-fun fn0 ( (vr0 Int) (vr1 Int) (vr2 Int) ) Int (ite (>= vr2 vr1) (ite (>= vr2 vr0) vr2 vr0) (ite (>= vr1 vr0) vr1 vr0)))
+)
+
+Solved: 1/1
+Total time taken: 30.971656799316406
+Average time taken: 30.971656799316406
+
+Processing max2
+./orig_grammar/unsat_test/max2.sl
+Found the following solution to file: ./orig_grammar/unsat_test/max2.sl
+(
+(define-fun fn0 ( (vr0 Int) (vr1 Int) ) Int (ite (>= vr0 (ite (>= vr1 vr1) (ite (>= vr1 vr1) vr1 vr1) vr0)) vr0 vr1))
+)
+
+Solved: 2/2
+Total time taken: 31.131454944610596
+Average time taken: 15.565727472305298
+
+Processing t15
+./orig_grammar/unsat_test/t15.sl
+terminate called after throwing an instance of 'Sy2CPP::TypingError'
+Aborted (core dumped)
+
+Unknown time taken 0.18037772178649902
+Solved: 2/3
+Total time taken: 31.131454944610596
+Average time taken: 15.565727472305298
+
+Processing qm_neg_eq_1
+Timeout occurred after 180 seconds. Moving on to the next file.
+
+Processing max9
+Timeout occurred after 180 seconds. Moving on to the next file.
+
+Processing t20
+Timeout occurred after 180 seconds. Moving on to the next file.
+
+Processing s2
+./orig_grammar/unsat_test/s2.sl
+Found the following solution to file: ./orig_grammar/unsat_test/s2.sl
+(
+(define-fun fn0 ( (vr0 Int) (vr1 Int) ) Int (- 1))
+)
+
+Solved: 3/4
+Total time taken: 31.383378267288208
+Average time taken: 10.46112608909607
+
+Processing s1
+Timeout occurred after 180 seconds. Moving on to the next file.
+
+Processing qm_neg_1
+Timeout occurred after 180 seconds. Moving on to the next file.
+
+Processing qm_max4
+Timeout occurred after 180 seconds. Moving on to the next file.
+
+Processing s0_d2
+Timeout occurred after 180 seconds. Moving on to the next file.
+
+Processing max13
+Timeout occurred after 180 seconds. Moving on to the next file.
+
+Processing constant
+./orig_grammar/unsat_test/constant.sl
+Found the following solution to file: ./orig_grammar/unsat_test/constant.sl
+(
+(define-fun fn0 ( (vr0 Int) ) Int 1)
+)
+
+Solved: 4/5
+Total time taken: 31.653179168701172
+Average time taken: 7.913294792175293
+
+Processing inv_gen_term2
+./orig_grammar/unsat_test/inv_gen_term2.sl
+Found the following solution to file: ./orig_grammar/unsat_test/inv_gen_term2.sl
+(
+(define-fun fn8 ( (vr1 Int) (vr2 Int) (vr3 Int) ) Bool (and (<= (+ (* 0 vr3) (* 0 vr1)) 3) (<= (+ (* 0 vr3) (* 0 vr3)) 3)))
+)
+
+Solved: 5/6
+Total time taken: 31.97109031677246
+Average time taken: 6.394218063354492
+
+Processing max10
+Timeout occurred after 180 seconds. Moving on to the next file.
+
+Processing t17
+./orig_grammar/unsat_test/t17.sl
+Found the following solution to file: ./orig_grammar/unsat_test/t17.sl
+(
+(define-fun fn0 ( (j Int) (MC_741360 Int) ) Bool (= MC_741360 MC_741360))
+)
+
+Solved: 6/7
+Total time taken: 32.355608224868774
+Average time taken: 5.392601370811462
+Total files processed: 7
+Total occurrences of "UNKNOWN" in command output: 15
+unsat_test Done!
+

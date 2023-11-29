@@ -1,0 +1,84 @@
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+/bin/sh: 1: FastPhyser: not found
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_finf1.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr1 Int) (vr2 Int) (vr3 Int) ) Bool (= (+ vr1 vr3) vr3))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_finf2.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr1 Int) (vr2 Int) (vr3 Int) ) Bool (= (+ vr1 vr3) vr3))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_ex7.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr2 Int) (vr3 Int) ) Bool (and (>= (+ vr0 vr0) vr0) (<= vr2 vr3)))
+)
+Found the following solution to file: ./full_grammar/sat_test/LinExpr_inv1.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr3 Int) ) Int (+ (+ vr3 (ite (> (ite (>= vr0 vr3) vr0 vr3) vr3) vr0 vr3)) vr0))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_sum3.sl
+(
+(define-fun fn8 ( (vr1 Int) (vr0 Int) (vr2 Int) (vr3 Int) ) Bool (or (= vr3 vr1) (and (and (<= vr1 vr3) (> vr1 (+ vr1 vr1))) (and (= vr3 vr1) (and (> vr0 vr1) (>= vr3 vr1))))))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_trex2.sl
+(
+(define-fun fn8 ( (vr1 Int) ) Bool (and (<= vr1 vr1) (<= vr1 vr1)))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_term3.sl
+(
+(define-fun fn8 ( (vr1 Int) (vr2 Int) ) Bool (<= vr1 vr1))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_n_c11.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr1 Int) ) Bool (and (= vr1 (mod vr1 5)) (or (>= vr1 vr1) (>= vr0 vr1))))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_tcs.sl
+(
+(define-fun fn8 ( (vr1 Int) (vr2 Int) (vr3 Int) (vr4 Int) ) Bool (= (+ vr4 vr1) (+ vr3 vr2)))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_trex1.sl
+(
+(define-fun fn8 ( (vr1 Int) (vr2 Int) (vr3 Int) (vr4 Int) (vr5 Int) ) Bool (> (+ vr4 vr1) vr1))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_fig8.sl
+(
+(define-fun fn8 ( (vr5 Int) ) Bool (= vr5 (- (+ vr5 (- (- vr5))))))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_cgr1.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr1 Int) ) Bool (>= (+ (+ vr1 vr1) (mod vr0 4)) vr0))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_fig6.sl
+(
+(define-fun fn8 ( (vr0 Int) ) Bool (>= vr0 vr0))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_fig1.sl
+(
+(define-fun fn0 ( (vr0 Int) (vr1 Int) ) Bool (> (ite (>= vr0 vr1) (- vr0) vr1) vr0))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_ex14.sl
+(
+(define-fun fn8 ( (vr0 Int) (vr1 Int) ) Bool (< (- vr0) vr0))
+)
+Found the following solution to file: ./full_grammar/sat_test/inv_gen_array.sl
+(
+(define-fun fn8 ( (vr3 Int) (vr1 Int) (vr4 Int) ) Bool (or (= vr4 vr3) (not (and (> vr1 (- vr1)) (<= vr4 vr3)))))
+)
