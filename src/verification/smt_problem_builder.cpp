@@ -84,7 +84,7 @@ SyGuSZ3SolverReprBuilder::pop_bd_var_stack(size_t n) {
 }
 
 std::any SyGuSZ3SolverReprBuilder::visitNumeral(Sy2CPP::Numeral &numeral) {
-    return context.int_val(numeral.get_value());
+    return context.int_val(static_cast<int64_t>(numeral.get_value()));
 }
 
 std::any SyGuSZ3SolverReprBuilder::visitBoolConst(Sy2CPP::BoolConst &boolConst) {

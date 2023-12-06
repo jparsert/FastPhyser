@@ -79,8 +79,9 @@ std::string get_formatted_percentage_of(size_t x, size_t y) {
     return str;
 }
 
-#include <sys/types.h>
-#include <sys/sysinfo.h>
+/*
+//#include <sys/types.h>
+//#include <sys/sysinfo.h>
 #include <cstdlib>
 #include <cstdio>
 #include <cstring>
@@ -122,6 +123,7 @@ size_t total_system_vmemory() {
 
     return totalVirtualMem;
 }
+ */
 
 std::vector<int> read_lines_in_file_as_int(const std::string& path) {
     std::vector<int> vec;

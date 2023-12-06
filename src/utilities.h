@@ -124,12 +124,11 @@ std::string get_formatted_percentage_of(int x, int y);
 
 std::string get_formatted_percentage_of(size_t x, size_t y);
 
-
 // Unit in Bytes
-size_t current_process_vmemory();
+//size_t current_process_vmemory();
 
 // Unit in bytes
-size_t total_system_vmemory();
+//size_t total_system_vmemory();
 
 
 /**
